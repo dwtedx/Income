@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_color_white"
+    android:fitsSystemWindows="true"
+    tools:context=".home.IncomeListActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <com.dwtedx.income.widget.AppTitleBar
+            android:id="@+id/app_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:left_btn_text="@string/back"
+            app:left_btn_visible="true"
+            app:right_btn_text="@string/add_account_name_transfer"
+            app:right_btn_visible="true"
+            app:text="@string/account_list_title" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/common_color_white"
+            android:dividerHeight="0.5dp"
+            app:ptrAnimationStyle="flip"
+            app:ptrDrawableEnd="@mipmap/pulltorefresh_arrow"
+            app:ptrDrawableStart="@mipmap/pulltorefresh_arrow"
+            app:ptrHeaderSubTextColor="@color/common_body_tip_color"
+            app:ptrHeaderTextColor="@color/common_body_tip_color"
+            app:ptrMode="both" />
+
+        <TextView
+            android:id="@+id/listView_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:drawableTop="@mipmap/no_data_tip"
+            android:drawablePadding="@dimen/common_margin_4dp"
+            android:gravity="center_horizontal"
+            android:text="@string/account_list_tip"
+            android:textColor="@color/common_body_tip_colors"
+            android:textSize="@dimen/common_text_size_16sp"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

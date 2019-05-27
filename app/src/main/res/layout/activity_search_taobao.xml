@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_color_white">
+
+    <com.dwtedx.income.widget.AppTitleBar
+        android:id="@+id/common_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:left_btn_text="@string/back"
+        app:left_btn_visible="true"
+        app:text="@string/home_search"/>
+
+    <RelativeLayout
+        android:id="@+id/linear_search"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_margin_50dp"
+        android:layout_below="@+id/common_title"
+        android:background="@color/common_color_white"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/search_content"
+            style="@style/common_text_style_14_333333"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:singleLine="true"
+            android:imeOptions="actionSearch"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_toLeftOf="@+id/but_search"
+            android:background="@android:color/transparent"
+            android:hint="@string/discovery_category_search_hint"
+            android:textColor="@color/common_body_tip_colors"/>
+
+        <ImageView
+            android:id="@+id/but_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/common_margin_12dp"
+            android:src="@mipmap/home_seareh"
+            android:tint="@color/colorPrimary"/>
+
+        <LinearLayout
+            style="@style/common_horizontal_division_line_style"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linear_search"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/common_text_style_14_737373"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:text="@string/search_history"/>
+
+        <LinearLayout style="@style/common_horizontal_division_line_style"/>
+
+        <com.dwtedx.income.widget.HorizontialListView
+            android:id="@+id/horizontial_search_history"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_margin_50dp"
+            android:gravity="center_vertical">
+        </com.dwtedx.income.widget.HorizontialListView>
+
+        <LinearLayout style="@style/common_horizontal_division_line_style"/>
+
+    </LinearLayout>
+
+    <com.dwtedx.income.widget.swiperecyclerview.SwipeRecyclerView
+        android:id="@+id/listview_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/linear_search"
+        android:background="@color/common_color_white"
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <TextView
+        android:id="@+id/clear_history"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_below="@+id/linear_history"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:background="@drawable/gray_line_click_shape"
+        android:gravity="center"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:text="@string/clear_history"
+        android:textColor="@color/common_body_tip_colors"
+        android:textSize="@dimen/common_text_size_14sp"
+        android:visibility="gone"/>
+
+</RelativeLayout>

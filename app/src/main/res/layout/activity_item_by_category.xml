@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_background_color"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/common_background_color"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <com.dwtedx.income.widget.AppTitleBar
+            android:id="@+id/m_app_title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:left_btn_text="@string/back"
+            app:left_btn_visible="true"
+            app:right_btn_visible="true"
+            app:text="@string/discovery_recommend_title" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <com.dwtedx.income.widget.swiperecyclerview.SwipeRecyclerView
+        android:id="@+id/m_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/common_background_color"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+</android.support.design.widget.CoordinatorLayout>

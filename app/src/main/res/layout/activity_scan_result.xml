@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_background_color"
+    android:fitsSystemWindows="true"
+    tools:context="com.dwtedx.income.addrecord.IncomeDetailActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <com.dwtedx.income.widget.AppTitleBar
+            android:id="@+id/m_app_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:left_btn_text="@string/back"
+            app:left_btn_visible="true"
+            app:right_btn_text="@string/save"
+            app:right_btn_visible="true"
+            app:text="@string/scan_result_title" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:showIn="@layout/activity_income_detail">
+
+        <RelativeLayout
+            android:id="@+id/type_record_account_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/common_color_white"
+            android:gravity="center">
+
+            <LinearLayout
+                android:id="@+id/m_type_record_layout"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/common_margin_4dp"
+                android:paddingBottom="@dimen/common_margin_4dp">
+
+                <ImageView
+                    android:id="@+id/m_type_imageView"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_zhichu_type_yiban" />
+
+                <TextView
+                    android:id="@+id/m_type_textView"
+                    style="@style/common_text_style_14_333333"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/common_margin_12dp"
+                    android:layout_marginLeft="@dimen/common_margin_12dp"
+                    android:text="@string/record_zhichu_type_yian"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/common_body_color"
+                    android:textSize="@dimen/common_text_size_16sp" />
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/m_record_account_text"
+                style="@style/common_text_style_14_333333"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_toEndOf="@+id/m_type_record_layout"
+                android:layout_toRightOf="@+id/m_type_record_layout"
+                android:background="@android:color/transparent"
+                android:ellipsize="start"
+                android:gravity="end"
+                android:hint="@string/record_account"
+                android:inputType="numberDecimal"
+                android:maxLength="10"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/common_margin_12dp"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/common_margin_12dp"
+                android:singleLine="true"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/common_text_size_22sp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/record_account_layout_line"
+            style="@style/common_horizontal_division_line_style"
+            android:layout_below="@+id/type_record_account_layout" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/m_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/footer_local_layout"
+            android:layout_below="@+id/record_account_layout_line"
+            android:background="@color/common_color_white" />
+
+        <RelativeLayout
+            android:id="@+id/footer_local_layout"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/common_color_white">
+
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+            <ImageView
+                android:id="@+id/scan_record_icon_location_image"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/common_margin_16dp"
+                android:layout_marginLeft="@dimen/common_margin_16dp"
+                android:contentDescription="@string/app_name"
+                android:src="@mipmap/icon_location" />
+
+            <TextView
+                android:id="@+id/m_record_icon_location"
+                style="@style/common_text_style_14_333333"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/common_margin_16dp"
+                android:layout_marginLeft="@dimen/common_margin_16dp"
+                android:layout_marginEnd="@dimen/common_margin_16dp"
+                android:layout_marginRight="@dimen/common_margin_16dp"
+                android:layout_toStartOf="@+id/m_scan_record_type_credit_card"
+                android:layout_toLeftOf="@+id/m_scan_record_type_credit_card"
+                android:layout_toEndOf="@+id/scan_record_icon_location_image"
+                android:layout_toRightOf="@+id/scan_record_icon_location_image"
+                android:ellipsize="end"
+                android:gravity="center|start"
+                android:lines="1"
+                android:text="@string/scan_result_location"
+                android:textSize="@dimen/common_text_size_12sp" />
+
+            <TextView
+                android:id="@+id/m_scan_record_type_credit_card"
+                style="@style/common_text_style_14_333333"
+                android:layout_width="110dp"
+                android:layout_height="@dimen/common_margin_30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/common_margin_16dp"
+                android:layout_marginRight="@dimen/common_margin_16dp"
+                android:background="@drawable/button_white_bg"
+                android:gravity="center" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

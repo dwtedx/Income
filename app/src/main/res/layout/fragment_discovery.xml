@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_background_color"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/m_app_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_margin_50dp"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/nav_discovery"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/home_item_layout"
+            android:layout_toLeftOf="@+id/home_item_layout"
+            android:layout_toEndOf="@+id/title_text"
+            android:layout_toRightOf="@+id/title_text"
+            android:background="@android:color/transparent"
+            android:orientation="vertical"
+            android:padding="@dimen/common_margin_8dp">
+
+            <LinearLayout
+                android:id="@+id/m_discovery_scarch_view"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:background="@drawable/gray_line_discovery_scarch"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:src="@mipmap/home_seareh"
+                    android:tint="@color/common_body_tip_color" />
+
+                <TextView
+                    style="@style/common_text_style_14_333333"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/common_margin_12dp"
+                    android:layout_marginLeft="@dimen/common_margin_12dp"
+                    android:gravity="center"
+                    android:hint="@string/discovery_category_search_hint"
+                    android:lines="1"
+                    android:textSize="@dimen/common_text_size_12sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/home_item_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin">
+
+            <ImageView
+                android:id="@+id/home_item_imageview"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:contentDescription="@string/app_name"
+                android:src="@mipmap/discovery_catergoy_nosearch" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <com.dwtedx.income.widget.swiperecyclerview.SwipeRecyclerView
+        android:id="@+id/m_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/m_app_title"
+        android:background="@color/common_color_white" />
+
+</RelativeLayout>

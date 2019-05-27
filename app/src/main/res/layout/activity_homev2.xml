@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".home.HomeV2Activity">
+
+    <RelativeLayout
+        android:id="@+id/home_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_margin_50dp"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <!--
+            app:tabIndicatorColor                // 下方滚动的下划线颜色
+            app:tabSelectedTextColor              // tab被选中后，文字的颜色
+            app:tabTextColor                      // tab默认的文字颜色  -->
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tablayouts"
+            style="@style/common_text_style_14_333333"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@color/colorPrimary"
+            app:tabIndicatorColor="@android:color/transparent"
+            app:tabSelectedTextColor="@android:color/white"
+            app:tabTextAppearance="@style/home_tablayout_text_appearance"
+            app:tabTextColor="@color/common_home_white" />
+
+        <LinearLayout
+            android:id="@+id/home_list_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@mipmap/home_list" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/home_item_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin">
+
+            <ImageView
+                android:id="@+id/home_item_imageview"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@mipmap/home_seareh" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <com.dwtedx.income.widget.rapidfloatingaction.RapidFloatingActionLayout
+        android:id="@+id/m_label_list_sample_rfal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/home_title"
+        app:rfal_frame_alpha="0.7"
+        app:rfal_frame_color="#ffffff">
+
+        <com.dwtedx.income.widget.SideViewPager
+            android:id="@+id/view_pagers"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fab"-->
+        <!--android:layout_width="@dimen/common_margin_50dp"-->
+        <!--android:layout_height="@dimen/common_margin_50dp"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_gravity="bottom|end"-->
+        <!--android:layout_margin="@dimen/fab_margin"-->
+        <!--android:src="@mipmap/add_icon"-->
+        <!--app:elevation="0dp"-->
+        <!--app:pressedTranslationZ="0dp"/>-->
+
+        <com.dwtedx.income.widget.rapidfloatingaction.RapidFloatingActionButton
+            android:id="@+id/m_label_list_sample_rfab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="end|bottom"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
+            app:rfab_color_normal="@color/colorAccent"
+            app:rfab_color_pressed="#96ff4081"
+            app:rfab_shadow_color="#999999"
+            app:rfab_shadow_dx="0dp"
+            app:rfab_shadow_dy="0dp"
+            app:rfab_shadow_radius="5dp"
+            app:rfab_size="normal" />
+
+    </com.dwtedx.income.widget.rapidfloatingaction.RapidFloatingActionLayout>
+
+    <RelativeLayout
+        android:id="@+id/home_tip_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:background="@color/common_tip_bg_color"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/home_tip_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitXY"
+            android:src="@mipmap/home_tip" />
+
+        <Button
+            android:id="@+id/home_tip_button"
+            android:layout_width="180dp"
+            android:layout_height="90dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:background="@android:color/transparent" />
+    </RelativeLayout>
+
+</RelativeLayout>

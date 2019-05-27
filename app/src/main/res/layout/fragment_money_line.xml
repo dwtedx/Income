@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_color_white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/m_app_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_margin_50dp"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/home_list_layout"
+            android:layout_toEndOf="@+id/home_list_layout"
+            android:singleLine="true"
+            android:textStyle="bold"
+            android:text="@string/nav_moneyv2"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"/>
+
+        <LinearLayout
+            android:id="@+id/home_list_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:contentDescription="@string/app_name"
+                android:src="@mipmap/home_list" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/home_item_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin">
+
+            <ImageView
+                android:id="@+id/home_item_imageview"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:contentDescription="@string/app_name"
+                android:src="@mipmap/home_seareh" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <com.sch.rfview.AnimRFRecyclerView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/m_app_title"
+        android:background="@color/common_color_white"
+        android:divider="@null" />
+
+    <TextView
+        android:id="@+id/listView_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:drawableTop="@mipmap/income_paying_tip"
+        android:drawablePadding="@dimen/common_margin_4dp"
+        android:gravity="center_horizontal"
+        android:text="@string/money_line_tip"
+        android:textColor="@color/common_body_tip_colors"
+        android:textSize="@dimen/common_text_size_16sp"
+        android:visibility="gone" />
+
+</RelativeLayout>

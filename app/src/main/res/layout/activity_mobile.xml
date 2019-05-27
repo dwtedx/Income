@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:commtitle="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.dwtedx.income.widget.AppTitleBar
+        android:id="@+id/app_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        commtitle:left_btn_text="@string/back"
+        commtitle:left_btn_visible="true"
+        commtitle:text="@string/profile_phone" />
+
+    <LinearLayout
+        style="@style/common_horizontal_division_line_style"
+        android:layout_marginTop="@dimen/common_margin_12dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/user_name_text"
+            style="@style/common_text_style_14_333333"
+            android:layout_width="match_parent"
+            android:background="@android:color/transparent"
+            android:ellipsize="end"
+            android:hint="@string/register_username_text"
+            android:inputType="phone"
+            android:padding="@dimen/activity_vertical_margin"
+            android:textAllCaps="false"
+            android:textCursorDrawable="@null" />
+
+    </LinearLayout>
+
+    <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/user_smscode_text"
+            style="@style/common_text_style_14_333333"
+            android:layout_width="match_parent"
+            android:background="@android:color/transparent"
+            android:ellipsize="end"
+            android:hint="@string/register_user_smscode_text"
+            android:layout_toLeftOf="@+id/user_smscode_text_btn"
+            android:layout_toStartOf="@+id/user_smscode_text_btn"
+            android:inputType="phone"
+            android:padding="@dimen/activity_vertical_margin"
+            android:textAllCaps="false"
+            android:textCursorDrawable="@null" />
+
+        <Button
+            android:id="@+id/user_smscode_text_btn"
+            style="?android:textAppearanceSmall"
+            android:layout_width="105dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:background="@drawable/button_corner_bg"
+            android:text="@string/register_user_smscode_btn"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+    <Button
+        android:id="@+id/bind_btn"
+        style="?android:textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_margin_45dp"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:background="@drawable/button_bg"
+        android:text="@string/profile_phone_bind"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
+
+</LinearLayout>

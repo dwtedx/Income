@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:background="@color/common_background_color"
+        android:gravity="center_horizontal">
+
+        <LinearLayout
+            android:id="@+id/budget_risenum_linear"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:orientation="vertical"/>
+
+        <TextView
+            android:id="@+id/budget_risenum_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="26dp"
+            android:text="2143"
+            android:textColor="@color/colorPrimary"
+            android:textSize="22sp"/>
+
+        <TextView
+            android:id="@+id/budget_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/budget_risenum_textview"
+            android:layout_centerHorizontal="true"
+            android:text="预算3000"
+            android:textColor="@color/common_body_tip_color"
+            android:textSize="@dimen/common_text_size_10sp"/>
+
+        <TextView
+            android:id="@+id/budget_last_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/budget_textview"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="2dp"
+            android:text="剩1700"
+            android:textColor="@color/common_body_tip_color"
+            android:textSize="@dimen/common_text_size_10sp"/>
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.dwtedx.income.profile.WebViewActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <com.dwtedx.income.widget.AppTitleBar
+            android:id="@+id/app_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:left_btn_text="@string/back"
+            app:left_btn_visible="true"
+            app:text="@string/title_activity_web_view" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <WebView
+            android:id="@+id/gongdoocar_webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbarSize="0dp" />
+
+        <ProgressBar
+            android:id="@+id/songsong_progressbar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_margin_3dp"
+            android:progressDrawable="@drawable/progressbar"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

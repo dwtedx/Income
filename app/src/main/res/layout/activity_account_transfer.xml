@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".account.AddAccountActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <com.dwtedx.income.widget.AppTitleBar
+            android:id="@+id/m_app_title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:left_btn_text="@string/back"
+            app:left_btn_visible="true"
+            app:right_btn_visible="true"
+            app:text="@string/add_account_name_transfer" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/common_color_white"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".account.AddAccountActivity"
+        tools:showIn="@layout/activity_add_account">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="@dimen/common_margin_6dp"
+            android:paddingLeft="@dimen/activity_vertical_margin"
+            android:paddingRight="@dimen/activity_vertical_margin"
+            android:paddingTop="@dimen/common_margin_6dp">
+
+            <TextView
+                style="@style/common_text_style_14_737373"
+                android:text="@string/add_account_transfer_out"/>
+
+            <TextView
+                android:id="@+id/m_account_out"
+                style="@style/common_text_style_14_333333"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:background="@android:color/transparent"
+                android:hint="@string/add_account_moneysum_enter"
+                android:padding="@dimen/activity_vertical_margin"/>
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/common_horizontal_division_line_style"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="@dimen/common_margin_6dp"
+            android:paddingLeft="@dimen/activity_vertical_margin"
+            android:paddingStart="@dimen/activity_vertical_margin"
+            android:paddingTop="@dimen/common_margin_6dp">
+
+            <TextView
+                android:id="@+id/account_in_title"
+                style="@style/common_text_style_14_737373"
+                android:layout_centerVertical="true"
+                android:text="@string/add_account_transfer_in"/>
+
+            <TextView
+                android:id="@+id/m_account_in"
+                style="@style/common_text_style_14_333333"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/account_in_title"
+                android:layout_centerVertical="true"
+                android:inputType="numberDecimal"
+                android:background="@android:color/transparent"
+                android:hint="@string/add_account_moneysum_enter"
+                android:padding="@dimen/activity_vertical_margin"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:contentDescription="@string/app_name"
+                android:src="@mipmap/forward"
+                android:tint="@color/common_body_tip_colors"/>
+
+        </RelativeLayout>
+
+        <LinearLayout style="@style/common_horizontal_division_line_style"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="@dimen/common_margin_6dp"
+            android:paddingLeft="@dimen/activity_vertical_margin"
+            android:paddingRight="@dimen/activity_vertical_margin"
+            android:paddingTop="@dimen/common_margin_6dp">
+
+            <TextView
+                style="@style/common_text_style_14_737373"
+                android:text="@string/add_account_transfer_money"/>
+
+            <EditText
+                android:id="@+id/m_account_moneysum"
+                style="@style/common_text_style_14_333333"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:background="@android:color/transparent"
+                android:hint="@string/add_account_moneysum_enter"
+                android:padding="@dimen/activity_vertical_margin"/>
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/common_horizontal_division_line_style"/>
+
+        <Button
+            android:id="@+id/save_button"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_margin_50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:background="@drawable/button_bg"
+            android:textColor="@android:color/white"
+            android:text="@string/ok"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

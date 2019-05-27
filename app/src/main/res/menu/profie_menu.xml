@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context=".home.HomeActivity">
+
+    <item android:id="@+id/profile_set"
+          android:title="@string/nav_set"
+          android:orderInCategory="100"
+          android:icon="@mipmap/profile_set"
+          app:showAsAction="ifRoom"/>
+</menu>

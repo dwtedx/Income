@@ -1,0 +1,32 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="common_margin_2dp">2dp</dimen>
+    <dimen name="common_margin_3dp">3dp</dimen>
+    <dimen name="common_margin_4dp">4dp</dimen>
+    <dimen name="common_margin_8dp">8dp</dimen>
+    <dimen name="common_margin_6dp">6dp</dimen>
+    <dimen name="common_margin_12dp">12dp</dimen>
+    <dimen name="common_margin_16dp">16dp</dimen>
+    <dimen name="common_margin_70dp">70dp</dimen>
+    <dimen name="common_margin_20dp">20dp</dimen>
+    <dimen name="common_margin_30dp">30dp</dimen>
+    <dimen name="common_margin_40dp">40dp</dimen>
+    <dimen name="common_margin_45dp">45dp</dimen>
+    <dimen name="common_margin_50dp">50dp</dimen>
+    <dimen name="common_margin_55dp">55dp</dimen>
+    <dimen name="common_margin_80dp">80dp</dimen>
+    <dimen name="common_margin_200dp">200dp</dimen>
+
+    <dimen name="common_text_size_22sp">22sp</dimen>
+    <dimen name="common_text_size_16sp">16sp</dimen>
+    <dimen name="common_text_size_12sp">12sp</dimen>
+    <dimen name="common_text_size_14sp">14sp</dimen>
+    <dimen name="common_text_size_10sp">10sp</dimen>
+
+    <dimen name="md_colorchooser_circlesize">56dp</dimen>
+    <dimen name="design_fab_size_normal" tools:ignore="PrivateResource">50dp</dimen>
+</resources>

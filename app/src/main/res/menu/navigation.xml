@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_income"
+        android:icon="@drawable/ic_income_black_24dp"
+        android:title="@string/nav_moneyv2" />
+
+    <item
+        android:id="@+id/navigation_report"
+        android:icon="@drawable/ic_report_black_24dp"
+        android:title="@string/nav_report" />
+
+    <item
+        android:id="@+id/navigation_record"
+        android:icon="@android:color/transparent"
+        android:checkable="false"
+        android:enabled="false"
+        android:title="@string/nav_record" />
+
+    <item
+        android:id="@+id/navigation_discovery"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="@string/nav_discovery" />
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/ic_profile_black_24dp"
+        android:title="@string/nav_profilev2" />
+
+</menu>

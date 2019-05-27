@@ -1,0 +1,41 @@
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@mipmap/record_icon_shortcuts"
+        android:shortcutId="dd_record_icon"
+        android:shortcutLongLabel="@string/home_record_quick"
+        android:shortcutShortLabel="@string/home_record_quick"
+        android:shortcutDisabledMessage="@string/home_record_quick">
+
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.dwtedx.income.MainShortcutActivity"
+            android:targetPackage="com.dwtedx.income" />
+
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.dwtedx.income.addrecord.AddRecordActivity"
+            android:targetPackage="com.dwtedx.income" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@mipmap/home_list_shortcuts"
+        android:shortcutId="dd_home_list"
+        android:shortcutLongLabel="@string/home_record_detail"
+        android:shortcutShortLabel="@string/home_record_detail"
+        android:shortcutDisabledMessage="@string/home_record_detail">
+
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.dwtedx.income.MainShortcutActivity"
+            android:targetPackage="com.dwtedx.income" />
+
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.dwtedx.income.home.IncomeListActivity"
+            android:targetPackage="com.dwtedx.income" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+</shortcuts>

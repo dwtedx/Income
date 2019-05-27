@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/common_color_white"
+    android:orientation="vertical"
+    android:padding="@dimen/common_margin_4dp">
+
+    <LinearLayout
+        android:id="@+id/m_item_layout_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/common_margin_8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/m_item_image_view"
+                android:layout_width="match_parent"
+                android:layout_height="168dp"
+                android:background="@android:color/transparent"
+                android:ellipsize="end"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/imageloader_default"
+                android:textAllCaps="false"
+                android:textCursorDrawable="@null" />
+
+            <ImageView
+                android:id="@+id/m_item_type_image_view"
+                android:layout_width="37dp"
+                android:layout_height="@dimen/common_margin_20dp"
+                android:background="@android:color/transparent"
+                android:ellipsize="end"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/tianmao"
+                android:textAllCaps="false"
+                android:textCursorDrawable="@null" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/m_item_title_view"
+            style="@style/common_text_style_14_333333"
+            android:layout_width="match_parent"
+            android:layout_gravity="top"
+            android:layout_marginTop="@dimen/common_margin_2dp"
+            android:background="@android:color/transparent"
+            android:ellipsize="end"
+            android:gravity="top"
+            android:lineSpacingExtra="4dp"
+            android:lines="2"
+            android:maxLines="2"
+            android:paddingEnd="@dimen/common_margin_8dp"
+            android:paddingLeft="@dimen/common_margin_8dp"
+            android:paddingRight="@dimen/common_margin_8dp"
+            android:paddingStart="@dimen/common_margin_8dp"
+            android:text="2017 BMW X5 350i xDrive"
+            android:textCursorDrawable="@null" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingEnd="@dimen/common_margin_8dp"
+            android:paddingLeft="@dimen/common_margin_8dp"
+            android:paddingRight="@dimen/common_margin_8dp"
+            android:paddingStart="@dimen/common_margin_8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white">
+
+                <TextView
+                    android:id="@+id/m_item_price_view"
+                    style="@style/common_text_style_14_333333"
+                    android:layout_width="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@android:color/transparent"
+                    android:ellipsize="end"
+                    android:text="￥580"
+                    android:textColor="@color/common_price_color"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/common_text_size_16sp" />
+
+                <TextView
+                    android:id="@+id/m_item_price_del_view"
+                    style="@style/common_text_style_14_333333"
+                    android:layout_width="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/common_text_size_12sp"
+                    android:layout_marginStart="@dimen/common_text_size_12sp"
+                    android:background="@android:color/transparent"
+                    android:ellipsize="end"
+                    android:text="￥580"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/common_text_size_12sp" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_margin_2dp">
+
+                <TextView
+                    android:id="@+id/m_item_tag_view"
+                    style="@style/common_text_style_14_737373"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/red_line_shape"
+                    android:textColor="@color/common_price_color"
+                    android:ellipsize="end"
+                    android:text="@string/discovery_tag"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/common_text_size_12sp" />
+
+                <TextView
+                    android:id="@+id/m_item_volume_view"
+                    style="@style/common_text_style_14_737373"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/common_margin_8dp"
+                    android:layout_marginStart="@dimen/common_margin_8dp"
+                    android:background="@android:color/transparent"
+                    android:ellipsize="end"
+                    android:text="可领50元劵"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/common_text_size_12sp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

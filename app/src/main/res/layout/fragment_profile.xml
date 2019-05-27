@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_background_color">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginEnd="64dp"
+            app:expandedTitleMarginStart="48dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:titleEnabled="false">
+
+            <RelativeLayout
+                android:id="@+id/m_app_title"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_margin_50dp"
+                android:background="@color/colorPrimary"
+                android:orientation="horizontal"
+                android:theme="@style/AppTheme.AppBarOverlay">
+
+                <TextView
+                    android:id="@+id/title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="@string/nav_profilev2"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/home_item_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/activity_horizontal_margin"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingEnd="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin">
+
+                    <ImageView
+                        android:id="@+id/home_item_imageview"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@mipmap/profile_set" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/nav_header_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.dwtedx.income.widget.CircleImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:src="@mipmap/userhead" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/usernameView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/profile_login"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/common_text_size_16sp" />
+
+                    <TextView
+                        android:id="@+id/userSignatureView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/common_margin_4dp"
+                        android:text="@string/app_slogan"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/common_text_size_14sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/common_background_color"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/common_background_color"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@color/common_color_white"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin">
+
+                <ImageView
+                    android:layout_width="@dimen/common_margin_20dp"
+                    android:layout_height="@dimen/common_margin_20dp"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/app_name"
+                    android:src="@mipmap/nav_share"
+                    android:tint="@color/common_body_tip_colors" />
+
+                <Button
+                    android:id="@+id/profile_share"
+                    style="@style/common_text_style_14_333333"
+                    android:layout_width="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:paddingStart="@dimen/common_margin_30dp"
+                    android:paddingLeft="@dimen/common_margin_30dp"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:paddingEnd="@dimen/common_margin_12dp"
+                    android:paddingRight="@dimen/common_margin_12dp"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:text="@string/nav_share" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:src="@mipmap/forward"
+                    android:tint="@color/common_body_tip_colors" />
+
+            </RelativeLayout>
+
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@color/common_color_white"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="@dimen/common_margin_20dp"
+                    android:layout_height="@dimen/common_margin_20dp"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/app_name"
+                    android:src="@mipmap/nav_data"
+                    android:tint="@color/common_body_tip_colors" />
+
+                <Button
+                    android:id="@+id/profile_data"
+                    style="@style/common_text_style_14_333333"
+                    android:layout_width="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:paddingStart="@dimen/common_margin_30dp"
+                    android:paddingLeft="@dimen/common_margin_30dp"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:paddingEnd="@dimen/common_margin_12dp"
+                    android:paddingRight="@dimen/common_margin_12dp"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:text="@string/profile_data" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:src="@mipmap/forward"
+                    android:tint="@color/common_body_tip_colors" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                style="@style/common_horizontal_division_line_style"
+                android:visibility="gone" />
+
+            <LinearLayout
+                style="@style/common_horizontal_division_line_style"
+                android:layout_marginTop="@dimen/common_margin_12dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@color/common_color_white"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin">
+
+                <ImageView
+                    android:layout_width="@dimen/common_margin_20dp"
+                    android:layout_height="@dimen/common_margin_20dp"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/app_name"
+                    android:src="@mipmap/nav_budget"
+                    android:tint="@color/common_body_tip_colors" />
+
+                <Button
+                    android:id="@+id/profile_budget"
+                    style="@style/common_text_style_14_333333"
+                    android:layout_width="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:paddingStart="@dimen/common_margin_30dp"
+                    android:paddingLeft="@dimen/common_margin_30dp"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:paddingEnd="@dimen/common_margin_12dp"
+                    android:paddingRight="@dimen/common_margin_12dp"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:text="@string/profile_budget" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:src="@mipmap/forward"
+                    android:tint="@color/common_body_tip_colors" />
+
+            </RelativeLayout>
+
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@color/common_color_white"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin">
+
+                <ImageView
+                    android:layout_width="@dimen/common_margin_20dp"
+                    android:layout_height="@dimen/common_margin_20dp"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/app_name"
+                    android:src="@mipmap/pay"
+                    android:tint="@color/common_body_tip_colors" />
+
+                <Button
+                    android:id="@+id/profile_type_pay"
+                    style="@style/common_text_style_14_333333"
+                    android:layout_width="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:paddingStart="@dimen/common_margin_30dp"
+                    android:paddingLeft="@dimen/common_margin_30dp"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:paddingEnd="@dimen/common_margin_12dp"
+                    android:paddingRight="@dimen/common_margin_12dp"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:text="@string/profile_type_pay" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:src="@mipmap/forward"
+                    android:tint="@color/common_body_tip_colors" />
+
+            </RelativeLayout>
+
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@color/common_color_white"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin">
+
+                <ImageView
+                    android:layout_width="@dimen/common_margin_20dp"
+                    android:layout_height="@dimen/common_margin_20dp"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/app_name"
+                    android:src="@mipmap/income"
+                    android:tint="@color/common_body_tip_colors" />
+
+                <Button
+                    android:id="@+id/profile_type_income"
+                    style="@style/common_text_style_14_333333"
+                    android:layout_width="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:paddingStart="@dimen/common_margin_30dp"
+                    android:paddingLeft="@dimen/common_margin_30dp"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:paddingEnd="@dimen/common_margin_12dp"
+                    android:paddingRight="@dimen/common_margin_12dp"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:text="@string/profile_type_income" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:src="@mipmap/forward"
+                    android:tint="@color/common_body_tip_colors" />
+
+            </RelativeLayout>
+
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@color/common_color_white"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin">
+
+                <ImageView
+                    android:layout_width="@dimen/common_margin_20dp"
+                    android:layout_height="@dimen/common_margin_20dp"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/app_name"
+                    android:src="@mipmap/nav_account"
+                    android:tint="@color/common_body_tip_colors" />
+
+                <Button
+                    android:id="@+id/profile_account"
+                    style="@style/common_text_style_14_333333"
+                    android:layout_width="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:paddingStart="@dimen/common_margin_30dp"
+                    android:paddingLeft="@dimen/common_margin_30dp"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:paddingEnd="@dimen/common_margin_12dp"
+                    android:paddingRight="@dimen/common_margin_12dp"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:text="@string/profile_account" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:src="@mipmap/forward"
+                    android:tint="@color/common_body_tip_colors" />
+
+            </RelativeLayout>
+
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@color/common_color_white"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/setup_reset_pass"
+                    style="@style/common_text_style_14_333333"
+                    android:layout_width="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:paddingLeft="@dimen/common_margin_12dp"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:paddingRight="@dimen/common_margin_12dp"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:text="@string/reset_pass" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:src="@mipmap/forward"
+                    android:tint="@color/common_body_tip_colors" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                style="@style/common_horizontal_division_line_style"
+                android:visibility="gone" />
+
+            <LinearLayout
+                style="@style/common_horizontal_division_line_style"
+                android:layout_marginTop="@dimen/common_margin_12dp"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@color/common_color_white"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/profile_theme"
+                    style="@style/common_text_style_14_333333"
+                    android:layout_width="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:paddingLeft="@dimen/common_margin_12dp"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:paddingRight="@dimen/common_margin_12dp"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:text="@string/profile_theme" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:src="@mipmap/forward"
+                    android:tint="@color/common_body_tip_colors" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                style="@style/common_horizontal_division_line_style"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@color/common_color_white"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/profile_accent"
+                    style="@style/common_text_style_14_333333"
+                    android:layout_width="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:paddingLeft="@dimen/common_margin_12dp"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:paddingRight="@dimen/common_margin_12dp"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:text="@string/profile_accent" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:src="@mipmap/forward"
+                    android:tint="@color/common_body_tip_colors" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                style="@style/common_horizontal_division_line_style"
+                android:layout_marginTop="@dimen/common_margin_12dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@color/common_color_white"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:visibility="visible">
+
+                <ImageView
+                    android:layout_width="@dimen/common_margin_20dp"
+                    android:layout_height="@dimen/common_margin_20dp"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/app_name"
+                    android:src="@mipmap/profile_accout_set"
+                    android:tint="@color/common_body_tip_colors" />
+
+                <Button
+                    android:id="@+id/profile_setup"
+                    style="@style/common_text_style_14_333333"
+                    android:layout_width="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:paddingStart="@dimen/common_margin_30dp"
+                    android:paddingLeft="@dimen/common_margin_30dp"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:paddingEnd="@dimen/common_margin_12dp"
+                    android:paddingRight="@dimen/common_margin_12dp"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:text="@string/title_activity_profile_info" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:src="@mipmap/forward"
+                    android:tint="@color/common_body_tip_colors" />
+
+            </RelativeLayout>
+
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@color/common_color_white"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:visibility="visible">
+
+                <ImageView
+                    android:layout_width="@dimen/common_margin_20dp"
+                    android:layout_height="@dimen/common_margin_20dp"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/app_name"
+                    android:src="@mipmap/profile_set"
+                    android:tint="@color/common_body_tip_colors" />
+
+                <Button
+                    android:id="@+id/profile_nav_setup"
+                    style="@style/common_text_style_14_333333"
+                    android:layout_width="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:paddingStart="@dimen/common_margin_30dp"
+                    android:paddingLeft="@dimen/common_margin_30dp"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:paddingEnd="@dimen/common_margin_12dp"
+                    android:paddingRight="@dimen/common_margin_12dp"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:text="@string/nav_set" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:src="@mipmap/forward"
+                    android:tint="@color/common_body_tip_colors" />
+
+            </RelativeLayout>
+
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

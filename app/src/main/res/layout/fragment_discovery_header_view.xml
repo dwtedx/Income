@@ -1,0 +1,52 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/common_background_color"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/m_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/common_margin_16dp"
+        android:background="@color/common_color_white" />
+
+    <ImageView
+        android:id="@+id/m_taobao_activity_images"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_marginTop="@dimen/common_margin_12dp"
+        android:adjustViewBounds="true"
+        android:background="@color/common_color_white"
+        android:contentDescription="@string/app_name"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/imageloader_default_width"
+        android:visibility="visible" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:paddingTop="@dimen/common_margin_12dp"
+        android:paddingBottom="@dimen/common_margin_12dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerInside"
+            android:src="@mipmap/internal_coupon" />
+
+        <TextView
+            style="@style/common_text_style_14_737373"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_margin_8dp"
+            android:layout_marginLeft="@dimen/common_margin_8dp"
+            android:text="@string/discovery_recommend"
+            android:textSize="@dimen/common_text_size_14sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#00aaee</color>
+    <color name="colorPrimaryDark">#e584c8e4</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="common_home_white">#80ffffff</color>
+    <color name="common_background_color">#f4f4f4</color>
+    <color name="common_color_white">#ffffff</color>
+    <color name="common_button_color">#f4f3f3</color>
+    <color name="common_body_color">#333333</color>
+    <color name="common_body_tip_colors">#737373</color>
+    <color name="common_body_tip_color">#aaaaaa</color>
+    <color name="common_body_tip_color_b">#bbbbbb</color>
+    <color name="common_input_bag">#8dd9d9d9</color>
+    <color name="common_division_line">#dddddd</color>
+    <color name="common_price_color">#f70707</color>
+    <color name="common_tip_bg_color">#C1000000</color>
+
+    <color name="guide_shadow_bg_color">#5E000000</color>
+    <color name="account_add_color">#F44336</color>
+
+    <color name="fingerprint_warning_color">#f4511e</color>
+    <color name="fingerprint_hint_color">#42000000</color>
+    <color name="fingerprint_success_color">#009688</color>
+
+    <!-- list类型的文本颜色 -->
+    <color name="rfab__color_text_label_item">#777777</color>
+    <!-- 背景颜色 -->
+    <color name="rfab__color_background_normal">#ffffff</color>
+    <color name="rfab__color_background_pressed">#dddddd</color>
+
+    <!-- RFAL的frame覆盖层颜色 -->
+    <color name="rfab__color_frame">#ffffff</color>
+
+    <!-- 背景阴影颜色 -->
+    <color name="rfab__color_shadow">#c6c6c6</color>
+</resources>

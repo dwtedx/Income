@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_color_white"
+    android:fitsSystemWindows="true"
+    tools:context="com.dwtedx.income.account.AccountActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/toolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="?attr/actionBarSize"-->
+        <!--android:background="?attr/colorPrimary"-->
+        <!--app:popupTheme="@style/AppTheme.PopupOverlay"/>-->
+
+        <com.dwtedx.income.widget.AppTitleBar
+            android:id="@+id/app_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:left_btn_text="@string/back"
+            app:left_btn_visible="true"
+            app:right_btn_image_id="@mipmap/add_icon"
+            app:right_btn_visible="true"
+            app:text="@string/title_activity_account" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/common_color_white"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            app:ptrAnimationStyle="flip"
+            app:ptrDrawableEnd="@mipmap/pulltorefresh_arrow"
+            app:ptrDrawableStart="@mipmap/pulltorefresh_arrow"
+            app:ptrHeaderSubTextColor="@color/common_body_tip_color"
+            app:ptrHeaderTextColor="@color/common_body_tip_color"
+            app:ptrMode="both" />
+
+    </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="@dimen/common_margin_50dp"
+        android:layout_height="@dimen/common_margin_50dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@mipmap/add_icon"
+        android:visibility="gone"
+        app:elevation="0dp"
+        app:pressedTranslationZ="0dp" />
+
+</android.support.design.widget.CoordinatorLayout>

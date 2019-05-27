@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_money"
+            android:checked="true"
+            android:icon="@mipmap/nav_money"
+            android:title="@string/nav_money"/>
+        <item
+            android:id="@+id/nav_report"
+            android:icon="@mipmap/nav_report"
+            android:title="@string/nav_report"/>
+        <item
+            android:id="@+id/nav_wallet"
+            android:icon="@mipmap/nav_wallet"
+            android:title="@string/nav_wallet"/>
+        <item
+            android:id="@+id/nav_profile"
+            android:checkable="false"
+            android:icon="@mipmap/nav_profile"
+            android:title="@string/nav_profile"/>
+    </group>
+
+    <item android:title="@string/nav_more">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/nav_share"/>
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@mipmap/nav_data"
+                android:title="@string/profile_data"/>
+        </menu>
+    </item>
+
+</menu>

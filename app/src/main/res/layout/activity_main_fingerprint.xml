@@ -1,0 +1,76 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="55dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.dwtedx.income.widget.CircleImageView
+            android:id="@+id/m_userhead_imageview"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@mipmap/userhead" />
+
+        <TextView
+            android:id="@+id/m_user_textview"
+            style="@style/common_text_style_14_333333"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_margin_16dp"
+            android:background="@android:color/transparent"
+            android:text="@string/fingerprint_main_user" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/m_fingerprint_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:src="@mipmap/fingerprint"
+            android:tint="@color/colorPrimary" />
+
+        <TextView
+            style="@style/common_text_style_14_333333"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_margin_16dp"
+            android:background="@android:color/transparent"
+            android:textSize="@dimen/common_text_size_12sp"
+            android:text="@string/fingerprint_main_tip" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/m_fingerprint_description_userpass"
+        style="@style/common_text_style_14_333333"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/common_margin_12dp"
+        android:layout_below="@+id/m_fingerprint_layout"
+        android:layout_marginTop="120dp"
+        android:background="@android:color/transparent"
+        android:layout_centerHorizontal="true"
+        android:text="@string/fingerprint_description_userpass" />
+
+</RelativeLayout>

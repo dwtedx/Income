@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.dwtedx.income">
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" /> <!-- <uses-permission android:name="android.permission.READ_CONTACTS" /> -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- <uses-permission android:name="android.permission.CALL_PHONE" /> -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
+    <permission
+        android:name="com.dwtedx.income.permission.MIPUSH_RECEIVE"
+        android:protectionLevel="signature" /> <!-- 这里com.xiaomi.mipushdemo改成app的包名 -->
+    <uses-permission android:name="com.dwtedx.income.permission.MIPUSH_RECEIVE" />
+
+    <application
+        android:name=".IncomeApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:replace="android:allowBackup">
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.dwtedx.income.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="57352b9067e58eee2700000d" />
+
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="dwtedx" />
+
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.5" />
+
+        <service android:name=".updateapp.UpdateService" />
+
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts"/>
+
+        </activity>
+        <activity
+            android:name=".home.HomeActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".MainFingerprintActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".home.HomeV2Activity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".home.HomeV3Activity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".profile.LoginActivity"
+            android:label="@string/title_activity_login" />
+        <activity
+            android:name=".addrecord.AddRecordActivity"
+            android:label="@string/record_add"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".profile.ProfileActivity"
+            android:label="@string/title_activity_profile" />
+        <activity
+            android:name=".profile.ProfileInfoActivity"
+            android:label="@string/title_activity_profile_info" />
+        <activity
+            android:name=".profile.ProfileInfoEditActivity"
+            android:label="@string/profile_into_edit" />
+        <activity
+            android:name=".profile.SetupActivity"
+            android:label="@string/nav_set" />
+        <activity
+            android:name=".profile.WebViewActivity"
+            android:label="@string/title_activity_web_view" />
+        <activity
+            android:name=".account.AccountActivity"
+            android:label="@string/title_activity_account" />
+        <activity
+            android:name=".accounttype.IncomeTypeActivity"
+            android:label="@string/profile_type_income" />
+        <activity
+            android:name=".accounttype.PayingTypeActivity"
+            android:label="@string/profile_type_pay" />
+        <activity
+            android:name=".home.IncomeListActivity"
+            android:label="@string/title_activity_income_lis" />
+        <activity
+            android:name=".addrecord.IncomeDetailActivity"
+            android:label="@string/title_activity_income_detail"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".account.AddAccountActivity"
+            android:label="@string/title_activity_add_account" />
+        <activity
+            android:name=".account.AccountListActivity"
+            android:label="@string/account_list_title" />
+        <activity
+            android:name=".account.AccountTransferActivity"
+            android:label="@string/add_account_name_transfer" />
+        <activity
+            android:name=".report.ReportActivity"
+            android:label="@string/nav_report" />
+        <activity
+            android:name=".report.ShareActivity"
+            android:label="@string/share_report_tip" />
+        <activity
+            android:name=".profile.BudgetActivity"
+            android:label="@string/profile_budget" />
+        <activity
+            android:name=".home.SearchActivity"
+            android:label="@string/home_search" />
+        <activity
+            android:name=".profile.PassWordActivity"
+            android:label="@string/profile_password_title_update" />
+        <activity
+            android:name=".profile.ReSetPassWordActivity"
+            android:label="@string/profile_password_reset_title" />
+        <activity
+            android:name=".profile.MobileActivity"
+            android:label="@string/profile_phone" />
+        <activity
+            android:name=".profile.LoginV2Activity"
+            android:label="@string/login_text" />
+        <activity
+            android:name=".profile.RegisterActivity"
+            android:label="@string/register" />
+        <activity
+            android:name=".profile.RegisterByUsernameActivity"
+            android:label="@string/register" />
+        <activity
+            android:name=".discovery.ItemRecommendActivity"
+            android:label="@string/register" />
+        <activity
+            android:name=".discovery.ItemCategoryActivity"
+            android:label="@string/register" />
+        <activity
+            android:name=".discovery.ItemNineNineActivity"
+            android:label="@string/register" />
+        <activity
+            android:name=".discovery.ItemCategoryTopActivity"
+            android:label="@string/register" />
+        <activity
+            android:name=".discovery.ItemByCategoryActivity"
+            android:label="@string/register" />
+        <activity
+            android:name=".discovery.SearchTaobaoActivity"
+            android:label="@string/register" />
+        <activity
+            android:name=".scan.ScanResultActivity"
+            android:label="@string/scan_result_title" />
+        <activity
+            android:name=".accounttype.ChoosePayingTypeActivity"
+            android:label="@string/scan_result_title" />
+        <activity
+            android:name=".scan.ScanDetailActivity"
+            android:label="@string/scan_result_title" />
+        <activity
+            android:name=".account.ChooseAccountImageActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".accounttype.AddAccountTypeActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".accounttype.ChooseAccountTypeImageActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".scan.ChooseLocationActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".MainShortcutActivity"
+            android:label="@string/app_name" />
+
+        <!-- 友盟相关 开始 -->
+        <!-- 微信 -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- 微博 -->
+        <activity
+            android:name="com.umeng.socialize.media.WBShareCallBackActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.sina.weibo.sdk.share.WbShareTransActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <!-- qq -->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent460198246" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <!-- 支付宝 -->
+        <activity
+            android:name=".apshare.ShareEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <!-- 友盟相关 结束 -->
+        <!-- 小米推送 -->
+        <service
+            android:name="com.xiaomi.push.service.XMJobService"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:process=":pushservice" />
+        <service
+            android:name="com.xiaomi.push.service.XMPushService"
+            android:enabled="true"
+            android:process=":pushservice" />
+        <service
+            android:name="com.xiaomi.mipush.sdk.PushMessageHandler"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name="com.xiaomi.mipush.sdk.MessageHandleService"
+            android:enabled="true" />
+
+        <receiver
+            android:name=".broadcast.PushMessageReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.MESSAGE_ARRIVED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.ERROR" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.xiaomi.push.service.receivers.NetworkStatusReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.xiaomi.push.service.receivers.PingReceiver"
+            android:exported="false"
+            android:process=":pushservice">
+            <intent-filter>
+                <action android:name="com.xiaomi.push.PING_TIMER" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

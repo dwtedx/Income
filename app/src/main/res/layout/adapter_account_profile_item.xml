@@ -1,0 +1,87 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/account_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_margin_80dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/common_margin_8dp"
+        android:layout_marginBottom="@dimen/common_margin_8dp"
+        android:background="@drawable/account_bg">
+
+        <ImageView
+            android:id="@+id/imageView"
+            style="@style/common_text_style_14_333333"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:gravity="center_vertical"
+            android:src="@mipmap/account_alipay"/>
+
+        <LinearLayout
+            android:id="@+id/paytextViewTip_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_toRightOf="@+id/imageView"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/account_name"
+                style="@style/common_text_style_14_333333"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="现金"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/common_text_size_16sp"
+                tools:ignore="RtlHardcoded"/>
+
+            <TextView
+                android:id="@+id/account_name_tip"
+                style="@style/common_text_style_14_333333"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_margin_6dp"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="现金余额"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/white"
+                tools:ignore="RtlHardcoded"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/account_name_money"
+            style="@style/common_text_style_14_333333"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/common_margin_12dp"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="￥200"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/common_text_size_22sp"
+            android:textStyle="bold"
+            tools:ignore="RtlHardcoded"/>
+
+    </RelativeLayout>
+</RelativeLayout>
