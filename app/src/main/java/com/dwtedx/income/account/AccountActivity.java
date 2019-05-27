@@ -32,7 +32,6 @@ public class AccountActivity extends BaseActivity implements AdapterView.OnItemC
     private PullToRefreshListView mListView;
     private List<DiAccount> mDiAccountItems;
     private DiAccountProfileAdapter mDiAccountAdapter;
-
     private ProgressDialog mProgressDialog;
 
     @Override
