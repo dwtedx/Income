@@ -84,7 +84,7 @@
     <string name="record_info_all">概况</string>
     <string name="record_account">0.00</string>
     <string name="record_zhichu_type_yian">一般</string>
-    <string name="account_type_title">钱包/帐户</string>
+    <string name="account_type_title">钱包/账户</string>
     <string name="record_input_1">1</string>
     <string name="record_input_2">2</string>
     <string name="record_input_3">3</string>
@@ -186,7 +186,7 @@
     <string name="md_custom_label">自定义</string>
     <string name="md_presets_label">预置</string>
     <string name="title_activity_web_view">WebViewActivity</string>
-    <string name="title_activity_account">钱包/帐户</string>
+    <string name="title_activity_account">钱包/账户</string>
     <string name="account_money">设置金额</string>
     <string name="account_update">编辑账户</string>
     <string name="account_image">账户图标</string>
