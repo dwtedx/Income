@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/m_item_layout_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/common_color_white"
+    android:orientation="vertical">
+
+    <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/common_margin_16dp">
+
+        <com.dwtedx.income.widget.CircleImageView
+            android:id="@+id/m_user_image_view"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:src="@mipmap/userhead" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/common_margin_16dp"
+            android:layout_marginLeft="@dimen/common_margin_16dp"
+            android:layout_toEndOf="@+id/m_user_image_view"
+            android:layout_toRightOf="@+id/m_user_image_view"
+            android:background="@android:color/white"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/m_user_name_view"
+                style="@style/common_text_style_14_333333"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:text="@string/topic_type_talk"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                android:textCursorDrawable="@null" />
+
+            <TextView
+                android:id="@+id/m_time_view"
+                style="@style/common_text_style_14_737373"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:text="@string/topic_type_talk"
+                android:textAllCaps="false"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/common_text_size_12sp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <TextView
+            android:id="@+id/m_item_desc_view"
+            style="@style/common_text_style_14_333333"
+            android:layout_width="match_parent"
+            android:layout_gravity="top"
+            android:layout_marginStart="@dimen/common_margin_16dp"
+            android:layout_marginLeft="@dimen/common_margin_16dp"
+            android:layout_marginEnd="@dimen/common_margin_16dp"
+            android:layout_marginRight="@dimen/common_margin_16dp"
+            android:background="@android:color/transparent"
+            android:ellipsize="end"
+            android:lineSpacingExtra="4dp"
+            android:maxLines="5"
+            android:text="2017 BMW X5 350i xDrive"
+            android:textCursorDrawable="@null" />
+
+        <ImageView
+            android:id="@+id/m_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/m_item_desc_view"
+            android:layout_marginStart="@dimen/common_margin_16dp"
+            android:layout_marginLeft="@dimen/common_margin_16dp"
+            android:layout_marginTop="@dimen/common_margin_16dp"
+            android:layout_marginEnd="@dimen/common_margin_16dp"
+            android:layout_marginRight="@dimen/common_margin_16dp"
+            android:adjustViewBounds="true"
+            android:background="@color/common_color_white"
+            android:contentDescription="@string/app_name"
+            android:maxWidth="270dp"
+            android:maxHeight="270dp"
+            android:scaleType="centerInside"
+            android:src="@mipmap/imageloader_default"
+            android:visibility="visible" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/m_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/m_item_desc_view"
+            android:layout_marginStart="@dimen/common_margin_16dp"
+            android:layout_marginLeft="@dimen/common_margin_16dp"
+            android:layout_marginTop="@dimen/common_margin_16dp"
+            android:layout_marginEnd="@dimen/common_margin_16dp"
+            android:layout_marginRight="@dimen/common_margin_16dp"
+            android:background="@color/common_color_white" />
+
+        <TextView
+            android:id="@+id/m_topic_type_view"
+            style="@style/common_text_style_14_737373"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/m_item_desc_view"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="@dimen/common_margin_16dp"
+            android:layout_marginLeft="@dimen/common_margin_16dp"
+            android:layout_marginTop="@dimen/common_margin_16dp"
+            android:background="@color/topic_type_color"
+            android:paddingStart="@dimen/common_margin_8dp"
+            android:paddingLeft="@dimen/common_margin_8dp"
+            android:paddingTop="@dimen/common_margin_4dp"
+            android:paddingEnd="@dimen/common_margin_8dp"
+            android:paddingRight="@dimen/common_margin_8dp"
+            android:paddingBottom="@dimen/common_margin_4dp"
+            android:text="@string/topic_type_vate"
+            android:textColor="@color/common_color_white"
+            android:textSize="@dimen/common_text_size_12sp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_margin_16dp"
+        android:paddingStart="@dimen/common_margin_16dp"
+        android:paddingLeft="@dimen/common_margin_16dp"
+        android:paddingEnd="@dimen/common_margin_16dp"
+        android:paddingRight="@dimen/common_margin_16dp">
+
+        <TextView
+            android:id="@+id/m_topic_location_view"
+            style="@style/common_text_style_14_737373"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_localtion_black"
+            android:drawableLeft="@drawable/ic_localtion_black"
+            android:drawablePadding="@dimen/common_margin_4dp"
+            android:text="苏州市"
+            android:textSize="@dimen/common_text_size_12sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/common_horizontal_division_line_style"
+        android:layout_marginTop="@dimen/common_margin_16dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/common_margin_8dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/m_item_share_view"
+                style="@style/common_text_style_14_737373"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_topic_share_black"
+                android:drawableLeft="@drawable/ic_topic_share_black"
+                android:drawablePadding="@dimen/common_margin_4dp"
+                android:text="@string/share_text"
+                android:textSize="@dimen/common_text_size_12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/m_item_talk_view"
+                style="@style/common_text_style_14_737373"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_topic_talk_black"
+                android:drawableLeft="@drawable/ic_topic_talk_black"
+                android:drawablePadding="@dimen/common_margin_4dp"
+                android:text="@string/topic_talk_text"
+                android:textSize="@dimen/common_text_size_12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/m_item_liked_view"
+                style="@style/common_text_style_14_737373"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_topic_like_black"
+                android:drawableLeft="@drawable/ic_topic_like_black"
+                android:drawablePadding="@dimen/common_margin_4dp"
+                android:text="@string/topic_liked_text"
+                android:textSize="@dimen/common_text_size_12sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+</LinearLayout>

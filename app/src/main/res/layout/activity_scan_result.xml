@@ -124,13 +124,13 @@
 
             <ImageView
                 android:id="@+id/scan_record_icon_location_image"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/common_margin_16dp"
                 android:layout_marginLeft="@dimen/common_margin_16dp"
                 android:contentDescription="@string/app_name"
-                android:src="@mipmap/icon_location" />
+                app:srcCompat="@drawable/ic_localtion_black" />
 
             <TextView
                 android:id="@+id/m_record_icon_location"

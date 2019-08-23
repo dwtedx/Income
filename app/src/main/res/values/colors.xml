@@ -20,6 +20,9 @@
     <color name="guide_shadow_bg_color">#5E000000</color>
     <color name="account_add_color">#F44336</color>
 
+    <color name="topic_type_color">#CCFF2C2C</color>
+    <color name="topic_persion_color">#CCFFFFFF</color>
+
     <color name="fingerprint_warning_color">#f4511e</color>
     <color name="fingerprint_hint_color">#42000000</color>
     <color name="fingerprint_success_color">#009688</color>

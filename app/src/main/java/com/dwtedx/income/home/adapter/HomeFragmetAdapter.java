@@ -10,6 +10,7 @@ import com.dwtedx.income.discovery.DiscoveryFragment;
 import com.dwtedx.income.report.HomeReportPayingPieFragment;
 import com.dwtedx.income.home.IncomeLineFragment;
 import com.dwtedx.income.profile.ProfileFragment;
+import com.dwtedx.income.topic.TopicFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class HomeFragmetAdapter extends FragmentPagerAdapter {
         mFragmentList = new ArrayList<>();
         mFragmentList.add(new IncomeLineFragment());
         mFragmentList.add(new HomeReportPayingPieFragment());
-        mFragmentList.add(new DiscoveryFragment());
+        mFragmentList.add(new TopicFragment());
         mFragmentList.add(new ProfileFragment());
 
     }

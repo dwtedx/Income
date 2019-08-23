@@ -145,4 +145,8 @@ public class CommonConstants {
 
     public final static int INCOME_SCAN_ADDBUTTON = 1;//扫单的添加按钮
 
+    //1：话题  2：投票
+    public final static int TOPIC_TYPE_TALK = 1;
+    public final static int TOPIC_TYPE_VOTE = 2;
+
 }

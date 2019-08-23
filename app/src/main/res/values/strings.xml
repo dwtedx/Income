@@ -375,6 +375,14 @@
     <string name="scan_result_location">定位中&#8230;</string>
     <string name="scan_location_title">所在位置</string>
 
+    <!-- 发现话题投票 -->
+    <string name="topic_type_talk">话题</string>
+    <string name="topic_type_vate">投票</string>
+    <string name="topic_persion_text">%1$d\n人参与</string>
+    <string name="topic_share_text">分享</string>
+    <string name="topic_talk_text">回复</string>
+    <string name="topic_liked_text">赞</string>
+
     <!--<string name="app_name">PushDemo</string>-->
     <!--<string name="ok">确认</string>-->
     <!--<string name="cancel">取消</string>-->
