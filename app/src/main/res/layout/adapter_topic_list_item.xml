@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/m_item_layout_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -94,10 +95,10 @@
             android:adjustViewBounds="true"
             android:background="@color/common_color_white"
             android:contentDescription="@string/app_name"
-            android:maxWidth="270dp"
-            android:maxHeight="270dp"
-            android:scaleType="centerInside"
-            android:src="@mipmap/imageloader_default"
+            android:maxWidth="218dp"
+            android:maxHeight="250dp"
+            android:scaleType="fitStart"
+            android:src="@mipmap/imageloader_default_smll"
             android:visibility="visible" />
 
         <android.support.v7.widget.RecyclerView
@@ -105,11 +106,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/m_item_desc_view"
-            android:layout_marginStart="@dimen/common_margin_16dp"
-            android:layout_marginLeft="@dimen/common_margin_16dp"
-            android:layout_marginTop="@dimen/common_margin_16dp"
-            android:layout_marginEnd="@dimen/common_margin_16dp"
-            android:layout_marginRight="@dimen/common_margin_16dp"
+            android:layout_marginStart="@dimen/common_margin_14dp"
+            android:layout_marginLeft="@dimen/common_margin_14dp"
+            android:layout_marginTop="@dimen/common_margin_14dp"
+            android:layout_marginEnd="@dimen/common_margin_14dp"
+            android:layout_marginRight="@dimen/common_margin_14dp"
             android:background="@color/common_color_white" />
 
         <TextView
@@ -137,6 +138,27 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/m_vote_recycler_layout_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/m_vote_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_margin_16dp"
+            android:layout_marginLeft="@dimen/common_margin_16dp"
+            android:layout_marginTop="@dimen/common_margin_16dp"
+            android:layout_marginEnd="@dimen/common_margin_16dp"
+            android:layout_marginRight="@dimen/common_margin_16dp"
+            android:background="@color/common_color_white" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/m_topic_location_layout_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/common_margin_16dp"

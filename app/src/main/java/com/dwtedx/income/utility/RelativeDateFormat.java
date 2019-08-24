@@ -25,6 +25,7 @@ public class RelativeDateFormat {
             date = format.parse(time);
         } catch (ParseException e) {
             e.printStackTrace();
+            return "未知";
         }
         long delta = new Date().getTime() - date.getTime();
         if (delta < 1L * ONE_MINUTE) {

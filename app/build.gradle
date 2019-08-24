@@ -69,6 +69,7 @@ dependencies {
     implementation project(path: ':recyclerviewrefresh')
     implementation project(path: ':pulltorefresh')
     implementation project(path: ':ocrui')
+    implementation project(path: ':imagepreview')
     implementation 'com.github.alorma:timelineview:2.3.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'

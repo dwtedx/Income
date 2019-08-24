@@ -10,6 +10,7 @@
     <dimen name="common_margin_8dp">8dp</dimen>
     <dimen name="common_margin_6dp">6dp</dimen>
     <dimen name="common_margin_12dp">12dp</dimen>
+    <dimen name="common_margin_14dp">14dp</dimen>
     <dimen name="common_margin_16dp">16dp</dimen>
     <dimen name="common_margin_70dp">70dp</dimen>
     <dimen name="common_margin_20dp">20dp</dimen>

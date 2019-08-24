@@ -36,6 +36,8 @@ public class DiTopic {
 
     private String createtime;
 
+    private String createtimestr;
+
     private int createuser;
 
     private String updatetime;
@@ -46,6 +48,7 @@ public class DiTopic {
     private String userpath;
     private int talkcount;
     private List<DiTopicimg> topicimg;
+    private List<DiTopicvote> topicvote;
 
     public int getId() {
         return id;
@@ -229,5 +232,21 @@ public class DiTopic {
 
     public void setUserpath(String userpath) {
         this.userpath = userpath;
+    }
+
+    public String getCreatetimestr() {
+        return createtimestr;
+    }
+
+    public void setCreatetimestr(String createtimestr) {
+        this.createtimestr = createtimestr;
+    }
+
+    public List<DiTopicvote> getTopicvote() {
+        return topicvote;
+    }
+
+    public void setTopicvote(List<DiTopicvote> topicvote) {
+        this.topicvote = topicvote;
     }
 }

@@ -33,6 +33,8 @@ import com.dwtedx.income.topic.adapter.TopicRecyclerAdapter;
 import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.widget.RecycleViewDivider;
 import com.dwtedx.income.widget.swiperecyclerview.SwipeRecyclerView;
+import com.previewlibrary.ZoomMediaLoader;
+import com.previewlibrary.loader.IZoomMediaLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +49,8 @@ import butterknife.ButterKnife;
  */
 public class TopicFragment extends BaseFragment implements SwipeRecyclerView.OnLoadListener, View.OnClickListener {
 
+    View mView;
+
     @BindView(R.id.home_item_layout)
     LinearLayout mRightLayout;
     @BindView(R.id.m_recyclerview)
@@ -57,14 +61,13 @@ public class TopicFragment extends BaseFragment implements SwipeRecyclerView.OnL
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View mView = inflater.inflate(R.layout.fragment_topic, container, false);
+        if(null != mView){
+            return mView;
+        }
+        mView = inflater.inflate(R.layout.fragment_topic, container, false);
         ButterKnife.bind(this, mView);
-        return mView;
-    }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        ZoomMediaLoader.getInstance().init(new TopicImageLoader());
 
         mRightLayout.setOnClickListener(this);
 
@@ -79,6 +82,13 @@ public class TopicFragment extends BaseFragment implements SwipeRecyclerView.OnL
         mRecyclerView.setAdapter(mAdapter);
 
         getTopicItemInfo(true, true);
+
+        return mView;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override

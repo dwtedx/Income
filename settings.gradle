@@ -1,1 +1,1 @@
-include ':app', ':recyclerviewrefresh', ':pulltorefresh', ':ocrui'
+include ':app', ':recyclerviewrefresh', ':pulltorefresh', ':ocrui', ':imagepreview'

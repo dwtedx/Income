@@ -1,6 +1,12 @@
 package com.dwtedx.income.entity;
 
-public class DiTopicimg {
+import android.graphics.Rect;
+import android.os.Parcel;
+import android.support.annotation.Nullable;
+
+import com.previewlibrary.enitity.IThumbViewInfo;
+
+public class DiTopicimg implements IThumbViewInfo {
     private int id;
 
     private int topicid;
@@ -22,6 +28,10 @@ public class DiTopicimg {
     private String updatetime;
 
     private int updateuser;
+
+    private String url;  //图片地址
+    private Rect mBounds; // 记录坐标
+    private String videoUrl;
 
     public int getId() {
         return id;
@@ -109,5 +119,92 @@ public class DiTopicimg {
 
     public void setFullpath(String fullpath) {
         this.fullpath = fullpath;
+    }
+
+
+
+    @Override
+    public String getUrl() {
+        return fullpath;
+    }
+
+    @Override
+    public Rect getBounds() {
+        return mBounds;
+    }
+
+    @Nullable
+    @Override
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.url);
+        dest.writeParcelable(this.mBounds, flags);
+        dest.writeString(this.videoUrl);
+
+        dest.writeInt(this.id);
+        dest.writeInt(this.topicid);
+        dest.writeString(this.name);
+        dest.writeString(this.path);
+        dest.writeString(this.fullpath);
+        dest.writeString(this.remark);
+        dest.writeInt(this.deleteflag);
+        dest.writeString(this.createtime);
+        dest.writeInt(this.createuser);
+        dest.writeString(this.updatetime);
+        dest.writeInt(this.updateuser);
+
+    }
+
+    public DiTopicimg() {
+    }
+
+    public DiTopicimg(String url) {
+        this.url = url;
+    }
+    public DiTopicimg(String videoUrl,String url) {
+        this.url = url;
+        this.videoUrl = videoUrl;
+    }
+    protected DiTopicimg(Parcel in) {
+        this.url = in.readString();
+        this.mBounds = in.readParcelable(Rect.class.getClassLoader());
+        this.videoUrl = in.readString();
+
+        this.id = in.readInt();
+        this.topicid = in.readInt();
+        this.name = in.readString();
+        this.path = in.readString();
+        this.fullpath = in.readString();
+        this.remark = in.readString();
+        this.deleteflag = in.readInt();
+        this.createtime = in.readString();
+        this.createuser = in.readInt();
+        this.updatetime = in.readString();
+        this.updateuser = in.readInt();
+    }
+
+    public static final Creator<DiTopicimg> CREATOR = new Creator<DiTopicimg>() {
+        @Override
+        public DiTopicimg createFromParcel(Parcel source) {
+            return new DiTopicimg(source);
+        }
+
+        @Override
+        public DiTopicimg[] newArray(int size) {
+            return new DiTopicimg[size];
+        }
+    };
+
+    public void setBounds(Rect bounds) {
+        this.mBounds = bounds;
     }
 }

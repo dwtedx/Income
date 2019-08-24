@@ -1,24 +1,27 @@
 package com.dwtedx.income.topic.adapter;
 
+import android.app.Activity;
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
+import android.graphics.Rect;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.dwtedx.income.R;
 import com.dwtedx.income.entity.DiTopic;
+import com.dwtedx.income.topic.TopicImageLoader;
 import com.dwtedx.income.utility.CommonConstants;
+import com.dwtedx.income.utility.CommonUtility;
+import com.dwtedx.income.utility.RelativeDateFormat;
 import com.dwtedx.income.widget.CircleImageView;
-import com.dwtedx.income.widget.RecycleViewDivider;
 import com.dwtedx.income.widget.swiperecyclerview.SwipeRecyclerView;
+import com.previewlibrary.GPreviewBuilder;
 
 import java.util.List;
 
@@ -39,7 +42,6 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
     private Context mContext;
     private List<DiTopic> mList;
     private SwipeRecyclerView mRecyclerView;
-    private TopicImgRecyclerAdapter mTopicImgAdapter;
 
     public TopicRecyclerAdapter(Context mContext, List<DiTopic> customerInfoList, SwipeRecyclerView recyclerView) {
         this.mContext = mContext;
@@ -98,30 +100,41 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
         final int pos = getRealPosition(holder);
         final DiTopic data = mList.get(pos);
 
-        Glide.with(mContext).load(data.getUserpath()).placeholder(R.mipmap.imageloader_default).error(R.mipmap.imageloader_default).into(holder.mUserImageView);
+        TopicImageLoader.loadImageUser(mContext, data.getUserpath(), holder.mUserImageView);
         holder.mUserNameView.setText(data.getUsername());
-        holder.mTimeView.setText(data.getCreatetime());
+        holder.mTimeView.setText(RelativeDateFormat.format(data.getCreatetimestr()));
         holder.mItemDescView.setText(data.getDescription());
+        //定位
+        if (CommonUtility.isEmpty(data.getLocation())) {
+            holder.mTopicLocationLayoutView.setVisibility(View.GONE);
+        } else {
+            holder.mTopicLocationView.setText(data.getLocation());
+            holder.mTopicLocationLayoutView.setVisibility(View.VISIBLE);
+        }
         holder.mItemShareView.setText(data.getShared() + mContext.getString(R.string.topic_share_text));
         holder.mItemTalkView.setText(data.getTalkcount() + mContext.getString(R.string.topic_talk_text));
         holder.mItemLikedView.setText(data.getLiked() + mContext.getString(R.string.topic_liked_text));
         if (CommonConstants.TOPIC_TYPE_VOTE == data.getType()) {
             holder.mTopicTypeView.setText(R.string.topic_type_vate);
             holder.mTopicTypeView.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             holder.mTopicTypeView.setVisibility(View.GONE);
         }
         //图片处理
-        if(null != data.getTopicimg() && data.getTopicimg().size() > 0){
+        if (null != data.getTopicimg() && data.getTopicimg().size() > 0) {
             //自定义分割线的样式
             switch (data.getTopicimg().size()) {
                 case 1:
                     holder.mRecyclerView.setVisibility(View.GONE);
                     holder.mImageView.setVisibility(View.VISIBLE);
-                    Glide.with(mContext).load(data.getTopicimg().get(0).getFullpath()).placeholder(R.mipmap.imageloader_default).error(R.mipmap.imageloader_default).into(holder.mImageView);
-                break;
+                    TopicImageLoader.loadImage(mContext, data.getTopicimg().get(0), holder.mImageView);
+                    break;
 
                 case 4:
+                    RelativeLayout.LayoutParams params4 = (RelativeLayout.LayoutParams) holder.mRecyclerView.getLayoutParams();
+                    params4.width = CommonUtility.dip2px(mContext, 222);
+                    params4.height = RecyclerView.LayoutParams.WRAP_CONTENT;
+                    holder.mRecyclerView.setLayoutParams(params4);
                     holder.mRecyclerView.setVisibility(View.VISIBLE);
                     holder.mImageView.setVisibility(View.GONE);
                     RecyclerView.LayoutManager layoutManagerHeader4 = new GridLayoutManager(mContext, 2) {
@@ -131,11 +144,8 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
                         }
                     };
                     holder.mRecyclerView.setLayoutManager(layoutManagerHeader4);
-                    holder.mRecyclerView.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.HORIZONTAL, 16, ContextCompat.getColor(mContext, R.color.common_color_white)));
-                    holder.mRecyclerView.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.VERTICAL, 16, ContextCompat.getColor(mContext, R.color.common_color_white)));
 
-                    mTopicImgAdapter = new TopicImgRecyclerAdapter(mContext, data.getTopicimg());
-                    holder.mRecyclerView.setAdapter(mTopicImgAdapter);
+                    holder.mRecyclerView.setAdapter(new TopicImgRecyclerAdapter(mContext, data.getTopicimg(), holder.mRecyclerView));
                     break;
 
                 case 2:
@@ -145,6 +155,10 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
                 case 7:
                 case 8:
                 case 9:
+                    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) holder.mRecyclerView.getLayoutParams();
+                    params.width = RecyclerView.LayoutParams.MATCH_PARENT;
+                    params.height = RecyclerView.LayoutParams.WRAP_CONTENT;
+                    holder.mRecyclerView.setLayoutParams(params);
                     holder.mRecyclerView.setVisibility(View.VISIBLE);
                     holder.mImageView.setVisibility(View.GONE);
                     RecyclerView.LayoutManager layoutManagerHeader = new GridLayoutManager(mContext, 3) {
@@ -154,16 +168,21 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
                         }
                     };
                     holder.mRecyclerView.setLayoutManager(layoutManagerHeader);
-                    holder.mRecyclerView.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.HORIZONTAL, 16, ContextCompat.getColor(mContext, R.color.common_color_white)));
-                    holder.mRecyclerView.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.VERTICAL, 16, ContextCompat.getColor(mContext, R.color.common_color_white)));
 
-                    mTopicImgAdapter = new TopicImgRecyclerAdapter(mContext, data.getTopicimg());
-                    holder.mRecyclerView.setAdapter(mTopicImgAdapter);
+                    holder.mRecyclerView.setAdapter(new TopicImgRecyclerAdapter(mContext, data.getTopicimg(), holder.mRecyclerView));
                     break;
             }
-        }else {
+        } else {
             holder.mRecyclerView.setVisibility(View.GONE);
             holder.mImageView.setVisibility(View.GONE);
+        }
+
+        //投票显示
+        if(null != data.getTopicvote() && data.getTopicvote().size() > 0){
+            holder.mVoteRecyclerLayoutView.setVisibility(View.VISIBLE);
+
+        }else{
+            holder.mVoteRecyclerLayoutView.setVisibility(View.GONE);
         }
 
         //事件
@@ -171,6 +190,21 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
             @Override
             public void onClick(View v) {
 
+            }
+        });
+        holder.mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Rect bounds = new Rect();
+                holder.mImageView.getGlobalVisibleRect(bounds);
+                data.getTopicimg().get(0).setBounds(bounds);
+                GPreviewBuilder.from((Activity) mContext)
+                        .setSingleData(data.getTopicimg().get(0))
+                        .setCurrentIndex(0)
+                        .setSingleShowType(false)
+                        .setSingleFling(true)
+                        .setType(GPreviewBuilder.IndicatorType.Dot)
+                        .start();
             }
         });
 
@@ -200,6 +234,10 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
         RecyclerView mRecyclerView;
         @BindView(R.id.m_image_view)
         ImageView mImageView;
+        @BindView(R.id.m_topic_location_layout_view)
+        LinearLayout mTopicLocationLayoutView;
+        @BindView(R.id.m_topic_location_view)
+        TextView mTopicLocationView;
         @BindView(R.id.m_item_share_view)
         TextView mItemShareView;
         @BindView(R.id.m_item_talk_view)
@@ -210,6 +248,10 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
         LinearLayout mItemLayoutView;
         @BindView(R.id.m_topic_type_view)
         TextView mTopicTypeView;
+        @BindView(R.id.m_vote_recycler_view)
+        RecyclerView mVoteRecyclerView;
+        @BindView(R.id.m_vote_recycler_layout_view)
+        LinearLayout mVoteRecyclerLayoutView;
 
         public ViewHolder(View itemView, int type) {
             super(itemView);
