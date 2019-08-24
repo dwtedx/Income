@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -180,7 +181,15 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
         //投票显示
         if(null != data.getTopicvote() && data.getTopicvote().size() > 0){
             holder.mVoteRecyclerLayoutView.setVisibility(View.VISIBLE);
+            RecyclerView.LayoutManager layoutManagerHeader = new LinearLayoutManager(mContext){
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            };
+            holder.mVoteRecyclerView.setLayoutManager(layoutManagerHeader);
 
+            holder.mVoteRecyclerView.setAdapter(new TopicVoteRecyclerAdapter(mContext, data.getTopicvote(), holder.mRecyclerView));
         }else{
             holder.mVoteRecyclerLayoutView.setVisibility(View.GONE);
         }

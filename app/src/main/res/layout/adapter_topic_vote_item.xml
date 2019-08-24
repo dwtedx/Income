@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/m_item_text_view"
+        style="@style/common_text_style_14_333333"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:paddingStart="@dimen/common_margin_16dp"
+        android:paddingLeft="@dimen/common_margin_16dp"
+        android:paddingEnd="@dimen/common_margin_16dp"
+        android:paddingRight="@dimen/common_margin_16dp"
+        android:text="@string/app_name" />
+
+</RelativeLayout>
