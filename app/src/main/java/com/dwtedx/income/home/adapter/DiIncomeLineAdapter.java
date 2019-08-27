@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.alorma.timeline.TimelineView;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.dwtedx.income.R;
 import com.dwtedx.income.addrecord.IncomeDetailActivity;
@@ -161,7 +158,7 @@ public class DiIncomeLineAdapter extends RecyclerView.Adapter<DiIncomeLineAdapte
             //时光轴图片
             Glide.with(mContext)
                     .load(CommonUtility.getImageIdByName(mContext, null != mDiIncome.getIcon()?mDiIncome.getIcon():CommonConstants.PAYTYPE_DIY_ICON))
-                    .override(30, 30)
+                    .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                     .into(viewHolder.timeline);
             //viewHolder.timeline.setTimelineType(TimelineView.TYPE_MIDDLE);
 
@@ -179,7 +176,7 @@ public class DiIncomeLineAdapter extends RecyclerView.Adapter<DiIncomeLineAdapte
             //时光轴图片
             Glide.with(mContext)
                     .load(CommonUtility.getImageIdByName(mContext, null != mDiIncome.getIcon()?mDiIncome.getIcon():CommonConstants.INCOME_DIY_ICON))
-                    .override(30, 30)
+                    .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                     .into(viewHolder.timeline);
             //viewHolder.timeline.setTimelineType(TimelineView.TYPE_MIDDLE);
 
@@ -196,7 +193,7 @@ public class DiIncomeLineAdapter extends RecyclerView.Adapter<DiIncomeLineAdapte
             viewHolder.paytextpollTitleView.setText(mDiIncome.getRemark() + mContext.getString(R.string.record_pay_all));
             animText(viewHolder.timelinePollText, (float) mDiIncome.getMoneysum());
             //时光轴图片
-            viewHolder.timelinePollTime.setTimelineType(TimelineView.TYPE_MIDDLE);
+            //viewHolder.timelinePollTime.setTimelineType(TimelineView.TYPE_MIDDLE);
 
             //是否第一个
             viewHolder.tipText.setText("");
@@ -294,7 +291,7 @@ public class DiIncomeLineAdapter extends RecyclerView.Adapter<DiIncomeLineAdapte
         TextView incomeText, pyaText, tipText, timelinetimetext, incomeAllText, pyaAllText, incomepolltextView, paytextpollView, incomepollTitletextView, paytextpollTitleView;
         RiseNumberTextView timelinePollText;
         ImageView timeline;
-        TimelineView timelinetime, timelinePollTime;
+        //TimelineView timelinetime, timelinePollTime;
         LinearLayout tipView;
         RelativeLayout timeLayoutView, timelineLayout, pollLayoutView;
         ImageView incomeEditView;
@@ -306,8 +303,8 @@ public class DiIncomeLineAdapter extends RecyclerView.Adapter<DiIncomeLineAdapte
             incomeAllText = (TextView) itemView.findViewById(R.id.incometextallView);
             pyaAllText = (TextView) itemView.findViewById(R.id.paytextallView);
             timeline = (ImageView) itemView.findViewById(R.id.timeline);
-            timelinetime = (TimelineView) itemView.findViewById(R.id.timeline_time);
-            timelinePollTime = (TimelineView) itemView.findViewById(R.id.timeline_poll_time);
+            //timelinetime = (TimelineView) itemView.findViewById(R.id.timeline_time);
+            //timelinePollTime = (TimelineView) itemView.findViewById(R.id.timeline_poll_time);
             timelinetimetext = (TextView) itemView.findViewById(R.id.timeline_time_text);
             timeLayoutView = (RelativeLayout) itemView.findViewById(R.id.timeline_time_layout);
             tipText = (TextView) itemView.findViewById(R.id.paytextViewTip);

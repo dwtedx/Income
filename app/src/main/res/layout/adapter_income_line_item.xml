@@ -1,9 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
     <RelativeLayout
         android:id="@+id/timeline_poll_layout"
@@ -12,12 +11,19 @@
         android:layout_centerHorizontal="true">
 
         <LinearLayout
+            style="@style/common_vertical_division_line_style"
+            android:layout_width="0.5dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:background="@color/common_body_tip_color"/>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="@dimen/common_margin_80dp"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_toStartOf="@+id/timeline_poll_time"
-            android:layout_toLeftOf="@+id/timeline_poll_time"
+            android:layout_marginEnd="26dp"
+            android:layout_marginRight="26dp"
+            android:layout_toLeftOf="@+id/timeline_poll_bg_layout"
+            android:layout_toStartOf="@+id/timeline_poll_bg_layout"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -31,7 +37,7 @@
                 android:text="@string/record_income_all"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/common_body_tip_colors"
-                tools:ignore="RtlHardcoded" />
+                tools:ignore="RtlHardcoded"/>
 
             <TextView
                 android:id="@+id/incomepolltextView"
@@ -44,27 +50,16 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/common_body_tip_colors"
                 android:textSize="@dimen/common_text_size_16sp"
-                tools:ignore="RtlHardcoded" />
+                tools:ignore="RtlHardcoded"/>
 
         </LinearLayout>
 
-        <com.alorma.timeline.RoundTimelineView
-            android:id="@+id/timeline_poll_time"
-            android:layout_width="@dimen/common_margin_80dp"
-            android:layout_height="@dimen/common_margin_80dp"
-            android:layout_centerInParent="true"
-            app:timeline_indicatorColor="@color/colorPrimary"
-            app:timeline_indicatorSize="35dp"
-            app:timeline_internalPadding="0.5dp"
-            app:timeline_lineColor="@color/common_body_tip_color"
-            app:timeline_lineStyle="linear"
-            app:timeline_lineWidth="1dp"
-            app:timeline_type="middle" />
-
         <LinearLayout
-            android:layout_width="69dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/timeline_poll_bg_layout"
+            android:layout_width="@dimen/common_margin_70dp"
+            android:layout_height="@dimen/common_margin_70dp"
             android:layout_centerInParent="true"
+            android:background="@drawable/income_type_image_main_bg"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -75,7 +70,7 @@
                 android:singleLine="true"
                 android:text="@string/budget_month"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/common_text_size_10sp" />
+                android:textSize="@dimen/common_text_size_10sp"/>
 
             <com.dwtedx.income.widget.riseview.RiseNumberTextView
                 android:id="@+id/timeline_poll_text"
@@ -86,17 +81,17 @@
                 android:singleLine="true"
                 android:text="3000.00"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/common_text_size_16sp" />
+                android:textSize="@dimen/common_text_size_16sp"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="@dimen/common_margin_80dp"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_toEndOf="@+id/timeline_poll_time"
-            android:layout_toRightOf="@+id/timeline_poll_time"
+            android:layout_marginLeft="26dp"
+            android:layout_marginStart="26dp"
+            android:layout_toEndOf="@+id/timeline_poll_bg_layout"
+            android:layout_toRightOf="@+id/timeline_poll_bg_layout"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -110,7 +105,7 @@
                 android:text="@string/record_pay_all"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/common_body_tip_colors"
-                tools:ignore="RtlHardcoded" />
+                tools:ignore="RtlHardcoded"/>
 
             <TextView
                 android:id="@+id/paytextpollView"
@@ -123,7 +118,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/common_body_tip_colors"
                 android:textSize="@dimen/common_text_size_16sp"
-                tools:ignore="RtlHardcoded" />
+                tools:ignore="RtlHardcoded"/>
 
         </LinearLayout>
 
@@ -136,62 +131,62 @@
         android:layout_below="@+id/timeline_poll_layout"
         android:layout_centerHorizontal="true">
 
-        <com.alorma.timeline.RoundTimelineView
-            android:id="@+id/timeline_time"
-            android:layout_width="@dimen/common_margin_70dp"
-            android:layout_height="@dimen/common_margin_70dp"
+        <LinearLayout
+            style="@style/common_vertical_division_line_style"
+            android:layout_width="0.5dp"
+            android:layout_height="70dp"
             android:layout_centerHorizontal="true"
-            app:timeline_indicatorColor="@color/common_body_tip_color"
-            app:timeline_indicatorSize="15dp"
-            app:timeline_internalPadding="0.5dp"
-            app:timeline_lineColor="@color/common_body_tip_color"
-            app:timeline_lineStyle="linear"
-            app:timeline_lineWidth="1dp"
-            app:timeline_type="middle" />
+            android:background="@color/common_body_tip_color"/>
 
         <TextView
             android:id="@+id/timeline_time_text"
             style="@style/common_text_style_14_333333"
-            android:layout_width="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_width="@dimen/common_margin_30dp"
+            android:layout_height="@dimen/common_margin_30dp"
             android:layout_centerHorizontal="true"
-            android:gravity="center_vertical"
+            android:layout_centerInParent="true"
+            android:background="@drawable/income_type_image_bg"
+            android:gravity="center"
             android:singleLine="true"
             android:text="05-23"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@android:color/white"
             android:textSize="9sp"
-            tools:ignore="RtlHardcoded" />
+            tools:ignore="RtlHardcoded"/>
 
         <TextView
             android:id="@+id/incometextallView"
             style="@style/common_text_style_14_333333"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/common_margin_70dp"
-            android:layout_toStartOf="@+id/timeline_time"
-            android:layout_toLeftOf="@+id/timeline_time"
+            android:layout_marginEnd="26dp"
+            android:layout_marginRight="26dp"
+            android:layout_toLeftOf="@+id/timeline_time_text"
+            android:layout_toStartOf="@+id/timeline_time_text"
             android:gravity="center_vertical"
             android:singleLine="true"
             android:text="收入￥58"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/common_body_tip_colors"
             android:textSize="@dimen/common_text_size_12sp"
-            tools:ignore="RtlHardcoded" />
+            tools:ignore="RtlHardcoded"/>
 
         <TextView
             android:id="@+id/paytextallView"
             style="@style/common_text_style_14_333333"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/common_margin_70dp"
-            android:layout_toEndOf="@+id/timeline_time"
-            android:layout_toRightOf="@+id/timeline_time"
+            android:layout_marginLeft="26dp"
+            android:layout_marginStart="26dp"
+            android:layout_toEndOf="@+id/timeline_time_text"
+            android:layout_toRightOf="@+id/timeline_time_text"
             android:gravity="center_vertical"
             android:singleLine="true"
             android:text="支出￥34.44"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/common_body_tip_colors"
             android:textSize="@dimen/common_text_size_12sp"
-            tools:ignore="RtlHardcoded" />
+            tools:ignore="RtlHardcoded"/>
 
     </RelativeLayout>
 
@@ -204,65 +199,56 @@
 
         <LinearLayout
             style="@style/common_vertical_division_line_style"
-            android:background="@color/common_body_tip_color"
             android:layout_width="0.5dp"
             android:layout_height="70dp"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:background="@color/common_body_tip_color"/>
 
         <ImageView
             android:id="@+id/income_edit_view"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:padding="@dimen/common_margin_8dp"
+            android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:padding="@dimen/common_margin_8dp"
             android:src="@mipmap/income_edit"
-            android:visibility="gone" />
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/incometextView"
             style="@style/common_text_style_14_333333"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/common_margin_70dp"
-            android:layout_toStartOf="@+id/timeline"
+            android:layout_marginEnd="@dimen/common_margin_16dp"
+            android:layout_marginRight="@dimen/common_margin_16dp"
             android:layout_toLeftOf="@+id/timeline"
+            android:layout_toStartOf="@+id/timeline"
             android:gravity="center_vertical"
             android:singleLine="true"
             android:text="其他￥34.44"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/common_body_tip_colors"
-            tools:ignore="RtlHardcoded" />
-
-        <!--<com.alorma.timeline.RoundTimelineView-->
-            <!--android:id="@+id/timeline"-->
-            <!--android:layout_width="@dimen/common_margin_70dp"-->
-            <!--android:layout_height="@dimen/common_margin_70dp"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--app:timeline_indicatorColor="@color/common_body_tip_color"-->
-            <!--app:timeline_indicatorSize="20dp"-->
-            <!--app:timeline_internalPadding="0.5dp"-->
-            <!--app:timeline_lineColor="@color/common_body_tip_color"-->
-            <!--app:timeline_lineStyle="linear"-->
-            <!--app:timeline_lineWidth="1dp"-->
-            <!--app:timeline_type="middle" />-->
+            tools:ignore="RtlHardcoded"/>
 
         <ImageView
             android:id="@+id/timeline"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:padding="0.5dp"
+            android:layout_width="@dimen/common_margin_40dp"
+            android:layout_height="@dimen/common_margin_40dp"
+            android:layout_centerHorizontal="true"
             android:layout_centerInParent="true"
-            android:background="@color/common_body_tip_color"
-            android:layout_centerHorizontal="true"/>
+            android:background="@drawable/income_type_image_bg"
+            android:padding="0.5dp"/>
 
         <TextView
             android:id="@+id/paytextView"
             style="@style/common_text_style_14_333333"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/common_margin_70dp"
+            android:layout_marginLeft="@dimen/common_margin_16dp"
+            android:layout_marginStart="@dimen/common_margin_16dp"
             android:layout_toEndOf="@+id/timeline"
             android:layout_toRightOf="@+id/timeline"
             android:gravity="center_vertical"
@@ -270,7 +256,7 @@
             android:text="买菜￥34.44"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/common_body_tip_colors"
-            tools:ignore="RtlHardcoded" />
+            tools:ignore="RtlHardcoded"/>
 
         <ImageView
             android:id="@+id/income_delete_view"
@@ -282,7 +268,7 @@
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:background="@mipmap/income_delete"
-            android:visibility="gone" />
+            android:visibility="gone"/>
 
     </RelativeLayout>
 
@@ -307,7 +293,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/common_body_tip_color"
             android:textSize="@dimen/common_text_size_16sp"
-            tools:ignore="RtlHardcoded" />
+            tools:ignore="RtlHardcoded"/>
 
         <TextView
             style="@style/common_text_style_14_333333"
@@ -319,7 +305,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/common_body_tip_color"
             android:textSize="@dimen/common_text_size_16sp"
-            tools:ignore="RtlHardcoded" />
+            tools:ignore="RtlHardcoded"/>
 
     </LinearLayout>
 

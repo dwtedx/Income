@@ -37,10 +37,6 @@ android {
         abortOnError false
     }
 
-    dexOptions {
-        javaMaxHeapSize "4g"
-    }
-
     signingConfigs {
         debug {
             storeFile file("./../dwtedx")
@@ -75,7 +71,6 @@ dependencies {
     implementation project(path: ':pulltorefresh')
     implementation project(path: ':ocrui')
     implementation project(path: ':imagepreview')
-    implementation 'com.github.alorma:timelineview:2.3.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
     implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
