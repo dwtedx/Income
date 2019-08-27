@@ -116,7 +116,7 @@ public class PayingFragment extends BaseFragment implements RecordKeyboardView.O
                     intent.putExtra("isShowAdd", true);
                     startActivity(intent);
                 }else {
-                    mCheckImageView.setImageResource(CommonUtility.getImageIdByName(mDiTypeList.get(postion).getIcon()));
+                    mCheckImageView.setImageResource(CommonUtility.getImageIdByName(getContext(), mDiTypeList.get(postion).getIcon()));
                     mCheckImageView.setAnimation(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_in));
                     mCheckTextView.setText(mDiTypeList.get(postion).getName());
                     mCheckTextView.setAnimation(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_in));
@@ -274,7 +274,7 @@ public class PayingFragment extends BaseFragment implements RecordKeyboardView.O
                         new MaterialSimpleListItem.Builder(getContext())
                                 .content(diAccountList.get(i).getName())
                                 .id(diAccountList.get(i).getId())
-                                .icon(CommonUtility.getImageIdByName(diAccountList.get(i).getIcon()))
+                                .icon(CommonUtility.getImageIdByName(getContext(), diAccountList.get(i).getIcon()))
                                 .iconPaddingDp(8)
                                 .backgroundColor(Color.rgb(Integer.parseInt(colorArr[0]), Integer.parseInt(colorArr[1]), Integer.parseInt(colorArr[2])))
                                 .build());

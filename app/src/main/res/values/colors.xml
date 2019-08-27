@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#00aaee</color>
-    <color name="colorPrimaryDark">#e584c8e4</color>
+    <color name="colorPrimary">#00AAEE</color>
+    <color name="colorPrimaryDark">#E584C8E4</color>
     <color name="colorAccent">#FF4081</color>
 
     <color name="common_home_white">#80ffffff</color>
@@ -38,4 +38,6 @@
 
     <!-- 背景阴影颜色 -->
     <color name="rfab__color_shadow">#c6c6c6</color>
+
+    <color name="bottom_bg">#AA000000</color>
 </resources>

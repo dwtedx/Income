@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.alorma.timeline.TimelineView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.dwtedx.income.R;
 import com.dwtedx.income.addrecord.IncomeDetailActivity;
 import com.dwtedx.income.entity.DiIncome;
@@ -55,6 +58,9 @@ public class DiIncomeLineAdapter extends RecyclerView.Adapter<DiIncomeLineAdapte
      * Description 时间显示
      */
     private String getDate(String date){
+        if(CommonUtility.isEmpty(date)){
+            return null;
+        }
         try {
             String ret = null;
             long create = format.parse(date).getTime();
@@ -153,8 +159,11 @@ public class DiIncomeLineAdapter extends RecyclerView.Adapter<DiIncomeLineAdapte
             viewHolder.incomeText.setText("");
 
             //时光轴图片
-            Glide.with(mContext).load(CommonUtility.getImageIdByName(null != mDiIncome.getIcon()?mDiIncome.getIcon():CommonConstants.PAYTYPE_DIY_ICON)).into(viewHolder.timeline);
-            viewHolder.timeline.setTimelineType(TimelineView.TYPE_MIDDLE);
+            Glide.with(mContext)
+                    .load(CommonUtility.getImageIdByName(mContext, null != mDiIncome.getIcon()?mDiIncome.getIcon():CommonConstants.PAYTYPE_DIY_ICON))
+                    .override(30, 30)
+                    .into(viewHolder.timeline);
+            //viewHolder.timeline.setTimelineType(TimelineView.TYPE_MIDDLE);
 
             //是否第一个
             viewHolder.tipText.setText("");
@@ -168,8 +177,11 @@ public class DiIncomeLineAdapter extends RecyclerView.Adapter<DiIncomeLineAdapte
             viewHolder.pyaText.setText("");
 
             //时光轴图片
-            Glide.with(mContext).load(CommonUtility.getImageIdByName(null != mDiIncome.getIcon()?mDiIncome.getIcon():CommonConstants.INCOME_DIY_ICON)).into(viewHolder.timeline);
-            viewHolder.timeline.setTimelineType(TimelineView.TYPE_MIDDLE);
+            Glide.with(mContext)
+                    .load(CommonUtility.getImageIdByName(mContext, null != mDiIncome.getIcon()?mDiIncome.getIcon():CommonConstants.INCOME_DIY_ICON))
+                    .override(30, 30)
+                    .into(viewHolder.timeline);
+            //viewHolder.timeline.setTimelineType(TimelineView.TYPE_MIDDLE);
 
             //是否第一个
             viewHolder.tipText.setText("");
@@ -199,7 +211,7 @@ public class DiIncomeLineAdapter extends RecyclerView.Adapter<DiIncomeLineAdapte
 
             //时光轴图片
             Glide.with(mContext).load(R.mipmap.time_line_start).into(viewHolder.timeline);
-            viewHolder.timeline.setTimelineType(TimelineView.TYPE_END);
+            //viewHolder.timeline.setTimelineType(TimelineView.TYPE_END);
 
             //是否第一个
             viewHolder.tipText.setText(mDiIncome.getCreatetime());
@@ -281,7 +293,8 @@ public class DiIncomeLineAdapter extends RecyclerView.Adapter<DiIncomeLineAdapte
 
         TextView incomeText, pyaText, tipText, timelinetimetext, incomeAllText, pyaAllText, incomepolltextView, paytextpollView, incomepollTitletextView, paytextpollTitleView;
         RiseNumberTextView timelinePollText;
-        TimelineView timeline, timelinetime, timelinePollTime;
+        ImageView timeline;
+        TimelineView timelinetime, timelinePollTime;
         LinearLayout tipView;
         RelativeLayout timeLayoutView, timelineLayout, pollLayoutView;
         ImageView incomeEditView;
@@ -292,7 +305,7 @@ public class DiIncomeLineAdapter extends RecyclerView.Adapter<DiIncomeLineAdapte
             pyaText = (TextView) itemView.findViewById(R.id.paytextView);
             incomeAllText = (TextView) itemView.findViewById(R.id.incometextallView);
             pyaAllText = (TextView) itemView.findViewById(R.id.paytextallView);
-            timeline = (TimelineView) itemView.findViewById(R.id.timeline);
+            timeline = (ImageView) itemView.findViewById(R.id.timeline);
             timelinetime = (TimelineView) itemView.findViewById(R.id.timeline_time);
             timelinePollTime = (TimelineView) itemView.findViewById(R.id.timeline_poll_time);
             timelinetimetext = (TextView) itemView.findViewById(R.id.timeline_time_text);

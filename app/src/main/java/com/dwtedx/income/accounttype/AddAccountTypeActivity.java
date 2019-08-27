@@ -78,7 +78,7 @@ public class AddAccountTypeActivity extends BaseActivity implements OnClickListe
             mTypeName.setText(mDiTypeUpdate.getName());
             //图标
             mTypeImage = mDiTypeUpdate.getIcon();
-            mTypeDiyImage.setImageResource(CommonUtility.getImageIdByName(mDiTypeUpdate.getIcon()));
+            mTypeDiyImage.setImageResource(CommonUtility.getImageIdByName(this, mDiTypeUpdate.getIcon()));
 
             //颜色处理
             mSelectedColor = mDiTypeUpdate.getColor();
@@ -96,7 +96,7 @@ public class AddAccountTypeActivity extends BaseActivity implements OnClickListe
                 mSelectedColor = CommonConstants.INCOME_DIY_COLOR;
                 mTypeImage = CommonConstants.INCOME_DIY_ICON;
             }
-            mTypeDiyImage.setImageResource(CommonUtility.getImageIdByName(mTypeImage));
+            mTypeDiyImage.setImageResource(CommonUtility.getImageIdByName(this, mTypeImage));
             //初始化颜色
             String[] colorArr = mSelectedColor.split(",");
             mTypePreselect = Color.rgb(Integer.parseInt(colorArr[0]), Integer.parseInt(colorArr[1]), Integer.parseInt(colorArr[2]));
@@ -200,7 +200,7 @@ public class AddAccountTypeActivity extends BaseActivity implements OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_CHOOSE_IMAGE) {
             mTypeImage = data.getStringExtra("ditypeimage");
-            mTypeDiyImage.setImageResource(CommonUtility.getImageIdByName(mTypeImage));
+            mTypeDiyImage.setImageResource(CommonUtility.getImageIdByName(this, mTypeImage));
             mSelectedColor = data.getStringExtra("ditypecolor");
             String[] colorArr = mSelectedColor.split(",");
             mTypePreselect = Color.rgb(Integer.parseInt(colorArr[0]), Integer.parseInt(colorArr[1]), Integer.parseInt(colorArr[2]));

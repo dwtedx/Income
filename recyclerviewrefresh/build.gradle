@@ -12,7 +12,7 @@ android {
     resourcePrefix "AnimRefreshRecyclerView" // 可以随便填，不知道干嘛用的
 
     defaultConfig {
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"

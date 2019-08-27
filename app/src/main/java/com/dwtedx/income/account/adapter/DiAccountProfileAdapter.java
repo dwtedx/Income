@@ -49,7 +49,7 @@ public class DiAccountProfileAdapter extends ArrayAdapter<DiAccount> {
         }
 
         DiAccount mDiAccount = getItem(position);
-        Glide.with(mContext).load(CommonUtility.getImageIdByName(mDiAccount.getIcon())).into(viewHolder.mImageView);
+        Glide.with(mContext).load(CommonUtility.getImageIdByName(mContext, mDiAccount.getIcon())).into(viewHolder.mImageView);
 
         String[] colorArr = mDiAccount.getColor().split(",");
         int color = Color.rgb(Integer.parseInt(colorArr[0]), Integer.parseInt(colorArr[1]), Integer.parseInt(colorArr[2]));

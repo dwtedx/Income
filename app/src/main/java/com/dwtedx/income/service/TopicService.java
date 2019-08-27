@@ -8,6 +8,7 @@ import com.dwtedx.income.connect.SaDataProccessHandler;
 import com.dwtedx.income.connect.SaError;
 import com.dwtedx.income.connect.SaException;
 import com.dwtedx.income.entity.DiTopic;
+import com.dwtedx.income.entity.DiTopicvote;
 import com.dwtedx.income.utility.ParseJsonToObject;
 
 import org.json.JSONException;
@@ -78,5 +79,53 @@ public class TopicService {
         return task;
     }
 
+    /**
+     * 保存投票
+     * @param topicid
+     * @param topicvoteid
+     * @param userid
+     * @param name
+     * @param handler
+     */
+    public SaAsyncTask<Void, Void, List<DiTopicvote>> seveVoteResult(final int topicid, final int topicvoteid, final int userid, final String name, SaDataProccessHandler<Void, Void, List<DiTopicvote>> handler) {
+        handler.setUrl(ServiceAPI.WEB_API_TOPIC_SEVEVOTERESULT);
+        SaAsyncTask<Void, Void, List<DiTopicvote>> task = new SaAsyncTask<Void, Void, List<DiTopicvote>>(handler) {
+            @Override
+            protected List<DiTopicvote> doInBackground(Void... params) {
+                List<DiTopicvote> result = null;
+                try {
+                    BaseHttpResponseHandler<List<DiTopicvote>> dataHandler = new
+                            BaseHttpResponseHandler<List<DiTopicvote>>() {
 
+                                @Override
+                                public List<DiTopicvote> getResult(Object jsonObject) throws SaException {
+                                    List<DiTopicvote> resultData = ParseJsonToObject.getObjectList(DiTopicvote.class, jsonObject);
+                                    return resultData;
+                                }
+                            };
+                    JSONObject requestParameter = new JSONObject();
+                    try {
+                        requestParameter.put("topicid", topicid);
+                        requestParameter.put("topicvoteid", topicvoteid);
+                        requestParameter.put("userid", userid);
+                        requestParameter.put("name", name);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        throw new SaException(SaError.ERROR_TYPE_JSON, e);
+                    }
+                    result = handler.getRequestExecutor().executeRequest(ServiceParamterUtil.
+                            genParamterJSONObject(requestParameter), dataHandler);
+                } catch (SaException e) {
+                    setErrorObj(e);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setErrorObj(new SaException(SaError.ERROR_TYPE_UNKNOWN, e));
+                }
+                return result;
+            }
+        };
+        task.execute();
+        return task;
+    }
 }

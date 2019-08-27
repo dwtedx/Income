@@ -382,6 +382,9 @@
     <string name="topic_share_text"> 分享</string>
     <string name="topic_talk_text"> 回复</string>
     <string name="topic_liked_text"> 赞</string>
+    <string name="topic_add_tip_text">这一刻的想法&#046;&#046;&#046;</string>
+    <string name="topic_add_title">发表观点</string>
+    <string name="topic_add_send">发表</string>
 
     <!--<string name="app_name">PushDemo</string>-->
     <!--<string name="ok">确认</string>-->

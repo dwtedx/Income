@@ -1710,20 +1710,16 @@ public class CommonUtility {
      * @param name
      * @return
      */
-    public static int getImageIdByName(String name) {
-        int value = 0;
-        if (null != name) {
-            if (name.indexOf(".") != -1) {
-                name = name.substring(0, name.indexOf("."));
-            }
-            Class<R.mipmap> cls = R.mipmap.class;
-            try {
-                value = cls.getDeclaredField(name).getInt(null);
-            } catch (Exception e) {
-
-            }
+    public static int getImageIdByName(Context ctx, String name) {
+        if (name.indexOf(".") != -1) {
+            name = name.substring(0, name.lastIndexOf("."));
         }
-        return value;
+        int resId = ctx.getResources().getIdentifier(name, "mipmap", ctx.getPackageName());
+        //如果没有在"mipmap"下找到imageName,将会返回0
+        if(0 == resId){
+            resId = ctx.getResources().getIdentifier(name, "drawable", ctx.getPackageName());
+        }
+        return resId;
     }
 
     /**

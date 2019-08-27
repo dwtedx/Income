@@ -189,7 +189,7 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
             };
             holder.mVoteRecyclerView.setLayoutManager(layoutManagerHeader);
 
-            holder.mVoteRecyclerView.setAdapter(new TopicVoteRecyclerAdapter(mContext, data.getTopicvote(), holder.mRecyclerView));
+            holder.mVoteRecyclerView.setAdapter(new TopicVoteRecyclerAdapter(mContext, data, holder.mVoteRecyclerView));
         }else{
             holder.mVoteRecyclerLayoutView.setVisibility(View.GONE);
         }

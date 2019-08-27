@@ -3,18 +3,35 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?android:attr/selectableItemBackground"
+    android:padding="@dimen/common_margin_4dp"
     android:orientation="vertical">
+
+    <com.dwtedx.income.widget.ProgressView
+        android:id="@+id/m_item_progress_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_margin_45dp" />
 
     <TextView
         android:id="@+id/m_item_text_view"
         style="@style/common_text_style_14_333333"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
+        android:background="@drawable/button_white_vote_bg"
         android:gravity="center"
-        android:paddingStart="@dimen/common_margin_16dp"
-        android:paddingLeft="@dimen/common_margin_16dp"
-        android:paddingEnd="@dimen/common_margin_16dp"
-        android:paddingRight="@dimen/common_margin_16dp"
         android:text="@string/app_name" />
+
+    <TextView
+        android:id="@+id/m_item_persion_text_view"
+        style="@style/common_text_style_14_333333"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:gravity="center"
+        android:paddingStart="@dimen/common_margin_12dp"
+        android:paddingLeft="@dimen/common_margin_12dp"
+        android:paddingEnd="@dimen/common_margin_12dp"
+        android:paddingRight="@dimen/common_margin_12dp"
+        android:text="200人" />
 
 </RelativeLayout>

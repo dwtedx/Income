@@ -202,6 +202,13 @@
         android:layout_below="@+id/timeline_time_layout"
         android:background="?android:attr/selectableItemBackground">
 
+        <LinearLayout
+            style="@style/common_vertical_division_line_style"
+            android:background="@color/common_body_tip_color"
+            android:layout_width="0.5dp"
+            android:layout_height="70dp"
+            android:layout_centerHorizontal="true"/>
+
         <ImageView
             android:id="@+id/income_edit_view"
             android:layout_width="45dp"
@@ -229,18 +236,27 @@
             android:textColor="@color/common_body_tip_colors"
             tools:ignore="RtlHardcoded" />
 
-        <com.alorma.timeline.RoundTimelineView
+        <!--<com.alorma.timeline.RoundTimelineView-->
+            <!--android:id="@+id/timeline"-->
+            <!--android:layout_width="@dimen/common_margin_70dp"-->
+            <!--android:layout_height="@dimen/common_margin_70dp"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--app:timeline_indicatorColor="@color/common_body_tip_color"-->
+            <!--app:timeline_indicatorSize="20dp"-->
+            <!--app:timeline_internalPadding="0.5dp"-->
+            <!--app:timeline_lineColor="@color/common_body_tip_color"-->
+            <!--app:timeline_lineStyle="linear"-->
+            <!--app:timeline_lineWidth="1dp"-->
+            <!--app:timeline_type="middle" />-->
+
+        <ImageView
             android:id="@+id/timeline"
-            android:layout_width="@dimen/common_margin_70dp"
-            android:layout_height="@dimen/common_margin_70dp"
-            android:layout_centerHorizontal="true"
-            app:timeline_indicatorColor="@color/common_body_tip_color"
-            app:timeline_indicatorSize="20dp"
-            app:timeline_internalPadding="0.5dp"
-            app:timeline_lineColor="@color/common_body_tip_color"
-            app:timeline_lineStyle="linear"
-            app:timeline_lineWidth="1dp"
-            app:timeline_type="middle" />
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:padding="0.5dp"
+            android:layout_centerInParent="true"
+            android:background="@color/common_body_tip_color"
+            android:layout_centerHorizontal="true"/>
 
         <TextView
             android:id="@+id/paytextView"

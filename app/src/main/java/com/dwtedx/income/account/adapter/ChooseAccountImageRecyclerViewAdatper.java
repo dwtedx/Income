@@ -42,7 +42,7 @@ public class ChooseAccountImageRecyclerViewAdatper extends RecyclerView.Adapter<
     @Override
     public void onBindViewHolder(final ChoosePayRecyclerViewHolder myViewHolder, int pos) {//绑定ViewHolder
 
-        myViewHolder.mImageView.setImageResource(CommonUtility.getImageIdByName(ACCOUNT_IMAGE_ICON[pos]));//为ViewHolder里的控件设置值
+        myViewHolder.mImageView.setImageResource(CommonUtility.getImageIdByName(context, ACCOUNT_IMAGE_ICON[pos]));//为ViewHolder里的控件设置值
         myViewHolder.mTypeLayoutView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

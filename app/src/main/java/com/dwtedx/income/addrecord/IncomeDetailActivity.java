@@ -104,7 +104,7 @@ public class IncomeDetailActivity extends BaseActivity implements RecordKeyboard
 
         mDiTypeList = DITypeService.getInstance(this).findAll(mIncome.getRole());
         mCheckImageView = (ImageView) findViewById(R.id.imageView);
-        mCheckImageView.setImageResource(CommonUtility.getImageIdByName(DITypeService.getInstance(this).find(mIncome.getTypeid()).getIcon()));
+        mCheckImageView.setImageResource(CommonUtility.getImageIdByName(this, DITypeService.getInstance(this).find(mIncome.getTypeid()).getIcon()));
         mCheckTextView = (TextView) findViewById(R.id.textView);
         mCheckTextView.setText(mIncome.getType());
         mCheckTypeId = mIncome.getTypeid();
@@ -129,7 +129,7 @@ public class IncomeDetailActivity extends BaseActivity implements RecordKeyboard
         adapter.setOnItemClickListener(new IncomeDetailRecyclerViewAdatper.OnItemClickListener() {//添加监听器
             @Override
             public void onItemClick(View view, int postion) {
-                mCheckImageView.setImageResource(CommonUtility.getImageIdByName(mDiTypeList.get(postion).getIcon()));
+                mCheckImageView.setImageResource(CommonUtility.getImageIdByName(IncomeDetailActivity.this, mDiTypeList.get(postion).getIcon()));
                 mCheckImageView.setAnimation(AnimationUtils.loadAnimation(IncomeDetailActivity.this, android.R.anim.fade_in));
                 mCheckTextView.setText(mDiTypeList.get(postion).getName());
                 mCheckTextView.setAnimation(AnimationUtils.loadAnimation(IncomeDetailActivity.this, android.R.anim.fade_in));
@@ -468,7 +468,7 @@ public class IncomeDetailActivity extends BaseActivity implements RecordKeyboard
                         new MaterialSimpleListItem.Builder(this)
                                 .content(diAccountList.get(i).getName())
                                 .id(diAccountList.get(i).getId())
-                                .icon(CommonUtility.getImageIdByName(diAccountList.get(i).getIcon()))
+                                .icon(CommonUtility.getImageIdByName(IncomeDetailActivity.this, diAccountList.get(i).getIcon()))
                                 .iconPaddingDp(8)
                                 .backgroundColor(Color.rgb(Integer.parseInt(colorArr[0]), Integer.parseInt(colorArr[1]), Integer.parseInt(colorArr[2])))
                                 .build());

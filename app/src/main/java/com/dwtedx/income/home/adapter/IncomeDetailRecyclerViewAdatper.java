@@ -54,7 +54,7 @@ public class IncomeDetailRecyclerViewAdatper extends RecyclerView.Adapter<Income
         DiType diType = mDiTypeList.get(pos);
 
         myViewHolder.mTextView.setText(diType.getName());//为ViewHolder里的控件设置值
-        myViewHolder.mImageView.setImageResource(CommonUtility.getImageIdByName(diType.getIcon()));//为ViewHolder里的控件设置值
+        myViewHolder.mImageView.setImageResource(CommonUtility.getImageIdByName(context, diType.getIcon()));//为ViewHolder里的控件设置值
         if (mOnItemClickListener != null) {//如果设置了监听那么它就不为空，然后回调相应的方法
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

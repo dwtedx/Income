@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".topic.AddTopicActivity">
+
+    <com.dwtedx.income.widget.AppTitleBar
+        android:id="@+id/m_app_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:left_btn_text="@string/back"
+        app:left_btn_visible="true"
+        app:right_btn_text="@string/topic_add_send"
+        app:right_btn_visible="true"
+        app:text="@string/topic_add_title" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/m_app_title">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <EditText
+                android:id="@+id/m_topic_content"
+                style="@style/common_text_style_14_333333"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:height="140dp"
+                android:background="@android:color/transparent"
+                android:gravity="top"
+                android:hint="@string/topic_add_tip_text"
+                android:maxLength="200"
+                android:padding="@dimen/common_margin_16dp"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/m_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/common_margin_14dp"
+                android:layout_marginLeft="@dimen/common_margin_14dp"
+                android:layout_marginTop="@dimen/common_margin_16dp"
+                android:layout_marginEnd="@dimen/common_margin_14dp"
+                android:layout_marginRight="@dimen/common_margin_14dp"
+                android:background="@color/common_color_white"
+                android:overScrollMode="never"
+                app:layout_constraintTop_toBottomOf="@id/m_topic_content" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/m_vote_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/common_margin_14dp"
+                android:layout_marginLeft="@dimen/common_margin_14dp"
+                android:layout_marginTop="@dimen/common_margin_16dp"
+                android:layout_marginEnd="@dimen/common_margin_14dp"
+                android:layout_marginRight="@dimen/common_margin_14dp"
+                android:background="@color/common_color_white"
+                android:overScrollMode="never"
+                app:layout_constraintTop_toBottomOf="@id/m_recycler_view" />
+
+            <RelativeLayout
+                android:id="@+id/footer_local_layout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="@dimen/common_margin_16dp"
+                android:background="@color/common_color_white"
+                app:layout_constraintTop_toBottomOf="@id/m_vote_recycler_view">
+
+                <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+                <ImageView
+                    android:id="@+id/scan_record_icon_location_image"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/common_margin_16dp"
+                    android:layout_marginLeft="@dimen/common_margin_16dp"
+                    android:contentDescription="@string/app_name"
+                    app:srcCompat="@drawable/ic_localtion_black" />
+
+                <TextView
+                    android:id="@+id/m_record_icon_location"
+                    style="@style/common_text_style_14_333333"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/common_margin_16dp"
+                    android:layout_marginLeft="@dimen/common_margin_16dp"
+                    android:layout_marginEnd="@dimen/common_margin_16dp"
+                    android:layout_marginRight="@dimen/common_margin_16dp"
+                    android:layout_toStartOf="@+id/m_scan_record_type_credit_card"
+                    android:layout_toLeftOf="@+id/m_scan_record_type_credit_card"
+                    android:layout_toEndOf="@+id/scan_record_icon_location_image"
+                    android:layout_toRightOf="@+id/scan_record_icon_location_image"
+                    android:ellipsize="end"
+                    android:gravity="center|start"
+                    android:lines="1"
+                    android:text="@string/scan_result_location"
+                    android:textSize="@dimen/common_text_size_12sp" />
+
+            </RelativeLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.constraint.ConstraintLayout>

@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/m_item_icon_view"
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="106dp"
         android:contentDescription="@string/app_name"
         android:scaleType="centerCrop"
         android:src="@mipmap/imageloader_default_smll" />

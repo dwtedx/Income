@@ -66,7 +66,7 @@ public class AddAccountActivity extends BaseActivity implements OnClickListener,
             mAddAccountMoneysum.setText(CommonUtility.doubleFormat(mAccountUpdate.getMoneysum()));
             mAddAccountName.setText(mAccountUpdate.getName());
             mAccountTypeImage = mAccountUpdate.getIcon();
-            mAddAccountImage.setImageResource(CommonUtility.getImageIdByName(mAccountUpdate.getIcon()));//为ViewHolder里的控件设置值
+            mAddAccountImage.setImageResource(CommonUtility.getImageIdByName(this, mAccountUpdate.getIcon()));//为ViewHolder里的控件设置值
             //颜色处理
             mSelectedColor = mAccountUpdate.getColor();
             String[] colorArr = mSelectedColor.split(",");
@@ -215,7 +215,7 @@ public class AddAccountActivity extends BaseActivity implements OnClickListener,
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_CHOOSE_IMAGE) {
             mAccountTypeImage = data.getStringExtra("diaccountimage");
-            mAddAccountImage.setImageResource(CommonUtility.getImageIdByName(mAccountTypeImage));
+            mAddAccountImage.setImageResource(CommonUtility.getImageIdByName(this, mAccountTypeImage));
         }
     }
 

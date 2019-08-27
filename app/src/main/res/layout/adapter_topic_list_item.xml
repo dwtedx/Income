@@ -148,11 +148,11 @@
             android:id="@+id/m_vote_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/common_margin_16dp"
-            android:layout_marginLeft="@dimen/common_margin_16dp"
-            android:layout_marginTop="@dimen/common_margin_16dp"
-            android:layout_marginEnd="@dimen/common_margin_16dp"
-            android:layout_marginRight="@dimen/common_margin_16dp"
+            android:layout_marginStart="@dimen/common_margin_12dp"
+            android:layout_marginLeft="@dimen/common_margin_12dp"
+            android:layout_marginTop="@dimen/common_margin_12dp"
+            android:layout_marginEnd="@dimen/common_margin_12dp"
+            android:layout_marginRight="@dimen/common_margin_12dp"
             android:background="@color/common_color_white" />
 
     </LinearLayout>
@@ -161,7 +161,7 @@
         android:id="@+id/m_topic_location_layout_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/common_margin_16dp"
+        android:layout_marginTop="@dimen/common_margin_12dp"
         android:paddingStart="@dimen/common_margin_16dp"
         android:paddingLeft="@dimen/common_margin_16dp"
         android:paddingEnd="@dimen/common_margin_16dp"

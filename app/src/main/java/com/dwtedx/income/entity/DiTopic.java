@@ -47,6 +47,8 @@ public class DiTopic {
     private String username;
     private String userpath;
     private int talkcount;
+    private boolean voted;
+    private int votecount;
     private List<DiTopicimg> topicimg;
     private List<DiTopicvote> topicvote;
 
@@ -248,5 +250,21 @@ public class DiTopic {
 
     public void setTopicvote(List<DiTopicvote> topicvote) {
         this.topicvote = topicvote;
+    }
+
+    public boolean isVoted() {
+        return voted;
+    }
+
+    public void setVoted(boolean voted) {
+        this.voted = voted;
+    }
+
+    public int getVotecount() {
+        return votecount;
+    }
+
+    public void setVotecount(int votecount) {
+        this.votecount = votecount;
     }
 }

@@ -81,7 +81,7 @@ public class AccountListActivity extends BaseActivity implements PullToRefreshBa
         headerView.findViewById(R.id.nav_header_view).setBackgroundColor(color);
         ImageView mAccountImage = (ImageView) headerView.findViewById(R.id.account_money_image);
         //图片
-        Glide.with(this).load(CommonUtility.getImageIdByName(mAccountIcon)).into(mAccountImage);
+        Glide.with(this).load(CommonUtility.getImageIdByName(this, mAccountIcon)).into(mAccountImage);
         mAccountMoney = (TextView) headerView.findViewById(R.id.account_money);
         mAccountMoney.setText(CommonUtility.doubleFormat(mAccountmoney));
         headerView.findViewById(R.id.account_month_money_view).setOnClickListener(this);

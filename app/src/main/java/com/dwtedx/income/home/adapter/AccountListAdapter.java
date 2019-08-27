@@ -81,7 +81,7 @@ public class AccountListAdapter extends BaseAdapter {
 
                 mHolder.time_textview.setText(mDiIncome.getRecordtimeformat());//为ViewHolder里的控件设置值
                 mHolder.time_textview.setTextColor(ContextCompat.getColor(mContext, R.color.common_body_tip_colors));
-                mHolder.type_imageView.setImageResource(CommonUtility.getImageIdByName(mDiIncome.getIcon()));//为ViewHolder里的控件设置值
+                mHolder.type_imageView.setImageResource(CommonUtility.getImageIdByName(mContext, mDiIncome.getIcon()));//为ViewHolder里的控件设置值
                 mHolder.account_textview.setText(mDiIncome.getAccount());
 
                 //支出或收入

@@ -157,7 +157,7 @@ public class TopicFragment extends BaseFragment implements SwipeRecyclerView.OnL
         switch (v.getId()){
 
             case R.id.home_item_layout:
-                startActivity(new Intent(getContext(), ItemCategoryTopActivity.class));
+                startActivity(new Intent(getContext(), AddTopicActivity.class));
                 break;
         }
     }

@@ -44,7 +44,7 @@ public class IncomeProfileRecyclerViewAdatper extends RecyclerView.Adapter<Incom
         DiType diType = mDiTypeList.get(pos);
 
         myViewHolder.mTextView.setText(diType.getName());//为ViewHolder里的控件设置值
-        myViewHolder.mImageView.setImageResource(CommonUtility.getImageIdByName(diType.getIcon()));//为ViewHolder里的控件设置值
+        myViewHolder.mImageView.setImageResource(CommonUtility.getImageIdByName(context, diType.getIcon()));//为ViewHolder里的控件设置值
 
     }
 

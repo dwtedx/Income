@@ -21,6 +21,10 @@ public class DiTopicvote {
 
     private int updateuser;
 
+    private int personnum;
+    private String percent;
+    private boolean checked;
+
     public int getId() {
         return id;
     }
@@ -99,5 +103,29 @@ public class DiTopicvote {
 
     public void setUpdateuser(int updateuser) {
         this.updateuser = updateuser;
+    }
+
+    public int getPersonnum() {
+        return personnum;
+    }
+
+    public void setPersonnum(int personnum) {
+        this.personnum = personnum;
+    }
+
+    public String getPercent() {
+        return percent;
+    }
+
+    public void setPercent(String percent) {
+        this.percent = percent;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 }

@@ -146,7 +146,7 @@ public class ScanDetailActivity extends BaseActivity implements AppTitleBar.OnTi
     }
 
     private void setDiType() {
-        mTypeImageView.setImageResource(CommonUtility.getImageIdByName(diType.getIcon()));
+        mTypeImageView.setImageResource(CommonUtility.getImageIdByName(this, diType.getIcon()));
         mTypeImageView.setAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_in));
         mTypeTextView.setText(diType.getName());
         mTypeTextView.setAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_in));
@@ -400,7 +400,7 @@ public class ScanDetailActivity extends BaseActivity implements AppTitleBar.OnTi
                         new MaterialSimpleListItem.Builder(this)
                                 .content(diAccountList.get(i).getName())
                                 .id(diAccountList.get(i).getId())
-                                .icon(CommonUtility.getImageIdByName(diAccountList.get(i).getIcon()))
+                                .icon(CommonUtility.getImageIdByName(this, diAccountList.get(i).getIcon()))
                                 .iconPaddingDp(8)
                                 .backgroundColor(Color.rgb(Integer.parseInt(colorArr[0]), Integer.parseInt(colorArr[1]), Integer.parseInt(colorArr[2])))
                                 .build());

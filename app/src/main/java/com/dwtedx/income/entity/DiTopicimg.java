@@ -121,8 +121,6 @@ public class DiTopicimg implements IThumbViewInfo {
         this.fullpath = fullpath;
     }
 
-
-
     @Override
     public String getUrl() {
         return fullpath;

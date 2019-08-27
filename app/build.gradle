@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.dwtedx.income"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 48
         versionName "3.0.0"
@@ -55,6 +55,11 @@ android {
             keyPassword 'dwtedx??'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 repositories {
@@ -83,10 +88,14 @@ dependencies {
     implementation 'com.android.support:support-vector-drawable:28.0.0'
     implementation 'com.wang.avi:library:2.1.3'
     implementation 'io.realm:realm-android:0.87.5'
-    implementation 'com.github.bumptech.glide:glide:3.8.0'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     //dependency for realm-database API (http://realm.io)
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.jakewharton:butterknife:9.0.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0'
+    //照片选择器
+    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.4'
+    //implementation 'com.ycjiang:ImagePreview:2.2.5'
     //新手引导
     implementation 'com.github.huburt-Hu:NewbieGuide:v2.4.0'
     implementation 'com.whiteelephant:monthandyearpicker:1.3.0'

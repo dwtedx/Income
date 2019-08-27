@@ -46,7 +46,7 @@ public class ChoosePayRecyclerViewAdatper extends RecyclerView.Adapter<ChoosePay
         final DiType diType = mDiTypeList.get(pos);
 
         myViewHolder.mTextView.setText(diType.getName());//为ViewHolder里的控件设置值
-        myViewHolder.mImageView.setImageResource(CommonUtility.getImageIdByName(diType.getIcon()));//为ViewHolder里的控件设置值
+        myViewHolder.mImageView.setImageResource(CommonUtility.getImageIdByName(context, diType.getIcon()));//为ViewHolder里的控件设置值
         myViewHolder.mTypeLayoutView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
