@@ -1,24 +1,34 @@
 package com.dwtedx.income.topic;
 
-import android.content.Context;
+import android.Manifest;
 import android.content.Intent;
-import android.graphics.Color;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.Switch;
+import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
+import com.baidu.location.BDAbstractLocationListener;
+import com.baidu.location.BDLocation;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+import com.baidu.location.Poi;
 import com.dwtedx.income.R;
+import com.dwtedx.income.accounttype.ChoosePayingTypeActivity;
 import com.dwtedx.income.base.BaseActivity;
-import com.dwtedx.income.entity.DiTopicimg;
+import com.dwtedx.income.scan.ChooseLocationActivity;
+import com.dwtedx.income.scan.ScanDetailActivity;
+import com.dwtedx.income.scan.ScanResultActivity;
 import com.dwtedx.income.topic.adapter.AddTopicImgRecyclerAdapter;
-import com.dwtedx.income.topic.adapter.TopicImgRecyclerAdapter;
+import com.dwtedx.income.utility.CommonUtility;
+import com.dwtedx.income.utility.ParseJsonToObject;
 import com.dwtedx.income.widget.AppTitleBar;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -31,7 +41,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class AddTopicActivity extends BaseActivity implements AddTopicImgRecyclerAdapter.OnAddPicClickListener, AddTopicImgRecyclerAdapter.OnItemClickListener {
+public class AddTopicActivity extends BaseActivity implements AddTopicImgRecyclerAdapter.OnAddPicClickListener, AddTopicImgRecyclerAdapter.OnItemClickListener, View.OnClickListener
+{
+    private static final int REQUEST_CODE_CHOOSE_LOCAL = 71;
+    private static final int ACCESS_COARSE_LOCALHOST_REQUEST_CODE = 72;
 
     @BindView(R.id.m_app_title)
     AppTitleBar mAppTitle;
@@ -39,26 +52,34 @@ public class AddTopicActivity extends BaseActivity implements AddTopicImgRecycle
     EditText mTopicContent;
     @BindView(R.id.m_recycler_view)
     RecyclerView mRecyclerView;
-    @BindView(R.id.scan_record_icon_location_image)
-    ImageView scanRecordIconLocationImage;
-    @BindView(R.id.m_record_icon_location)
-    TextView mRecordIconLocation;
-    @BindView(R.id.footer_local_layout)
-    RelativeLayout footerLocalLayout;
-    @BindView(R.id.container)
-    ConstraintLayout container;
+    @BindView(R.id.m_location_button)
+    Button mLocationButton;
+    @BindView(R.id.m_vote_button)
+    Button mVoteButton;
+    @BindView(R.id.m_vote_switch)
+    Switch mVoteSwitch;
+    @BindView(R.id.m_vote_recycler_view)
+    RecyclerView mVoteRecyclerView;
+
+    //百度定位7.6相关
+    public LocationClient mLocationClient;
+    private MyLocationListener myListener;
+    private List<String> mPoiList;
 
     //图片选择器
     List<LocalMedia> mLocalMediaList;
     //List<DiTopicimg> mDiTopicimgList;
     AddTopicImgRecyclerAdapter mAdapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_topic);
         ButterKnife.bind(this);
+
+        //定位
+        mLocationButton.setOnClickListener(this);
+        initLocation();
 
         mLocalMediaList = new ArrayList<LocalMedia>();
         mRecyclerView.setVisibility(View.VISIBLE);
@@ -73,6 +94,18 @@ public class AddTopicActivity extends BaseActivity implements AddTopicImgRecycle
         mAdapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
 
+        //投票
+        mVoteButton.setOnClickListener(this);
+        mVoteSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    mVoteRecyclerView.setVisibility(View.VISIBLE);
+                }else{
+                    mVoteRecyclerView.setVisibility(View.GONE);
+                }
+            }
+        });
 
     }
 
@@ -92,7 +125,28 @@ public class AddTopicActivity extends BaseActivity implements AddTopicImgRecycle
                     // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
                     mAdapter.notifyDataSetChanged();
                     break;
+
+                case REQUEST_CODE_CHOOSE_LOCAL:
+                    mLocationButton.setText(data.getStringExtra("POI"));
+                    break;
             }
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent;
+        switch (v.getId()) {
+            case R.id.m_location_button:
+                intent = new Intent(this, ChooseLocationActivity.class);
+                intent.putExtra("POI", ParseJsonToObject.getJsonFromObjList(mPoiList).toString());
+                startActivityForResult(intent, REQUEST_CODE_CHOOSE_LOCAL);
+                break;
+
+            case R.id.m_vote_button:
+                mVoteSwitch.setChecked(!mVoteSwitch.isChecked());
+                break;
+
         }
     }
 
@@ -121,7 +175,7 @@ public class AddTopicActivity extends BaseActivity implements AddTopicImgRecycle
                 .setOutputCameraPath("/Income/Images")// 自定义拍照保存路径,可不填
                 .enableCrop(false)// 是否裁剪 true or false
                 .compress(true)// 是否压缩 true or false
-                .glideOverride(160,160)// int glide 加载宽高，越小图片列表越流畅，但会影响列表图片浏览的清晰度
+                .glideOverride(160, 160)// int glide 加载宽高，越小图片列表越流畅，但会影响列表图片浏览的清晰度
                 .withAspectRatio(1, 1)// int 裁剪比例 如16:9 3:2 3:4 1:1 可自定义
                 .hideBottomControls(false)// 是否显示uCrop工具栏，默认不显示 true or false
                 .isGif(true)// 是否显示gif图片 true or false
@@ -146,4 +200,86 @@ public class AddTopicActivity extends BaseActivity implements AddTopicImgRecycle
                 .isDragFrame(false)// 是否可拖动裁剪框(固定)
                 .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
     }
+
+    ///////////////定位相关//////////////////////////////定位相关//////////////////////////////定位相关//////////////////////////////定位相关//////////////////////////////定位相关///////////////
+    private void initLocation() {
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            //申请WRITE_EXTERNAL_STORAGE权限
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION}, ACCESS_COARSE_LOCALHOST_REQUEST_CODE);
+        } else {
+            initLocationCode();
+        }
+    }
+
+    private void initLocationCode() {
+        mLocationClient = new LocationClient(getApplicationContext());
+        //声明LocationClient类
+        myListener = new MyLocationListener();
+        mLocationClient.registerLocationListener(myListener);
+        //注册监听函数
+        //第三步，配置定位SDK参数
+        LocationClientOption option = new LocationClientOption();
+        option.setIsNeedAddress(true);
+        option.setIsNeedLocationPoiList(true);
+        //可选，是否需要周边POI信息，默认为不需要，即参数为false
+        //如果开发者需要获得周边POI信息，此处必须为true
+        mLocationClient.setLocOption(option);
+        //mLocationClient为第二步初始化过的LocationClient对象
+        //需将配置好的LocationClientOption对象，通过setLocOption方法传递给LocationClient对象使用
+        //更多LocationClientOption的配置，请参照类参考中LocationClientOption类的详细说明
+        mLocationClient.start();
+    }
+
+    public class MyLocationListener extends BDAbstractLocationListener {
+
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
+            //以下只列举部分获取周边POI信息相关的结果
+            //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
+
+            List<Poi> poiList = location.getPoiList();
+            String cityStr = "中国";
+            if (!CommonUtility.isEmpty(location.getCity())) {
+                cityStr = location.getCity();
+            }
+            if (poiList.size() > 0) {
+                //位置
+                mPoiList = new ArrayList<>();
+                mPoiList.add(cityStr);
+                for (Poi poi : location.getPoiList()) {
+                    mPoiList.add(cityStr + "·" + poi.getName());
+                }
+                cityStr += "·" + poiList.get(0).getName();
+            }
+            mLocationButton.setText(cityStr);
+            //获取周边POI信息
+            //POI信息包括POI ID、名称等，具体信息请参照类参考中POI类的相关说明
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == ACCESS_COARSE_LOCALHOST_REQUEST_CODE) {
+            try {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission Granted
+                    initLocationCode();
+                } else {
+                    // Permission Denied
+                    Toast.makeText(this, "访问被拒绝！会导致很多功能异常！请到设置里面开启", Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(this, "访问被拒绝！会导致很多功能异常！请到设置里面开启", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    ///////////////定位相关//////////////////////////////定位相关//////////////////////////////定位相关//////////////////////////////定位相关//////////////////////////////定位相关///////////////
+
 }

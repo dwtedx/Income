@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout android:id="@+id/container"
-                                             xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                             android:background="@color/common_color_white"
-                                             tools:context=".topic.AddTopicActivity">
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_color_white"
+    tools:context=".topic.AddTopicActivity">
 
     <com.dwtedx.income.widget.AppTitleBar
         android:id="@+id/m_app_title"
@@ -57,31 +57,117 @@
                 android:overScrollMode="never"
                 app:layout_constraintTop_toBottomOf="@id/m_topic_content"/>
 
-            <Switch
-                android:id="@+id/m_vote_switch_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/common_margin_16dp"
-                android:layout_marginStart="@dimen/common_margin_16dp"
+            <RelativeLayout
+                android:id="@+id/topci_local_layout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:layout_marginTop="@dimen/common_margin_16dp"
-                android:switchMinWidth="20dp"
-                android:thumb="@drawable/switch_thumb"
-                android:track="@drawable/switch_track"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/m_recycler_view"/>
+                android:background="@color/common_color_white"
+                app:layout_constraintTop_toBottomOf="@id/m_recycler_view">
 
-            <TextView
-                style="@style/common_text_style_14_333333"
-                android:layout_width="wrap_content"
+                <LinearLayout style="@style/common_horizontal_division_line_style"/>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/common_margin_16dp"
+                    android:layout_marginStart="@dimen/common_margin_16dp"
+                    android:contentDescription="@string/app_name"
+                    app:srcCompat="@drawable/ic_localtion_black"/>
+
+                <Button
+                    android:id="@+id/m_location_button"
+                    style="@style/common_text_style_14_333333"
+                    android:layout_width="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:paddingEnd="@dimen/common_margin_12dp"
+                    android:paddingLeft="@dimen/common_margin_45dp"
+                    android:paddingRight="@dimen/common_margin_12dp"
+                    android:paddingStart="@dimen/common_margin_45dp"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:text="@string/scan_result_location"
+                    android:textAllCaps="false"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:src="@mipmap/forward"
+                    android:tint="@color/common_body_tip_colors"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/topci_vote_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:text="@string/topic_type_vate"
-                app:layout_constraintLeft_toRightOf="@id/m_vote_switch_view"
-                app:layout_constraintStart_toEndOf="@id/m_vote_switch_view"
-                app:layout_constraintTop_toBottomOf="@id/m_vote_switch_view"/>
+                android:layout_gravity="center_vertical"
+                android:background="@color/common_color_white"
+                app:layout_constraintTop_toBottomOf="@+id/topci_local_layout">
+
+                <LinearLayout style="@style/common_horizontal_division_line_style"/>
+
+                <ImageView
+                    android:layout_width="@dimen/common_margin_20dp"
+                    android:layout_height="@dimen/common_margin_20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:contentDescription="@string/app_name"
+                    android:tint="@color/common_body_tip_colors"
+                    app:srcCompat="@drawable/ic_vote_black"/>
+
+                <Button
+                    android:id="@+id/m_vote_button"
+                    style="@style/common_text_style_14_333333"
+                    android:layout_width="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:paddingEnd="@dimen/common_margin_12dp"
+                    android:paddingLeft="@dimen/common_margin_45dp"
+                    android:paddingRight="@dimen/common_margin_12dp"
+                    android:paddingStart="@dimen/common_margin_45dp"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:text="@string/topic_type_vate"
+                    android:textAllCaps="false"/>
+
+                <Switch
+                    android:id="@+id/m_vote_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="38dp"
+                    android:layout_marginRight="38dp"
+                    android:switchMinWidth="20dp"
+                    android:textOff="off"
+                    android:textOn="on"
+                    android:thumb="@drawable/switch_thumb"
+                    android:track="@drawable/switch_track"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:contentDescription="@string/app_name"
+                    android:src="@mipmap/forward"
+                    android:tint="@color/common_body_tip_colors"/>
+
+                <LinearLayout
+                    style="@style/common_horizontal_division_line_style"
+                    android:layout_alignParentBottom="true"/>
+
+            </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/m_vote_recycler_view"
@@ -94,52 +180,9 @@
                 android:layout_marginTop="@dimen/common_margin_16dp"
                 android:background="@color/common_color_white"
                 android:overScrollMode="never"
-                app:layout_constraintTop_toBottomOf="@id/m_vote_switch_view"/>
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/topci_vote_layout"/>
 
-            <RelativeLayout
-                android:id="@+id/footer_local_layout"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="@dimen/common_margin_16dp"
-                android:background="@color/common_color_white"
-                app:layout_constraintTop_toBottomOf="@id/m_vote_recycler_view">
-
-                <LinearLayout style="@style/common_horizontal_division_line_style"/>
-
-                <ImageView
-                    android:id="@+id/scan_record_icon_location_image"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/common_margin_16dp"
-                    android:layout_marginStart="@dimen/common_margin_16dp"
-                    android:contentDescription="@string/app_name"
-                    app:srcCompat="@drawable/ic_localtion_black"/>
-
-                <TextView
-                    android:id="@+id/m_record_icon_location"
-                    style="@style/common_text_style_14_333333"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="@dimen/common_margin_16dp"
-                    android:layout_marginLeft="@dimen/common_margin_16dp"
-                    android:layout_marginRight="@dimen/common_margin_16dp"
-                    android:layout_marginStart="@dimen/common_margin_16dp"
-                    android:layout_toEndOf="@+id/scan_record_icon_location_image"
-                    android:layout_toLeftOf="@+id/m_scan_record_type_credit_card"
-                    android:layout_toRightOf="@+id/scan_record_icon_location_image"
-                    android:layout_toStartOf="@+id/m_scan_record_type_credit_card"
-                    android:ellipsize="end"
-                    android:gravity="center|start"
-                    android:lines="1"
-                    android:text="@string/scan_result_location"
-                    android:textSize="@dimen/common_text_size_12sp"/>
-
-                <LinearLayout style="@style/common_horizontal_division_line_style"
-                              android:layout_alignParentBottom="true"/>
-
-            </RelativeLayout>
 
         </android.support.constraint.ConstraintLayout>
 

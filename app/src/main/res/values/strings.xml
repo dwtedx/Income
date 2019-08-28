@@ -378,6 +378,7 @@
     <!-- 发现话题投票 -->
     <string name="topic_type_talk">话题</string>
     <string name="topic_type_vate">投票</string>
+    <string name="topic_type_vate_tip">投票</string>
     <string name="topic_persion_text">%1$d\n人参与</string>
     <string name="topic_share_text"> 分享</string>
     <string name="topic_talk_text"> 回复</string>
