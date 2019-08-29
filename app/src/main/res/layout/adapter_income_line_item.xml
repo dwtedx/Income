@@ -36,7 +36,6 @@
                 android:singleLine="true"
                 android:text="@string/record_income_all"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/common_body_tip_colors"
                 tools:ignore="RtlHardcoded"/>
 
             <TextView
@@ -48,7 +47,6 @@
                 android:singleLine="true"
                 android:text="￥34.44"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/common_body_tip_colors"
                 android:textSize="@dimen/common_text_size_16sp"
                 tools:ignore="RtlHardcoded"/>
 
@@ -104,7 +102,6 @@
                 android:singleLine="true"
                 android:text="@string/record_pay_all"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/common_body_tip_colors"
                 tools:ignore="RtlHardcoded"/>
 
             <TextView
@@ -116,7 +113,6 @@
                 android:singleLine="true"
                 android:text="￥34.44"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/common_body_tip_colors"
                 android:textSize="@dimen/common_text_size_16sp"
                 tools:ignore="RtlHardcoded"/>
 
@@ -134,7 +130,7 @@
         <LinearLayout
             style="@style/common_vertical_division_line_style"
             android:layout_width="0.5dp"
-            android:layout_height="70dp"
+            android:layout_height="54dp"
             android:layout_centerHorizontal="true"
             android:background="@color/common_body_tip_color"/>
 
@@ -158,16 +154,15 @@
             android:id="@+id/incometextallView"
             style="@style/common_text_style_14_333333"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/common_margin_70dp"
-            android:layout_marginEnd="26dp"
-            android:layout_marginRight="26dp"
+            android:layout_height="54dp"
+            android:layout_marginEnd="21dp"
+            android:layout_marginRight="21dp"
             android:layout_toLeftOf="@+id/timeline_time_text"
             android:layout_toStartOf="@+id/timeline_time_text"
             android:gravity="center_vertical"
             android:singleLine="true"
             android:text="收入￥58"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/common_body_tip_colors"
             android:textSize="@dimen/common_text_size_12sp"
             tools:ignore="RtlHardcoded"/>
 
@@ -175,16 +170,15 @@
             android:id="@+id/paytextallView"
             style="@style/common_text_style_14_333333"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/common_margin_70dp"
-            android:layout_marginLeft="26dp"
-            android:layout_marginStart="26dp"
+            android:layout_height="54dp"
+            android:layout_marginLeft="21dp"
+            android:layout_marginStart="21dp"
             android:layout_toEndOf="@+id/timeline_time_text"
             android:layout_toRightOf="@+id/timeline_time_text"
             android:gravity="center_vertical"
             android:singleLine="true"
             android:text="支出￥34.44"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/common_body_tip_colors"
             android:textSize="@dimen/common_text_size_12sp"
             tools:ignore="RtlHardcoded"/>
 
@@ -200,7 +194,7 @@
         <LinearLayout
             style="@style/common_vertical_division_line_style"
             android:layout_width="0.5dp"
-            android:layout_height="70dp"
+            android:layout_height="69dp"
             android:layout_centerHorizontal="true"
             android:background="@color/common_body_tip_color"/>
 
@@ -221,7 +215,7 @@
             android:id="@+id/incometextView"
             style="@style/common_text_style_14_333333"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/common_margin_70dp"
+            android:layout_height="69dp"
             android:layout_marginEnd="@dimen/common_margin_16dp"
             android:layout_marginRight="@dimen/common_margin_16dp"
             android:layout_toLeftOf="@+id/timeline"
@@ -230,7 +224,6 @@
             android:singleLine="true"
             android:text="其他￥34.44"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/common_body_tip_colors"
             tools:ignore="RtlHardcoded"/>
 
         <ImageView
@@ -246,7 +239,7 @@
             android:id="@+id/paytextView"
             style="@style/common_text_style_14_333333"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/common_margin_70dp"
+            android:layout_height="69dp"
             android:layout_marginLeft="@dimen/common_margin_16dp"
             android:layout_marginStart="@dimen/common_margin_16dp"
             android:layout_toEndOf="@+id/timeline"
@@ -255,7 +248,6 @@
             android:singleLine="true"
             android:text="买菜￥34.44"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/common_body_tip_colors"
             tools:ignore="RtlHardcoded"/>
 
         <ImageView

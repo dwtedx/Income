@@ -152,7 +152,7 @@ public class DiIncomeLineAdapter extends RecyclerView.Adapter<DiIncomeLineAdapte
         if(CommonConstants.INCOME_ROLE_PAYING == mDiIncome.getRole()) {
             //文字
             //viewHolder.pyaText.setText(mDiIncome.getType()+ " ￥" + CommonUtility.doubleFormat(mDiIncome.getMoneysum()));
-            viewHolder.pyaText.setText(mDiIncome.getType()+ mContext.getString(R.string.rmb) + mDiIncome.getMoneysum());
+            viewHolder.pyaText.setText(mDiIncome.getType()+ mContext.getString(R.string.rmb) + CommonUtility.twoPlaces(mDiIncome.getMoneysum()));
             viewHolder.incomeText.setText("");
 
             //时光轴图片
@@ -170,7 +170,7 @@ public class DiIncomeLineAdapter extends RecyclerView.Adapter<DiIncomeLineAdapte
         }else if(CommonConstants.INCOME_ROLE_INCOME == mDiIncome.getRole()){
             //文字
             //viewHolder.incomeText.setText(mDiIncome.getType()+ "￥" + CommonUtility.doubleFormat(mDiIncome.getMoneysum()));
-            viewHolder.incomeText.setText(mDiIncome.getType()+ mContext.getString(R.string.rmb) + mDiIncome.getMoneysum());
+            viewHolder.incomeText.setText(mDiIncome.getType()+ mContext.getString(R.string.rmb) + CommonUtility.twoPlaces(mDiIncome.getMoneysum()));
             viewHolder.pyaText.setText("");
 
             //时光轴图片

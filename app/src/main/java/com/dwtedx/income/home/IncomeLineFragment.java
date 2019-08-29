@@ -188,7 +188,7 @@ public class IncomeLineFragment extends BaseFragment implements AnimRFRecyclerVi
             double rightMoney = mDlIncomeService.getSumMoneyByData(CommonConstants.INCOME_ROLE_PAYING, startTime, endTime).getMoneysum();
             //预算
             DiBudget budget = DIBudgetService.getInstance(getContext()).findLastRow();
-            mDiIncomeItems.add(new DiIncome(CommonConstants.INCOME_ROLE_POOL, CommonUtility.doubleFormat(leftMoney), CommonUtility.doubleFormat(rightMoney), budget.getMoneylast(), (mStartTimeCalendar.get(mStartTimeCalendar.MONTH) + 1) + "月"));
+            mDiIncomeItems.add(new DiIncome(CommonConstants.INCOME_ROLE_POOL, CommonUtility.twoPlaces(leftMoney), CommonUtility.twoPlaces(rightMoney), budget.getMoneylast(), (mStartTimeCalendar.get(mStartTimeCalendar.MONTH) + 1) + "月"));
             mDiIncomeItems.addAll(diIncomes);
         }
         mTextViewTip.setVisibility((mDiIncomeItems.size() == 0) ? View.VISIBLE : View.INVISIBLE);

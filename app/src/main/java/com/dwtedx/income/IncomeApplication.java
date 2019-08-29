@@ -100,7 +100,7 @@ public class IncomeApplication extends Application {
 		//百度OCR
 		initAccessTokenWithAkSk();
 
-		closeAndroidPDialog();
+		//closeAndroidPDialog();
 	}
 
 	@Override

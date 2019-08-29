@@ -712,7 +712,14 @@ public class CommonUtility {
     @SuppressLint("DefaultLocale")
     public static String twoPlaces(double mdouble) {
 
-        return String.format("%.2f", mdouble);
+        BigDecimal b = new BigDecimal(mdouble);
+        double dNum = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        //后面为0社区
+        if(Math.round(dNum) - dNum == 0)
+        {
+            return String.valueOf((long)dNum);
+        }
+        return String.valueOf(dNum);
     }
 
     //是否为数字
