@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/common_color_white"
@@ -12,21 +13,6 @@
         android:background="@color/colorPrimary"
         android:orientation="horizontal"
         android:theme="@style/AppTheme.AppBarOverlay">
-
-        <TextView
-            android:id="@+id/title_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:ellipsize="end"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/home_list_layout"
-            android:layout_toEndOf="@+id/home_list_layout"
-            android:singleLine="true"
-            android:textStyle="bold"
-            android:text="@string/nav_moneyv2"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"/>
 
         <LinearLayout
             android:id="@+id/home_list_layout"
@@ -72,15 +58,22 @@
 
         </LinearLayout>
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/home_list_layout"
+            android:layout_toRightOf="@+id/home_list_layout"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/nav_moneyv2"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
-    <com.sch.rfview.AnimRFRecyclerView
-        android:id="@+id/listView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/m_app_title"
-        android:background="@color/common_color_white"
-        android:divider="@null" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/listView_tip"
@@ -95,5 +88,23 @@
         android:textColor="@color/common_body_tip_colors"
         android:textSize="@dimen/common_text_size_16sp"
         android:visibility="gone" />
+
+    <com.liaoinstan.springview.widget.SpringView
+        android:id="@+id/springview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/m_app_title"
+        android:layout_weight="1"
+        android:background="#ffffff"
+        app:type="overlap">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/common_color_white"
+            android:divider="@null" />
+
+    </com.liaoinstan.springview.widget.SpringView>
 
 </RelativeLayout>

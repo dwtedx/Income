@@ -67,7 +67,6 @@ repositories {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.12'
-    implementation project(path: ':recyclerviewrefresh')
     implementation project(path: ':pulltorefresh')
     implementation project(path: ':ocrui')
     implementation project(path: ':imagepreview')
@@ -119,6 +118,8 @@ dependencies {
     //照片选择器
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.4'
     //implementation 'com.ycjiang:ImagePreview:2.2.5'
+    //SpringView核心库 (只包含DefaultHeader/Footer)
+    implementation 'com.liaoinstan.springview:library:1.5.1'
     //umeng 统计
     implementation files('libs/MiPush_SDK_Client_3_4_5.jar')
     implementation files('libs/ocr-sdk.jar')

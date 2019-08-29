@@ -5,9 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -40,9 +37,9 @@ import com.dwtedx.income.sqliteservice.DlIncomeService;
 import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.utility.CommonUtility;
 import com.dwtedx.income.widget.RecycleViewDivider;
-import com.sch.rfview.AnimRFRecyclerView;
-import com.sch.rfview.manager.AnimRFLinearLayoutManager;
-
+import com.dwtedx.income.widget.springheader.RotationFooter;
+import com.dwtedx.income.widget.springheader.RotationHeader;
+import com.liaoinstan.springview.widget.SpringView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -53,11 +50,12 @@ import java.util.List;
  * Company 路之遥网络科技有限公司
  * Description TODO(这里用一句话描述这个类的作用)
  */
-public class IncomeLineFragment extends BaseFragment implements AnimRFRecyclerView.LoadDataListener, View.OnClickListener {
+public class IncomeLineFragment extends BaseFragment implements SpringView.OnFreshListener, View.OnClickListener {
 
     private DlIncomeService mDlIncomeService;
 
-    private AnimRFRecyclerView mRecyclerView;
+    private SpringView mSpringView;
+    private RecyclerView mRecyclerView;
     //private View headerView;
     //private View footerView;
     private TextView mTextViewTip;
@@ -90,7 +88,12 @@ public class IncomeLineFragment extends BaseFragment implements AnimRFRecyclerVi
         mRightLayout = (LinearLayout) view.findViewById(R.id.home_item_layout);
         mRightLayout.setOnClickListener(this);
 
-        mRecyclerView = (AnimRFRecyclerView) view.findViewById(R.id.listView);
+        mSpringView = (SpringView) view.findViewById(R.id.springview);
+        mSpringView.setListener(this);
+        mSpringView.setHeader(new RotationHeader(getActivity()));
+        mSpringView.setFooter(new RotationFooter(getActivity()));
+        mSpringView.setEnableFooter(false);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.listView);
         mTextViewTip = (TextView) view.findViewById(R.id.listView_tip);
         mTextViewTip.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,37 +102,19 @@ public class IncomeLineFragment extends BaseFragment implements AnimRFRecyclerVi
             }
         });
 
-        // 头部
-        //headerView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_money_line_header_view, null);
-
-        // 脚部
-        //footerView = LayoutInflater.from(getActivity()).inflate(R.layout.list_load_more, null);
-
         // 使用重写后的线性布局管理器
-        AnimRFLinearLayoutManager manager = new AnimRFLinearLayoutManager(getActivity());
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL, 0, 0));
-        //// 添加头部和脚部，如果不添加就使用默认的头部和脚部
-        //mRecyclerView.addHeaderView(headerView);
-        //// 设置头部的最大拉伸倍率，默认1.5f，必须写在setHeaderImage()之前
-        //mRecyclerView.setScaleRatio(1.7f);
-        //// 设置下拉时拉伸的图片，不设置就使用默认的
-        //mRecyclerView.setHeaderImage((ImageView) headerView.findViewById(R.id.iv_hander));
-        //mRecyclerView.addFootView(footerView);
-        // 设置刷新动画的颜色
-        mRecyclerView.setColor(ContextCompat.getColor(getContext(), R.color.colorAccent), ContextCompat.getColor(getContext(), R.color.colorPrimary));
-        // 设置头部恢复动画的执行时间，默认500毫秒
-        mRecyclerView.setHeaderImageDurationMillis(300);
-        // 设置拉伸到最高时头部的透明度，默认0.5f
-        mRecyclerView.setHeaderImageMinAlpha(0.6f);
+        // 添加头部和脚部，如果不添加就使用默认的头部和脚部
+
 
         // 设置适配器
         mDiIncomeItems = new ArrayList<>();
         mDiIncomeMoneyLineAdapter = new DiIncomeLineAdapter(getContext(), mDiIncomeItems, mDlIncomeService);
         mRecyclerView.setAdapter(mDiIncomeMoneyLineAdapter);
 
-        // 设置刷新和加载更多数据的监听，分别在onRefresh()和onLoadMore()方法中执行刷新和加载更多操作
-        mRecyclerView.setLoadDataListener(this);
+
 
         //mRecyclerView.addOnItemTouchListener(new OnRecyclerItemClickListener(mRecyclerView){
         //    @Override
@@ -148,6 +133,27 @@ public class IncomeLineFragment extends BaseFragment implements AnimRFRecyclerVi
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
+
+                LinearLayoutManager lm = (LinearLayoutManager) recyclerView.getLayoutManager();
+                int totalItemCount = recyclerView.getAdapter().getItemCount();
+                int lastVisibleItemPosition = lm.findLastVisibleItemPosition();
+                int visibleItemCount = recyclerView.getChildCount();
+
+                if (newState == RecyclerView.SCROLL_STATE_IDLE
+                        && lastVisibleItemPosition == totalItemCount - 1
+                        && visibleItemCount > 0) {
+                    //加载更多
+
+                    mSpringView.postDelayed(() -> {
+                        int startNom = 0;
+                        if (mDiIncomeItems.size() > 0) {
+                            startNom = mDiIncomeItems.size() - 1;
+                        }
+                        mDiIncomeItems.addAll(mDlIncomeService.getScrollData(startNom, CommonConstants.PAGE_LENGTH_NUMBER));
+                        mRecyclerView.getAdapter().notifyDataSetChanged();
+                        mSpringView.onFinishFreshAndLoad();
+                    }, 0);
+                }
             }
 
             @Override
@@ -199,7 +205,7 @@ public class IncomeLineFragment extends BaseFragment implements AnimRFRecyclerVi
         // 刷新 (登录了自动同步云服务器)
         if (isLogin() && mDiIncomeItems.size() > 0 && !mIsAutoSynchronize) {
             mIsAutoSynchronize = true;
-            mRecyclerView.setRefresh(true);
+            //mRecyclerView.setRefresh(true);
         }
     }
 
@@ -224,7 +230,7 @@ public class IncomeLineFragment extends BaseFragment implements AnimRFRecyclerVi
             mRecyclerView.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    mRecyclerView.refreshComplate();
+                    mSpringView.onFinishFreshAndLoad();
                 }
             }, 500);
             return;
@@ -232,6 +238,8 @@ public class IncomeLineFragment extends BaseFragment implements AnimRFRecyclerVi
         synchronize();
     }
 
+    @Override
+    public void onLoadmore() { }
 
     private void synchronize() {
         final List<DiIncome> mDiIncomeList = mDlIncomeService.findNotUpdate();
@@ -260,6 +268,7 @@ public class IncomeLineFragment extends BaseFragment implements AnimRFRecyclerVi
                 mSynchronizeCount += mDiIncomeList.size();
                 //Snackbar.make(mRecyclerView, mDiIncomeList.size() + getString(R.string.synchronize_done), Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 //mRecyclerView.refreshComplate();
+                //mSpringView.onFinishFreshAndLoad();
                 synchronize();
             }
 
@@ -270,7 +279,7 @@ public class IncomeLineFragment extends BaseFragment implements AnimRFRecyclerVi
             @Override
             public void handlerError(SaException e) {
                 super.handlerError(e);
-                mRecyclerView.refreshComplate();
+                mSpringView.onFinishFreshAndLoad();
             }
         };
 
@@ -293,7 +302,7 @@ public class IncomeLineFragment extends BaseFragment implements AnimRFRecyclerVi
                             //Snackbar.make(mRecyclerView, mSynchronizeCount + getString(R.string.synchronize_done), Snackbar.LENGTH_LONG).setAction("Action", null).show();
                             Toast.makeText(getContext(), R.string.synchronize_done_tip, Toast.LENGTH_SHORT).show();
                         }
-                        mRecyclerView.refreshComplate();
+                        mSpringView.onFinishFreshAndLoad();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -321,7 +330,7 @@ public class IncomeLineFragment extends BaseFragment implements AnimRFRecyclerVi
                     //Snackbar.make(mRecyclerView, getString(R.string.synchronize_done_tip), Snackbar.LENGTH_LONG).setAction("Action", null).show();
                     Toast.makeText(getContext(), R.string.synchronize_done_tip, Toast.LENGTH_SHORT).show();
                 }
-                mRecyclerView.refreshComplate();
+                mSpringView.onFinishFreshAndLoad();
             }
 
             @Override
@@ -331,27 +340,11 @@ public class IncomeLineFragment extends BaseFragment implements AnimRFRecyclerVi
             @Override
             public void handlerError(SaException e) {
                 super.handlerError(e);
-                mRecyclerView.refreshComplate();
+                mSpringView.onFinishFreshAndLoad();
             }
         };
 
         IncomeService.getInstance().budgetCynchronize(mDiBudgetList, dataVerHandler);
-    }
-
-    @Override
-    public void onLoadMore() {
-        mRecyclerView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                int startNom = 0;
-                if (mDiIncomeItems.size() > 0) {
-                    startNom = mDiIncomeItems.size() - 1;
-                }
-                mDiIncomeItems.addAll(mDlIncomeService.getScrollData(startNom, CommonConstants.PAGE_LENGTH_NUMBER));
-                mRecyclerView.getAdapter().notifyDataSetChanged();
-                mRecyclerView.loadMoreComplate();
-            }
-        }, 0);
     }
 
     private void showTip() {
