@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
@@ -23,13 +24,20 @@ import com.baidu.location.Poi;
 import com.dwtedx.income.R;
 import com.dwtedx.income.accounttype.ChoosePayingTypeActivity;
 import com.dwtedx.income.base.BaseActivity;
+import com.dwtedx.income.entity.DiScan;
+import com.dwtedx.income.entity.DiTopicvote;
 import com.dwtedx.income.scan.ChooseLocationActivity;
 import com.dwtedx.income.scan.ScanDetailActivity;
 import com.dwtedx.income.scan.ScanResultActivity;
+import com.dwtedx.income.scan.adapter.ScanDetailAdapter;
+import com.dwtedx.income.sqliteservice.DIScanService;
 import com.dwtedx.income.topic.adapter.AddTopicImgRecyclerAdapter;
+import com.dwtedx.income.topic.adapter.AddTopicVoteRecyclerAdapter;
+import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.utility.CommonUtility;
 import com.dwtedx.income.utility.ParseJsonToObject;
 import com.dwtedx.income.widget.AppTitleBar;
+import com.dwtedx.income.widget.RecycleViewDivider;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -41,7 +49,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class AddTopicActivity extends BaseActivity implements AddTopicImgRecyclerAdapter.OnAddPicClickListener, AddTopicImgRecyclerAdapter.OnItemClickListener, View.OnClickListener
+public class AddTopicActivity extends BaseActivity implements AddTopicImgRecyclerAdapter.OnAddPicClickListener, AddTopicImgRecyclerAdapter.OnItemClickListener, View.OnClickListener, AddTopicVoteRecyclerAdapter.OnValueEditAfterTextChangeListener
 {
     private static final int REQUEST_CODE_CHOOSE_LOCAL = 71;
     private static final int ACCESS_COARSE_LOCALHOST_REQUEST_CODE = 72;
@@ -70,6 +78,10 @@ public class AddTopicActivity extends BaseActivity implements AddTopicImgRecycle
     List<LocalMedia> mLocalMediaList;
     //List<DiTopicimg> mDiTopicimgList;
     AddTopicImgRecyclerAdapter mAdapter;
+
+    //投票选项
+    private List<DiTopicvote> mDiTopicvoteList;
+    AddTopicVoteRecyclerAdapter mAdapterVote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +118,22 @@ public class AddTopicActivity extends BaseActivity implements AddTopicImgRecycle
                 }
             }
         });
+        mDiTopicvoteList = new ArrayList<>();
+        mDiTopicvoteList.add(new DiTopicvote());
+        mDiTopicvoteList.add(new DiTopicvote(CommonConstants.INCOME_SCAN_ADDBUTTON));
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        mVoteRecyclerView.setLayoutManager(layoutManager);
+        //自定义分割线的样式
+        mVoteRecyclerView.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.HORIZONTAL, 0, ContextCompat.getColor(this, R.color.common_division_line)));
+        mAdapterVote = new AddTopicVoteRecyclerAdapter(this, mDiTopicvoteList);
+        mAdapterVote.setmOnValueEditAfterTextChangeListener(this);
+        mVoteRecyclerView.setAdapter(mAdapterVote);
 
     }
 
@@ -199,6 +227,11 @@ public class AddTopicActivity extends BaseActivity implements AddTopicImgRecycle
                 .recordVideoSecond(30)//视频秒数录制 默认60s int
                 .isDragFrame(false)// 是否可拖动裁剪框(固定)
                 .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
+    }
+
+    @Override
+    public void OnValueEditAfterTextChanged(String s) {
+
     }
 
     ///////////////定位相关//////////////////////////////定位相关//////////////////////////////定位相关//////////////////////////////定位相关//////////////////////////////定位相关///////////////

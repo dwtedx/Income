@@ -25,6 +25,16 @@ public class DiTopicvote {
     private String percent;
     private boolean checked;
 
+    private int addbutton;//添加记录用
+
+    public DiTopicvote() {
+
+    }
+
+    public DiTopicvote(int addbutton) {
+        this.addbutton = addbutton;
+    }
+
     public int getId() {
         return id;
     }
@@ -127,5 +137,13 @@ public class DiTopicvote {
 
     public void setChecked(boolean checked) {
         this.checked = checked;
+    }
+
+    public int getAddbutton() {
+        return addbutton;
+    }
+
+    public void setAddbutton(int addbutton) {
+        this.addbutton = addbutton;
     }
 }
