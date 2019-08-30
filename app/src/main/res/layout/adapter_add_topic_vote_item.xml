@@ -32,6 +32,7 @@
             android:ellipsize="middle"
             android:gravity="left|center_vertical"
             android:paddingStart="@dimen/common_margin_8dp"
+            android:hint="@string/topic_type_vate_hint_tip"
             android:paddingLeft="@dimen/common_margin_8dp"
             android:paddingTop="@dimen/common_margin_12dp"
             android:paddingEnd="@dimen/activity_horizontal_margin"

@@ -149,15 +149,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:background="@color/common_color_white"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin">
+                android:background="@color/common_color_white">
 
                 <ImageView
                     android:layout_width="@dimen/common_margin_20dp"
                     android:layout_height="@dimen/common_margin_20dp"
                     android:layout_centerVertical="true"
                     android:contentDescription="@string/app_name"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:src="@mipmap/nav_share"
                     android:tint="@color/common_body_tip_colors" />
 
@@ -167,8 +167,8 @@
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
                     android:background="?android:attr/selectableItemBackground"
-                    android:paddingStart="@dimen/common_margin_30dp"
-                    android:paddingLeft="@dimen/common_margin_30dp"
+                    android:paddingStart="@dimen/common_margin_45dp"
+                    android:paddingLeft="@dimen/common_margin_45dp"
                     android:paddingTop="@dimen/activity_vertical_margin"
                     android:paddingEnd="@dimen/common_margin_12dp"
                     android:paddingRight="@dimen/common_margin_12dp"
@@ -193,8 +193,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:background="@color/common_color_white"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:visibility="gone">
 
                 <ImageView
@@ -203,6 +201,8 @@
                     android:layout_centerVertical="true"
                     android:contentDescription="@string/app_name"
                     android:src="@mipmap/nav_data"
+                    android:layout_marginStart="@dimen/common_margin_16dp"
+                    android:layout_marginLeft="@dimen/common_margin_16dp"
                     android:tint="@color/common_body_tip_colors" />
 
                 <Button
@@ -211,8 +211,8 @@
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
                     android:background="?android:attr/selectableItemBackground"
-                    android:paddingStart="@dimen/common_margin_30dp"
-                    android:paddingLeft="@dimen/common_margin_30dp"
+                    android:paddingStart="@dimen/common_margin_45dp"
+                    android:paddingLeft="@dimen/common_margin_45dp"
                     android:paddingTop="@dimen/activity_vertical_margin"
                     android:paddingEnd="@dimen/common_margin_12dp"
                     android:paddingRight="@dimen/common_margin_12dp"
@@ -242,13 +242,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:background="@color/common_color_white"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin">
+                android:background="@color/common_color_white">
 
                 <ImageView
                     android:layout_width="@dimen/common_margin_20dp"
                     android:layout_height="@dimen/common_margin_20dp"
+                    android:layout_marginStart="@dimen/common_margin_16dp"
+                    android:layout_marginLeft="@dimen/common_margin_16dp"
                     android:layout_centerVertical="true"
                     android:contentDescription="@string/app_name"
                     android:src="@mipmap/nav_budget"
@@ -260,8 +260,8 @@
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
                     android:background="?android:attr/selectableItemBackground"
-                    android:paddingStart="@dimen/common_margin_30dp"
-                    android:paddingLeft="@dimen/common_margin_30dp"
+                    android:paddingStart="@dimen/common_margin_45dp"
+                    android:paddingLeft="@dimen/common_margin_45dp"
                     android:paddingTop="@dimen/activity_vertical_margin"
                     android:paddingEnd="@dimen/common_margin_12dp"
                     android:paddingRight="@dimen/common_margin_12dp"
@@ -285,15 +285,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:background="@color/common_color_white"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin">
+                android:background="@color/common_color_white">
 
                 <ImageView
                     android:layout_width="@dimen/common_margin_20dp"
                     android:layout_height="@dimen/common_margin_20dp"
                     android:layout_centerVertical="true"
                     android:contentDescription="@string/app_name"
+                    android:layout_marginStart="@dimen/common_margin_16dp"
+                    android:layout_marginLeft="@dimen/common_margin_16dp"
                     android:src="@mipmap/pay"
                     android:tint="@color/common_body_tip_colors" />
 
@@ -303,8 +303,8 @@
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
                     android:background="?android:attr/selectableItemBackground"
-                    android:paddingStart="@dimen/common_margin_30dp"
-                    android:paddingLeft="@dimen/common_margin_30dp"
+                    android:paddingStart="@dimen/common_margin_45dp"
+                    android:paddingLeft="@dimen/common_margin_45dp"
                     android:paddingTop="@dimen/activity_vertical_margin"
                     android:paddingEnd="@dimen/common_margin_12dp"
                     android:paddingRight="@dimen/common_margin_12dp"
@@ -328,13 +328,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:background="@color/common_color_white"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin">
+                android:background="@color/common_color_white">
 
                 <ImageView
                     android:layout_width="@dimen/common_margin_20dp"
                     android:layout_height="@dimen/common_margin_20dp"
+                    android:layout_marginStart="@dimen/common_margin_16dp"
+                    android:layout_marginLeft="@dimen/common_margin_16dp"
                     android:layout_centerVertical="true"
                     android:contentDescription="@string/app_name"
                     android:src="@mipmap/income"
@@ -346,8 +346,8 @@
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
                     android:background="?android:attr/selectableItemBackground"
-                    android:paddingStart="@dimen/common_margin_30dp"
-                    android:paddingLeft="@dimen/common_margin_30dp"
+                    android:paddingStart="@dimen/common_margin_45dp"
+                    android:paddingLeft="@dimen/common_margin_45dp"
                     android:paddingTop="@dimen/activity_vertical_margin"
                     android:paddingEnd="@dimen/common_margin_12dp"
                     android:paddingRight="@dimen/common_margin_12dp"
@@ -371,15 +371,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:background="@color/common_color_white"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin">
+                android:background="@color/common_color_white">
 
                 <ImageView
                     android:layout_width="@dimen/common_margin_20dp"
                     android:layout_height="@dimen/common_margin_20dp"
                     android:layout_centerVertical="true"
                     android:contentDescription="@string/app_name"
+                    android:layout_marginStart="@dimen/common_margin_16dp"
+                    android:layout_marginLeft="@dimen/common_margin_16dp"
                     android:src="@mipmap/nav_account"
                     android:tint="@color/common_body_tip_colors" />
 
@@ -389,8 +389,8 @@
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
                     android:background="?android:attr/selectableItemBackground"
-                    android:paddingStart="@dimen/common_margin_30dp"
-                    android:paddingLeft="@dimen/common_margin_30dp"
+                    android:paddingStart="@dimen/common_margin_45dp"
+                    android:paddingLeft="@dimen/common_margin_45dp"
                     android:paddingTop="@dimen/activity_vertical_margin"
                     android:paddingEnd="@dimen/common_margin_12dp"
                     android:paddingRight="@dimen/common_margin_12dp"
@@ -415,8 +415,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:background="@color/common_color_white"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:visibility="gone">
 
                 <Button
@@ -456,8 +454,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:background="@color/common_color_white"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:visibility="gone">
 
                 <Button
@@ -478,6 +474,8 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginStart="@dimen/common_margin_16dp"
+                    android:layout_marginLeft="@dimen/common_margin_16dp"
                     android:src="@mipmap/forward"
                     android:tint="@color/common_body_tip_colors" />
 
@@ -492,8 +490,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:background="@color/common_color_white"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:visibility="gone">
 
                 <Button
@@ -528,13 +524,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:background="@color/common_color_white"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:visibility="visible">
 
                 <ImageView
                     android:layout_width="@dimen/common_margin_20dp"
                     android:layout_height="@dimen/common_margin_20dp"
+                    android:layout_marginStart="@dimen/common_margin_16dp"
+                    android:layout_marginLeft="@dimen/common_margin_16dp"
                     android:layout_centerVertical="true"
                     android:contentDescription="@string/app_name"
                     android:src="@mipmap/profile_accout_set"
@@ -546,8 +542,8 @@
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
                     android:background="?android:attr/selectableItemBackground"
-                    android:paddingStart="@dimen/common_margin_30dp"
-                    android:paddingLeft="@dimen/common_margin_30dp"
+                    android:paddingStart="@dimen/common_margin_45dp"
+                    android:paddingLeft="@dimen/common_margin_45dp"
                     android:paddingTop="@dimen/activity_vertical_margin"
                     android:paddingEnd="@dimen/common_margin_12dp"
                     android:paddingRight="@dimen/common_margin_12dp"
@@ -572,13 +568,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:background="@color/common_color_white"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:visibility="visible">
 
                 <ImageView
                     android:layout_width="@dimen/common_margin_20dp"
                     android:layout_height="@dimen/common_margin_20dp"
+                    android:layout_marginStart="@dimen/common_margin_16dp"
+                    android:layout_marginLeft="@dimen/common_margin_16dp"
                     android:layout_centerVertical="true"
                     android:contentDescription="@string/app_name"
                     android:src="@mipmap/profile_set"
@@ -590,8 +586,8 @@
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
                     android:background="?android:attr/selectableItemBackground"
-                    android:paddingStart="@dimen/common_margin_30dp"
-                    android:paddingLeft="@dimen/common_margin_30dp"
+                    android:paddingStart="@dimen/common_margin_45dp"
+                    android:paddingLeft="@dimen/common_margin_45dp"
                     android:paddingTop="@dimen/activity_vertical_margin"
                     android:paddingEnd="@dimen/common_margin_12dp"
                     android:paddingRight="@dimen/common_margin_12dp"

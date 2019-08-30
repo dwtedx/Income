@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +37,8 @@ public class AddAccountActivity extends BaseActivity implements OnClickListener,
 
     private AppTitleBar mAppTitleBar;
     private EditText mAddAccountMoneysum, mAddAccountName;
-    private LinearLayout mAddAccountColorLayout, mAddAccountImageLayout;
+    private LinearLayout mAddAccountColorLayout;
+    private RelativeLayout mAddAccountImageLayout;
     private TextView mAddAccountColor;
     private ImageView mAddAccountImage;
     private Button mSaveButton;
@@ -99,7 +101,7 @@ public class AddAccountActivity extends BaseActivity implements OnClickListener,
         mAddAccountName = (EditText) findViewById(R.id.add_account_name);
         mAccountRemark = (EditText) findViewById(R.id.m_account_remark);
         mAddAccountColorLayout = (LinearLayout) findViewById(R.id.add_account_color_layout);
-        mAddAccountImageLayout = (LinearLayout) findViewById(R.id.add_account_image_layout);
+        mAddAccountImageLayout = (RelativeLayout) findViewById(R.id.add_account_image_layout);
         mAddAccountImageLayout.setOnClickListener(this);
         mAddAccountColorLayout.setOnClickListener(this);
         mAddAccountImage = (ImageView) findViewById(R.id.account_diy_image);

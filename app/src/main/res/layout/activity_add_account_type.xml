@@ -57,13 +57,15 @@
 
         <LinearLayout style="@style/common_horizontal_division_line_style" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
+            android:paddingEnd="@dimen/activity_vertical_margin"
             android:paddingRight="@dimen/activity_vertical_margin">
 
             <TextView
+                android:id="@+id/add_type_lable_layout"
                 style="@style/common_text_style_14_737373"
                 android:padding="@dimen/activity_vertical_margin"
                 android:text="@string/add_account_image" />
@@ -72,6 +74,9 @@
                 android:id="@+id/m_add_type_image_layout"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/add_type_lable_layout"
+                android:layout_toEndOf="@+id/add_type_lable_layout"
                 android:gravity="center_vertical">
 
                 <ImageView
@@ -87,7 +92,17 @@
 
             </LinearLayout>
 
-        </LinearLayout>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/app_name"
+                android:src="@mipmap/forward"
+                android:tint="@color/common_body_tip_colors" />
+
+        </RelativeLayout>
 
         <LinearLayout style="@style/common_horizontal_division_line_style" />
 

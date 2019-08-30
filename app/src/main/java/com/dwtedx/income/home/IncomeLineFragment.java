@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +53,8 @@ import java.util.List;
  */
 public class IncomeLineFragment extends BaseFragment implements SpringView.OnFreshListener, View.OnClickListener {
 
+    private View mView;
+
     private DlIncomeService mDlIncomeService;
 
     private SpringView mSpringView;
@@ -72,29 +75,26 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View mView = inflater.inflate(R.layout.fragment_money_line, container, false);
-
-        return mView;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        if(null != mView){
+            return mView;
+        }
+        mView = inflater.inflate(R.layout.fragment_money_line, container, false);
 
         mDlIncomeService = DlIncomeService.getInstance(getContext());
 
-        mLeftLayout = (LinearLayout) view.findViewById(R.id.home_list_layout);
+        mLeftLayout = (LinearLayout) mView.findViewById(R.id.home_list_layout);
         mLeftLayout.setOnClickListener(this);
-        mRightLayout = (LinearLayout) view.findViewById(R.id.home_item_layout);
+        mRightLayout = (LinearLayout) mView.findViewById(R.id.home_item_layout);
         mRightLayout.setOnClickListener(this);
 
-        mSpringView = (SpringView) view.findViewById(R.id.springview);
+        mSpringView = (SpringView) mView.findViewById(R.id.springview);
         mSpringView.setListener(this);
         mSpringView.setHeader(new RotationHeader(getActivity()));
         mSpringView.setFooter(new RotationFooter(getActivity()));
         mSpringView.setEnableFooter(false);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.listView);
-        mTextViewTip = (TextView) view.findViewById(R.id.listView_tip);
+
+        mRecyclerView = (RecyclerView) mView.findViewById(R.id.listView);
+        mTextViewTip = (TextView) mView.findViewById(R.id.listView_tip);
         mTextViewTip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,26 +108,10 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
         mRecyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL, 0, 0));
         // 添加头部和脚部，如果不添加就使用默认的头部和脚部
 
-
         // 设置适配器
         mDiIncomeItems = new ArrayList<>();
         mDiIncomeMoneyLineAdapter = new DiIncomeLineAdapter(getContext(), mDiIncomeItems, mDlIncomeService);
         mRecyclerView.setAdapter(mDiIncomeMoneyLineAdapter);
-
-
-
-        //mRecyclerView.addOnItemTouchListener(new OnRecyclerItemClickListener(mRecyclerView){
-        //    @Override
-        //    public void onLongClick(RecyclerView.ViewHolder vh) {
-        //
-        //    }
-        //    @Override
-        //    public void onItemClick(RecyclerView.ViewHolder vh) {
-        //        DiIncome item = mDiIncomeItems.get(vh.getLayoutPosition());
-        //        Toast.makeText(getActivity(),item.getId()+" "+item.getType(),Toast.LENGTH_SHORT).show();
-        //
-        //    }
-        //});
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -170,6 +154,13 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
 
         //开启云服务器数据同步确保数据安全
         showTip();
+
+        return mView;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
@@ -205,7 +196,10 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
         // 刷新 (登录了自动同步云服务器)
         if (isLogin() && mDiIncomeItems.size() > 0 && !mIsAutoSynchronize) {
             mIsAutoSynchronize = true;
-            //mRecyclerView.setRefresh(true);
+            mSpringView.postDelayed(() -> {
+                mSpringView.callFresh();
+            }, 700);
+
         }
     }
 
@@ -227,11 +221,8 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
                         }
                     })
                     .show();
-            mRecyclerView.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mSpringView.onFinishFreshAndLoad();
-                }
+            mSpringView.postDelayed(() -> {
+                mSpringView.onFinishFreshAndLoad();
             }, 500);
             return;
         }
@@ -291,23 +282,16 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
         Calendar calendar = Calendar.getInstance();
         final List<DiBudget> mDiBudgetList = DIBudgetService.getInstance(getContext()).findNotUpdate(calendar.get(Calendar.YEAR), (calendar.get(Calendar.MONTH) + 1));
         if (mDiBudgetList.size() == 0) {
-            mRecyclerView.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        if (mSynchronizeCount > 0) {
-                            //Snackbar.make(mRecyclerView, mSynchronizeCount + getString(R.string.synchronize_done), Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                            Toast.makeText(getContext(), mSynchronizeCount + getString(R.string.synchronize_done), Toast.LENGTH_SHORT).show();
-                        } else {
-                            //Snackbar.make(mRecyclerView, mSynchronizeCount + getString(R.string.synchronize_done), Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                            Toast.makeText(getContext(), R.string.synchronize_done_tip, Toast.LENGTH_SHORT).show();
-                        }
-                        mSpringView.onFinishFreshAndLoad();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+            mSpringView.postDelayed(() -> {
+                if (mSynchronizeCount > 0) {
+                    //Snackbar.make(mRecyclerView, mSynchronizeCount + getString(R.string.synchronize_done), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    Toast.makeText(getContext(), mSynchronizeCount + getString(R.string.synchronize_done), Toast.LENGTH_SHORT).show();
+                } else {
+                    //Snackbar.make(mRecyclerView, mSynchronizeCount + getString(R.string.synchronize_done), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    Toast.makeText(getContext(), R.string.synchronize_done_tip, Toast.LENGTH_SHORT).show();
                 }
-            }, 1500);
+                mSpringView.onFinishFreshAndLoad();
+            }, 1000);
             return;
         }
         //添加用户名和id
