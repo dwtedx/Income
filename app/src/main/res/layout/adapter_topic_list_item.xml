@@ -190,9 +190,12 @@
         android:padding="@dimen/common_margin_8dp">
 
         <LinearLayout
+            android:id="@+id/m_item_share_layout_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:paddingTop="@dimen/common_margin_6dp"
+            android:paddingBottom="@dimen/common_margin_6dp"
             android:gravity="center">
 
             <TextView
@@ -209,9 +212,12 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/m_item_talk_layout_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:paddingTop="@dimen/common_margin_6dp"
+            android:paddingBottom="@dimen/common_margin_6dp"
             android:gravity="center">
 
             <TextView
@@ -228,9 +234,12 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/m_item_liked_layout_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:paddingTop="@dimen/common_margin_6dp"
+            android:paddingBottom="@dimen/common_margin_6dp"
             android:gravity="center">
 
             <TextView

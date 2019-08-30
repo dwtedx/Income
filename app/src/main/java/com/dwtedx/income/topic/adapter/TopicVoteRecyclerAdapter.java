@@ -2,6 +2,7 @@ package com.dwtedx.income.topic.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.dwtedx.income.entity.ApplicationData;
 import com.dwtedx.income.entity.DiTopic;
 import com.dwtedx.income.entity.DiTopicimg;
 import com.dwtedx.income.entity.DiTopicvote;
+import com.dwtedx.income.profile.LoginV2Activity;
 import com.dwtedx.income.service.TopicService;
 import com.dwtedx.income.topic.TopicImageLoader;
 import com.dwtedx.income.utility.CommonUtility;
@@ -65,6 +67,11 @@ public class TopicVoteRecyclerAdapter extends RecyclerView.Adapter<TopicVoteRecy
         holder.mItemTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(null == ApplicationData.mDiUserInfo || ApplicationData.mDiUserInfo.getId() == 0){
+                    Toast.makeText(mContext, "投票需要先登录哦", Toast.LENGTH_SHORT).show();
+                    mContext.startActivity(new Intent(mContext, LoginV2Activity.class));
+                    return;
+                }
                 //暂时不支持取消投票功能
                 if(mDiTopic.isVoted()){
                     Toast.makeText(mContext, "每人只有一票哦", Toast.LENGTH_SHORT).show();

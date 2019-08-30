@@ -128,4 +128,43 @@ public class TopicService {
         task.execute();
         return task;
     }
+
+    /**
+     * 点赞
+     * @param topicid
+     * @param handler
+     */
+    public SaAsyncTask<Void, Void, Void> topicLicked(final int topicid, SaDataProccessHandler<Void, Void, Void> handler) {
+        handler.setUrl(ServiceAPI.WEB_API_TOPIC_SEVETOPICLIKED);
+        SaAsyncTask<Void, Void, Void> task = new SaAsyncTask<Void, Void, Void>(handler) {
+            @Override
+            protected Void doInBackground(Void... params) {
+                try {
+                    BaseHttpResponseHandler<Void> dataHandler = new BaseHttpResponseHandler<Void>() {
+
+                        @Override
+                        public Void getResult(Object jsonObject) throws SaException {
+                            return null;
+                        }
+                    };
+                    JSONObject requestParameter = new JSONObject();
+                    try {
+                        requestParameter.put("id", topicid);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        throw new SaException(SaError.ERROR_TYPE_JSON, e);
+                    }
+                    handler.getRequestExecutor().executeRequest(ServiceParamterUtil.genParamterJSONObject(requestParameter), dataHandler);
+                } catch (SaException e) {
+                    setErrorObj(e);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setErrorObj(new SaException(SaError.ERROR_TYPE_UNKNOWN, e));
+                }
+                return null;
+            }
+        };
+        task.execute();
+        return task;
+    }
 }

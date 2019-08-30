@@ -2,6 +2,7 @@ package com.dwtedx.income.topic.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,9 +14,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dwtedx.income.R;
+import com.dwtedx.income.base.BaseActivity;
+import com.dwtedx.income.connect.SaDataProccessHandler;
+import com.dwtedx.income.entity.ApplicationData;
 import com.dwtedx.income.entity.DiTopic;
+import com.dwtedx.income.entity.DiTopicvote;
+import com.dwtedx.income.profile.LoginV2Activity;
+import com.dwtedx.income.service.TopicService;
 import com.dwtedx.income.topic.TopicImageLoader;
 import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.utility.CommonUtility;
@@ -95,7 +103,7 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         if (getItemViewType(position) == TYPE_HEADER) return;
 
         final int pos = getRealPosition(holder);
@@ -179,9 +187,9 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
         }
 
         //投票显示
-        if(null != data.getTopicvote() && data.getTopicvote().size() > 0){
+        if (null != data.getTopicvote() && data.getTopicvote().size() > 0) {
             holder.mVoteRecyclerLayoutView.setVisibility(View.VISIBLE);
-            RecyclerView.LayoutManager layoutManagerHeader = new LinearLayoutManager(mContext){
+            RecyclerView.LayoutManager layoutManagerHeader = new LinearLayoutManager(mContext) {
                 @Override
                 public boolean canScrollVertically() {
                     return false;
@@ -190,17 +198,12 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
             holder.mVoteRecyclerView.setLayoutManager(layoutManagerHeader);
 
             holder.mVoteRecyclerView.setAdapter(new TopicVoteRecyclerAdapter(mContext, data, holder.mVoteRecyclerView));
-        }else{
+        } else {
             holder.mVoteRecyclerLayoutView.setVisibility(View.GONE);
         }
 
         //事件
-        holder.mItemLayoutView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+        //holder.mItemLayoutView.setOnClickListener(this);
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -214,6 +217,25 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
                         .setSingleFling(true)
                         .setType(GPreviewBuilder.IndicatorType.Dot)
                         .start();
+            }
+        });
+        holder.mItemLikedLayoutView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(null == ApplicationData.mDiUserInfo || ApplicationData.mDiUserInfo.getId() == 0){
+                    Toast.makeText(mContext, "点赞需要先登录哦", Toast.LENGTH_SHORT).show();
+                    mContext.startActivity(new Intent(mContext, LoginV2Activity.class));
+                    return;
+                }
+                SaDataProccessHandler<Void, Void, Void> dataVerHandler = new SaDataProccessHandler<Void, Void, Void>((BaseActivity) mContext) {
+                    @Override
+                    public void onSuccess(Void dataVode) {
+                        data.setLiked(data.getLiked() + 1);
+                        holder.mItemLikedView.setText(data.getLiked() + mContext.getString(R.string.topic_liked_text));
+                        Toast.makeText(mContext, "点赞成功", Toast.LENGTH_SHORT).show();
+                    }
+                };
+                TopicService.getInstance().topicLicked(data.getId(), dataVerHandler);
             }
         });
 
@@ -261,6 +283,12 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
         RecyclerView mVoteRecyclerView;
         @BindView(R.id.m_vote_recycler_layout_view)
         LinearLayout mVoteRecyclerLayoutView;
+        @BindView(R.id.m_item_share_layout_view)
+        LinearLayout mItemShareLayoutView;
+        @BindView(R.id.m_item_talk_layout_view)
+        LinearLayout mItemTalkLayoutView;
+        @BindView(R.id.m_item_liked_layout_view)
+        LinearLayout mItemLikedLayoutView;
 
         public ViewHolder(View itemView, int type) {
             super(itemView);

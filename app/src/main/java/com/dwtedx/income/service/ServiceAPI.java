@@ -84,6 +84,7 @@ public class ServiceAPI {
 
     public static String WEB_API_TOPIC_INDEX = WEB_API_DOMAIN + "/topic/index";
     public static String WEB_API_TOPIC_SEVEVOTERESULT = WEB_API_DOMAIN + "/topic/sevevoteresult";
+    public static String WEB_API_TOPIC_SEVETOPICLIKED = WEB_API_DOMAIN + "/topic/sevetopicliked";
 
     /**
      * @return void    返回类型
