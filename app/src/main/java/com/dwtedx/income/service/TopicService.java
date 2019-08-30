@@ -8,6 +8,7 @@ import com.dwtedx.income.connect.SaDataProccessHandler;
 import com.dwtedx.income.connect.SaError;
 import com.dwtedx.income.connect.SaException;
 import com.dwtedx.income.entity.DiTopic;
+import com.dwtedx.income.entity.DiTopicimg;
 import com.dwtedx.income.entity.DiTopicvote;
 import com.dwtedx.income.utility.ParseJsonToObject;
 
@@ -167,4 +168,53 @@ public class TopicService {
         task.execute();
         return task;
     }
+
+    /**
+     * 上传图片
+     *
+     * @param imgdata
+     * @param handler
+     * @return
+     */
+    public SaAsyncTask<Void, Void, DiTopicimg> uploadImg(final String imgdata, SaDataProccessHandler<Void, Void, DiTopicimg> handler) {
+        handler.setUrl(ServiceAPI.WEB_API_TOPIC_UPLOADIMG);
+        SaAsyncTask<Void, Void, DiTopicimg> task = new SaAsyncTask<Void, Void, DiTopicimg>(handler) {
+            @Override
+            protected DiTopicimg doInBackground(Void... params) {
+                DiTopicimg result = null;
+                try {
+                    BaseHttpResponseHandler<DiTopicimg> dataHandler = new
+                            BaseHttpResponseHandler<DiTopicimg>() {
+
+                                @Override
+                                public DiTopicimg getResult(Object jsonObject) throws SaException {
+                                    DiTopicimg resultData = ParseJsonToObject.getObject(DiTopicimg.class,
+                                            (JSONObject) jsonObject);
+                                    return resultData;
+                                }
+                            };
+
+                    JSONObject requestParameter = new JSONObject();
+                    try {
+                        requestParameter.put("path", imgdata);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        throw new SaException(SaError.ERROR_TYPE_JSON, e);
+                    }
+
+                    result = handler.getRequestExecutor().executeRequest(ServiceParamterUtil.genParamterJSONObject(requestParameter), dataHandler);
+                } catch (SaException e) {
+                    setErrorObj(e);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setErrorObj(new SaException(SaError.ERROR_TYPE_UNKNOWN, e));
+                }
+                return result;
+            }
+        };
+        task.execute();
+        return task;
+    }
+
+
 }

@@ -27,8 +27,6 @@ public class AddTopicVoteRecyclerAdapter extends RecyclerView.Adapter<AddTopicVo
     private Context mContext;
     private List<DiTopicvote> mList;
 
-    private OnValueEditAfterTextChangeListener mOnValueEditAfterTextChangeListener;
-
     public AddTopicVoteRecyclerAdapter(Context mContext, List<DiTopicvote> infoList) {
         this.mContext = mContext;
         this.mList = infoList;
@@ -77,9 +75,6 @@ public class AddTopicVoteRecyclerAdapter extends RecyclerView.Adapter<AddTopicVo
                     //从界面移除
                     mList.remove(holder.getAdapterPosition());
                     notifyItemRemoved(holder.getAdapterPosition());
-                    if(null != mOnValueEditAfterTextChangeListener){
-                        mOnValueEditAfterTextChangeListener.OnValueEditAfterTextChanged(null);
-                    }
                 }
             });
         }
@@ -89,10 +84,6 @@ public class AddTopicVoteRecyclerAdapter extends RecyclerView.Adapter<AddTopicVo
     @Override
     public int getItemCount() {
         return mList != null ? mList.size() : 0;
-    }
-
-    public void setmOnValueEditAfterTextChangeListener(OnValueEditAfterTextChangeListener mOnValueEditAfterTextChangeListener) {
-        this.mOnValueEditAfterTextChangeListener = mOnValueEditAfterTextChangeListener;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -114,8 +105,5 @@ public class AddTopicVoteRecyclerAdapter extends RecyclerView.Adapter<AddTopicVo
         }
     }
 
-    public interface OnValueEditAfterTextChangeListener{
-        void OnValueEditAfterTextChanged(String s);
-    }
 
 }

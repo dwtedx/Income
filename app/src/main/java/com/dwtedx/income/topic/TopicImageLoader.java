@@ -32,7 +32,8 @@ public class TopicImageLoader implements IZoomMediaLoader {
     public void displayImage(@NonNull Fragment context, @NonNull String path, ImageView imageView, @NonNull final MySimpleTarget simpleTarget) {
         Glide.with(context).load(path)
                 .error(R.mipmap.imageloader_default_smll)
-                //.placeholder(android.R.color.darker_gray)
+                //.placeholder(R.mipmap.imageloader_default_smll)
+                //.placeholder(R.color.common_body_tip_colors)
                 .fitCenter()
                 //.centerCrop()
                 .listener(new RequestListener<Drawable>() {
@@ -59,6 +60,8 @@ public class TopicImageLoader implements IZoomMediaLoader {
                 //可以解决gif比较几种时 ，加载过慢  //DiskCacheStrategy.NONE
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .error(R.mipmap.imageloader_default_smll)
+                //.placeholder(R.mipmap.imageloader_default_smll)
+                //.placeholder(R.color.common_body_tip_colors)
                 //.dontAnimate() //去掉显示动画
                 .listener(new RequestListener<GifDrawable>() {
                     @Override
@@ -93,12 +96,15 @@ public class TopicImageLoader implements IZoomMediaLoader {
                     //可以解决gif比较几种时 ，加载过慢  //DiskCacheStrategy.NONE
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                     .error(R.mipmap.imageloader_default_smll)
+                    //.placeholder(R.mipmap.imageloader_default_smll)
+                    //.placeholder(R.color.common_body_tip_colors)
                     .into(imageView);
         } else {
             //加载图
             Glide.with(mContext).load(beanViewInfo.getUrl())
                     .error(R.mipmap.imageloader_default_smll)
-                    //.placeholder(android.R.color.darker_gray)
+                    //.placeholder(R.mipmap.imageloader_default_smll)
+                    //.placeholder(R.color.common_body_tip_colors)
                     .fitCenter()
                     //.centerCrop()
                     .into(imageView);
@@ -117,12 +123,13 @@ public class TopicImageLoader implements IZoomMediaLoader {
                     //可以解决gif比较几种时 ，加载过慢  //DiskCacheStrategy.NONE
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                     .error(R.mipmap.userhead)
+                    .placeholder(R.mipmap.userhead)
                     .into(imageView);
         } else {
             //加载图
             Glide.with(mContext).load(userPath)
                     .error(R.mipmap.userhead)
-                    //.placeholder(android.R.color.darker_gray)
+                    .placeholder(R.mipmap.userhead)
                     .fitCenter()
                     //.centerCrop()
                     .into(imageView);
@@ -133,7 +140,8 @@ public class TopicImageLoader implements IZoomMediaLoader {
         //加载图
         Glide.with(mContext).load(R.mipmap.image_add)
                 .error(R.mipmap.image_add)
-                //.placeholder(android.R.color.darker_gray)
+                //.placeholder(R.mipmap.imageloader_default_smll)
+                //.placeholder(R.color.common_body_tip_colors)
                 .fitCenter()
                 //.centerCrop()
                 .into(imageView);

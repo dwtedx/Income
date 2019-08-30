@@ -3,6 +3,7 @@ package com.dwtedx.income.topic;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -22,15 +23,12 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.location.Poi;
 import com.dwtedx.income.R;
-import com.dwtedx.income.accounttype.ChoosePayingTypeActivity;
 import com.dwtedx.income.base.BaseActivity;
-import com.dwtedx.income.entity.DiScan;
+import com.dwtedx.income.connect.SaDataProccessHandler;
+import com.dwtedx.income.entity.DiTopicimg;
 import com.dwtedx.income.entity.DiTopicvote;
 import com.dwtedx.income.scan.ChooseLocationActivity;
-import com.dwtedx.income.scan.ScanDetailActivity;
-import com.dwtedx.income.scan.ScanResultActivity;
-import com.dwtedx.income.scan.adapter.ScanDetailAdapter;
-import com.dwtedx.income.sqliteservice.DIScanService;
+import com.dwtedx.income.service.TopicService;
 import com.dwtedx.income.topic.adapter.AddTopicImgRecyclerAdapter;
 import com.dwtedx.income.topic.adapter.AddTopicVoteRecyclerAdapter;
 import com.dwtedx.income.utility.CommonConstants;
@@ -49,7 +47,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class AddTopicActivity extends BaseActivity implements AddTopicImgRecyclerAdapter.OnAddPicClickListener, AddTopicImgRecyclerAdapter.OnItemClickListener, View.OnClickListener, AddTopicVoteRecyclerAdapter.OnValueEditAfterTextChangeListener
+public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitleClickListener, AddTopicImgRecyclerAdapter.OnAddPicClickListener, AddTopicImgRecyclerAdapter.OnItemClickListener, View.OnClickListener
 {
     private static final int REQUEST_CODE_CHOOSE_LOCAL = 71;
     private static final int ACCESS_COARSE_LOCALHOST_REQUEST_CODE = 72;
@@ -88,6 +86,8 @@ public class AddTopicActivity extends BaseActivity implements AddTopicImgRecycle
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_topic);
         ButterKnife.bind(this);
+
+        mAppTitle.setOnTitleClickListener(this);
 
         //定位
         mLocationButton.setOnClickListener(this);
@@ -132,7 +132,6 @@ public class AddTopicActivity extends BaseActivity implements AddTopicImgRecycle
         //自定义分割线的样式
         mVoteRecyclerView.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.HORIZONTAL, 0, ContextCompat.getColor(this, R.color.common_division_line)));
         mAdapterVote = new AddTopicVoteRecyclerAdapter(this, mDiTopicvoteList);
-        mAdapterVote.setmOnValueEditAfterTextChangeListener(this);
         mVoteRecyclerView.setAdapter(mAdapterVote);
 
     }
@@ -162,6 +161,19 @@ public class AddTopicActivity extends BaseActivity implements AddTopicImgRecycle
     }
 
     @Override
+    public void onTitleClick(int type) {
+        switch (type){
+            case AppTitleBar.OnTitleClickListener.TITLE_CLICK_LEFT:
+                finish();
+                break;
+
+            case AppTitleBar.OnTitleClickListener.TITLE_CLICK_RIGHT:
+                saveTopic();
+                break;
+        }
+    }
+
+    @Override
     public void onClick(View v) {
         Intent intent;
         switch (v.getId()) {
@@ -181,6 +193,38 @@ public class AddTopicActivity extends BaseActivity implements AddTopicImgRecycle
     @Override
     public void onItemClick(int position, View v) {
 
+    }
+
+
+    private void saveTopic(){
+        String desc = mTopicContent.getText().toString();
+        if(CommonUtility.isEmpty(desc)){
+            Toast.makeText(this, R.string.topic_add_tip_text_tip, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        //上传图片
+        if(null != mLocalMediaList && mLocalMediaList.size() > 0){
+            for(LocalMedia localMedia : mLocalMediaList) {
+                Bitmap bitmap = null;
+                // 1.media.getPath(); 为原图path
+                // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
+                // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
+                // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
+                if(localMedia.isCompressed()){
+                    bitmap = CommonUtility.getLocalBitmap(localMedia.getCompressPath());
+                }else{
+                    bitmap = CommonUtility.getLocalBitmap(localMedia.getPath());
+                }
+                String imgData = CommonUtility.encodeTobase64(bitmap);
+                SaDataProccessHandler<Void, Void, DiTopicimg> dataVerHandler = new SaDataProccessHandler<Void, Void, DiTopicimg>(this) {
+                    @Override
+                    public void onSuccess(DiTopicimg data) {
+
+                    }
+                };
+                TopicService.getInstance().uploadImg(imgData, dataVerHandler);
+            }
+        }
     }
 
     @Override
@@ -207,7 +251,7 @@ public class AddTopicActivity extends BaseActivity implements AddTopicImgRecycle
                 .withAspectRatio(1, 1)// int 裁剪比例 如16:9 3:2 3:4 1:1 可自定义
                 .hideBottomControls(false)// 是否显示uCrop工具栏，默认不显示 true or false
                 .isGif(true)// 是否显示gif图片 true or false
-                //.compressSavePath(getPath())//压缩图片保存地址
+                //.compressSavePath("/Income/Images")//压缩图片保存地址
                 .freeStyleCropEnabled(true)// 裁剪框是否可拖拽 true or false
                 .circleDimmedLayer(false)// 是否圆形裁剪 true or false
                 .showCropFrame(true)// 是否显示裁剪矩形边框 圆形裁剪时建议设为false   true or false
@@ -215,8 +259,8 @@ public class AddTopicActivity extends BaseActivity implements AddTopicImgRecycle
                 .openClickSound(false)// 是否开启点击声音 true or false
                 .selectionMedia(mLocalMediaList)// 是否传入已选图片 List<LocalMedia> list
                 .previewEggs(true)// 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中) true or false
-                .cropCompressQuality(90)// 裁剪压缩质量 默认90 int
-                .minimumCompressSize(800)// 小于100kb的图片不压缩
+                .cropCompressQuality(180)// 裁剪压缩质量 默认90 int
+                .minimumCompressSize(500)// 小于100kb的图片不压缩
                 .synOrAsy(true)//同步true或异步false 压缩 默认同步
                 .cropWH(500, 500)// 裁剪宽高比，设置如果大于图片本身宽高则无效 int
                 .rotateEnabled(true) // 裁剪是否可旋转图片 true or false
@@ -227,11 +271,6 @@ public class AddTopicActivity extends BaseActivity implements AddTopicImgRecycle
                 .recordVideoSecond(30)//视频秒数录制 默认60s int
                 .isDragFrame(false)// 是否可拖动裁剪框(固定)
                 .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
-    }
-
-    @Override
-    public void OnValueEditAfterTextChanged(String s) {
-
     }
 
     ///////////////定位相关//////////////////////////////定位相关//////////////////////////////定位相关//////////////////////////////定位相关//////////////////////////////定位相关///////////////

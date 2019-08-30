@@ -198,7 +198,7 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
             mIsAutoSynchronize = true;
             mSpringView.postDelayed(() -> {
                 mSpringView.callFresh();
-            }, 700);
+            }, 500);
 
         }
     }
