@@ -56,6 +56,9 @@ public class DiscoveryFragment extends BaseFragment implements SwipeRecyclerView
     @BindView(R.id.m_discovery_scarch_view)
     LinearLayout mScarchView;
 
+    @BindView(R.id.title_back_btn)
+    LinearLayout mTitleBackBtn;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View mView = inflater.inflate(R.layout.fragment_discovery, container, false);
@@ -66,6 +69,14 @@ public class DiscoveryFragment extends BaseFragment implements SwipeRecyclerView
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mTitleBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+            }
+        });
+
 
         mRightLayout.setOnClickListener(this);
         mScarchView.setOnClickListener(this);

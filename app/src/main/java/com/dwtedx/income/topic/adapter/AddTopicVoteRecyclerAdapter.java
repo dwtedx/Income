@@ -12,7 +12,9 @@ import com.dwtedx.income.R;
 import com.dwtedx.income.entity.DiTopicvote;
 import com.dwtedx.income.sqliteservice.DIScanService;
 import com.dwtedx.income.utility.CommonConstants;
+import com.dwtedx.income.utility.CommonUtility;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -84,6 +86,17 @@ public class AddTopicVoteRecyclerAdapter extends RecyclerView.Adapter<AddTopicVo
     @Override
     public int getItemCount() {
         return mList != null ? mList.size() : 0;
+    }
+
+    public List<DiTopicvote> getTotalVotes(){
+        List<DiTopicvote> topicvotes = new ArrayList<>();
+        for (DiTopicvote topicvote : mList) {
+            if(CommonConstants.INCOME_SCAN_ADDBUTTON != topicvote.getAddbutton()
+                && !CommonUtility.isEmpty(topicvote.getName())){
+                topicvotes.add(topicvote);
+            }
+        }
+        return topicvotes;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

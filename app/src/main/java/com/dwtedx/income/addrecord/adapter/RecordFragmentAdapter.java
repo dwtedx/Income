@@ -22,7 +22,7 @@ import java.util.List;
 public class RecordFragmentAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 2;
     private int[] tabTitles = {R.string.record_pay, R.string.record_income};
-    private int[] imageResId = {R.mipmap.pay, R.mipmap.income};
+    private int[] imageResId = {R.drawable.ic_pay_white, R.drawable.ic_income_white};
     private List<Fragment> mFragments;
     private Context context;
 

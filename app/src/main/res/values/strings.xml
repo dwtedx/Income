@@ -335,6 +335,7 @@
     <string name="profile_phone_bind_tip">绑定手机号成功</string>
 
     <!-- discovery -->
+    <string name="discovery_profile_text">折扣商城</string>
     <string name="discovery_ninenine">9.9包邮</string>
     <string name="discovery_ninenine_tip">精选9.9包邮</string>
     <string name="discovery_womens_clothing">女装</string>
@@ -386,8 +387,12 @@
     <string name="topic_liked_text"> 赞</string>
     <string name="topic_add_tip_text">这一刻的想法&#046;&#046;&#046;</string>
     <string name="topic_add_tip_text_tip">请输入这一刻的想法&#046;&#046;&#046;</string>
-    <string name="topic_add_title">发表观点</string>
+    <string name="topic_add_title">发表话题</string>
     <string name="topic_add_send">发表</string>
+    <string name="topic_add_send_top">发表话题需要先登录哦</string>
+    <string name="topic_add_send_success_top">发表话题成功</string>
+    <string name="profile_topic_tip">我的话题</string>
+    <string name="topic_detail_tip">话题详情</string>
 
     <!--<string name="app_name">PushDemo</string>-->
     <!--<string name="ok">确认</string>-->

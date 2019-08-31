@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -24,7 +25,11 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.location.Poi;
 import com.dwtedx.income.R;
 import com.dwtedx.income.base.BaseActivity;
+import com.dwtedx.income.connect.ProgressDialog;
 import com.dwtedx.income.connect.SaDataProccessHandler;
+import com.dwtedx.income.connect.SaException;
+import com.dwtedx.income.entity.ApplicationData;
+import com.dwtedx.income.entity.DiTopic;
 import com.dwtedx.income.entity.DiTopicimg;
 import com.dwtedx.income.entity.DiTopicvote;
 import com.dwtedx.income.scan.ChooseLocationActivity;
@@ -41,6 +46,7 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +73,9 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
     @BindView(R.id.m_vote_recycler_view)
     RecyclerView mVoteRecyclerView;
 
+    private ProgressDialog mProgressDialog;
+    private DiTopic mDiTopic;
+
     //百度定位7.6相关
     public LocationClient mLocationClient;
     private MyLocationListener myListener;
@@ -88,6 +97,10 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
         ButterKnife.bind(this);
 
         mAppTitle.setOnTitleClickListener(this);
+
+        mProgressDialog = getProgressDialog();
+        mProgressDialog.setCancelable(false);
+        mDiTopic = new DiTopic();
 
         //定位
         mLocationButton.setOnClickListener(this);
@@ -154,7 +167,9 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
                     break;
 
                 case REQUEST_CODE_CHOOSE_LOCAL:
-                    mLocationButton.setText(data.getStringExtra("POI"));
+                    String poiLoca = data.getStringExtra("POI");
+                    mLocationButton.setText(poiLoca);
+                    mDiTopic.setLocation(poiLoca);
                     break;
             }
         }
@@ -197,34 +212,82 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
 
 
     private void saveTopic(){
+        mTopicContent.requestFocus();//获取焦点 光标出现
         String desc = mTopicContent.getText().toString();
         if(CommonUtility.isEmpty(desc)){
             Toast.makeText(this, R.string.topic_add_tip_text_tip, Toast.LENGTH_SHORT).show();
             return;
         }
+        //等待框
+        mProgressDialog.show();
+
+        mDiTopic.setUserid(ApplicationData.mDiUserInfo.getId());
+        mDiTopic.setName(ApplicationData.mDiUserInfo.getName());
+        mDiTopic.setDescription(desc);
         //上传图片
         if(null != mLocalMediaList && mLocalMediaList.size() > 0){
+            List<DiTopicimg> topicimgs = new ArrayList<>();
             for(LocalMedia localMedia : mLocalMediaList) {
-                Bitmap bitmap = null;
                 // 1.media.getPath(); 为原图path
                 // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
                 // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
                 // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
+                Uri uri = null;
                 if(localMedia.isCompressed()){
-                    bitmap = CommonUtility.getLocalBitmap(localMedia.getCompressPath());
+                    uri = Uri.fromFile(new File(localMedia.getCompressPath()));
                 }else{
-                    bitmap = CommonUtility.getLocalBitmap(localMedia.getPath());
+                    uri = Uri.fromFile(new File(localMedia.getPath()));
                 }
+                Bitmap bitmap = CommonUtility.getScalingBitmap(uri, this);
                 String imgData = CommonUtility.encodeTobase64(bitmap);
                 SaDataProccessHandler<Void, Void, DiTopicimg> dataVerHandler = new SaDataProccessHandler<Void, Void, DiTopicimg>(this) {
                     @Override
                     public void onSuccess(DiTopicimg data) {
+                        DiTopicimg topicimg = new DiTopicimg();
+                        topicimg.setPath(data.getPath());
+                        topicimg.setWidth(bitmap.getWidth());
+                        topicimg.setHeight(bitmap.getHeight());
+                        topicimgs.add(topicimg);
+                    }
 
+                    @Override
+                    public void onPreExecute() {
+                        //super.onPreExecute();
+                    }
+
+                    @Override
+                    public void handlerError(SaException e) {
+                        super.handlerError(e);
+                        mProgressDialog.hide();
                     }
                 };
                 TopicService.getInstance().uploadImg(imgData, dataVerHandler);
             }
+            mDiTopic.setTopicimg(topicimgs);
         }
+        //投票
+        mDiTopic.setTopicvote(mAdapterVote.getTotalVotes());
+        //保存
+        SaDataProccessHandler<Void, Void, Void> dataVerHandler = new SaDataProccessHandler<Void, Void, Void>(this) {
+            @Override
+            public void onSuccess(Void data) {
+                Toast.makeText(AddTopicActivity.this, R.string.topic_add_send_success_top, Toast.LENGTH_SHORT).show();
+                mProgressDialog.hide();
+                AddTopicActivity.this.finish();
+            }
+
+            @Override
+            public void onPreExecute() {
+                //super.onPreExecute();
+            }
+
+            @Override
+            public void handlerError(SaException e) {
+                super.handlerError(e);
+                mProgressDialog.hide();
+            }
+        };
+        TopicService.getInstance().seveTopic(mDiTopic, dataVerHandler);
     }
 
     @Override
@@ -246,7 +309,7 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
                 .sizeMultiplier(0.5f)// glide 加载图片大小 0~1之间 如设置 .glideOverride()无效
                 .setOutputCameraPath("/Income/Images")// 自定义拍照保存路径,可不填
                 .enableCrop(false)// 是否裁剪 true or false
-                .compress(true)// 是否压缩 true or false
+                .compress(false)// 是否压缩 true or false
                 .glideOverride(160, 160)// int glide 加载宽高，越小图片列表越流畅，但会影响列表图片浏览的清晰度
                 .withAspectRatio(1, 1)// int 裁剪比例 如16:9 3:2 3:4 1:1 可自定义
                 .hideBottomControls(false)// 是否显示uCrop工具栏，默认不显示 true or false
@@ -259,8 +322,8 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
                 .openClickSound(false)// 是否开启点击声音 true or false
                 .selectionMedia(mLocalMediaList)// 是否传入已选图片 List<LocalMedia> list
                 .previewEggs(true)// 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中) true or false
-                .cropCompressQuality(180)// 裁剪压缩质量 默认90 int
-                .minimumCompressSize(500)// 小于100kb的图片不压缩
+                .cropCompressQuality(90)// 裁剪压缩质量 默认90 int
+                .minimumCompressSize(100)// 小于100kb的图片不压缩
                 .synOrAsy(true)//同步true或异步false 压缩 默认同步
                 .cropWH(500, 500)// 裁剪宽高比，设置如果大于图片本身宽高则无效 int
                 .rotateEnabled(true) // 裁剪是否可旋转图片 true or false
@@ -309,6 +372,9 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
 
         @Override
         public void onReceiveLocation(BDLocation location) {
+            //保存经纬度和
+            mDiTopic.setLatitude(String.valueOf(location.getLatitude()));
+            mDiTopic.setLongitude(String.valueOf(location.getLongitude()));
             //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
             //以下只列举部分获取周边POI信息相关的结果
             //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
@@ -327,6 +393,7 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
                 }
                 cityStr += "·" + poiList.get(0).getName();
             }
+            mDiTopic.setLocation(cityStr);
             mLocationButton.setText(cityStr);
             //获取周边POI信息
             //POI信息包括POI ID、名称等，具体信息请参照类参考中POI类的相关说明

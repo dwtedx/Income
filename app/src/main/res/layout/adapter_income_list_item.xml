@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:paddingTop="@dimen/common_margin_12dp"
     android:paddingBottom="@dimen/common_margin_12dp"
+    android:background="@color/common_color_white"
     android:paddingStart="@dimen/activity_horizontal_margin"
     android:paddingEnd="@dimen/activity_horizontal_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"

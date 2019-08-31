@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.dwtedx.income.R;
@@ -27,6 +28,7 @@ import com.dwtedx.income.discovery.adapter.DiscoveryRecyclerAdapter;
 import com.dwtedx.income.entity.DiTopic;
 import com.dwtedx.income.entity.TaobaoActivityInfo;
 import com.dwtedx.income.entity.TaobaoItemInfo;
+import com.dwtedx.income.profile.LoginV2Activity;
 import com.dwtedx.income.service.TaobaoService;
 import com.dwtedx.income.service.TopicService;
 import com.dwtedx.income.topic.adapter.TopicRecyclerAdapter;
@@ -78,7 +80,7 @@ public class TopicFragment extends BaseFragment implements SwipeRecyclerView.OnL
         //自定义分割线的样式
         mRecyclerView.getRecyclerView().addItemDecoration(new RecycleViewDivider(getContext(), LinearLayoutManager.HORIZONTAL, 32, ContextCompat.getColor(getContext(), R.color.common_background_color)));
         mDiTopicList = new ArrayList<>();
-        mAdapter = new TopicRecyclerAdapter(getContext(), mDiTopicList, mRecyclerView);
+        mAdapter = new TopicRecyclerAdapter(getContext(), mDiTopicList);
         mRecyclerView.setAdapter(mAdapter);
 
         getTopicItemInfo(true, true);
@@ -157,6 +159,11 @@ public class TopicFragment extends BaseFragment implements SwipeRecyclerView.OnL
         switch (v.getId()){
 
             case R.id.home_item_layout:
+                if(!isLogin()){
+                    Toast.makeText(getContext(), R.string.topic_add_send_top, Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getContext(), LoginV2Activity.class));
+                    return;
+                }
                 startActivity(new Intent(getContext(), AddTopicActivity.class));
                 break;
         }

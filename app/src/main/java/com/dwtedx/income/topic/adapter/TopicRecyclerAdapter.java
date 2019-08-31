@@ -21,9 +21,9 @@ import com.dwtedx.income.base.BaseActivity;
 import com.dwtedx.income.connect.SaDataProccessHandler;
 import com.dwtedx.income.entity.ApplicationData;
 import com.dwtedx.income.entity.DiTopic;
-import com.dwtedx.income.entity.DiTopicvote;
 import com.dwtedx.income.profile.LoginV2Activity;
 import com.dwtedx.income.service.TopicService;
+import com.dwtedx.income.topic.TopicDetailActivity;
 import com.dwtedx.income.topic.TopicImageLoader;
 import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.utility.CommonUtility;
@@ -50,12 +50,10 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
 
     private Context mContext;
     private List<DiTopic> mList;
-    private SwipeRecyclerView mRecyclerView;
 
-    public TopicRecyclerAdapter(Context mContext, List<DiTopic> customerInfoList, SwipeRecyclerView recyclerView) {
+    public TopicRecyclerAdapter(Context mContext, List<DiTopic> customerInfoList) {
         this.mContext = mContext;
         this.mList = customerInfoList;
-        this.mRecyclerView = recyclerView;
     }
 
     public void setHeaderView(View headerView) {
@@ -136,6 +134,35 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
                 case 1:
                     holder.mRecyclerView.setVisibility(View.GONE);
                     holder.mImageView.setVisibility(View.VISIBLE);
+                    //计算视图大小
+                    if(data.getTopicimg().get(0).getHeight() > 0) {
+                        ViewGroup.LayoutParams para = holder.mImageView.getLayoutParams();
+                        int maxWidth = CommonUtility.dip2px(mContext, 218);
+                        int maxHeigth = CommonUtility.dip2px(mContext, 230);
+                        //按照最长边计算
+                        if (data.getTopicimg().get(0).getWidth() > data.getTopicimg().get(0).getHeight()){
+                            if (data.getTopicimg().get(0).getWidth() > maxWidth) {
+                                float abc = ((float) maxWidth) / data.getTopicimg().get(0).getWidth();
+                                para.width = maxWidth;
+                                para.height = (int) (data.getTopicimg().get(0).getHeight() * abc);
+                            } else {
+                                para.width = data.getTopicimg().get(0).getWidth();
+                                para.height = data.getTopicimg().get(0).getHeight();
+                            }
+                        } else {
+                            //高比宽长
+                            if (data.getTopicimg().get(0).getHeight() > maxHeigth) {
+                                float abc = ((float) maxHeigth) / data.getTopicimg().get(0).getHeight();
+                                para.width = (int) (data.getTopicimg().get(0).getWidth() * abc);
+                                para.height = maxHeigth;
+                            } else {
+                                para.width = data.getTopicimg().get(0).getWidth();
+                                para.height = data.getTopicimg().get(0).getHeight();
+                            }
+                        }
+                        holder.mImageView.setLayoutParams(para);
+
+                    }
                     TopicImageLoader.loadImage(mContext, data.getTopicimg().get(0), holder.mImageView);
                     break;
 
@@ -203,7 +230,6 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
         }
 
         //事件
-        //holder.mItemLayoutView.setOnClickListener(this);
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -219,27 +245,56 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
                         .start();
             }
         });
-        holder.mItemLikedLayoutView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(null == ApplicationData.mDiUserInfo || ApplicationData.mDiUserInfo.getId() == 0){
-                    Toast.makeText(mContext, "点赞需要先登录哦", Toast.LENGTH_SHORT).show();
-                    mContext.startActivity(new Intent(mContext, LoginV2Activity.class));
-                    return;
-                }
-                SaDataProccessHandler<Void, Void, Void> dataVerHandler = new SaDataProccessHandler<Void, Void, Void>((BaseActivity) mContext) {
-                    @Override
-                    public void onSuccess(Void dataVode) {
-                        data.setLiked(data.getLiked() + 1);
-                        holder.mItemLikedView.setText(data.getLiked() + mContext.getString(R.string.topic_liked_text));
-                        Toast.makeText(mContext, "点赞成功", Toast.LENGTH_SHORT).show();
-                    }
-                };
-                TopicService.getInstance().topicLicked(data.getId(), dataVerHandler);
-            }
-        });
+
+        holder.mItemLayoutView.setTag(position);
+        holder.mItemShareLayoutView.setTag(position);
+        holder.mItemTalkLayoutView.setTag(position);
+        holder.mItemLikedLayoutView.setTag(position);
+        holder.mItemLayoutView.setOnClickListener(onClickListener);
+        holder.mItemShareLayoutView.setOnClickListener(onClickListener);
+        holder.mItemTalkLayoutView.setOnClickListener(onClickListener);
+        holder.mItemLikedLayoutView.setOnClickListener(onClickListener);
 
     }
+
+    View.OnClickListener onClickListener = new View.OnClickListener(){
+
+        @Override
+        public void onClick(View v) {
+            DiTopic topic = mList.get((int)v.getTag());
+            switch (v.getId()){
+
+                case R.id.m_item_layout_view:
+                case R.id.m_item_talk_layout_view:
+                    Intent intent = new Intent(mContext, TopicDetailActivity.class);
+                    intent.putExtra("topicId", topic.getId());
+                    mContext.startActivity(intent);
+                    break;
+
+                case R.id.m_item_share_layout_view:
+                    Toast.makeText(mContext, "分享", Toast.LENGTH_SHORT).show();
+                    break;
+
+                case R.id.m_item_liked_layout_view:
+                    //点赞
+                    if(null == ApplicationData.mDiUserInfo || ApplicationData.mDiUserInfo.getId() == 0){
+                        Toast.makeText(mContext, "点赞需要先登录哦", Toast.LENGTH_SHORT).show();
+                        mContext.startActivity(new Intent(mContext, LoginV2Activity.class));
+                        return;
+                    }
+                    SaDataProccessHandler<Void, Void, Void> dataVerHandler = new SaDataProccessHandler<Void, Void, Void>((BaseActivity) mContext) {
+                        @Override
+                        public void onSuccess(Void dataVode) {
+                            topic.setLiked(topic.getLiked() + 1);
+                            ((TextView)v.findViewById(R.id.m_item_liked_view)).setText(topic.getLiked() + mContext.getString(R.string.topic_liked_text));
+                            Toast.makeText(mContext, "点赞成功", Toast.LENGTH_SHORT).show();
+                        }
+                    };
+                    TopicService.getInstance().topicLicked(topic.getId(), dataVerHandler);
+                    break;
+            }
+        }
+    };
 
     public int getRealPosition(RecyclerView.ViewHolder holder) {
         int position = holder.getLayoutPosition();

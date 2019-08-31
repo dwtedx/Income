@@ -22,6 +22,7 @@ import com.dwtedx.income.accounttype.IncomeTypeActivity;
 import com.dwtedx.income.accounttype.PayingTypeActivity;
 import com.dwtedx.income.base.BaseActivity;
 import com.dwtedx.income.base.BaseFragment;
+import com.dwtedx.income.discovery.DiscoveryActivity;
 import com.dwtedx.income.entity.ApplicationData;
 import com.dwtedx.income.home.HomeV2Activity;
 import com.dwtedx.income.report.ShareActivity;
@@ -36,7 +37,9 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     private CircleImageView mHeadImageView;
     private TextView mHeadName;
     private TextView mSignatureView;
-    private int[] mClickView = {R.id.nav_header_view, R.id.profile_type_pay, R.id.profile_type_income, R.id.profile_account, R.id.profile_data, R.id.setup_reset_pass, R.id.profile_theme, R.id.profile_accent, R.id.profile_setup, R.id.profile_share, R.id.profile_budget, R.id.profile_nav_setup};
+    private int[] mClickView = {R.id.nav_header_view, R.id.profile_type_pay, R.id.profile_type_income, R.id.profile_account,
+            R.id.setup_reset_pass, R.id.profile_theme, R.id.profile_accent, R.id.profile_setup, R.id.profile_share,
+            R.id.profile_budget, R.id.profile_nav_setup, R.id.m_profile_discover_button, R.id.m_profile_topic_button};
 
     // color chooser dialog
     private int primaryPreselect;
@@ -120,9 +123,6 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             case R.id.profile_account:
                 startActivity(new Intent(getContext(), AccountActivity.class));
                 break;
-            case R.id.profile_data:
-                //dataRegain();
-                break;
             case R.id.setup_reset_pass:
                 break;
 //            case R.id.profile_theme:
@@ -152,6 +152,14 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
 
             case R.id.home_item_layout:
                 startActivity(new Intent(getContext(), SetupActivity.class));
+                break;
+
+            case R.id.m_profile_discover_button:
+                startActivity(new Intent(getContext(), DiscoveryActivity.class));
+                break;
+
+            case R.id.m_profile_topic_button:
+
                 break;
         }
     }

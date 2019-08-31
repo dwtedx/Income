@@ -1460,7 +1460,7 @@ public class CommonUtility {
             in.close();
 
             // 计算放缩值
-            int sampleSize = calculateInSampleSize(opts, 840, 400);
+            int sampleSize = calculateInSampleSize(opts, 900, 700);
 
             // 第二次 decode,指定取样数后,产生缩图
             in = mContext.getContentResolver().openInputStream(uri);

@@ -14,6 +14,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.dwtedx.income.R;
 import com.dwtedx.income.entity.DiTopicimg;
@@ -89,6 +90,12 @@ public class TopicImageLoader implements IZoomMediaLoader {
     }
 
 
+    /**
+     * 显示单张图
+     * @param mContext
+     * @param beanViewInfo
+     * @param imageView
+     */
     public static void loadImage(Context mContext, DiTopicimg beanViewInfo, ImageView imageView){
         if (beanViewInfo.getUrl().toLowerCase().contains(".gif")) {
             Glide.with(mContext).asGif()
