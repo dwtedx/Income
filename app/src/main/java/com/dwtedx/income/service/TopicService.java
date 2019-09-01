@@ -80,6 +80,54 @@ public class TopicService {
         return task;
     }
 
+
+    /**
+     * 查找
+     *
+     * @param id
+     * @param handler
+     * @return
+     */
+    public SaAsyncTask<Void, Void, DiTopic> findTopic(final int id, SaDataProccessHandler<Void, Void, DiTopic> handler) {
+        handler.setUrl(ServiceAPI.WEB_API_TOPIC_FINDTOPIC);
+        SaAsyncTask<Void, Void, DiTopic> task = new SaAsyncTask<Void, Void, DiTopic>(handler) {
+            @Override
+            protected DiTopic doInBackground(Void... params) {
+                DiTopic result = null;
+                try {
+                    BaseHttpResponseHandler<DiTopic> dataHandler = new
+                            BaseHttpResponseHandler<DiTopic>() {
+
+                                @Override
+                                public DiTopic getResult(Object jsonObject) throws SaException {
+                                    DiTopic resultData = ParseJsonToObject.getObject(DiTopic.class,
+                                            (JSONObject) jsonObject);
+                                    return resultData;
+                                }
+                            };
+
+                    JSONObject requestParameter = new JSONObject();
+                    try {
+                        requestParameter.put("id", id);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        throw new SaException(SaError.ERROR_TYPE_JSON, e);
+                    }
+
+                    result = handler.getRequestExecutor().executeRequest(ServiceParamterUtil.genParamterJSONObject(requestParameter), dataHandler);
+                } catch (SaException e) {
+                    setErrorObj(e);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setErrorObj(new SaException(SaError.ERROR_TYPE_UNKNOWN, e));
+                }
+                return result;
+            }
+        };
+        task.execute();
+        return task;
+    }
+
     /**
      * 保存投票
      * @param topicid

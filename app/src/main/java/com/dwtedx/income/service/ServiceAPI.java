@@ -83,6 +83,7 @@ public class ServiceAPI {
     public static String WEB_API_TAOBAO_CATEGORYIDITEM = WEB_API_DOMAIN + "/taobao/categoryiditem";
 
     public static String WEB_API_TOPIC_INDEX = WEB_API_DOMAIN + "/topic/index";
+    public static String WEB_API_TOPIC_FINDTOPIC = WEB_API_DOMAIN + "/topic/findtopic";
     public static String WEB_API_TOPIC_SEVEVOTERESULT = WEB_API_DOMAIN + "/topic/sevevoteresult";
     public static String WEB_API_TOPIC_SEVETOPICLIKED = WEB_API_DOMAIN + "/topic/sevetopicliked";
     public static String WEB_API_TOPIC_UPLOADIMG = WEB_API_DOMAIN + "/topic/uploadimg";

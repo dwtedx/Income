@@ -1,6 +1,5 @@
 package com.dwtedx.income.home.adapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -123,23 +122,8 @@ public class DiIncomeLineAdapter extends RecyclerView.Adapter<DiIncomeLineAdapte
                 viewHolder.timelinetimetext.setText("");
                 viewHolder.timeLayoutView.setVisibility(View.GONE);
             }
-            viewHolder.timelineLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //如果有 先隐藏
-                    if(null != mDisplayEditView && View.VISIBLE == mDisplayEditView.getVisibility()){
-                        //添加动画
-                        Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(mContext, R.anim.slide_out_top);
-                        mDisplayEditView.startAnimation(hyperspaceJumpAnimation);
-                        mDisplayEditView.setVisibility(View.GONE);
-                    }
-                    //添加动画
-                    Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(mContext, R.anim.slide_in_top); // 使用AnimationUtils载入并实例化动画
-                    viewHolder.incomeEditView.startAnimation(hyperspaceJumpAnimation); // startAnimation是View提供的方法, 你也可以用View.setAnimation()指定一个已通过Animation.setStartTime()设定了开始时间的定时动画
-                    viewHolder.incomeEditView.setVisibility(View.VISIBLE);
-                    mDisplayEditView = viewHolder.incomeEditView;
-                }
-            });
+            //记账条目点击事件
+            viewHolder.timelineLayout.setOnClickListener(this);
             viewHolder.incomeEditView.setTag(viewHolder.getAdapterPosition());
             viewHolder.incomeEditView.setOnClickListener(this);
         }else{
@@ -217,12 +201,6 @@ public class DiIncomeLineAdapter extends RecyclerView.Adapter<DiIncomeLineAdapte
             viewHolder.timelineLayout.setVisibility(View.VISIBLE);
         }
 
-        //记账条目点击事件
-        //viewHolder.timelineLayout.setOnClickListener(new View.OnClickListener() {
-        //    @Override
-        //    public void onClick(View v) {
-        //    }
-        //});
     }
 
     @Override
@@ -241,19 +219,6 @@ public class DiIncomeLineAdapter extends RecyclerView.Adapter<DiIncomeLineAdapte
         tv.start();
     }
 
-    //@Override
-    //public void onLongClick(View v) {
-        //int position = (int)v.getTag();
-        //Toast.makeText(mContext, "点击" + position, Toast.LENGTH_SHORT).show();
-        //DiIncome diIncome = mDiIncomeItems.get(position);
-        //if(diIncome.getRole() == CommonConstants.INCOME_ROLE_START){
-        //    return true;
-        //}
-        //Intent intent = new Intent(mContext, IncomeDetailActivity.class);
-        //intent.putExtra("income", ParseJsonToObject.getJsonFromObj(diIncome).toString());
-        //mContext.startActivity(intent);
-    //}
-
 
     public ImageView getmDisplayEditView() {
         return mDisplayEditView;
@@ -265,11 +230,15 @@ public class DiIncomeLineAdapter extends RecyclerView.Adapter<DiIncomeLineAdapte
             case R.id.income_edit_view:
                 incomeDetail(v);
                 break;
+
+            case R.id.timeline_layout:
+                itemClick(v);
+                break;
         }
     }
 
     private void incomeDetail(View v) {
-        int position = ((int) v.getTag()) - 1;//减1修正
+        int position = ((int) v.getTag());//减1修正
         final DiIncome diIncome = mDiIncomeItems.get(position);
         if(CommonConstants.INCOME_RECORD_TYPE_1 == diIncome.getRecordtype()) {
             Intent intent = new Intent(mContext, ScanDetailActivity.class);
@@ -286,12 +255,27 @@ public class DiIncomeLineAdapter extends RecyclerView.Adapter<DiIncomeLineAdapte
         mDisplayEditView.setVisibility(View.GONE);
     }
 
+    private void itemClick(View v){
+        ImageView incomeEditView = (ImageView) v.findViewById(R.id.income_edit_view);
+        //如果有 先隐藏
+        if(null != mDisplayEditView && View.VISIBLE == mDisplayEditView.getVisibility()){
+            //添加动画
+            Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(mContext, R.anim.slide_out_top);
+            mDisplayEditView.startAnimation(hyperspaceJumpAnimation);
+            mDisplayEditView.setVisibility(View.GONE);
+        }
+        //添加动画
+        Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(mContext, R.anim.slide_in_top); // 使用AnimationUtils载入并实例化动画
+        incomeEditView.startAnimation(hyperspaceJumpAnimation); // startAnimation是View提供的方法, 你也可以用View.setAnimation()指定一个已通过Animation.setStartTime()设定了开始时间的定时动画
+        incomeEditView.setVisibility(View.VISIBLE);
+        mDisplayEditView = incomeEditView;
+    }
+
     class DiIncomeMoneyLineViewHolder extends RecyclerView.ViewHolder {
 
         TextView incomeText, pyaText, tipText, timelinetimetext, incomeAllText, pyaAllText, incomepolltextView, paytextpollView, incomepollTitletextView, paytextpollTitleView;
         RiseNumberTextView timelinePollText;
         ImageView timeline;
-        //TimelineView timelinetime, timelinePollTime;
         LinearLayout tipView;
         RelativeLayout timeLayoutView, timelineLayout, pollLayoutView;
         ImageView incomeEditView;
@@ -303,8 +287,6 @@ public class DiIncomeLineAdapter extends RecyclerView.Adapter<DiIncomeLineAdapte
             incomeAllText = (TextView) itemView.findViewById(R.id.incometextallView);
             pyaAllText = (TextView) itemView.findViewById(R.id.paytextallView);
             timeline = (ImageView) itemView.findViewById(R.id.timeline);
-            //timelinetime = (TimelineView) itemView.findViewById(R.id.timeline_time);
-            //timelinePollTime = (TimelineView) itemView.findViewById(R.id.timeline_poll_time);
             timelinetimetext = (TextView) itemView.findViewById(R.id.timeline_time_text);
             timeLayoutView = (RelativeLayout) itemView.findViewById(R.id.timeline_time_layout);
             tipText = (TextView) itemView.findViewById(R.id.paytextViewTip);
