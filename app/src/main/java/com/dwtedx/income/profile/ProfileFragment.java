@@ -26,6 +26,7 @@ import com.dwtedx.income.discovery.DiscoveryActivity;
 import com.dwtedx.income.entity.ApplicationData;
 import com.dwtedx.income.home.HomeV2Activity;
 import com.dwtedx.income.report.ShareActivity;
+import com.dwtedx.income.topic.MyTopicActivity;
 import com.dwtedx.income.utility.CommonUtility;
 import com.dwtedx.income.widget.CircleImageView;
 import com.dwtedx.income.widget.theme.CircleView;
@@ -159,7 +160,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                 break;
 
             case R.id.m_profile_topic_button:
-
+                startActivity(new Intent(getContext(), MyTopicActivity.class));
                 break;
         }
     }

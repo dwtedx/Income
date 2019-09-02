@@ -91,8 +91,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingStart="@dimen/activity_horizontal_margin"
                 android:background="@color/common_color_white"
                 android:layout_gravity="center_vertical">
 
@@ -101,6 +99,7 @@
                     style="@style/common_text_style_14_333333"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/common_margin_16dp"
                     android:layout_centerVertical="true"
                     android:text="@string/user_phone" />
 
@@ -109,8 +108,6 @@
                     style="@style/common_text_style_14_333333"
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/user_phone"
-                    android:layout_toRightOf="@+id/user_phone"
                     android:background="?android:attr/selectableItemBackground"
                     android:gravity="end"
                     android:hint="@string/user_hint"
@@ -139,8 +136,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingStart="@dimen/activity_horizontal_margin"
                 android:background="@color/common_color_white"
                 android:layout_gravity="center_vertical">
 
@@ -149,6 +144,7 @@
                     style="@style/common_text_style_14_333333"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/common_margin_16dp"
                     android:layout_centerVertical="true"
                     android:text="@string/user_name" />
 
@@ -157,8 +153,6 @@
                     style="@style/common_text_style_14_333333"
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/user_name"
-                    android:layout_toRightOf="@+id/user_name"
                     android:background="?android:attr/selectableItemBackground"
                     android:gravity="end"
                     android:hint="@string/user_hint"
@@ -187,8 +181,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingStart="@dimen/activity_horizontal_margin"
                 android:background="@color/common_color_white"
                 android:layout_gravity="center_vertical">
 
@@ -197,6 +189,7 @@
                     style="@style/common_text_style_14_333333"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/common_margin_16dp"
                     android:layout_centerVertical="true"
                     android:text="@string/user_password" />
 
@@ -205,8 +198,6 @@
                     style="@style/common_text_style_14_333333"
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/user_password"
-                    android:layout_toRightOf="@+id/user_password"
                     android:background="?android:attr/selectableItemBackground"
                     android:gravity="end"
                     android:hint="@string/user_hint"
@@ -238,8 +229,6 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingStart="@dimen/activity_horizontal_margin"
                 android:background="@color/common_color_white"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical">
@@ -250,6 +239,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/common_margin_16dp"
                     android:text="@string/user_nick_name" />
 
                 <Button
@@ -257,8 +247,6 @@
                     style="@style/common_text_style_14_333333"
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/user_nick_name"
-                    android:layout_toRightOf="@+id/user_nick_name"
                     android:background="?android:attr/selectableItemBackground"
                     android:gravity="end"
                     android:hint="@string/user_hint"
@@ -287,8 +275,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingStart="@dimen/activity_horizontal_margin"
                 android:background="@color/common_color_white"
                 android:layout_gravity="center_vertical">
 
@@ -297,6 +283,7 @@
                     style="@style/common_text_style_14_737373"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/common_margin_16dp"
                     android:layout_centerVertical="true"
                     android:text="@string/user_email" />
 
@@ -305,8 +292,6 @@
                     style="@style/common_text_style_14_333333"
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/user_email"
-                    android:layout_toRightOf="@+id/user_email"
                     android:background="?android:attr/selectableItemBackground"
                     android:gravity="end"
                     android:hint="@string/user_hint"
@@ -335,8 +320,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingStart="@dimen/activity_horizontal_margin"
                 android:background="@color/common_color_white"
                 android:layout_gravity="center_vertical">
 
@@ -344,6 +327,7 @@
                     android:id="@+id/user_signature"
                     style="@style/common_text_style_14_737373"
                     android:layout_width="wrap_content"
+                    android:layout_marginStart="@dimen/common_margin_16dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="@string/user_signature" />
@@ -353,8 +337,6 @@
                     style="@style/common_text_style_14_333333"
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/user_signature"
-                    android:layout_toRightOf="@+id/user_signature"
                     android:background="?android:attr/selectableItemBackground"
                     android:gravity="end"
                     android:hint="@string/user_signature_hint"
@@ -383,8 +365,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingStart="@dimen/activity_horizontal_margin"
                 android:background="@color/common_color_white"
                 android:layout_gravity="center_vertical">
 
@@ -393,6 +373,7 @@
                     style="@style/common_text_style_14_737373"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/common_margin_16dp"
                     android:layout_centerVertical="true"
                     android:text="@string/user_work" />
 
@@ -401,8 +382,6 @@
                     style="@style/common_text_style_14_333333"
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/user_work"
-                    android:layout_toRightOf="@+id/user_work"
                     android:background="?android:attr/selectableItemBackground"
                     android:gravity="end"
                     android:hint="@string/user_hint"
@@ -431,8 +410,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingStart="@dimen/activity_horizontal_margin"
                 android:background="@color/common_color_white"
                 android:layout_gravity="center_vertical">
 
@@ -441,6 +418,7 @@
                     style="@style/common_text_style_14_737373"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/common_margin_16dp"
                     android:layout_centerVertical="true"
                     android:text="@string/user_weixin" />
 
@@ -449,8 +427,6 @@
                     style="@style/common_text_style_14_333333"
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/user_weixin"
-                    android:layout_toRightOf="@+id/user_weixin"
                     android:background="?android:attr/selectableItemBackground"
                     android:gravity="end"
                     android:hint="@string/user_hint"
@@ -479,8 +455,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingStart="@dimen/activity_horizontal_margin"
                 android:background="@color/common_color_white"
                 android:layout_gravity="center_vertical">
 
@@ -488,6 +462,7 @@
                     android:id="@+id/user_qq"
                     style="@style/common_text_style_14_737373"
                     android:layout_width="wrap_content"
+                    android:layout_marginStart="@dimen/common_margin_16dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="@string/user_qq" />
@@ -497,8 +472,6 @@
                     style="@style/common_text_style_14_333333"
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/user_qq"
-                    android:layout_toRightOf="@+id/user_qq"
                     android:background="?android:attr/selectableItemBackground"
                     android:gravity="end"
                     android:hint="@string/user_hint"
@@ -531,8 +504,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingStart="@dimen/activity_horizontal_margin"
                 android:background="@color/common_color_white"
                 android:layout_gravity="center_vertical">
 
@@ -541,6 +512,7 @@
                     style="@style/common_text_style_14_737373"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/common_margin_16dp"
                     android:layout_centerVertical="true"
                     android:text="@string/user_sex" />
 
@@ -549,8 +521,6 @@
                     style="@style/common_text_style_14_333333"
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/user_sex"
-                    android:layout_toRightOf="@+id/user_sex"
                     android:background="?android:attr/selectableItemBackground"
                     android:gravity="end"
                     android:hint="@string/user_hint"
@@ -579,8 +549,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingStart="@dimen/activity_horizontal_margin"
                 android:background="@color/common_color_white"
                 android:layout_gravity="center_vertical">
 
@@ -589,6 +557,7 @@
                     style="@style/common_text_style_14_737373"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/common_margin_16dp"
                     android:layout_centerVertical="true"
                     android:text="@string/user_birthday" />
 
@@ -597,8 +566,6 @@
                     style="@style/common_text_style_14_333333"
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/user_birthday"
-                    android:layout_toRightOf="@+id/user_birthday"
                     android:background="?android:attr/selectableItemBackground"
                     android:gravity="end"
                     android:hint="@string/user_hint"

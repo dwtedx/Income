@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?android:attr/selectableItemBackground"
+    android:background="@color/common_color_white"
     android:padding="@dimen/common_margin_2dp"
     android:orientation="vertical">
 
@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="106dp"
         android:contentDescription="@string/app_name"
+        android:background="@color/common_division_line"
         android:scaleType="centerCrop"
         android:src="@mipmap/imageloader_default_smll" />
 

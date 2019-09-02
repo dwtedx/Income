@@ -20,6 +20,7 @@ import com.dwtedx.income.base.BaseActivity;
 import com.dwtedx.income.connect.SaDataProccessHandler;
 import com.dwtedx.income.entity.ApplicationData;
 import com.dwtedx.income.entity.DiTopic;
+import com.dwtedx.income.entity.DiTopictalk;
 import com.dwtedx.income.profile.LoginV2Activity;
 import com.dwtedx.income.service.TopicService;
 import com.dwtedx.income.topic.adapter.TopicImgRecyclerAdapter;
@@ -115,12 +116,35 @@ public class TopicDetailActivity extends BaseActivity {
         mTalkButtonView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(null == ApplicationData.mDiUserInfo || ApplicationData.mDiUserInfo.getId() == 0){
+                    Toast.makeText(TopicDetailActivity.this, "回复需要先登录哦", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(TopicDetailActivity.this, LoginV2Activity.class));
+                    return;
+                }
                 String context = mTalkEditView.getText().toString();
                 if(CommonUtility.isEmpty(context)){
                     Toast.makeText(TopicDetailActivity.this, R.string.topic_add_send_tip, Toast.LENGTH_SHORT).show();
                     return;
                 }
+                //保存
+                DiTopictalk topictalk = new DiTopictalk();
+                topictalk.setTopicid(mTopicId);
+                topictalk.setUserid(ApplicationData.mDiUserInfo.getId());
+                topictalk.setName(ApplicationData.mDiUserInfo.getName());
+                topictalk.setRemark(ApplicationData.mDiUserInfo.getHead());
+                topictalk.setCreatetimestr(CommonUtility.getCurrentTime());
+                topictalk.setContent(context);
+                SaDataProccessHandler<Void, Void, Void> dataVerHandler = new SaDataProccessHandler<Void, Void, Void>(TopicDetailActivity.this) {
+                    @Override
+                    public void onSuccess(Void data) {
+                        mDiTopic.getTopictalk().add(0, topictalk);
+                        mTopicTalkRecyclerAdapter.notifyDataSetChanged();
+                        Toast.makeText(TopicDetailActivity.this, R.string.topic_detail_talk_tip, Toast.LENGTH_SHORT).show();
+                    }
 
+                };
+
+                TopicService.getInstance().seveTopicTalk(topictalk, dataVerHandler);
             }
         });
     }

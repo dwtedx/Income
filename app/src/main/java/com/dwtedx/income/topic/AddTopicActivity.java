@@ -101,6 +101,7 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
         mProgressDialog = getProgressDialog();
         mProgressDialog.setCancelable(false);
         mDiTopic = new DiTopic();
+        mDiTopic.setTopicimg(new ArrayList<DiTopicimg>());
 
         //定位
         mLocationButton.setOnClickListener(this);
@@ -228,7 +229,6 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
         mDiTopic.setDescription(desc);
         //上传图片
         if(null != mLocalMediaList && mLocalMediaList.size() > 0){
-            List<DiTopicimg> topicimgs = new ArrayList<>();
             for(LocalMedia localMedia : mLocalMediaList) {
                 // 1.media.getPath(); 为原图path
                 // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
@@ -249,7 +249,7 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
                         topicimg.setPath(data.getPath());
                         topicimg.setWidth(bitmap.getWidth());
                         topicimg.setHeight(bitmap.getHeight());
-                        topicimgs.add(topicimg);
+                        mDiTopic.getTopicimg().add(topicimg);
                     }
 
                     @Override
@@ -265,7 +265,6 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
                 };
                 TopicService.getInstance().uploadImg(imgData, dataVerHandler);
             }
-            mDiTopic.setTopicimg(topicimgs);
         }
         //投票
         mDiTopic.setTopicvote(mAdapterVote.getTotalVotes());
@@ -275,6 +274,7 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
             public void onSuccess(Void data) {
                 Toast.makeText(AddTopicActivity.this, R.string.topic_add_send_success_top, Toast.LENGTH_SHORT).show();
                 mProgressDialog.hide();
+                TopicFragment.isRefresh = true;
                 AddTopicActivity.this.finish();
             }
 

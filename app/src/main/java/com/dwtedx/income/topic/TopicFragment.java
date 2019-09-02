@@ -51,6 +51,8 @@ import butterknife.ButterKnife;
  */
 public class TopicFragment extends BaseFragment implements SwipeRecyclerView.OnLoadListener, View.OnClickListener {
 
+    public static boolean isRefresh;
+
     View mView;
 
     @BindView(R.id.home_item_layout)
@@ -96,6 +98,10 @@ public class TopicFragment extends BaseFragment implements SwipeRecyclerView.OnL
     @Override
     public void onResume() {
         super.onResume();
+        if(isRefresh){
+            isRefresh = false;
+            getTopicItemInfo(true, true);
+        }
     }
 
     private void getTopicItemInfo(final boolean isShow, final boolean isClear) {

@@ -21,8 +21,7 @@
         android:layout_below="@+id/m_app_title"
         android:layout_above="@+id/m_talk_layout_view"
         android:background="@color/common_background_color"
-        android:fillViewport="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:fillViewport="true">
 
         <LinearLayout
             android:id="@+id/m_all_layout_view"

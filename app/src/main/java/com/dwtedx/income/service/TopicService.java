@@ -9,6 +9,7 @@ import com.dwtedx.income.connect.SaError;
 import com.dwtedx.income.connect.SaException;
 import com.dwtedx.income.entity.DiTopic;
 import com.dwtedx.income.entity.DiTopicimg;
+import com.dwtedx.income.entity.DiTopictalk;
 import com.dwtedx.income.entity.DiTopicvote;
 import com.dwtedx.income.utility.ParseJsonToObject;
 
@@ -42,6 +43,55 @@ public class TopicService {
     public SaAsyncTask<Void, Void, List<DiTopic>> getTopicinfo(final int start, final int length, SaDataProccessHandler<Void, Void, List<DiTopic>>
             handler) {
         handler.setUrl(ServiceAPI.WEB_API_TOPIC_INDEX);
+        SaAsyncTask<Void, Void, List<DiTopic>> task = new SaAsyncTask<Void, Void, List<DiTopic>>(handler) {
+            @Override
+            protected List<DiTopic> doInBackground(Void... params) {
+                List<DiTopic> result = null;
+                try {
+                    BaseHttpResponseHandler<List<DiTopic>> dataHandler = new
+                            BaseHttpResponseHandler<List<DiTopic>>() {
+
+                                @Override
+                                public List<DiTopic> getResult(Object jsonObject) throws SaException {
+                                    List<DiTopic> resultData = ParseJsonToObject.getObjectList(DiTopic.class, jsonObject);
+                                    return resultData;
+                                }
+                            };
+                    JSONObject requestParameter = new JSONObject();
+                    try {
+                        requestParameter.put("start", start);
+                        requestParameter.put("length", length);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        throw new SaException(SaError.ERROR_TYPE_JSON, e);
+                    }
+                    result = handler.getRequestExecutor().executeRequest(ServiceParamterUtil.
+                            genParamterJSONObject(requestParameter), dataHandler);
+                } catch (SaException e) {
+                    setErrorObj(e);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setErrorObj(new SaException(SaError.ERROR_TYPE_UNKNOWN, e));
+                }
+                return result;
+            }
+        };
+        task.execute();
+        return task;
+    }
+
+    /**
+     * 数据获取
+     *
+     * @param start
+     * @param length
+     * @param handler
+     * @return
+     */
+    public SaAsyncTask<Void, Void, List<DiTopic>> getMyTopicinfo(final int start, final int length, SaDataProccessHandler<Void, Void, List<DiTopic>>
+            handler) {
+        handler.setUrl(ServiceAPI.WEB_API_TOPIC_MYTOPIC);
         SaAsyncTask<Void, Void, List<DiTopic>> task = new SaAsyncTask<Void, Void, List<DiTopic>>(handler) {
             @Override
             protected List<DiTopic> doInBackground(Void... params) {
@@ -297,4 +347,36 @@ public class TopicService {
         return task;
     }
 
+    /**
+     * 保存
+     * @param topic
+     * @param handler
+     */
+    public SaAsyncTask<Void, Void, Void> seveTopicTalk(final DiTopictalk topic, SaDataProccessHandler<Void, Void, Void> handler) {
+        handler.setUrl(ServiceAPI.WEB_API_TOPIC_SEVETOPICTALK);
+        SaAsyncTask<Void, Void, Void> task = new SaAsyncTask<Void, Void, Void>(handler) {
+            @Override
+            protected Void doInBackground(Void... params) {
+                try {
+                    BaseHttpResponseHandler<Void> dataHandler = new BaseHttpResponseHandler<Void>() {
+
+                        @Override
+                        public Void getResult(Object jsonObject) throws SaException {
+                            return null;
+                        }
+                    };
+                    JSONObject requestParameter = ParseJsonToObject.getJsonFromObj(topic);
+                    handler.getRequestExecutor().executeRequest(ServiceParamterUtil.genParamterJSONObject(requestParameter), dataHandler);
+                } catch (SaException e) {
+                    setErrorObj(e);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setErrorObj(new SaException(SaError.ERROR_TYPE_UNKNOWN, e));
+                }
+                return null;
+            }
+        };
+        task.execute();
+        return task;
+    }
 }
