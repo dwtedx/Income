@@ -207,7 +207,9 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
 
     @Override
     public void onItemClick(int position, View v) {
-
+        // 预览图片 可自定长按保存路径
+        //PictureSelector.create(MainActivity.this).themeStyle(themeId).externalPicturePreview(position, "/custom_file", selectList);
+        PictureSelector.create(AddTopicActivity.this).themeStyle(R.style.picture_default_style).openExternalPreview(position, mLocalMediaList);
     }
 
 

@@ -50,6 +50,7 @@ public class DiTopic {
     private boolean voted;
     private int votecount;
     private List<DiTopicimg> topicimg;
+    private List<DiTopictalk> topictalk;
     private List<DiTopicvote> topicvote;
 
     public int getId() {
@@ -266,5 +267,13 @@ public class DiTopic {
 
     public void setVotecount(int votecount) {
         this.votecount = votecount;
+    }
+
+    public List<DiTopictalk> getTopictalk() {
+        return topictalk;
+    }
+
+    public void setTopictalk(List<DiTopictalk> topictalk) {
+        this.topictalk = topictalk;
     }
 }

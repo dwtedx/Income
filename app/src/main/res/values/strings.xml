@@ -389,6 +389,8 @@
     <string name="topic_add_tip_text_tip">请输入这一刻的想法&#046;&#046;&#046;</string>
     <string name="topic_add_title">发表话题</string>
     <string name="topic_add_send">发表</string>
+    <string name="topic_add_send_tip">说的什么吧&#046;&#046;&#046;</string>
+    <string name="topic_add_talk_send">发送</string>
     <string name="topic_add_send_top">发表话题需要先登录哦</string>
     <string name="topic_add_send_success_top">发表话题成功</string>
     <string name="profile_topic_tip">我的话题</string>

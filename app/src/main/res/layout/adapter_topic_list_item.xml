@@ -44,7 +44,6 @@
                 android:gravity="center"
                 android:text="@string/topic_type_talk"
                 android:textAllCaps="false"
-                android:textColor="@color/colorAccent"
                 android:textCursorDrawable="@null"/>
 
             <TextView

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/common_background_color"
     android:fitsSystemWindows="true"
-    tools:context="com.dwtedx.income.addrecord.IncomeDetailActivity">
+    tools:context="com.dwtedx.income.scan.ScanResultActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

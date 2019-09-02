@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/m_item_layout_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/common_color_white"
+    android:paddingStart="@dimen/common_margin_4dp"
+    android:paddingTop="@dimen/common_margin_8dp"
+    android:paddingEnd="@dimen/common_margin_4dp"
+    android:paddingBottom="@dimen/common_margin_8dp">
+
+    <RelativeLayout
+        android:id="@+id/user_layout_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/common_color_white">
+
+        <com.dwtedx.income.widget.CircleImageView
+            android:id="@+id/m_user_image_view"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:src="@mipmap/userhead" />
+
+        <TextView
+            android:id="@+id/m_user_name_view"
+            style="@style/common_text_style_14_333333"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/m_user_image_view"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:text="@string/topic_type_talk"
+            android:textAllCaps="false" />
+
+        <TextView
+            android:id="@+id/m_time_text_view"
+            style="@style/common_text_style_14_737373"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/m_user_name_view"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:text="31分钟"
+            android:textAllCaps="false"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/common_text_size_12sp" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/m_talk_text_view"
+        style="@style/common_text_style_14_333333"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_layout_view"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:text="@string/topic_type_vate_hint_tip"
+        android:textAllCaps="false"/>
+
+</RelativeLayout>

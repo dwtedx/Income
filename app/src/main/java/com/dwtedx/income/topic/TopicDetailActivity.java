@@ -1,6 +1,5 @@
 package com.dwtedx.income.topic;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -9,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -23,6 +23,7 @@ import com.dwtedx.income.entity.DiTopic;
 import com.dwtedx.income.profile.LoginV2Activity;
 import com.dwtedx.income.service.TopicService;
 import com.dwtedx.income.topic.adapter.TopicImgRecyclerAdapter;
+import com.dwtedx.income.topic.adapter.TopicTalkRecyclerAdapter;
 import com.dwtedx.income.topic.adapter.TopicVoteRecyclerAdapter;
 import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.utility.CommonUtility;
@@ -39,6 +40,8 @@ public class TopicDetailActivity extends BaseActivity {
 
     @BindView(R.id.m_app_title)
     AppTitleBar mAppTitle;
+    @BindView(R.id.m_all_layout_view)
+    LinearLayout mAllLayoutView;
     @BindView(R.id.m_user_image_view)
     CircleImageView mUserImageView;
     @BindView(R.id.m_user_name_view)
@@ -87,9 +90,18 @@ public class TopicDetailActivity extends BaseActivity {
     LinearLayout mTalkRecyclerLayoutView;
     @BindView(R.id.m_item_share_view)
     TextView mItemShareView;
+    @BindView(R.id.m_talk_edit_view)
+    EditText mTalkEditView;
+    @BindView(R.id.m_talk_button_view)
+    TextView mTalkButtonView;
+    @BindView(R.id.m_talk_layout_view)
+    RelativeLayout mTalkLayoutView;
 
     private int mTopicId;
     private DiTopic mDiTopic;
+
+    //回复
+    private TopicTalkRecyclerAdapter mTopicTalkRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,9 +112,21 @@ public class TopicDetailActivity extends BaseActivity {
         mTopicId = getIntent().getIntExtra("topicId", 0);
         findTopic();
 
+        mTalkButtonView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String context = mTalkEditView.getText().toString();
+                if(CommonUtility.isEmpty(context)){
+                    Toast.makeText(TopicDetailActivity.this, R.string.topic_add_send_tip, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+            }
+        });
     }
 
     private void init() {
+        mAllLayoutView.setVisibility(View.VISIBLE);
         TopicImageLoader.loadImageUser(this, mDiTopic.getUserpath(), mUserImageView);
         mUserNameView.setText(mDiTopic.getUsername());
         mTimeView.setText(RelativeDateFormat.format(mDiTopic.getCreatetimestr()));
@@ -225,6 +249,19 @@ public class TopicDetailActivity extends BaseActivity {
             mVoteRecyclerLayoutView.setVisibility(View.GONE);
         }
 
+        //回复
+        if (null != mDiTopic.getTopictalk() && mDiTopic.getTopictalk().size() > 0) {
+            RecyclerView.LayoutManager layoutManagerHeader = new LinearLayoutManager(this) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            };
+            mTalkRecyclerView.setLayoutManager(layoutManagerHeader);
+            mTopicTalkRecyclerAdapter = new TopicTalkRecyclerAdapter(this, mDiTopic);
+            mTalkRecyclerView.setAdapter(mTopicTalkRecyclerAdapter);
+        }
+
         //事件
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -252,11 +289,11 @@ public class TopicDetailActivity extends BaseActivity {
         mItemLikedLayoutView.setOnClickListener(onClickListener);
     }
 
-    View.OnClickListener onClickListener = new View.OnClickListener(){
+    View.OnClickListener onClickListener = new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
-            switch (v.getId()){
+            switch (v.getId()) {
 
 //                case R.id.m_item_layout_view:
 //                case R.id.m_item_talk_layout_view:
@@ -271,7 +308,7 @@ public class TopicDetailActivity extends BaseActivity {
 
                 case R.id.m_item_liked_layout_view:
                     //点赞
-                    if(null == ApplicationData.mDiUserInfo || ApplicationData.mDiUserInfo.getId() == 0){
+                    if (null == ApplicationData.mDiUserInfo || ApplicationData.mDiUserInfo.getId() == 0) {
                         Toast.makeText(TopicDetailActivity.this, "点赞需要先登录哦", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(TopicDetailActivity.this, LoginV2Activity.class));
                         return;
@@ -280,7 +317,7 @@ public class TopicDetailActivity extends BaseActivity {
                         @Override
                         public void onSuccess(Void dataVode) {
                             mDiTopic.setLiked(mDiTopic.getLiked() + 1);
-                            ((TextView)v.findViewById(R.id.m_item_liked_view)).setText(mDiTopic.getLiked() + TopicDetailActivity.this.getString(R.string.topic_liked_text));
+                            ((TextView) v.findViewById(R.id.m_item_liked_view)).setText(mDiTopic.getLiked() + TopicDetailActivity.this.getString(R.string.topic_liked_text));
                             Toast.makeText(TopicDetailActivity.this, "点赞成功", Toast.LENGTH_SHORT).show();
                         }
                     };

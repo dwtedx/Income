@@ -19,6 +19,8 @@ public class DiTopictalk {
 
     private String createtime;
 
+    private String createtimestr;
+
     private int createuser;
 
     private String updatetime;
@@ -119,5 +121,13 @@ public class DiTopictalk {
 
     public void setUpdateuser(int updateuser) {
         this.updateuser = updateuser;
+    }
+
+    public String getCreatetimestr() {
+        return createtimestr;
+    }
+
+    public void setCreatetimestr(String createtimestr) {
+        this.createtimestr = createtimestr;
     }
 }
