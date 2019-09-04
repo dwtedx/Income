@@ -7,6 +7,7 @@ import com.dwtedx.income.connect.SaAsyncTask;
 import com.dwtedx.income.connect.SaDataProccessHandler;
 import com.dwtedx.income.connect.SaError;
 import com.dwtedx.income.connect.SaException;
+import com.dwtedx.income.entity.ApplicationData;
 import com.dwtedx.income.entity.DiTopic;
 import com.dwtedx.income.entity.DiTopicimg;
 import com.dwtedx.income.entity.DiTopictalk;
@@ -404,6 +405,48 @@ public class TopicService {
                         requestParameter.put("id", topicid);
                         requestParameter.put("userid", userid);
                         requestParameter.put("sharetype", sharetype);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        throw new SaException(SaError.ERROR_TYPE_JSON, e);
+                    }
+                    handler.getRequestExecutor().executeRequest(ServiceParamterUtil.genParamterJSONObject(requestParameter), dataHandler);
+                } catch (SaException e) {
+                    setErrorObj(e);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setErrorObj(new SaException(SaError.ERROR_TYPE_UNKNOWN, e));
+                }
+                return null;
+            }
+        };
+        task.execute();
+        return task;
+    }
+
+
+    /**
+     * 删除
+     * @param topicid
+     * @param handler
+     * @return
+     */
+    public SaAsyncTask<Void, Void, Void> deleteTopic(final int topicid, SaDataProccessHandler<Void, Void, Void> handler) {
+        handler.setUrl(ServiceAPI.WEB_API_TOPIC_DELETETOPIC);
+        SaAsyncTask<Void, Void, Void> task = new SaAsyncTask<Void, Void, Void>(handler) {
+            @Override
+            protected Void doInBackground(Void... params) {
+                try {
+                    BaseHttpResponseHandler<Void> dataHandler = new BaseHttpResponseHandler<Void>() {
+
+                        @Override
+                        public Void getResult(Object jsonObject) throws SaException {
+                            return null;
+                        }
+                    };
+                    JSONObject requestParameter = new JSONObject();
+                    try {
+                        requestParameter.put("id", topicid);
+                        requestParameter.put("userid", ApplicationData.mDiUserInfo.getId());
                     } catch (JSONException e) {
                         e.printStackTrace();
                         throw new SaException(SaError.ERROR_TYPE_JSON, e);

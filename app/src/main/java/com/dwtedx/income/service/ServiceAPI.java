@@ -91,6 +91,7 @@ public class ServiceAPI {
     public static String WEB_API_TOPIC_SEVETOPIC = WEB_API_DOMAIN + "/topic/sevetopic";
     public static String WEB_API_TOPIC_SEVETOPICTALK = WEB_API_DOMAIN + "/topic/sevetopictalk";
     public static String WEB_API_TOPIC_SEVETOPICSHARE = WEB_API_DOMAIN + "/topic/sevetopicshare";
+    public static String WEB_API_TOPIC_DELETETOPIC = WEB_API_DOMAIN + "/topic/deletetopic";
 
     /**
      * @return void    返回类型

@@ -3,6 +3,7 @@ package com.dwtedx.income.topic;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.dwtedx.income.R;
 import com.dwtedx.income.base.BaseActivity;
 import com.dwtedx.income.connect.SaDataProccessHandler;
@@ -42,7 +45,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class TopicDetailActivity extends BaseActivity {
+public class TopicDetailActivity extends BaseActivity implements AppTitleBar.OnTitleClickListener{
 
     @BindView(R.id.m_app_title)
     AppTitleBar mAppTitle;
@@ -119,8 +122,48 @@ public class TopicDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_topic_detail);
         ButterKnife.bind(this);
 
+        mAppTitle.setOnTitleClickListener(this);
+
         mTopicId = getIntent().getIntExtra("topicId", 0);
         findTopic();
+    }
+
+    @Override
+    public void onTitleClick(int type) {
+        switch (type) {
+            case AppTitleBar.OnTitleClickListener.TITLE_CLICK_LEFT:
+                finish();
+                break;
+            case AppTitleBar.OnTitleClickListener.TITLE_CLICK_RIGHT:
+                //提示
+                new MaterialDialog.Builder(this)
+                        .title(R.string.tip)
+                        .content(R.string.topic_detail_delete_confirm_tip)
+                        .positiveText(R.string.ok)
+                        .negativeText(R.string.cancel)
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                deleteTopic();
+                            }
+                        })
+                        .show();
+                break;
+        }
+    }
+
+    private void deleteTopic() {
+        SaDataProccessHandler<Void, Void, Void> dataVerHandler = new SaDataProccessHandler<Void, Void, Void>(TopicDetailActivity.this) {
+            @Override
+            public void onSuccess(Void data) {
+                MyTopicActivity.isRefresh = true;
+                TopicFragment.isRefresh = true;
+                Toast.makeText(TopicDetailActivity.this, R.string.topic_detail_delete_tip, Toast.LENGTH_SHORT).show();
+                TopicDetailActivity.this.finish();
+            }
+
+        };
+        TopicService.getInstance().deleteTopic(mTopicId, dataVerHandler);
     }
 
     private void saveTalk() {
@@ -151,7 +194,6 @@ public class TopicDetailActivity extends BaseActivity {
             }
 
         };
-
         TopicService.getInstance().seveTopicTalk(topictalk, dataVerHandler);
     }
 

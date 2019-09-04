@@ -26,14 +26,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class MyTopicActivity extends BaseActivity implements SwipeRecyclerView.OnLoadListener {
+public class MyTopicActivity extends BaseActivity implements SwipeRecyclerView.OnLoadListener, AppTitleBar.OnTitleClickListener {
 
+    public static boolean isRefresh;
 
     @BindView(R.id.m_app_title)
     AppTitleBar mAppTitle;
     @BindView(R.id.m_recyclerview)
     SwipeRecyclerView mRecyclerView;
-
 
     List<DiTopic> mDiTopicList;
     TopicRecyclerAdapter mAdapter;
@@ -44,6 +44,7 @@ public class MyTopicActivity extends BaseActivity implements SwipeRecyclerView.O
         setContentView(R.layout.activity_my_topic);
         ButterKnife.bind(this);
 
+        mAppTitle.setOnTitleClickListener(this);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.getRecyclerView().setLayoutManager(layoutManager);
@@ -57,9 +58,28 @@ public class MyTopicActivity extends BaseActivity implements SwipeRecyclerView.O
 
         getTopicItemInfo(true, true);
 
-
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(isRefresh){
+            isRefresh = false;
+            getTopicItemInfo(true, true);
+        }
+    }
+
+    @Override
+    public void onTitleClick(int type) {
+        switch (type) {
+            case AppTitleBar.OnTitleClickListener.TITLE_CLICK_LEFT:
+                finish();
+                break;
+            case AppTitleBar.OnTitleClickListener.TITLE_CLICK_RIGHT:
+
+                break;
+        }
+    }
 
     @Override
     public void onRefresh() {

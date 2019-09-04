@@ -11,9 +11,8 @@
         android:layout_height="wrap_content"
         app:left_btn_text="@string/back"
         app:left_btn_visible="true"
-        app:right_btn_image_id="@mipmap/delete_icon"
         app:right_btn_visible="true"
-        app:text="@string/topic_detail_tip"/>
+        app:text="@string/profile_topic_tip"/>
 
     <com.dwtedx.income.widget.swiperecyclerview.SwipeRecyclerView
         android:id="@+id/m_recyclerview"

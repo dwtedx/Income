@@ -398,6 +398,8 @@
     <string name="profile_topic_tip">我的话题</string>
     <string name="topic_detail_tip">话题详情</string>
     <string name="topic_detail_talk_tip">回复成功</string>
+    <string name="topic_detail_delete_tip">删除成功</string>
+    <string name="topic_detail_delete_confirm_tip">确定要删除此话题吗？</string>
 
     <!--<string name="app_name">PushDemo</string>-->
     <!--<string name="ok">确认</string>-->
