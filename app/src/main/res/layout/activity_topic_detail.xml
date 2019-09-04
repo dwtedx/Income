@@ -27,7 +27,7 @@
             android:id="@+id/m_all_layout_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
+            android:visibility="visible"
             android:orientation="vertical">
 
             <LinearLayout
@@ -306,6 +306,27 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/m_item_wxfavorite_share_layout_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="@dimen/common_margin_8dp"
+                        android:paddingStart="@dimen/common_margin_4dp"
+                        android:paddingLeft="@dimen/common_margin_4dp"
+                        android:paddingEnd="@dimen/common_margin_4dp"
+                        android:paddingRight="@dimen/common_margin_4dp">
+
+                        <ImageView
+                            style="@style/common_text_style_14_737373"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/umeng_socialize_fav"
+                            android:textSize="@dimen/common_text_size_12sp"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:id="@+id/m_item_sina_share_layout_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -332,6 +353,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:layout_gravity="center_vertical"
+                        android:visibility="gone"
                         android:paddingBottom="@dimen/common_margin_8dp"
                         android:paddingStart="@dimen/common_margin_4dp"
                         android:paddingLeft="@dimen/common_margin_4dp"
@@ -385,6 +407,27 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:src="@drawable/umeng_socialize_alipay"
+                            android:textSize="@dimen/common_text_size_12sp"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/m_item_sms_share_layout_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="@dimen/common_margin_8dp"
+                        android:paddingStart="@dimen/common_margin_4dp"
+                        android:paddingLeft="@dimen/common_margin_4dp"
+                        android:paddingEnd="@dimen/common_margin_4dp"
+                        android:paddingRight="@dimen/common_margin_4dp">
+
+                        <ImageView
+                            style="@style/common_text_style_14_737373"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/umeng_socialize_sms"
                             android:textSize="@dimen/common_text_size_12sp"/>
 
                     </LinearLayout>

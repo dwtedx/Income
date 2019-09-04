@@ -82,7 +82,7 @@ public class TopicFragment extends BaseFragment implements SwipeRecyclerView.OnL
         //自定义分割线的样式
         mRecyclerView.getRecyclerView().addItemDecoration(new RecycleViewDivider(getContext(), LinearLayoutManager.HORIZONTAL, 32, ContextCompat.getColor(getContext(), R.color.common_background_color)));
         mDiTopicList = new ArrayList<>();
-        mAdapter = new TopicRecyclerAdapter(getContext(), mDiTopicList);
+        mAdapter = new TopicRecyclerAdapter(getActivity(), mDiTopicList);
         mRecyclerView.setAdapter(mAdapter);
 
         getTopicItemInfo(true, true);

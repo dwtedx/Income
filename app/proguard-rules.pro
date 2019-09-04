@@ -106,6 +106,8 @@
 #taobao end
 
 #umeng starty
+-dontshrink
+-dontoptimize
 -dontwarn com.google.android.maps.**
 -dontwarn android.webkit.WebView
 -dontwarn com.umeng.**
@@ -118,16 +120,12 @@
 -keepattributes Exceptions,InnerClasses,Signature
 -keepattributes *Annotation*
 -keepattributes SourceFile,LineNumberTable
-
 -keep public interface com.facebook.**
 -keep public interface com.tencent.**
 -keep public interface com.umeng.socialize.**
 -keep public interface com.umeng.socialize.sensor.**
 -keep public interface com.umeng.scrshot.**
-
 -keep public class com.umeng.socialize.* {*;}
-
-
 -keep class com.facebook.**
 -keep class com.facebook.** { *; }
 -keep class com.umeng.scrshot.**
@@ -156,9 +154,7 @@
 -keep class com.tencent.mm.sdk.** {
    *;
 }
--dontwarn twitter4j.**
--keep class twitter4j.** { *; }
-
+-keep class com.twitter.** { *; }
 -keep class com.tencent.** {*;}
 -dontwarn com.tencent.**
 -keep class com.kakao.** {*;}
@@ -173,7 +169,6 @@
     public static **[] values();
     public static ** valueOf(java.lang.String);
 }
-
 -keep class com.tencent.open.TDialog$*
 -keep class com.tencent.open.TDialog$* {*;}
 -keep class com.tencent.open.PKDialog
@@ -186,11 +181,10 @@
 -keep class  com.alipay.share.sdk.** {
    *;
 }
-
 -keepnames class * implements android.os.Parcelable {
     public static final ** CREATOR;
 }
-
 -keep class com.linkedin.** { *; }
 -keep class com.android.dingtalk.share.ddsharemodule.** { *; }
+-keepattributes Signature
 #umeng end

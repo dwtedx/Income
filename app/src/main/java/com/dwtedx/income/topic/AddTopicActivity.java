@@ -101,7 +101,6 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
         mProgressDialog = getProgressDialog();
         mProgressDialog.setCancelable(false);
         mDiTopic = new DiTopic();
-        mDiTopic.setTopicimg(new ArrayList<DiTopicimg>());
 
         //定位
         mLocationButton.setOnClickListener(this);
@@ -229,7 +228,11 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
         mDiTopic.setDescription(desc);
         //上传图片
         if(null != mLocalMediaList && mLocalMediaList.size() > 0){
-            for(LocalMedia localMedia : mLocalMediaList) {
+            mDiTopic.setTopicimg(new ArrayList<DiTopicimg>());
+            LocalMedia localMedia = null;
+            for(int i = 0; i < mLocalMediaList.size(); i++) {
+                final int counti = i;
+                localMedia = mLocalMediaList.get(i);
                 // 1.media.getPath(); 为原图path
                 // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
                 // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
@@ -250,17 +253,18 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
                         topicimg.setWidth(bitmap.getWidth());
                         topicimg.setHeight(bitmap.getHeight());
                         mDiTopic.getTopicimg().add(topicimg);
+                        if(counti == (mLocalMediaList.size() - 1)){
+                            postTopic();
+                        }
                     }
 
                     @Override
-                    public void onPreExecute() {
-                        //super.onPreExecute();
-                    }
+                    public void onPreExecute() { }
 
                     @Override
                     public void handlerError(SaException e) {
                         super.handlerError(e);
-                        mProgressDialog.hide();
+                        mProgressDialog.dismiss();
                     }
                 };
                 TopicService.getInstance().uploadImg(imgData, dataVerHandler);
@@ -268,25 +272,26 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
         }
         //投票
         mDiTopic.setTopicvote(mAdapterVote.getTotalVotes());
+    }
+
+    private void postTopic(){
         //保存
         SaDataProccessHandler<Void, Void, Void> dataVerHandler = new SaDataProccessHandler<Void, Void, Void>(this) {
             @Override
             public void onSuccess(Void data) {
                 Toast.makeText(AddTopicActivity.this, R.string.topic_add_send_success_top, Toast.LENGTH_SHORT).show();
-                mProgressDialog.hide();
+                mProgressDialog.dismiss();
                 TopicFragment.isRefresh = true;
                 AddTopicActivity.this.finish();
             }
 
             @Override
-            public void onPreExecute() {
-                //super.onPreExecute();
-            }
+            public void onPreExecute() { }
 
             @Override
             public void handlerError(SaException e) {
                 super.handlerError(e);
-                mProgressDialog.hide();
+                mProgressDialog.dismiss();
             }
         };
         TopicService.getInstance().seveTopic(mDiTopic, dataVerHandler);

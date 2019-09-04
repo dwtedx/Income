@@ -2,6 +2,8 @@ package com.dwtedx.income.base;
 
 import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -9,12 +11,17 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.dwtedx.income.R;
 import com.dwtedx.income.broadcast.CommonBroadcast;
@@ -22,6 +29,8 @@ import com.dwtedx.income.connect.ErrorDilaog;
 import com.dwtedx.income.connect.ProgressDialog;
 import com.dwtedx.income.connect.SaException;
 import com.dwtedx.income.entity.ApplicationData;
+import com.dwtedx.income.topic.TopicDetailActivity;
+import com.dwtedx.income.utility.CommonUtility;
 import com.umeng.analytics.MobclickAgent;
 
 
@@ -32,6 +41,9 @@ import com.umeng.analytics.MobclickAgent;
  */
 public abstract class BaseActivity extends AppCompatActivity {
     private final static String TAG = "BaseActivity";
+
+    //private final static String mNotTopicActivitys = "|topic.TopicDetailActivity|MainActivity|MainFingerprintActivity|MainShortcutActivity|";
+    private final static String mNotTopicActivitys = "|MainActivity|MainFingerprintActivity|MainShortcutActivity|";
 
     // 写一个广播的内部类，
     private BroadcastReceiver mProadcastReceiver = new BroadcastReceiver() {
@@ -77,6 +89,62 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
+        //口令检测   使用剪切板在API11以后的版本
+        ClipboardManager manager = (ClipboardManager) ApplicationData.mIncomeApplication.getSystemService(Context.CLIPBOARD_SERVICE);
+        boolean ddd = mNotTopicActivitys.contains(getLocalClassName());
+        if (manager != null && !mNotTopicActivitys.contains(getLocalClassName())) {
+            if (manager.hasPrimaryClip() && manager.getPrimaryClip().getItemCount() > 0) {
+                CharSequence addedText = manager.getPrimaryClip().getItemAt(0).getText();
+                String addedTextString = String.valueOf(addedText);
+                if(!CommonUtility.isEmpty(addedTextString) && addedTextString.contains("打开DD记账→查看详情")){
+                    //名字读取
+                    int nameLastIndexOf = addedTextString.lastIndexOf("】");
+                    String rmmoveNameLastIndex = addedTextString.substring(0, nameLastIndexOf);
+                    String content = rmmoveNameLastIndex.substring(rmmoveNameLastIndex.lastIndexOf("【") + 1).trim();
+                    content = String.format(getResources().getString(R.string.topic_context_tip), content);
+                    //id读取
+                    int lastIndexOf = addedTextString.lastIndexOf("$");
+                    String rmmoveLastIndex = addedTextString.substring(0, lastIndexOf);
+                    String topicId = rmmoveLastIndex.substring(rmmoveLastIndex.lastIndexOf("$") + 1).trim();
+                    Log.i(getLocalClassName(), "onResume topicId =======================================" + topicId);
+                    byte[] decodeByte = Base64.decode(topicId .getBytes(), Base64.DEFAULT);
+                    String decode = new String(decodeByte);
+                    Log.i(getLocalClassName(), "解密 onResume topicId =======================================" + decode);
+                    if(CommonUtility.isNumeric(decode)) {
+                        clearClipboard();
+                        //提示
+                        new MaterialDialog.Builder(this)
+                                .title(R.string.topic_tip)
+                                .content(content)
+                                .positiveText(R.string.ok)
+                                .negativeText(R.string.cancel)
+                                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                        Intent intent = new Intent(BaseActivity.this, TopicDetailActivity.class);
+                                        intent.putExtra("topicId",Integer.parseInt(decode));
+                                        startActivity(intent);
+                                    }
+                                })
+                                .show();
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * 清空剪贴板内容
+     */
+    public static void clearClipboard() {
+        ClipboardManager manager = (ClipboardManager) ApplicationData.mIncomeApplication.getSystemService(Context.CLIPBOARD_SERVICE);
+        if (manager != null) {
+            manager.setPrimaryClip(ClipData.newPlainText(null, null));//参数一：标签，可为空，参数二：要复制到剪贴板的文本
+            if (manager.hasPrimaryClip()) {
+                manager.getPrimaryClip().getItemAt(0).getText();
+            }
+        }
+
     }
 
     @Override

@@ -47,6 +47,7 @@ import com.dwtedx.income.updateapp.UpdateService;
 import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.utility.CommonUtility;
 import com.dwtedx.income.widget.SideViewPager;
+import com.umeng.socialize.UMShareAPI;
 
 import java.io.File;
 import java.util.List;
@@ -375,6 +376,8 @@ public class HomeV3Activity extends BaseActivity implements ViewPager.OnPageChan
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        //QQ与新浪不需要添加Activity，但需要在使用QQ分享或者授权的Activity中，添加：
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
         // 识别成功回调，通用票据识别
         if (requestCode == REQUEST_CODE_RECEIPT && resultCode == Activity.RESULT_OK) {
             Intent intent = new Intent(HomeV3Activity.this, ScanResultActivity.class);

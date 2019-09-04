@@ -8,8 +8,8 @@ android {
         applicationId "com.dwtedx.income"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 48
-        versionName "3.0.0"
+        versionCode 49
+        versionName "3.1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
@@ -125,14 +125,14 @@ dependencies {
     implementation files('libs/ocr-sdk.jar')
     implementation files('libs/libapshare20161108.jar')
     implementation files('libs/SecurityEnvSDK-release-1.1.0.jar')
-    implementation files('libs/umeng-common-2.0.1.jar')
-    implementation files('libs/umeng-share-alipay-6.9.4.jar')
-    implementation files('libs/umeng-share-core-6.9.4.jar')
-    implementation files('libs/umeng-share-email-6.9.4.jar')
-    implementation files('libs/umeng-share-QQ-simplify-6.9.4.jar')
-    implementation files('libs/umeng-share-sina-simplify-6.9.4.jar')
-    implementation files('libs/umeng-share-wechat-simplify-6.9.4.jar')
-    implementation files('libs/umeng-shareboard-widget-6.9.4.jar')
-    implementation files('libs/umeng-sharetool-6.9.4.jar')
+    implementation files('libs/umeng-common-2.1.0.jar')
+    implementation files('libs/umeng-share-alipay-6.9.6.jar')
+    implementation files('libs/umeng-share-core-6.9.6.jar')
+    implementation files('libs/umeng-share-sms-6.9.6.jar')
+    implementation files('libs/umeng-share-QQ-simplify-6.9.6.jar')
+    implementation files('libs/umeng-share-sina-simplify-6.9.6.jar')
+    implementation files('libs/umeng-share-wechat-simplify-6.9.6.jar')
+    implementation files('libs/umeng-shareboard-widget-6.9.6.jar')
+    implementation files('libs/umeng-sharetool-6.9.6.jar')
     implementation files('libs/BaiduLBS_Android.jar')
 }

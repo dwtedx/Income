@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -32,6 +33,10 @@ import com.dwtedx.income.utility.RelativeDateFormat;
 import com.dwtedx.income.widget.AppTitleBar;
 import com.dwtedx.income.widget.CircleImageView;
 import com.previewlibrary.GPreviewBuilder;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -97,6 +102,10 @@ public class TopicDetailActivity extends BaseActivity {
     TextView mTalkButtonView;
     @BindView(R.id.m_talk_layout_view)
     RelativeLayout mTalkLayoutView;
+    @BindView(R.id.m_item_wxfavorite_share_layout_view)
+    LinearLayout mItemWxfavoriteShareLayoutView;
+    @BindView(R.id.m_item_sms_share_layout_view)
+    LinearLayout mItemSmsShareLayoutView;
 
     private int mTopicId;
     private DiTopic mDiTopic;
@@ -112,41 +121,38 @@ public class TopicDetailActivity extends BaseActivity {
 
         mTopicId = getIntent().getIntExtra("topicId", 0);
         findTopic();
+    }
 
-        mTalkButtonView.setOnClickListener(new View.OnClickListener() {
+    private void saveTalk() {
+        if (null == ApplicationData.mDiUserInfo || ApplicationData.mDiUserInfo.getId() == 0) {
+            Toast.makeText(TopicDetailActivity.this, "回复需要先登录哦", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(TopicDetailActivity.this, LoginV2Activity.class));
+            return;
+        }
+        String context = mTalkEditView.getText().toString();
+        if (CommonUtility.isEmpty(context)) {
+            Toast.makeText(TopicDetailActivity.this, R.string.topic_add_send_tip, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        //保存
+        DiTopictalk topictalk = new DiTopictalk();
+        topictalk.setTopicid(mTopicId);
+        topictalk.setUserid(ApplicationData.mDiUserInfo.getId());
+        topictalk.setName(ApplicationData.mDiUserInfo.getName());
+        topictalk.setRemark(ApplicationData.mDiUserInfo.getHead());
+        topictalk.setCreatetimestr(CommonUtility.getCurrentTime());
+        topictalk.setContent(context);
+        SaDataProccessHandler<Void, Void, Void> dataVerHandler = new SaDataProccessHandler<Void, Void, Void>(TopicDetailActivity.this) {
             @Override
-            public void onClick(View v) {
-                if(null == ApplicationData.mDiUserInfo || ApplicationData.mDiUserInfo.getId() == 0){
-                    Toast.makeText(TopicDetailActivity.this, "回复需要先登录哦", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(TopicDetailActivity.this, LoginV2Activity.class));
-                    return;
-                }
-                String context = mTalkEditView.getText().toString();
-                if(CommonUtility.isEmpty(context)){
-                    Toast.makeText(TopicDetailActivity.this, R.string.topic_add_send_tip, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                //保存
-                DiTopictalk topictalk = new DiTopictalk();
-                topictalk.setTopicid(mTopicId);
-                topictalk.setUserid(ApplicationData.mDiUserInfo.getId());
-                topictalk.setName(ApplicationData.mDiUserInfo.getName());
-                topictalk.setRemark(ApplicationData.mDiUserInfo.getHead());
-                topictalk.setCreatetimestr(CommonUtility.getCurrentTime());
-                topictalk.setContent(context);
-                SaDataProccessHandler<Void, Void, Void> dataVerHandler = new SaDataProccessHandler<Void, Void, Void>(TopicDetailActivity.this) {
-                    @Override
-                    public void onSuccess(Void data) {
-                        mDiTopic.getTopictalk().add(0, topictalk);
-                        mTopicTalkRecyclerAdapter.notifyDataSetChanged();
-                        Toast.makeText(TopicDetailActivity.this, R.string.topic_detail_talk_tip, Toast.LENGTH_SHORT).show();
-                    }
-
-                };
-
-                TopicService.getInstance().seveTopicTalk(topictalk, dataVerHandler);
+            public void onSuccess(Void data) {
+                mDiTopic.getTopictalk().add(0, topictalk);
+                mTopicTalkRecyclerAdapter.notifyDataSetChanged();
+                Toast.makeText(TopicDetailActivity.this, R.string.topic_detail_talk_tip, Toast.LENGTH_SHORT).show();
             }
-        });
+
+        };
+
+        TopicService.getInstance().seveTopicTalk(topictalk, dataVerHandler);
     }
 
     private void init() {
@@ -274,17 +280,15 @@ public class TopicDetailActivity extends BaseActivity {
         }
 
         //回复
-        if (null != mDiTopic.getTopictalk() && mDiTopic.getTopictalk().size() > 0) {
-            RecyclerView.LayoutManager layoutManagerHeader = new LinearLayoutManager(this) {
-                @Override
-                public boolean canScrollVertically() {
-                    return false;
-                }
-            };
-            mTalkRecyclerView.setLayoutManager(layoutManagerHeader);
-            mTopicTalkRecyclerAdapter = new TopicTalkRecyclerAdapter(this, mDiTopic);
-            mTalkRecyclerView.setAdapter(mTopicTalkRecyclerAdapter);
-        }
+        RecyclerView.LayoutManager layoutManagerHeader = new LinearLayoutManager(this) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        mTalkRecyclerView.setLayoutManager(layoutManagerHeader);
+        mTopicTalkRecyclerAdapter = new TopicTalkRecyclerAdapter(this, mDiTopic);
+        mTalkRecyclerView.setAdapter(mTopicTalkRecyclerAdapter);
 
         //事件
         mImageView.setOnClickListener(new View.OnClickListener() {
@@ -311,6 +315,15 @@ public class TopicDetailActivity extends BaseActivity {
         //mItemShareLayoutView.setOnClickListener(onClickListener);
         mItemTalkLayoutView.setOnClickListener(onClickListener);
         mItemLikedLayoutView.setOnClickListener(onClickListener);
+        mTalkButtonView.setOnClickListener(onClickListener);
+        //分享按钮
+        mItemWeixinShareLayoutView.setOnClickListener(onClickListener);
+        mItemWxcircleShareLayoutView.setOnClickListener(onClickListener);
+        mItemWxfavoriteShareLayoutView.setOnClickListener(onClickListener);
+        mItemSinaShareLayoutView.setOnClickListener(onClickListener);
+        mItemQzoneShareLayoutView.setOnClickListener(onClickListener);
+        mItemAlipayShareLayoutView.setOnClickListener(onClickListener);
+        mItemSmsShareLayoutView.setOnClickListener(onClickListener);
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -318,17 +331,6 @@ public class TopicDetailActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-
-//                case R.id.m_item_layout_view:
-//                case R.id.m_item_talk_layout_view:
-//                    Intent intent = new Intent(mContext, TopicDetailActivity.class);
-//                    intent.putExtra("topicId", topic.getId());
-//                    mContext.startActivity(intent);
-//                    break;
-
-//                case R.id.m_item_share_layout_view:
-//                    Toast.makeText(mContext, "分享", Toast.LENGTH_SHORT).show();
-//                    break;
 
                 case R.id.m_item_liked_layout_view:
                     //点赞
@@ -347,10 +349,48 @@ public class TopicDetailActivity extends BaseActivity {
                     };
                     TopicService.getInstance().topicLicked(mDiTopic.getId(), dataVerHandler);
                     break;
+
+                case R.id.m_talk_button_view:
+                    //回复
+                    saveTalk();
+                    break;
+
+                case R.id.m_item_weixin_share_layout_view:
+                    openShare(SHARE_MEDIA.WEIXIN);
+                    break;
+
+                case R.id.m_item_wxcircle_share_layout_view:
+                    openShare(SHARE_MEDIA.WEIXIN_CIRCLE);
+                    break;
+
+                case R.id.m_item_wxfavorite_share_layout_view:
+                    openShare(SHARE_MEDIA.WEIXIN_FAVORITE);
+                    break;
+
+                case R.id.m_item_sina_share_layout_view:
+                    openShare(SHARE_MEDIA.SINA);
+                    break;
+
+                case R.id.m_item_qzone_share_layout_view:
+                    openShare(SHARE_MEDIA.QZONE);
+                    break;
+
+                case R.id.m_item_alipay_share_layout_view:
+                    openShare(SHARE_MEDIA.ALIPAY);
+                    break;
+
+                case R.id.m_item_sms_share_layout_view:
+                    openShare(SHARE_MEDIA.SMS);
+                    break;
             }
         }
     };
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
 
     private void findTopic() {
 
@@ -365,5 +405,66 @@ public class TopicDetailActivity extends BaseActivity {
         };
 
         TopicService.getInstance().findTopic(mTopicId, dataVerHandler);
+    }
+
+    // 用来配置各个平台的SDKF
+    private void openShare(SHARE_MEDIA share_media) {
+
+        System.out.println("话题id=========================" + mDiTopic.getId());
+        String descId = Base64.encodeToString(String.valueOf(mDiTopic.getId()).getBytes(), Base64.DEFAULT);
+        System.out.println("加密话题id=========================" + descId);
+
+        // 解码
+        //byte[] decodeByte = Base64.decode(descId .getBytes(), Base64.DEFAULT);
+        //String decode = new String(decodeByte);
+        //System.out.println("解密" + decode);
+
+        String desc = mDiTopic.getDescription();
+        if(mDiTopic.getDescription().length() > 17){
+            desc = mDiTopic.getDescription().substring(0, 17) + "...";
+        }
+
+        String shareContent = "我在使用DD记账，记录生活中的每一笔开支，还有有趣的记账圈【" + desc + "】，特此推荐给您 http://income.dwtedx.com ，复制这段描述$" + descId + "$→打开DD记账→查看详情";
+        new ShareAction(this)
+                .setPlatform(share_media)//传入平台
+                .withText(shareContent)
+                .setCallback(umShareListener)
+                .share();
+
+    }
+
+    private UMShareListener umShareListener = new UMShareListener() {
+        @Override
+        public void onStart(SHARE_MEDIA share_media) {
+            Toast.makeText(TopicDetailActivity.this, share_media.toString() + "正在分享...", Toast.LENGTH_SHORT).show();
+            saveShare(share_media);
+        }
+
+        @Override
+        public void onResult(SHARE_MEDIA share_media) {
+            Toast.makeText(TopicDetailActivity.this, share_media.toString() + "分享成功啦", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+            Toast.makeText(TopicDetailActivity.this, share_media.toString() + "分享失败啦", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA share_media) {
+            Toast.makeText(TopicDetailActivity.this, share_media.toString() + "分享取消了", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    private void saveShare(SHARE_MEDIA share_media){
+        int userid = 0;
+        if(null != ApplicationData.mDiUserInfo || ApplicationData.mDiUserInfo.getId() > 0){
+            userid = ApplicationData.mDiUserInfo.getId();
+        }
+        SaDataProccessHandler<Void, Void, Void> dataVerHandler = new SaDataProccessHandler<Void, Void, Void>(TopicDetailActivity.this) {
+            @Override
+            public void onSuccess(Void dataVode) { }
+        };
+        TopicService.getInstance().topicShare(mTopicId, userid, share_media.getName(), dataVerHandler);
     }
 }

@@ -7,6 +7,7 @@ import android.graphics.Rect;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.dwtedx.income.connect.SaDataProccessHandler;
 import com.dwtedx.income.entity.ApplicationData;
 import com.dwtedx.income.entity.DiTopic;
 import com.dwtedx.income.profile.LoginV2Activity;
+import com.dwtedx.income.profile.SetupActivity;
 import com.dwtedx.income.service.TopicService;
 import com.dwtedx.income.topic.TopicDetailActivity;
 import com.dwtedx.income.topic.TopicImageLoader;
@@ -29,8 +31,12 @@ import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.utility.CommonUtility;
 import com.dwtedx.income.utility.RelativeDateFormat;
 import com.dwtedx.income.widget.CircleImageView;
-import com.dwtedx.income.widget.swiperecyclerview.SwipeRecyclerView;
 import com.previewlibrary.GPreviewBuilder;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
 
 import java.util.List;
 
@@ -50,6 +56,8 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
 
     private Context mContext;
     private List<DiTopic> mList;
+
+    private int mTopicShareId;
 
     public TopicRecyclerAdapter(Context mContext, List<DiTopic> customerInfoList) {
         this.mContext = mContext;
@@ -272,7 +280,7 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
                     break;
 
                 case R.id.m_item_share_layout_view:
-                    Toast.makeText(mContext, "分享", Toast.LENGTH_SHORT).show();
+                    openShare(topic);
                     break;
 
                 case R.id.m_item_liked_layout_view:
@@ -304,6 +312,71 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
     @Override
     public int getItemCount() {
         return mHeaderView == null ? mList.size() : mList.size() + 1;
+    }
+
+    // 用来配置各个平台的SDKF
+    private void openShare(DiTopic topic) {
+        mTopicShareId = topic.getId();
+
+        System.out.println("话题id=========================" + topic.getId());
+        String descId = Base64.encodeToString(String.valueOf(topic.getId()).getBytes(), Base64.DEFAULT);
+        System.out.println("加密话题id=========================" + descId);
+
+        // 解码
+        //byte[] decodeByte = Base64.decode(descId .getBytes(), Base64.DEFAULT);
+        //String decode = new String(decodeByte);
+        //System.out.println("解密" + decode);
+
+        String desc = topic.getDescription();
+        if(topic.getDescription().length() > 17){
+            desc = topic.getDescription().substring(0, 17) + "...";
+        }
+
+        final SHARE_MEDIA[] displaylist = new SHARE_MEDIA[]{
+                SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.WEIXIN_FAVORITE, SHARE_MEDIA.SINA, SHARE_MEDIA.QZONE, SHARE_MEDIA.ALIPAY, SHARE_MEDIA.SMS};
+
+        String shareContent = "我在使用DD记账，记录生活中的每一笔开支，还有有趣的记账圈【" + desc + "】，特此推荐给您 http://income.dwtedx.com ，复制这段描述$" + descId + "$→打开DD记账→查看详情";
+        new ShareAction((Activity) mContext)
+                .setDisplayList(displaylist)
+                .withText(shareContent)
+                .setCallback(umShareListener)
+                .open();
+
+    }
+
+    private UMShareListener umShareListener = new UMShareListener() {
+        @Override
+        public void onStart(SHARE_MEDIA share_media) {
+            Toast.makeText(mContext, share_media.toString() + "正在分享...", Toast.LENGTH_SHORT).show();
+            saveShare(share_media);
+        }
+
+        @Override
+        public void onResult(SHARE_MEDIA share_media) {
+            Toast.makeText(mContext, share_media.toString() + "分享成功啦", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+            Toast.makeText(mContext, share_media.toString() + "分享失败啦", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA share_media) {
+            Toast.makeText(mContext, share_media.toString() + "分享取消了", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    private void saveShare(SHARE_MEDIA share_media){
+        int userid = 0;
+        if(null != ApplicationData.mDiUserInfo || ApplicationData.mDiUserInfo.getId() > 0){
+            userid = ApplicationData.mDiUserInfo.getId();
+        }
+        SaDataProccessHandler<Void, Void, Void> dataVerHandler = new SaDataProccessHandler<Void, Void, Void>((BaseActivity) mContext) {
+            @Override
+            public void onSuccess(Void dataVode) { }
+        };
+        TopicService.getInstance().topicShare(mTopicShareId, userid, share_media.getName(), dataVerHandler);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
