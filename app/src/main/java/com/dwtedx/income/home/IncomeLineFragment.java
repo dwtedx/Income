@@ -127,16 +127,17 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
                         && lastVisibleItemPosition == totalItemCount - 1
                         && visibleItemCount > 0) {
                     //加载更多
-
-                    mSpringView.postDelayed(() -> {
-                        int startNom = 0;
-                        if (mDiIncomeItems.size() > 0) {
-                            startNom = mDiIncomeItems.size() - 1;
-                        }
-                        mDiIncomeItems.addAll(mDlIncomeService.getScrollData(startNom, CommonConstants.PAGE_LENGTH_NUMBER));
-                        mRecyclerView.getAdapter().notifyDataSetChanged();
-                        mSpringView.onFinishFreshAndLoad();
-                    }, 0);
+                    mRecyclerView.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            int startNom = 0;
+                            if (mDiIncomeItems.size() > 0) {
+                                startNom = mDiIncomeItems.size() - 1;
+                            }
+                            mDiIncomeItems.addAll(mDlIncomeService.getScrollData(startNom, CommonConstants.PAGE_LENGTH_NUMBER));
+                            mRecyclerView.getAdapter().notifyDataSetChanged();
+                            mSpringView.onFinishFreshAndLoad();
+                        }}, 500);
                 }
             }
 
@@ -196,10 +197,11 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
         // 刷新 (登录了自动同步云服务器)
         if (isLogin() && mDiIncomeItems.size() > 0 && !mIsAutoSynchronize) {
             mIsAutoSynchronize = true;
-            mSpringView.postDelayed(() -> {
-                mSpringView.callFresh();
-            }, 500);
-
+            mRecyclerView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mSpringView.callFresh();
+                }}, 500);
         }
     }
 
@@ -221,9 +223,11 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
                         }
                     })
                     .show();
-            mSpringView.postDelayed(() -> {
-                mSpringView.onFinishFreshAndLoad();
-            }, 500);
+            mRecyclerView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mSpringView.onFinishFreshAndLoad();
+                }}, 500);
             return;
         }
         synchronize();
@@ -282,16 +286,18 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
         Calendar calendar = Calendar.getInstance();
         final List<DiBudget> mDiBudgetList = DIBudgetService.getInstance(getContext()).findNotUpdate(calendar.get(Calendar.YEAR), (calendar.get(Calendar.MONTH) + 1));
         if (mDiBudgetList.size() == 0) {
-            mSpringView.postDelayed(() -> {
-                if (mSynchronizeCount > 0) {
-                    //Snackbar.make(mRecyclerView, mSynchronizeCount + getString(R.string.synchronize_done), Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                    Toast.makeText(getContext(), mSynchronizeCount + getString(R.string.synchronize_done), Toast.LENGTH_SHORT).show();
-                } else {
-                    //Snackbar.make(mRecyclerView, mSynchronizeCount + getString(R.string.synchronize_done), Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                    Toast.makeText(getContext(), R.string.synchronize_done_tip, Toast.LENGTH_SHORT).show();
-                }
-                mSpringView.onFinishFreshAndLoad();
-            }, 1000);
+            mRecyclerView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (mSynchronizeCount > 0) {
+                        //Snackbar.make(mRecyclerView, mSynchronizeCount + getString(R.string.synchronize_done), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        Toast.makeText(getContext(), mSynchronizeCount + getString(R.string.synchronize_done), Toast.LENGTH_SHORT).show();
+                    } else {
+                        //Snackbar.make(mRecyclerView, mSynchronizeCount + getString(R.string.synchronize_done), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        Toast.makeText(getContext(), R.string.synchronize_done_tip, Toast.LENGTH_SHORT).show();
+                    }
+                    mSpringView.onFinishFreshAndLoad();
+                }}, 1000);
             return;
         }
         //添加用户名和id

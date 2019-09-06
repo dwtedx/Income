@@ -203,9 +203,9 @@
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/m_item_liked_layout_view"
                         android:layout_toStartOf="@+id/m_item_liked_layout_view"
-                        android:drawableLeft="@drawable/ic_localtion_black"
+                        android:drawableLeft="@mipmap/location_icon"
                         android:drawablePadding="@dimen/common_margin_4dp"
-                        android:drawableStart="@drawable/ic_localtion_black"
+                        android:drawableStart="@mipmap/location_icon"
                         android:text="苏州市"
                         android:textSize="@dimen/common_text_size_12sp"/>
 

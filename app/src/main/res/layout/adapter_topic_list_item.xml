@@ -173,9 +173,9 @@
             style="@style/common_text_style_14_737373"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_localtion_black"
+            android:drawableLeft="@mipmap/location_icon"
             android:drawablePadding="@dimen/common_margin_4dp"
-            android:drawableStart="@drawable/ic_localtion_black"
+            android:drawableStart="@mipmap/location_icon"
             android:text="苏州市"
             android:textSize="@dimen/common_text_size_12sp"/>
 

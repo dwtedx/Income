@@ -593,7 +593,7 @@ public class ShareActivity extends BaseActivity implements View.OnClickListener 
     private void openShareImage(final Bitmap bitmap) {
         final SHARE_MEDIA[] displaylist = new SHARE_MEDIA[]{
                 SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.SINA,
-                SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.ALIPAY, SHARE_MEDIA.SMS};
+                SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.ALIPAY, SHARE_MEDIA.EMAIL};
 
         String shareContent = "我正在使用DD记账，记录生活点点滴滴，这是我的个人帐单。下载地址：http://income.dwtedx.com";
         UMImage uminame = new UMImage(ShareActivity.this, bitmap);

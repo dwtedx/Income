@@ -254,7 +254,7 @@ public class SetupActivity extends BaseActivity implements View.OnClickListener,
     private void openShare() {
         final SHARE_MEDIA[] displaylist = new SHARE_MEDIA[]{
                 SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.SINA,
-                SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.ALIPAY, SHARE_MEDIA.SMS};
+                SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.ALIPAY, SHARE_MEDIA.EMAIL, SHARE_MEDIA.SMS};
 
         String shareContent = "我在使用DD记账、记录生活中的每一笔开支、还有很丰富的报表、感觉真的很不错、特此推荐给您 http://income.dwtedx.com/";
         UMWeb web = new UMWeb("http://income.dwtedx.com");

@@ -84,7 +84,7 @@
                     android:layout_marginStart="@dimen/common_margin_16dp"
                     android:layout_marginLeft="@dimen/common_margin_16dp"
                     android:contentDescription="@string/app_name"
-                    app:srcCompat="@drawable/ic_localtion_black" />
+                    android:src="@mipmap/location_icon" />
 
                 <ImageView
                     android:layout_width="wrap_content"
