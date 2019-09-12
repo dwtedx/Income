@@ -298,38 +298,42 @@ public class ProfileInfoActivity extends BaseActivity implements AppTitleBar.OnT
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (Activity.RESULT_OK != resultCode) {
-            return;
-        }
+        try {
+            super.onActivityResult(requestCode, resultCode, data);
+            if (Activity.RESULT_OK != resultCode) {
+                Toast.makeText(ProfileInfoActivity.this, "请求出错！请稍后重试！", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Uri filtUri;
+            File outputFile = new File(CommonConstants.INCOME_IMAGES, mCameraCapFileName);//裁切后输出的图片
+            switch (requestCode) {
 
-        Uri filtUri;
-        File outputFile = new File(CommonConstants.INCOME_IMAGES, mCameraCapFileName);//裁切后输出的图片
-        switch (requestCode) {
-
-            case SystemProgramUtils.REQUEST_CODE_PAIZHAO:
-                //拍照完成，进行图片裁切
-                File file = new File(CommonConstants.INCOME_IMAGES, mCameraFileName);
-                filtUri = FileProviderUtils.uriFromFile(ProfileInfoActivity.this, file);
-                SystemProgramUtils.startPhotoZoom(ProfileInfoActivity.this, filtUri, outputFile);
-                break;
-            case SystemProgramUtils.REQUEST_CODE_ZHAOPIAN:
-                //相册选择图片完毕，进行图片裁切
-                if (data == null ||  data.getData()==null) {
-                    return;
-                }
-                filtUri = data.getData();
-                SystemProgramUtils.startPhotoZoom(ProfileInfoActivity.this, filtUri, outputFile);
-                break;
-            case SystemProgramUtils.REQUEST_CODE_CAIQIE:
-                //图片裁切完成，显示裁切后的图片
-                try {
-                    Bitmap bitmap = CommonUtility.getLocalBitmap(outputFile.getPath());
-                    uploadPhoto(bitmap);
-                }catch (Exception ex){
-                    ex.printStackTrace();
-                }
-                break;
+                case SystemProgramUtils.REQUEST_CODE_PAIZHAO:
+                    //拍照完成，进行图片裁切
+                    File file = new File(CommonConstants.INCOME_IMAGES, mCameraFileName);
+                    filtUri = FileProviderUtils.uriFromFile(ProfileInfoActivity.this, file);
+                    SystemProgramUtils.startPhotoZoom(ProfileInfoActivity.this, filtUri, outputFile);
+                    break;
+                case SystemProgramUtils.REQUEST_CODE_ZHAOPIAN:
+                    //相册选择图片完毕，进行图片裁切
+                    if (data == null || data.getData() == null) {
+                        return;
+                    }
+                    filtUri = data.getData();
+                    SystemProgramUtils.startPhotoZoom(ProfileInfoActivity.this, filtUri, outputFile);
+                    break;
+                case SystemProgramUtils.REQUEST_CODE_CAIQIE:
+                    //图片裁切完成，显示裁切后的图片
+                    try {
+                        Bitmap bitmap = CommonUtility.getLocalBitmap(outputFile.getPath());
+                        uploadPhoto(bitmap);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    break;
+            }
+        }catch (Exception e){
+            Toast.makeText(ProfileInfoActivity.this, "拍照或相册未返回图片！建议您重启或更换设备换头像！", Toast.LENGTH_LONG).show();
         }
 
     }

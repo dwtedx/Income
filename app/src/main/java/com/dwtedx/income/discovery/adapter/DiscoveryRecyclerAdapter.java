@@ -1,12 +1,10 @@
 package com.dwtedx.income.discovery.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,28 +12,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.alibaba.baichuan.android.trade.AlibcTrade;
-import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
-import com.alibaba.baichuan.android.trade.model.AlibcShowParams;
-import com.alibaba.baichuan.android.trade.model.OpenType;
-import com.alibaba.baichuan.android.trade.page.AlibcBasePage;
-import com.alibaba.baichuan.android.trade.page.AlibcDetailPage;
-import com.alibaba.baichuan.trade.biz.core.taoke.AlibcTaokeParams;
 import com.bumptech.glide.Glide;
 import com.dwtedx.income.R;
 import com.dwtedx.income.discovery.ItemRecommendActivity;
-import com.dwtedx.income.discovery.TaobaoTradeCallback;
 import com.dwtedx.income.entity.TaobaoItemInfo;
 import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.utility.CommonUtility;
 import com.dwtedx.income.utility.ParseJsonToObject;
 import com.dwtedx.income.widget.swiperecyclerview.SwipeRecyclerView;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -112,11 +98,11 @@ public class DiscoveryRecyclerAdapter extends RecyclerView.Adapter<DiscoveryRecy
         final int pos = getRealPosition(holder);
         final TaobaoItemInfo data = mTaobaoItemInfoList.get(pos);
 
-        Glide.with(mContext).load(data.getPictUrl()).placeholder(R.mipmap.imageloader_default).error(R.mipmap.imageloader_default).into(holder.mItemImageView);
+        Glide.with(holder.mItemImageView.getContext()).load(data.getPictUrl()).placeholder(R.mipmap.imageloader_default).error(R.mipmap.imageloader_default).into(holder.mItemImageView);
         if (CommonConstants.TAOBAO_TYPE_TIANMAO == data.getUserType()) {
-            Glide.with(mContext).load(R.mipmap.tianmao).placeholder(R.mipmap.tianmao).error(R.mipmap.tianmao).into(holder.mItemTypeImageView);
+            Glide.with(holder.mItemTypeImageView.getContext()).load(R.mipmap.tianmao).placeholder(R.mipmap.tianmao).error(R.mipmap.tianmao).into(holder.mItemTypeImageView);
         } else {
-            Glide.with(mContext).load(R.mipmap.taobao).placeholder(R.mipmap.taobao).error(R.mipmap.taobao).into(holder.mItemTypeImageView);
+            Glide.with(holder.mItemTypeImageView.getContext()).load(R.mipmap.taobao).placeholder(R.mipmap.taobao).error(R.mipmap.taobao).into(holder.mItemTypeImageView);
         }
         holder.mItemTitleView.setText(data.getTitle());
 

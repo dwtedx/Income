@@ -81,16 +81,16 @@ public class DiscoveryFragment extends BaseFragment implements SwipeRecyclerView
         mRightLayout.setOnClickListener(this);
         mScarchView.setOnClickListener(this);
 
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         mRecyclerView.getRecyclerView().setLayoutManager(layoutManager);
 
         mRecyclerView.setOnLoadListener(this);
         //自定义分割线的样式
-        mRecyclerView.getRecyclerView().addItemDecoration(new RecycleViewDivider(getContext(), LinearLayoutManager.HORIZONTAL, 0, ContextCompat.getColor(getContext(), R.color.common_division_line)));
+        mRecyclerView.getRecyclerView().addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.HORIZONTAL, 0, ContextCompat.getColor(getActivity(), R.color.common_division_line)));
         mTaobaoItemInfoList = new ArrayList<>();
         mAdapter = new DiscoveryRecyclerAdapter(getActivity(), mTaobaoItemInfoList, mRecyclerView);
 
-        View headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_discovery_header_view, mRecyclerView, false);
+        View headerView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_discovery_header_view, mRecyclerView, false);
         mAdapter.setHeaderView(headerView);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -100,7 +100,7 @@ public class DiscoveryFragment extends BaseFragment implements SwipeRecyclerView
 
         //分类
         mHeaderRecyclerView = (RecyclerView) headerView.findViewById(R.id.m_recyclerview);
-        RecyclerView.LayoutManager layoutManagerHeader = new GridLayoutManager(getContext(), 2) {
+        RecyclerView.LayoutManager layoutManagerHeader = new GridLayoutManager(getActivity(), 2) {
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -109,10 +109,10 @@ public class DiscoveryFragment extends BaseFragment implements SwipeRecyclerView
         mHeaderRecyclerView.setLayoutManager(layoutManagerHeader);
 
         //自定义分割线的样式
-        mHeaderRecyclerView.addItemDecoration(new RecycleViewDivider(getContext(), LinearLayoutManager.HORIZONTAL, 1, ContextCompat.getColor(getContext(), R.color.common_division_line)));
-        mHeaderRecyclerView.addItemDecoration(new RecycleViewDivider(getContext(), LinearLayoutManager.VERTICAL, 1, ContextCompat.getColor(getContext(), R.color.common_division_line)));
+        mHeaderRecyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.HORIZONTAL, 1, ContextCompat.getColor(getActivity(), R.color.common_division_line)));
+        mHeaderRecyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL, 1, ContextCompat.getColor(getActivity(), R.color.common_division_line)));
 
-        mDiscoveryHeaderRecyclerAdapter = new DiscoveryHeaderRecyclerAdapter(getContext());
+        mDiscoveryHeaderRecyclerAdapter = new DiscoveryHeaderRecyclerAdapter(getActivity());
         mHeaderRecyclerView.setAdapter(mDiscoveryHeaderRecyclerAdapter);
 
 
@@ -127,14 +127,14 @@ public class DiscoveryFragment extends BaseFragment implements SwipeRecyclerView
 
     private void getTaobaoActivityInfo(final boolean isShow) {
 
-        SaDataProccessHandler<Void, Void, TaobaoActivityInfo> dataVerHandler = new SaDataProccessHandler<Void, Void, TaobaoActivityInfo>((BaseActivity) getContext()) {
+        SaDataProccessHandler<Void, Void, TaobaoActivityInfo> dataVerHandler = new SaDataProccessHandler<Void, Void, TaobaoActivityInfo>((BaseActivity) getActivity()) {
             @Override
             public void onSuccess(final TaobaoActivityInfo data) {
                 if(null == data){
                     return;
                 }
                 //if (Util.isOnMainThread())
-                Glide.with(getContext()).load(data.getImgUlr()).placeholder(R.mipmap.imageloader_default_width).error(R.mipmap.imageloader_default_width).into(mTaobaoActivityImages);
+                Glide.with(getActivity()).load(data.getImgUlr()).placeholder(R.mipmap.imageloader_default_width).error(R.mipmap.imageloader_default_width).into(mTaobaoActivityImages);
                 mTaobaoActivityImages.setVisibility(View.VISIBLE);
                 mTaobaoActivityImages.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -159,7 +159,7 @@ public class DiscoveryFragment extends BaseFragment implements SwipeRecyclerView
 
     private void getTopTaobaoItemInfo(final boolean isShow, final boolean isClear) {
 
-        SaDataProccessHandler<Void, Void, List<TaobaoItemInfo>> dataVerHandler = new SaDataProccessHandler<Void, Void, List<TaobaoItemInfo>>((BaseActivity) getContext()) {
+        SaDataProccessHandler<Void, Void, List<TaobaoItemInfo>> dataVerHandler = new SaDataProccessHandler<Void, Void, List<TaobaoItemInfo>>((BaseActivity) getActivity()) {
             @Override
             public void onSuccess(List<TaobaoItemInfo> data) {
 
@@ -179,7 +179,7 @@ public class DiscoveryFragment extends BaseFragment implements SwipeRecyclerView
 
                 //没有数据的时候
                 if(isClear && data.size() == 0){
-                    View nodataview = LayoutInflater.from(getContext()).inflate(R.layout.layout_nodate_view, null, false);
+                    View nodataview = LayoutInflater.from(getActivity()).inflate(R.layout.layout_nodate_view, null, false);
                     mRecyclerView.setEmptyView(nodataview);
                 }
             }
@@ -204,7 +204,7 @@ public class DiscoveryFragment extends BaseFragment implements SwipeRecyclerView
 
     private void refreshTaobaoIteminfo() {
 
-        SaDataProccessHandler<Void, Void, Void> dataVerHandler = new SaDataProccessHandler<Void, Void, Void>((BaseActivity) getContext()) {
+        SaDataProccessHandler<Void, Void, Void> dataVerHandler = new SaDataProccessHandler<Void, Void, Void>((BaseActivity) getActivity()) {
 
             @Override
             public void onSuccess(Void data) {
@@ -229,11 +229,11 @@ public class DiscoveryFragment extends BaseFragment implements SwipeRecyclerView
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.m_discovery_scarch_view:
-                startActivity(new Intent(getContext(), SearchTaobaoActivity.class));
+                startActivity(new Intent(getActivity(), SearchTaobaoActivity.class));
                 break;
 
             case R.id.home_item_layout:
-                startActivity(new Intent(getContext(), ItemCategoryTopActivity.class));
+                startActivity(new Intent(getActivity(), ItemCategoryTopActivity.class));
                 break;
         }
     }

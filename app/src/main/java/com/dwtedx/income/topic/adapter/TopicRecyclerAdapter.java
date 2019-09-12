@@ -369,7 +369,7 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
 
     private void saveShare(SHARE_MEDIA share_media){
         int userid = 0;
-        if(null != ApplicationData.mDiUserInfo || ApplicationData.mDiUserInfo.getId() > 0){
+        if(null != ApplicationData.mDiUserInfo && ApplicationData.mDiUserInfo.getId() > 0){
             userid = ApplicationData.mDiUserInfo.getId();
         }
         SaDataProccessHandler<Void, Void, Void> dataVerHandler = new SaDataProccessHandler<Void, Void, Void>((BaseActivity) mContext) {

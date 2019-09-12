@@ -72,7 +72,7 @@ public class DiscoveryHeaderRecyclerAdapter extends RecyclerView.Adapter<Discove
             }
         });
 
-        Glide.with(mContext).load(data.getIcon()).into(holder.mItemIconView);
+        Glide.with(holder.mItemIconView.getContext()).load(data.getIcon()).into(holder.mItemIconView);
         holder.mItemTitleView.setText(data.getTitle());
         holder.mItemDescView.setText(data.getDesc());
 
