@@ -45,15 +45,14 @@ public class RecordFragmentAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         //第一次的代码
-        //return tabTitles[position];
+        return String.valueOf(tabTitles[position]);
         //第二次的代码
-
-         Drawable image = context.getResources().getDrawable(imageResId[position]);
-         image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
-         SpannableString sb = new SpannableString(" " + tabTitles[position]);
-         ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
-         sb.setSpan(imageSpan, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-         return sb;
+//         Drawable image = context.getResources().getDrawable(imageResId[position]);
+//         image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
+//         SpannableString sb = new SpannableString(String.valueOf(tabTitles[position]));
+//         ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
+//         sb.setSpan(imageSpan, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//         return sb;
 
     }
 

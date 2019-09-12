@@ -147,7 +147,7 @@ public class AppTitleBar extends RelativeLayout implements OnClickListener {
         mRightBtnContent.setBackgroundResource(stringsId);
     }
     public void setRightVisibility(int visibility) {
-        mRightBtnContent.setVisibility(visibility);
+        mRightBtn.setVisibility(visibility);
     }
 
 }

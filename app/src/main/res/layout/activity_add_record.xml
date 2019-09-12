@@ -26,14 +26,13 @@
             android:paddingTop="@dimen/common_margin_4dp"
             android:src="@mipmap/back_icon"/>
 
-
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/common_margin_50dp"
-            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
             android:background="@color/colorPrimary"
-            android:gravity="right"/>
+            android:gravity="end"/>
     </RelativeLayout>
 
     <android.support.v4.view.ViewPager

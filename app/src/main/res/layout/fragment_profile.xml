@@ -332,12 +332,12 @@
                 android:background="@color/common_color_white">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
                     android:layout_centerVertical="true"
                     android:contentDescription="@string/app_name"
-                    android:layout_marginStart="@dimen/common_margin_16dp"
-                    android:layout_marginLeft="@dimen/common_margin_16dp"
+                    android:layout_marginStart="@dimen/common_margin_12dp"
+                    android:layout_marginLeft="@dimen/common_margin_12dp"
                     app:srcCompat="@drawable/ic_pay_black"
                     android:tint="@color/common_body_tip_colors" />
 
@@ -375,10 +375,10 @@
                 android:background="@color/common_color_white">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="@dimen/common_margin_16dp"
-                    android:layout_marginLeft="@dimen/common_margin_16dp"
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
+                    android:layout_marginStart="@dimen/common_margin_12dp"
+                    android:layout_marginLeft="@dimen/common_margin_12dp"
                     android:layout_centerVertical="true"
                     android:contentDescription="@string/app_name"
                     app:srcCompat="@drawable/ic_income_black"

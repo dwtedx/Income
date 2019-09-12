@@ -123,6 +123,7 @@ public class TopicDetailActivity extends BaseActivity implements AppTitleBar.OnT
         ButterKnife.bind(this);
 
         mAppTitle.setOnTitleClickListener(this);
+        mAppTitle.setRightVisibility(View.GONE);
 
         mTopicId = getIntent().getIntExtra("topicId", 0);
         findTopic();
@@ -198,6 +199,10 @@ public class TopicDetailActivity extends BaseActivity implements AppTitleBar.OnT
     }
 
     private void init() {
+        //删除按钮
+        if(isLogin() && ApplicationData.mDiUserInfo.getId() == mDiTopic.getUserid()){
+            mAppTitle.setRightVisibility(View.VISIBLE);
+        }
         mAllLayoutView.setVisibility(View.VISIBLE);
         TopicImageLoader.loadImageUser(this, mDiTopic.getUserpath(), mUserImageView);
         mUserNameView.setText(mDiTopic.getUsername());
@@ -441,7 +446,6 @@ public class TopicDetailActivity extends BaseActivity implements AppTitleBar.OnT
             public void onSuccess(DiTopic data) {
                 mDiTopic = data;
                 init();
-
             }
 
         };

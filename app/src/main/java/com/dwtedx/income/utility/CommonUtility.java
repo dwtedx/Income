@@ -1718,6 +1718,9 @@ public class CommonUtility {
      * @return
      */
     public static int getImageIdByName(Context ctx, String name) {
+        if(isEmpty(name)){
+            return 0;
+        }
         if (name.indexOf(".") != -1) {
             name = name.substring(0, name.lastIndexOf("."));
         }
