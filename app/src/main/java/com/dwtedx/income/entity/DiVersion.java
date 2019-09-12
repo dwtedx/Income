@@ -1,17 +1,21 @@
 package com.dwtedx.income.entity;
 
 public class DiVersion {
-    private Integer id;
+    private int id;
 
-    private Integer clienttype;
+    private int clienttype;
 
     private String version;
 
-    private Integer versioncode;
+    private int versioncode;
 
     private String content;
 
     private String apkurl;
+
+    private int audit;//0:审核中 1:上线
+
+    private String remark;
 
     private String createtime;
 
@@ -27,19 +31,19 @@ public class DiVersion {
         this.update = update;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Integer getClienttype() {
+    public int getClienttype() {
         return clienttype;
     }
 
-    public void setClienttype(Integer clienttype) {
+    public void setClienttype(int clienttype) {
         this.clienttype = clienttype;
     }
 
@@ -51,11 +55,11 @@ public class DiVersion {
         this.version = version == null ? null : version.trim();
     }
 
-    public Integer getVersioncode() {
+    public int getVersioncode() {
         return versioncode;
     }
 
-    public void setVersioncode(Integer versioncode) {
+    public void setVersioncode(int versioncode) {
         this.versioncode = versioncode;
     }
 
@@ -89,5 +93,21 @@ public class DiVersion {
 
     public void setUpdatetime(String updatetime) {
         this.updatetime = updatetime;
+    }
+
+    public int getAudit() {
+        return audit;
+    }
+
+    public void setAudit(int audit) {
+        this.audit = audit;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }

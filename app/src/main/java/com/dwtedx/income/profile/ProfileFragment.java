@@ -11,10 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.afollestad.materialdialogs.util.DialogUtils;
+import com.baidu.ocr.ui.camera.ICameraControl;
 import com.bumptech.glide.Glide;
 import com.dwtedx.income.R;
 import com.dwtedx.income.account.AccountActivity;
@@ -27,6 +29,7 @@ import com.dwtedx.income.entity.ApplicationData;
 import com.dwtedx.income.home.HomeV2Activity;
 import com.dwtedx.income.report.ShareActivity;
 import com.dwtedx.income.topic.MyTopicActivity;
+import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.utility.CommonUtility;
 import com.dwtedx.income.widget.CircleImageView;
 import com.dwtedx.income.widget.theme.CircleView;
@@ -47,6 +50,8 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     private int accentPreselect;
 
     private LinearLayout mRightLayout;
+    private RelativeLayout mProfileSellLayout;
+    private LinearLayout mProfileSellLayoutLine;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,6 +65,13 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
 
         mRightLayout = (LinearLayout) view.findViewById(R.id.home_item_layout);
         mRightLayout.setOnClickListener(this);
+
+        if(CommonConstants.APP_VERSION_AUDIT_PASS == ApplicationData.mAppVersionAudit){
+            mProfileSellLayout = (RelativeLayout) view.findViewById(R.id.ic_profile_sell_layout);
+            mProfileSellLayoutLine = (LinearLayout) view.findViewById(R.id.ic_profile_sell_layout_line);
+            mProfileSellLayout.setVisibility(View.VISIBLE);
+            mProfileSellLayoutLine.setVisibility(View.VISIBLE);
+        }
 
         mHeadImageView = (CircleImageView) mView.findViewById(R.id.imageView);
         mHeadName = (TextView) mView.findViewById(R.id.usernameView);

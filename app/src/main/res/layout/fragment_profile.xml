@@ -193,9 +193,11 @@
                 android:layout_marginTop="@dimen/common_margin_12dp" />
 
             <RelativeLayout
+                android:id="@+id/ic_profile_sell_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:visibility="gone"
                 android:background="@color/common_color_white">
 
                 <ImageView
@@ -233,7 +235,10 @@
 
             </RelativeLayout>
 
-            <LinearLayout style="@style/common_horizontal_division_line_style" />
+            <LinearLayout
+                android:id="@+id/ic_profile_sell_layout_line"
+                android:visibility="gone"
+                style="@style/common_horizontal_division_line_style" />
 
             <RelativeLayout
                 android:layout_width="match_parent"

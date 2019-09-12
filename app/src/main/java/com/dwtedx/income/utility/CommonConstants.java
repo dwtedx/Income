@@ -149,4 +149,8 @@ public class CommonConstants {
     public final static int TOPIC_TYPE_TALK = 1;
     public final static int TOPIC_TYPE_VOTE = 2;
 
+    //0:审核中 1:上线
+    public final static int APP_VERSION_AUDIT_DEF = 0;
+    public final static int APP_VERSION_AUDIT_PASS = 1;
+
 }

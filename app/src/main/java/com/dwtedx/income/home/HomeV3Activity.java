@@ -256,6 +256,7 @@ public class HomeV3Activity extends BaseActivity implements ViewPager.OnPageChan
         SaDataProccessHandler<Void, Void, DiVersion> dataVerHandler = new SaDataProccessHandler<Void, Void, DiVersion>(HomeV3Activity.this) {
             @Override
             public void onSuccess(final DiVersion data) {
+                ApplicationData.mAppVersionAudit = data.getAudit();
                 if (data.isUpdate()) {
                     new MaterialDialog.Builder(HomeV3Activity.this)
                             .title(getString(R.string.tip_update) + data.getVersion())

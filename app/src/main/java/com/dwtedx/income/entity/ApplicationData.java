@@ -13,6 +13,7 @@ public class ApplicationData {
 	public static String mClientSID;
 	public static String mAppVersion;
 	public static int mAppVersionCode;
+	public static int mAppVersionAudit;
 	public static DiUserInfo mDiUserInfo;
 	public static IncomeApplication mIncomeApplication;
 	public static List<DiParacontent> scanParacontent;
