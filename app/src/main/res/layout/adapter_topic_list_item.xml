@@ -11,27 +11,26 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/common_margin_12dp"
-        android:paddingEnd="@dimen/common_margin_16dp"
-        android:paddingStart="@dimen/common_margin_16dp"
-        android:paddingTop="@dimen/common_margin_12dp">
+        android:layout_height="74dp">
 
         <com.dwtedx.income.widget.CircleImageView
             android:id="@+id/m_user_image_view"
             android:layout_width="50dp"
+            android:layout_centerVertical="true"
             android:layout_height="50dp"
+            android:layout_marginStart="@dimen/common_margin_16dp"
+            android:layout_marginLeft="@dimen/common_margin_16dp"
             android:paddingTop="@dimen/activity_vertical_margin"
             android:src="@mipmap/userhead"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/common_margin_16dp"
             android:layout_marginStart="@dimen/common_margin_16dp"
             android:layout_toEndOf="@+id/m_user_image_view"
             android:layout_toRightOf="@+id/m_user_image_view"
+            android:layout_centerVertical="true"
             android:background="@android:color/white"
             android:orientation="vertical">
 
@@ -60,6 +59,26 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/m_topic_type_view"
+            style="@style/common_text_style_14_737373"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/common_margin_12dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/topic_type_color"
+            android:paddingBottom="@dimen/common_margin_4dp"
+            android:paddingEnd="@dimen/common_margin_8dp"
+            android:paddingLeft="@dimen/common_margin_8dp"
+            android:paddingRight="@dimen/common_margin_8dp"
+            android:paddingStart="@dimen/common_margin_8dp"
+            android:paddingTop="@dimen/common_margin_4dp"
+            android:text="@string/topic_type_vate"
+            android:textColor="@color/common_color_white"
+            android:textSize="@dimen/common_text_size_12sp"/>
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -80,6 +99,7 @@
             android:background="@android:color/transparent"
             android:ellipsize="end"
             android:lineSpacingExtra="4dp"
+            android:textSize="@dimen/common_text_size_16sp"
             android:maxLines="5"
             android:text="2017 BMW X5 350i xDrive"
             android:textCursorDrawable="@null"/>
@@ -115,26 +135,6 @@
             android:layout_marginTop="10dp"
             android:background="@color/common_color_white"
             android:visibility="visible"/>
-
-        <TextView
-            android:id="@+id/m_topic_type_view"
-            style="@style/common_text_style_14_737373"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/common_margin_12dp"
-            android:layout_below="@+id/m_item_desc_view"
-            android:background="@color/topic_type_color"
-            android:paddingBottom="@dimen/common_margin_4dp"
-            android:paddingEnd="@dimen/common_margin_8dp"
-            android:paddingLeft="@dimen/common_margin_8dp"
-            android:paddingRight="@dimen/common_margin_8dp"
-            android:paddingStart="@dimen/common_margin_8dp"
-            android:paddingTop="@dimen/common_margin_4dp"
-            android:text="@string/topic_type_vate"
-            android:textColor="@color/common_color_white"
-            android:textSize="@dimen/common_text_size_12sp"/>
 
     </RelativeLayout>
 

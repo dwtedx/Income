@@ -11,6 +11,8 @@
         android:id="@+id/tabs_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingEnd="@dimen/common_margin_16dp"
+        android:paddingRight="@dimen/common_margin_16dp"
         android:background="@color/colorPrimary">
 
         <ImageView
@@ -34,6 +36,10 @@
             android:layout_alignParentRight="true"
             android:background="@color/colorPrimary"
             android:gravity="center"
+            app:tabMaxWidth="60dp"
+            app:tabMinWidth="60dp"
+            app:tabPaddingStart="0dp"
+            app:tabPaddingEnd="0dp"
             app:tabIndicatorColor="@color/colorAccent"
             app:tabSelectedTextColor="@android:color/white"
             app:tabTextAppearance="@style/home_tablayout_text_appearance"

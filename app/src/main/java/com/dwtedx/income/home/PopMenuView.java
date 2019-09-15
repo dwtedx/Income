@@ -53,7 +53,7 @@ public class PopMenuView {
         this.mRootVew = LayoutInflater.from(context).inflate(R.layout.view_pop_menu, null);
         this.mPopupWindow = new PopupWindow(this.mRootVew, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         this.mPopupWindow.setFocusable(false); // 设置为失去焦点 方便监听返回键的监听
-        mPopupWindow.setClippingEnabled(false); // 如果想要popupWindow 遮挡住状态栏可以加上这句代码
+        //mPopupWindow.setClippingEnabled(false); // 如果想要popupWindow 遮挡住状态栏可以加上这句代码
         this.mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
         this.mPopupWindow.setOutsideTouchable(false);
 

@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
         android:layout_centerVertical="true" />
 
     <TextView
@@ -16,8 +16,6 @@
         android:layout_height="wrap_content"
         android:textColor="@android:color/white"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="1dp"
-        android:layout_marginStart="1dp"
         android:textStyle="bold"
         android:textSize="@dimen/common_text_size_16sp"
         android:layout_toRightOf="@id/imageView"
