@@ -28,6 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
+            android:paddingBottom="@dimen/common_margin_12dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -488,10 +489,6 @@
                     android:id="@+id/m_talk_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/common_margin_12dp"
-                    android:layout_marginLeft="@dimen/common_margin_12dp"
-                    android:layout_marginRight="@dimen/common_margin_12dp"
-                    android:layout_marginStart="@dimen/common_margin_12dp"
                     android:background="@color/common_color_white"/>
 
             </LinearLayout>

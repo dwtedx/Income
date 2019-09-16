@@ -62,4 +62,14 @@
         android:layout_below="@+id/m_app_title"
         android:background="@color/common_color_white" />
 
+    <ProgressBar
+        android:id="@+id/m_progress_bar_view"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:visibility="gone"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/progress_gear"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

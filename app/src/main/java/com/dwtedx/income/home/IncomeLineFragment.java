@@ -91,7 +91,7 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
         mSpringView.setListener(this);
         mSpringView.setHeader(new RotationHeader(getActivity()));
         mSpringView.setFooter(new RotationFooter(getActivity()));
-        mSpringView.setEnableFooter(false);
+        mSpringView.setType(SpringView.Type.OVERLAP);
 
         mRecyclerView = (RecyclerView) mView.findViewById(R.id.listView);
         mTextViewTip = (TextView) mView.findViewById(R.id.listView_tip);
@@ -117,28 +117,6 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-
-                LinearLayoutManager lm = (LinearLayoutManager) recyclerView.getLayoutManager();
-                int totalItemCount = recyclerView.getAdapter().getItemCount();
-                int lastVisibleItemPosition = lm.findLastVisibleItemPosition();
-                int visibleItemCount = recyclerView.getChildCount();
-
-                if (newState == RecyclerView.SCROLL_STATE_IDLE
-                        && lastVisibleItemPosition == totalItemCount - 1
-                        && visibleItemCount > 0) {
-                    //加载更多
-                    mRecyclerView.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            int startNom = 0;
-                            if (mDiIncomeItems.size() > 0) {
-                                startNom = mDiIncomeItems.size() - 1;
-                            }
-                            mDiIncomeItems.addAll(mDlIncomeService.getScrollData(startNom, CommonConstants.PAGE_LENGTH_NUMBER));
-                            mRecyclerView.getAdapter().notifyDataSetChanged();
-                            mSpringView.onFinishFreshAndLoad();
-                        }}, 500);
-                }
             }
 
             @Override
@@ -234,7 +212,20 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
     }
 
     @Override
-    public void onLoadmore() { }
+    public void onLoadmore() {
+        //加载更多
+        mRecyclerView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                int startNom = 0;
+                if (mDiIncomeItems.size() > 0) {
+                    startNom = mDiIncomeItems.size() - 1;
+                }
+                mDiIncomeItems.addAll(mDlIncomeService.getScrollData(startNom, CommonConstants.PAGE_LENGTH_NUMBER));
+                mRecyclerView.getAdapter().notifyDataSetChanged();
+                mSpringView.onFinishFreshAndLoad();
+            }}, 500);
+    }
 
     private void synchronize() {
         final List<DiIncome> mDiIncomeList = mDlIncomeService.findNotUpdate();

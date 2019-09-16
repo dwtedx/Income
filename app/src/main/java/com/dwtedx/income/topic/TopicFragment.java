@@ -4,39 +4,31 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.dwtedx.income.R;
 import com.dwtedx.income.base.BaseActivity;
 import com.dwtedx.income.base.BaseFragment;
 import com.dwtedx.income.connect.SaDataProccessHandler;
 import com.dwtedx.income.connect.SaException;
-import com.dwtedx.income.discovery.ItemCategoryTopActivity;
-import com.dwtedx.income.discovery.SearchTaobaoActivity;
-import com.dwtedx.income.discovery.TaobaoTradeUtility;
-import com.dwtedx.income.discovery.adapter.DiscoveryHeaderRecyclerAdapter;
-import com.dwtedx.income.discovery.adapter.DiscoveryRecyclerAdapter;
 import com.dwtedx.income.entity.DiTopic;
-import com.dwtedx.income.entity.TaobaoActivityInfo;
-import com.dwtedx.income.entity.TaobaoItemInfo;
 import com.dwtedx.income.profile.LoginV2Activity;
-import com.dwtedx.income.service.TaobaoService;
 import com.dwtedx.income.service.TopicService;
 import com.dwtedx.income.topic.adapter.TopicRecyclerAdapter;
 import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.widget.RecycleViewDivider;
 import com.dwtedx.income.widget.swiperecyclerview.SwipeRecyclerView;
 import com.previewlibrary.ZoomMediaLoader;
-import com.previewlibrary.loader.IZoomMediaLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +51,8 @@ public class TopicFragment extends BaseFragment implements SwipeRecyclerView.OnL
     LinearLayout mRightLayout;
     @BindView(R.id.m_recyclerview)
     SwipeRecyclerView mRecyclerView;
+    @BindView(R.id.m_progress_bar_view)
+    ProgressBar mProgressBarView;
 
     List<DiTopic> mDiTopicList;
     TopicRecyclerAdapter mAdapter;
@@ -105,11 +99,12 @@ public class TopicFragment extends BaseFragment implements SwipeRecyclerView.OnL
     }
 
     private void getTopicItemInfo(final boolean isShow, final boolean isClear) {
-
         SaDataProccessHandler<Void, Void, List<DiTopic>> dataVerHandler = new SaDataProccessHandler<Void, Void, List<DiTopic>>((BaseActivity) getContext()) {
             @Override
             public void onSuccess(List<DiTopic> data) {
-
+                if(isShow){
+                    hideLoading();
+                }
                 //第一次请求才缓存
                 if (isClear) {
                     mDiTopicList.clear();
@@ -135,8 +130,9 @@ public class TopicFragment extends BaseFragment implements SwipeRecyclerView.OnL
 
             @Override
             public void onPreExecute() {
-                if (isShow) {
-                    super.onPreExecute();
+                //super.onPreExecute();
+                if(isShow){
+                    showLoading();
                 }
             }
 
@@ -144,10 +140,28 @@ public class TopicFragment extends BaseFragment implements SwipeRecyclerView.OnL
             public void handlerError(SaException e) {
                 super.handlerError(e);
                 mRecyclerView.complete();
+                if(isShow){
+                    hideLoading();
+                }
             }
         };
 
         TopicService.getInstance().getTopicinfo(isClear ? 0 : mDiTopicList.size(), CommonConstants.PAGE_LENGTH_NUMBER, dataVerHandler);
+    }
+
+    private void showLoading(){
+        RotateAnimation mRotateUpAnim = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        mRotateUpAnim.setInterpolator(new LinearInterpolator());
+        mRotateUpAnim.setRepeatCount(Integer.MAX_VALUE);
+        mRotateUpAnim.setDuration(600);
+        mRotateUpAnim.setFillAfter(true);
+        mProgressBarView.startAnimation(mRotateUpAnim);
+        mProgressBarView.setVisibility(View.VISIBLE);
+    }
+
+    private void hideLoading() {
+        mProgressBarView.clearAnimation();
+        mProgressBarView.setVisibility(View.GONE);
     }
 
     @Override

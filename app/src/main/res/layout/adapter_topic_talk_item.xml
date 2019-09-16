@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/common_color_white"
-    android:paddingStart="@dimen/common_margin_4dp"
+    android:paddingStart="@dimen/common_margin_16dp"
     android:paddingTop="@dimen/common_margin_8dp"
-    android:paddingEnd="@dimen/common_margin_4dp"
+    android:paddingEnd="@dimen/common_margin_16dp"
     android:paddingBottom="@dimen/common_margin_8dp">
 
     <RelativeLayout

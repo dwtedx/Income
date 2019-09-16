@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +23,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.dwtedx.income.R;
 import com.dwtedx.income.base.BaseActivity;
 import com.dwtedx.income.connect.SaDataProccessHandler;
+import com.dwtedx.income.connect.SaException;
 import com.dwtedx.income.entity.ApplicationData;
 import com.dwtedx.income.entity.DiTopic;
 import com.dwtedx.income.entity.DiTopictalk;
@@ -35,6 +37,7 @@ import com.dwtedx.income.utility.CommonUtility;
 import com.dwtedx.income.utility.RelativeDateFormat;
 import com.dwtedx.income.widget.AppTitleBar;
 import com.dwtedx.income.widget.CircleImageView;
+import com.dwtedx.income.widget.RecycleViewDivider;
 import com.previewlibrary.GPreviewBuilder;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
@@ -335,6 +338,8 @@ public class TopicDetailActivity extends BaseActivity implements AppTitleBar.OnT
             }
         };
         mTalkRecyclerView.setLayoutManager(layoutManagerHeader);
+        //自定义分割线的样式
+        mTalkRecyclerView.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.HORIZONTAL, 1, ContextCompat.getColor(this, R.color.common_division_line)));
         mTopicTalkRecyclerAdapter = new TopicTalkRecyclerAdapter(this, mDiTopic);
         mTalkRecyclerView.setAdapter(mTopicTalkRecyclerAdapter);
 
@@ -382,20 +387,7 @@ public class TopicDetailActivity extends BaseActivity implements AppTitleBar.OnT
 
                 case R.id.m_item_liked_layout_view:
                     //点赞
-                    if (null == ApplicationData.mDiUserInfo || ApplicationData.mDiUserInfo.getId() == 0) {
-                        Toast.makeText(TopicDetailActivity.this, "点赞需要先登录哦", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(TopicDetailActivity.this, LoginV2Activity.class));
-                        return;
-                    }
-                    SaDataProccessHandler<Void, Void, Void> dataVerHandler = new SaDataProccessHandler<Void, Void, Void>(TopicDetailActivity.this) {
-                        @Override
-                        public void onSuccess(Void dataVode) {
-                            mDiTopic.setLiked(mDiTopic.getLiked() + 1);
-                            ((TextView) v.findViewById(R.id.m_item_liked_view)).setText(mDiTopic.getLiked() + TopicDetailActivity.this.getString(R.string.topic_liked_text));
-                            Toast.makeText(TopicDetailActivity.this, "点赞成功", Toast.LENGTH_SHORT).show();
-                        }
-                    };
-                    TopicService.getInstance().topicLicked(mDiTopic.getId(), dataVerHandler);
+                    topicLiked(v);
                     break;
 
                 case R.id.m_talk_button_view:
@@ -433,6 +425,30 @@ public class TopicDetailActivity extends BaseActivity implements AppTitleBar.OnT
             }
         }
     };
+
+    private void topicLiked(View v) {
+        if (null == ApplicationData.mDiUserInfo || ApplicationData.mDiUserInfo.getId() == 0) {
+            Toast.makeText(TopicDetailActivity.this, "点赞需要先登录哦", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(TopicDetailActivity.this, LoginV2Activity.class));
+            return;
+        }
+        SaDataProccessHandler<Void, Void, Void> dataVerHandler = new SaDataProccessHandler<Void, Void, Void>(TopicDetailActivity.this) {
+            @Override
+            public void onSuccess(Void dataVode) {
+                mDiTopic.setLiked(mDiTopic.getLiked() + 1);
+                ((TextView) v.findViewById(R.id.m_item_liked_view)).setText(mDiTopic.getLiked() + TopicDetailActivity.this.getString(R.string.topic_liked_text));
+                Toast.makeText(TopicDetailActivity.this, "点赞成功", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void handlerError(SaException e) {
+                //super.handlerError(e);
+                release();
+                Toast.makeText(TopicDetailActivity.this, e.getErrorMessage(), Toast.LENGTH_SHORT).show();
+            }
+        };
+        TopicService.getInstance().topicLicked(mDiTopic.getId(), dataVerHandler);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

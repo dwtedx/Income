@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.dwtedx.income.R;
 import com.dwtedx.income.base.BaseActivity;
 import com.dwtedx.income.connect.SaDataProccessHandler;
+import com.dwtedx.income.connect.SaException;
 import com.dwtedx.income.entity.ApplicationData;
 import com.dwtedx.income.entity.DiTopic;
 import com.dwtedx.income.profile.LoginV2Activity;
@@ -285,24 +286,35 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
 
                 case R.id.m_item_liked_layout_view:
                     //点赞
-                    if(null == ApplicationData.mDiUserInfo || ApplicationData.mDiUserInfo.getId() == 0){
-                        Toast.makeText(mContext, "点赞需要先登录哦", Toast.LENGTH_SHORT).show();
-                        mContext.startActivity(new Intent(mContext, LoginV2Activity.class));
-                        return;
-                    }
-                    SaDataProccessHandler<Void, Void, Void> dataVerHandler = new SaDataProccessHandler<Void, Void, Void>((BaseActivity) mContext) {
-                        @Override
-                        public void onSuccess(Void dataVode) {
-                            topic.setLiked(topic.getLiked() + 1);
-                            ((TextView)v.findViewById(R.id.m_item_liked_view)).setText(topic.getLiked() + mContext.getString(R.string.topic_liked_text));
-                            Toast.makeText(mContext, "点赞成功", Toast.LENGTH_SHORT).show();
-                        }
-                    };
-                    TopicService.getInstance().topicLicked(topic.getId(), dataVerHandler);
+                    topicLiked(v, topic);
                     break;
             }
         }
     };
+
+    private void topicLiked(View v, DiTopic topic) {
+        if(null == ApplicationData.mDiUserInfo || ApplicationData.mDiUserInfo.getId() == 0){
+            Toast.makeText(mContext, "点赞需要先登录哦", Toast.LENGTH_SHORT).show();
+            mContext.startActivity(new Intent(mContext, LoginV2Activity.class));
+            return;
+        }
+        SaDataProccessHandler<Void, Void, Void> dataVerHandler = new SaDataProccessHandler<Void, Void, Void>((BaseActivity) mContext) {
+            @Override
+            public void onSuccess(Void dataVode) {
+                topic.setLiked(topic.getLiked() + 1);
+                ((TextView)v.findViewById(R.id.m_item_liked_view)).setText(topic.getLiked() + mContext.getString(R.string.topic_liked_text));
+                Toast.makeText(mContext, "点赞成功", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void handlerError(SaException e) {
+                //super.handlerError(e);
+                release();
+                Toast.makeText(mContext, e.getErrorMessage(), Toast.LENGTH_SHORT).show();
+            }
+        };
+        TopicService.getInstance().topicLicked(topic.getId(), dataVerHandler);
+    }
 
     public int getRealPosition(RecyclerView.ViewHolder holder) {
         int position = holder.getLayoutPosition();
