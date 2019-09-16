@@ -269,12 +269,14 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
                 };
                 TopicService.getInstance().uploadImg(imgData, dataVerHandler);
             }
+        }else{
+            postTopic();
         }
-        //投票
-        mDiTopic.setTopicvote(mAdapterVote.getTotalVotes());
     }
 
     private void postTopic(){
+        //投票
+        mDiTopic.setTopicvote(mAdapterVote.getTotalVotes());
         //保存
         SaDataProccessHandler<Void, Void, Void> dataVerHandler = new SaDataProccessHandler<Void, Void, Void>(this) {
             @Override

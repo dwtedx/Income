@@ -191,6 +191,7 @@ public class TopicDetailActivity extends BaseActivity implements AppTitleBar.OnT
             public void onSuccess(Void data) {
                 mDiTopic.getTopictalk().add(0, topictalk);
                 mTopicTalkRecyclerAdapter.notifyDataSetChanged();
+                mTalkEditView.setText("");
                 Toast.makeText(TopicDetailActivity.this, R.string.topic_detail_talk_tip, Toast.LENGTH_SHORT).show();
             }
 

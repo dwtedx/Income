@@ -40,6 +40,7 @@
                 android:height="140dp"
                 android:background="@android:color/transparent"
                 android:gravity="top"
+                android:textSize="@dimen/common_text_size_16sp"
                 android:hint="@string/topic_add_tip_text"
                 android:maxLength="200"
                 android:padding="@dimen/common_margin_16dp"/>
