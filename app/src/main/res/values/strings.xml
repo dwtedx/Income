@@ -182,6 +182,7 @@
     <string name="fingerprint_description_userpass">账号认证</string>
     <string name="fingerprint_description_userpass_sess">账号认证成功</string>
     <string name="fingerprint_description_userpass_tip">认证账号以继续操作</string>
+    <string name="fingerprint_description_null_tip">当前设备指纹模块异常</string>
 
     <string name="md_custom_label">自定义</string>
     <string name="md_presets_label">预置</string>

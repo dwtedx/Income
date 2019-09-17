@@ -89,8 +89,10 @@ public class IncomeDetailActivity extends BaseActivity implements RecordKeyboard
 
         try {
             mIncome = ParseJsonToObject.getObject(DiIncome.class, new JSONObject(getIntent().getExtras().getString("income")));
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "账目异常，请检查后重试", Toast.LENGTH_SHORT).show();
+            finish();
         }
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);

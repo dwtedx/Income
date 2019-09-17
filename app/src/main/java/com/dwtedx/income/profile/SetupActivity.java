@@ -193,6 +193,10 @@ public class SetupActivity extends BaseActivity implements View.OnClickListener,
     private void setUpFingerprint() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             FingerprintUiHelper fingerprintUiHelper = new FingerprintUiHelper(getSystemService(FingerprintManager.class),null, null, null);
+            if(null == fingerprintUiHelper){
+                Toast.makeText(this, R.string.fingerprint_description_null_tip, Toast.LENGTH_SHORT).show();
+                return;
+            }
             if(!fingerprintUiHelper.isFingerprintAuthAvailable()){
                 Toast.makeText(this, R.string.fingerprint_not_support_one, Toast.LENGTH_SHORT).show();
                 return;
