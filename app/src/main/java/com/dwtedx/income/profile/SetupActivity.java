@@ -39,6 +39,7 @@ import com.dwtedx.income.sqliteservice.DITypeService;
 import com.dwtedx.income.sqliteservice.DlIncomeService;
 import com.dwtedx.income.updateapp.UpdateService;
 import com.dwtedx.income.utility.CommonConstants;
+import com.dwtedx.income.utility.CommonUtility;
 import com.dwtedx.income.utility.DataCleanManager;
 import com.dwtedx.income.utility.FingerprintUiHelper;
 import com.dwtedx.income.widget.AppTitleBar;
@@ -55,7 +56,7 @@ import java.util.Set;
 public class SetupActivity extends BaseActivity implements View.OnClickListener, AppTitleBar.OnTitleClickListener {
 
     private AppTitleBar mAppTitleBar;
-    private int[] mClickView = {R.id.profile_fingerprint_text, R.id.profile_data_text, R.id.setup_update, R.id.message_recommendation, R.id.setup_user_agreement, R.id.about_me, R.id.login_out, R.id.share_app, R.id.clear_cache, R.id.setup_score};
+    private int[] mClickView = {R.id.profile_fingerprint_text, R.id.profile_data_text, R.id.profile_password_text, R.id.setup_update, R.id.message_recommendation, R.id.setup_user_agreement, R.id.about_me, R.id.login_out, R.id.share_app, R.id.clear_cache, R.id.setup_score};
     private TextView mClearCacheText;
     private TextView mSetupVersion;
     private Switch mFingerprintSwitch;
@@ -146,6 +147,8 @@ public class SetupActivity extends BaseActivity implements View.OnClickListener,
                 break;
             case R.id.profile_data_text:
                 dataRegain();
+            case R.id.profile_password_text:
+                setPassWord();
                 break;
             case R.id.setup_update:
                 getVersions();
@@ -327,6 +330,18 @@ public class SetupActivity extends BaseActivity implements View.OnClickListener,
                 .show();
     }
 
+    private void setPassWord() {
+        if (!isLogin()) {
+            startActivity(new Intent(this, LoginV2Activity.class));
+            return;
+        }
+        if(CommonUtility.isEmpty(ApplicationData.mDiUserInfo.getUsername()) && CommonUtility.isEmpty(ApplicationData.mDiUserInfo.getPhone())){
+            Snackbar.make(findViewById(R.id.app_title), R.string.user_name_set_tip, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            return;
+        }
+        Intent intent = new Intent(this, PassWordActivity.class);
+        startActivity(intent);
+    }
 
     //数据恢复////////////////数据恢复///////////////////数据恢复/////////////////////数据恢复//////////////////数据恢复/////////
 

@@ -36,14 +36,13 @@ import java.io.File;
 public class ProfileInfoActivity extends BaseActivity implements AppTitleBar.OnTitleClickListener, View.OnClickListener {
 
     private AppTitleBar mToolBar;
-    private int[] mClickView = {R.id.user_name_head_view, R.id.user_name_text, R.id.user_password_text, R.id.user_nick_name_text, R.id.user_phone_text,
+    private int[] mClickView = {R.id.user_name_head_view, R.id.user_name_text, R.id.user_nick_name_text, R.id.user_phone_text,
             R.id.user_email_text, R.id.user_signature_text, R.id.user_work_text, R.id.user_weixin_text, R.id.user_qq_text, R.id.user_sex_text,
             R.id.user_birthday_text};
 
     //所有要显示信息的View
     private CircleImageView mHeadImageView;
     private Button mNameText;
-    private Button mPassText;
     private Button mNickNameText;
     private Button mPhoneText;
     private Button mEmailText;
@@ -80,9 +79,6 @@ public class ProfileInfoActivity extends BaseActivity implements AppTitleBar.OnT
             //赋值
             Glide.with(this).load(ApplicationData.mDiUserInfo.getHead()).into(mHeadImageView);
             mNameText.setText(ApplicationData.mDiUserInfo.getUsername());
-            if (!CommonUtility.isEmpty(ApplicationData.mDiUserInfo.getPassword())) {
-                mPassText.setText("******");
-            }
             mNickNameText.setText(ApplicationData.mDiUserInfo.getName());
             mPhoneText.setText(ApplicationData.mDiUserInfo.getPhone());
             mEmailText.setText(ApplicationData.mDiUserInfo.getEmail());
@@ -96,7 +92,6 @@ public class ProfileInfoActivity extends BaseActivity implements AppTitleBar.OnT
             //赋值
             Glide.with(this).load(R.mipmap.userhead).into(mHeadImageView);
             mNameText.setText("");
-            mPassText.setText("");
             mNickNameText.setText("");
             mPhoneText.setText("");
             mEmailText.setText("");
@@ -115,7 +110,6 @@ public class ProfileInfoActivity extends BaseActivity implements AppTitleBar.OnT
         mToolBar.setOnTitleClickListener(this);
         mHeadImageView = (CircleImageView) findViewById(R.id.imageView_head);
         mNameText = (Button) findViewById(R.id.user_name_text);
-        mPassText = (Button) findViewById(R.id.user_password_text);
         mNickNameText = (Button) findViewById(R.id.user_nick_name_text);
         mPhoneText = (Button) findViewById(R.id.user_phone_text);
         mEmailText = (Button) findViewById(R.id.user_email_text);
@@ -158,10 +152,6 @@ public class ProfileInfoActivity extends BaseActivity implements AppTitleBar.OnT
                 setUserName();
                 break;
 
-            case R.id.user_password_text:
-                setPassWord();
-                break;
-
             case R.id.user_nick_name_text:
             case R.id.user_email_text:
             case R.id.user_signature_text:
@@ -189,19 +179,6 @@ public class ProfileInfoActivity extends BaseActivity implements AppTitleBar.OnT
             return;
         }
         Intent intent = new Intent(this, MobileActivity.class);
-        startActivity(intent);
-    }
-
-    private void setPassWord() {
-        if (!isLogin()) {
-            startActivity(new Intent(ProfileInfoActivity.this, LoginV2Activity.class));
-            return;
-        }
-        if(CommonUtility.isEmpty(ApplicationData.mDiUserInfo.getUsername()) && CommonUtility.isEmpty(ApplicationData.mDiUserInfo.getPhone())){
-            Snackbar.make(findViewById(R.id.app_title), R.string.user_name_set_tip, Snackbar.LENGTH_LONG).setAction("Action", null).show();
-            return;
-        }
-        Intent intent = new Intent(this, PassWordActivity.class);
         startActivity(intent);
     }
 

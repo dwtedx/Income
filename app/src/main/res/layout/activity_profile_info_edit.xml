@@ -43,33 +43,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:background="@color/common_color_white"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin">
-
-                <TextView
-                    android:id="@+id/user_nick_name"
-                    style="@style/common_text_style_14_737373"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/user_nick_name" />
+                android:background="@color/common_color_white">
 
                 <EditText
                     android:id="@+id/user_nick_name_text"
                     style="@style/common_text_style_14_333333"
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/user_nick_name"
-                    android:layout_toRightOf="@+id/user_nick_name"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
-                    android:gravity="center_vertical|end"
-                    android:hint="@string/user_hint"
-                    android:paddingTop="@dimen/activity_vertical_margin"
-                    android:paddingEnd="@dimen/activity_vertical_margin"
-                    android:paddingRight="@dimen/activity_vertical_margin"
-                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:hint="@string/user_nick_name"
+                    android:padding="@dimen/activity_vertical_margin"
                     android:textAllCaps="false"
                     android:textCursorDrawable="@null" />
 
@@ -81,33 +65,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:background="@color/common_color_white"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin">
-
-                <TextView
-                    android:id="@+id/user_email"
-                    style="@style/common_text_style_14_737373"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/user_email" />
+                android:background="@color/common_color_white">
 
                 <EditText
                     android:id="@+id/user_email_text"
                     style="@style/common_text_style_14_333333"
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/user_email"
-                    android:layout_toRightOf="@+id/user_email"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
-                    android:gravity="end"
-                    android:hint="@string/user_hint"
-                    android:paddingTop="@dimen/activity_vertical_margin"
-                    android:paddingEnd="@dimen/activity_vertical_margin"
-                    android:paddingRight="@dimen/activity_vertical_margin"
-                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:hint="@string/user_email"
+                    android:padding="@dimen/activity_vertical_margin"
                     android:textAllCaps="false"
                     android:textCursorDrawable="@null" />
 
@@ -119,34 +87,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:background="@color/common_color_white"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin">
-
-                <TextView
-                    android:id="@+id/user_signature"
-                    style="@style/common_text_style_14_737373"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/user_signature" />
+                android:background="@color/common_color_white">
 
                 <EditText
                     android:id="@+id/user_signature_text"
                     style="@style/common_text_style_14_333333"
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/user_signature"
-                    android:layout_toRightOf="@+id/user_signature"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
-                    android:gravity="end"
-                    android:hint="@string/user_signature_hint"
+                    android:hint="@string/user_signature"
                     android:maxLength="15"
-                    android:paddingTop="@dimen/activity_vertical_margin"
-                    android:paddingEnd="@dimen/activity_vertical_margin"
-                    android:paddingRight="@dimen/activity_vertical_margin"
-                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/activity_vertical_margin"
                     android:textAllCaps="false"
                     android:textCursorDrawable="@null" />
 
@@ -158,33 +110,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:background="@color/common_color_white"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin">
-
-                <TextView
-                    android:id="@+id/user_work"
-                    style="@style/common_text_style_14_737373"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/user_work" />
+                android:background="@color/common_color_white">
 
                 <EditText
                     android:id="@+id/user_work_text"
                     style="@style/common_text_style_14_333333"
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/user_work"
-                    android:layout_toRightOf="@+id/user_work"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
-                    android:gravity="end"
-                    android:hint="@string/user_hint"
-                    android:paddingTop="@dimen/activity_vertical_margin"
-                    android:paddingEnd="@dimen/activity_vertical_margin"
-                    android:paddingRight="@dimen/activity_vertical_margin"
-                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:hint="@string/user_work"
+                    android:padding="@dimen/activity_vertical_margin"
                     android:textAllCaps="false"
                     android:textCursorDrawable="@null" />
 
@@ -196,33 +132,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:background="@color/common_color_white"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin">
-
-                <TextView
-                    android:id="@+id/user_weixin"
-                    style="@style/common_text_style_14_737373"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/user_weixin" />
+                android:background="@color/common_color_white">
 
                 <EditText
                     android:id="@+id/user_weixin_text"
                     style="@style/common_text_style_14_333333"
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/user_weixin"
-                    android:layout_toRightOf="@+id/user_weixin"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
-                    android:gravity="end"
-                    android:hint="@string/user_hint"
-                    android:paddingTop="@dimen/activity_vertical_margin"
-                    android:paddingEnd="@dimen/activity_vertical_margin"
-                    android:paddingRight="@dimen/activity_vertical_margin"
-                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:hint="@string/user_weixin"
+                    android:padding="@dimen/activity_vertical_margin"
                     android:textAllCaps="false"
                     android:textCursorDrawable="@null" />
 
@@ -234,34 +154,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:background="@color/common_color_white"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin">
-
-                <TextView
-                    android:id="@+id/user_qq"
-                    style="@style/common_text_style_14_737373"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/user_qq" />
+                android:background="@color/common_color_white">
 
                 <EditText
                     android:id="@+id/user_qq_text"
                     style="@style/common_text_style_14_333333"
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/user_qq"
-                    android:layout_toRightOf="@+id/user_qq"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
-                    android:gravity="end"
-                    android:hint="@string/user_hint"
+                    android:hint="@string/user_qq"
                     android:inputType="number"
-                    android:paddingTop="@dimen/activity_vertical_margin"
-                    android:paddingEnd="@dimen/activity_vertical_margin"
-                    android:paddingRight="@dimen/activity_vertical_margin"
-                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/activity_vertical_margin"
                     android:textAllCaps="false"
                     android:textCursorDrawable="@null" />
 
@@ -277,32 +181,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:background="@color/common_color_white"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin">
-
-                <TextView
-                    android:id="@+id/user_sex"
-                    style="@style/common_text_style_14_737373"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/user_sex" />
+                android:background="@color/common_color_white">
 
                 <Button
                     android:id="@+id/user_sex_text"
                     style="@style/common_text_style_14_333333"
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/user_sex"
-                    android:layout_toRightOf="@+id/user_sex"
                     android:background="?android:attr/selectableItemBackground"
-                    android:gravity="end"
-                    android:hint="@string/user_hint"
-                    android:paddingTop="@dimen/activity_vertical_margin"
-                    android:paddingEnd="@dimen/common_margin_40dp"
-                    android:paddingRight="@dimen/common_margin_40dp"
-                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:hint="@string/user_sex"
+                    android:padding="@dimen/activity_vertical_margin"
                     android:textAllCaps="false" />
 
                 <ImageView
@@ -325,32 +213,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:background="@color/common_color_white"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin">
-
-                <TextView
-                    android:id="@+id/user_birthday"
-                    style="@style/common_text_style_14_737373"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/user_birthday" />
+                android:background="@color/common_color_white">
 
                 <Button
                     android:id="@+id/user_birthday_text"
                     style="@style/common_text_style_14_333333"
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/user_birthday"
-                    android:layout_toRightOf="@+id/user_birthday"
                     android:background="?android:attr/selectableItemBackground"
-                    android:gravity="end"
-                    android:hint="@string/user_hint"
-                    android:paddingTop="@dimen/activity_vertical_margin"
-                    android:paddingEnd="@dimen/common_margin_40dp"
-                    android:paddingRight="@dimen/common_margin_40dp"
-                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:hint="@string/user_birthday"
+                    android:padding="@dimen/activity_vertical_margin"
                     android:textAllCaps="false" />
 
                 <ImageView
