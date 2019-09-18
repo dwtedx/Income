@@ -183,6 +183,7 @@ public class PushMessageReceiver extends com.xiaomi.mipush.sdk.PushMessageReceiv
         }
 
         Log.v(IncomeApplication.TAG, log);
+        Log.v(IncomeApplication.TAG, "小米RegId=============================" + mRegId);
     }
 
     @SuppressLint("SimpleDateFormat")

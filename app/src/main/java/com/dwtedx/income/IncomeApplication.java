@@ -28,7 +28,6 @@ import com.baidu.ocr.sdk.exception.OCRError;
 import com.baidu.ocr.sdk.model.AccessToken;
 import com.dwtedx.income.entity.ApplicationData;
 import com.dwtedx.income.updateapp.UpdateService;
-import com.dwtedx.income.utility.CommonConstants;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
@@ -36,10 +35,6 @@ import com.xiaomi.channel.commonutils.logger.LoggerInterface;
 import com.xiaomi.mipush.sdk.Logger;
 import com.xiaomi.mipush.sdk.MiPushClient;
 
-import java.io.File;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.List;
 
 /** 
@@ -100,7 +95,6 @@ public class IncomeApplication extends Application {
 		//百度OCR
 		initAccessTokenWithAkSk();
 
-		//closeAndroidPDialog();
 	}
 
 	@Override
@@ -194,30 +188,6 @@ public class IncomeApplication extends Application {
 				//Toast.makeText(getApplicationContext(), "AK，SK方式获取token失败 / 错误消息="+error.getMessage(), Toast.LENGTH_SHORT).show();
 			}
 		}, getApplicationContext(),  ORC_API_KEY, ORC_SECRET_KEY);
-	}
-
-	/**
-	 * 解决在Android P上的提醒弹窗
-	 */
-	private void closeAndroidPDialog(){
-		try {
-			Class aClass = Class.forName("android.content.pm.PackageParser$Package");
-			Constructor declaredConstructor = aClass.getDeclaredConstructor(String.class);
-			declaredConstructor.setAccessible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		try {
-			Class cls = Class.forName("android.app.ActivityThread");
-			Method declaredMethod = cls.getDeclaredMethod("currentActivityThread");
-			declaredMethod.setAccessible(true);
-			Object activityThread = declaredMethod.invoke(null);
-			Field mHiddenApiWarningShown = cls.getDeclaredField("mHiddenApiWarningShown");
-			mHiddenApiWarningShown.setAccessible(true);
-			mHiddenApiWarningShown.setBoolean(activityThread, true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 }

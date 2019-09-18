@@ -121,7 +121,7 @@ dependencies {
     //SpringView核心库 (只包含DefaultHeader/Footer)
     implementation 'com.liaoinstan.springview:library:1.5.1'
     //umeng 统计
-    implementation files('libs/MiPush_SDK_Client_3_4_5.jar')
+    implementation files('libs/MiPush_SDK_Client_3_6_19.jar')
     implementation files('libs/ocr-sdk.jar')
     implementation files('libs/libapshare20161108.jar')
     implementation files('libs/SecurityEnvSDK-release-1.1.0.jar')
