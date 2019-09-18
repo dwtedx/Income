@@ -48,10 +48,10 @@
     <string name="pull_to_refresh_pull_label_synchronize">下拉开始同步&#8230;</string>
     <string name="pull_to_refresh_release_label_synchronize">释放开始同步&#8230;</string>
     <string name="pull_to_refresh_refreshing_label_synchronize">正在同步&#8230;</string>
-    <string name="synchronize_done">条数据已同步到云服务器</string>
-    <string name="synchronize_done_tip">所有数据已同步到云服务器</string>
-    <string name="synchronize_tip">开启云服务器数据同步需要先登录</string>
-    <string name="show_synchronize_tip">开启云服务器数据同步确保数据安全</string>
+    <string name="synchronize_done">条账目已同步到云端</string>
+    <string name="synchronize_done_tip">所有账目已同步云端</string>
+    <string name="synchronize_tip">开启云端同步需要先登录哦</string>
+    <string name="show_synchronize_tip">开启云端同步确保账本安全？</string>
     <string name="show_score_tip">DD记账用得还顺手吗？吐槽一下吧！</string>
     <string name="app_loading_more">正在加载&#8230;</string>
     <string name="share_image_tip">请先切换到报表界面</string>
@@ -66,7 +66,7 @@
     <string name="rmb">￥</string>
     <string name="home_network_tip">当前设备网络异常，是否前往设置？</string>
     <string name="home_scan_error_tip">扫单初始化失败，请检查网络环境后再重试</string>
-    <string name="copyright">&#169; COPYRIGHT 2015&#8211;2019.DWTEDX ALL RIGHTS RESERVED.</string>
+    <string name="copyright">&#169; COPYRIGHT 2015&#8211;2019.SHINYUU ALL RIGHTS RESERVED.</string>
     <string name="home_record_quick">快速记账</string>
     <string name="home_record_scan">扫描小票</string>
     <string name="home_record_scan_beta">Beta</string>
