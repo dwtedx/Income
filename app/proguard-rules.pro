@@ -76,9 +76,6 @@
 -keep class com.wang.avi.** { *; }
 -keep class com.wang.avi.indicators.** { *; }
 
-#这里com.xiaomi.mipushdemo.DemoMessageRreceiver改成app中定义的完整类名
--keep class com.dwtedx.income.broadcast.PushMessageReceiver {*;}
-
 #MPAndroidChart start
 -dontwarn com.github.mikephil.**
 -keep class com.github.mikephil.**{ *; }
@@ -105,7 +102,49 @@
 -keep class com.ali.auth.**  {*;}
 #taobao end
 
-#umeng starty
+#umeng tongji
+-keep class com.umeng.** {*;}
+-keepclassmembers class * {
+   public <init> (org.json.JSONObject);
+}
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+#umeng tongji end
+
+#umeng push
+-dontwarn com.umeng.**
+-dontwarn com.taobao.**
+-dontwarn anet.channel.**
+-dontwarn anetwork.channel.**
+-dontwarn org.android.**
+-dontwarn org.apache.thrift.**
+-dontwarn com.xiaomi.**
+-dontwarn com.huawei.**
+-dontwarn com.meizu.**
+
+-keepattributes *Annotation*
+
+-keep class com.taobao.** {*;}
+-keep class org.android.** {*;}
+-keep class anet.channel.** {*;}
+-keep class com.umeng.** {*;}
+-keep class com.xiaomi.** {*;}
+-keep class com.huawei.** {*;}
+-keep class com.meizu.** {*;}
+-keep class org.apache.thrift.** {*;}
+
+-keep class com.alibaba.sdk.android.**{*;}
+-keep class com.ut.**{*;}
+-keep class com.ta.**{*;}
+
+-keep public class **.R$*{
+   public static final int *;
+}
+#umeng push end
+
+#umeng share start
 -dontshrink
 -dontoptimize
 -dontwarn com.google.android.maps.**
@@ -187,7 +226,7 @@
 -keep class com.linkedin.** { *; }
 -keep class com.android.dingtalk.share.ddsharemodule.** { *; }
 -keepattributes Signature
-#umeng end
+#umeng share end
 
 #PictureSelector 2.0
 -keep class com.luck.picture.lib.** { *; }

@@ -32,6 +32,7 @@ import com.dwtedx.income.entity.ApplicationData;
 import com.dwtedx.income.topic.TopicDetailActivity;
 import com.dwtedx.income.utility.CommonUtility;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.PushAgent;
 
 
 /**
@@ -56,6 +57,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         // 在当前的activity中注册广播
         IntentFilter filter = new IntentFilter();
         filter.addAction(CommonBroadcast.BROADCAST_ACTION);
@@ -69,14 +72,14 @@ public abstract class BaseActivity extends AppCompatActivity {
             this.getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimary));
 
         }
-
-        super.onCreate(savedInstanceState);
+        //推送的统计
+        PushAgent.getInstance(this).onAppStart();
     }
 
     @Override
     protected void onDestroy() {
-        unregisterReceiver(mProadcastReceiver);
         super.onDestroy();
+        unregisterReceiver(mProadcastReceiver);
     }
 
     @Override
@@ -88,6 +91,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        //友盟统计
         MobclickAgent.onResume(this);
         //口令检测   使用剪切板在API11以后的版本
         ClipboardManager manager = (ClipboardManager) ApplicationData.mIncomeApplication.getSystemService(Context.CLIPBOARD_SERVICE);
@@ -150,6 +154,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        //友盟统计
         MobclickAgent.onPause(this);
     }
 

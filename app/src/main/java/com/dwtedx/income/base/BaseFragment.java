@@ -27,11 +27,11 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public void onAttach(Context context) {
+        super.onAttach(context);
         // 在当前的activity中注册广播
         IntentFilter filter = new IntentFilter();
         filter.addAction(CommonBroadcast.BROADCAST_ACTION);
         context.registerReceiver(mProadcastReceiver, filter);//注册
-        super.onAttach(context);
     }
 
     @Override
@@ -48,12 +48,14 @@ public abstract class BaseFragment extends Fragment {
 	@Override
     public void onResume() {
         super.onResume();
-        MobclickAgent.onPageStart(getActivity().getLocalClassName()); //统计页面，"MainScreen"为页面名称，可自定义
+        //统计页面，"MainScreen"为页面名称，可自定义
+        MobclickAgent.onPageStart(getActivity().getLocalClassName());
     }
     
     @Override
     public void onPause() {
         super.onPause();
+        //友盟统计页面
         MobclickAgent.onPageEnd(getActivity().getLocalClassName());
     }
 

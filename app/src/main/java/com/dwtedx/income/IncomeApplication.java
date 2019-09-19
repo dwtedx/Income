@@ -29,11 +29,13 @@ import com.baidu.ocr.sdk.model.AccessToken;
 import com.dwtedx.income.entity.ApplicationData;
 import com.dwtedx.income.updateapp.UpdateService;
 import com.umeng.commonsdk.UMConfigure;
+import com.umeng.message.IUmengRegisterCallback;
+import com.umeng.message.PushAgent;
 import com.umeng.socialize.PlatformConfig;
-import com.umeng.socialize.UMShareAPI;
-import com.xiaomi.channel.commonutils.logger.LoggerInterface;
-import com.xiaomi.mipush.sdk.Logger;
-import com.xiaomi.mipush.sdk.MiPushClient;
+
+import org.android.agoo.huawei.HuaWeiRegister;
+import org.android.agoo.oppo.OppoRegister;
+import org.android.agoo.xiaomi.MiPushRegistar;
 
 import java.util.List;
 
@@ -122,48 +124,31 @@ public class IncomeApplication extends Application {
 	}
 
 	private void initPush() {
-		//初始化push推送服务
-		if(shouldInit()) {
-			MiPushClient.registerPush(this, APP_ID, APP_KEY);
-		}
-		//打开Log
-		LoggerInterface newLogger = new LoggerInterface() {
+		//获取消息推送代理示例
+		PushAgent mPushAgent = PushAgent.getInstance(this);
+		//注册推送服务，每次调用register方法都会回调该接口
+		mPushAgent.register(new IUmengRegisterCallback() {
 			@Override
-			public void setTag(String tag) {
-				// ignore
+			public void onSuccess(String deviceToken) {
+				//注册成功会返回deviceToken deviceToken是推送消息的唯一标志
+				Log.i(TAG,"推送注册成功：deviceToken：-------->  " + deviceToken);
 			}
-
 			@Override
-			public void log(String content, Throwable t) {
-				Log.d(TAG, content, t);
+			public void onFailure(String s, String s1) {
+				Log.e(TAG,"推送注册失败：-------->  " + "s:" + s + ",s1:" + s1);
 			}
-
-			@Override
-			public void log(String content) {
-				Log.d(TAG, content);
-			}
-		};
-		Logger.setLogger(this, newLogger);
-	}
-
-	private boolean shouldInit() {
-		ActivityManager am = ((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE));
-		List<ActivityManager.RunningAppProcessInfo> processInfos = am.getRunningAppProcesses();
-		String mainProcessName = getPackageName();
-		int myPid = Process.myPid();
-		if(null != processInfos) {
-			for (ActivityManager.RunningAppProcessInfo info : processInfos) {
-				if (info.pid == myPid && mainProcessName.equals(info.processName)) {
-					return true;
-				}
-			}
-		}
-		return false;
+		});
+		//小米Push初始化
+		MiPushRegistar.register(getApplicationContext(), APP_ID, APP_KEY);
+		//华为Push初始化
+		HuaWeiRegister.register(this);
+        //OPPO通道，参数1为app key，参数2为app secret
+        OppoRegister.register(this, "3V92Jju57xycs8Cskg40c0Wo8", "69f0677dab2fe19ecAA590C138c770C0");
 	}
 
 	private void initUMeng() {
 		//8b7ac86ea0aebdf27f289bda478ebc99
-		UMConfigure.init(getApplicationContext(), UMConfigure.DEVICE_TYPE_PHONE, null);
+		UMConfigure.init(getApplicationContext(), UMConfigure.DEVICE_TYPE_PHONE, "8b7ac86ea0aebdf27f289bda478ebc99");
 		//初始化第三方帐号
 		PlatformConfig.setWeixin("wx1b69112b9d811eb4", "f573c434c2e046dbe4263ee354af7f5a");//微信 appid appsecret
 		PlatformConfig.setSinaWeibo("3559270156", "5c321a16f3c541047694a4c7704576fc", "http://sns.whalecloud.com");//新浪微博 appkey appsecret
