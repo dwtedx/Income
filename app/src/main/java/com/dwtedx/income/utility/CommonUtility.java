@@ -141,6 +141,21 @@ public class CommonUtility {
     }
 
     /**
+     * Date转String
+     *
+     * @param date
+     * @return
+     */
+    public static String stringDateFormartAddHours(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.HOUR, -2);// 24小时制
+        Date adddate = cal.getTime();
+        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", new Locale("zh", "CN"));
+        return formatDate.format(adddate);
+    }
+
+    /**
      * Date转String MM-dd
      *
      * @param date

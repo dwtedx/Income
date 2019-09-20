@@ -50,9 +50,6 @@ public class IncomeApplication extends Application {
 	public final static String TAG = "IncomeApplication";
 	private boolean DEVELOPER_MODE = false;
 
-	//推送
-	public static final String APP_ID = "2882303761517188784";
-	public static final String APP_KEY = "5831718889784";
 	//百度 ocr
 	public static final String ORC_API_KEY = "hPPMaV1yM5uE4HmtWBgLaxw8";
 	public static final String ORC_SECRET_KEY = "C34yAHb3vOcxDV0717W8DdX2xycm28CF";
@@ -139,7 +136,7 @@ public class IncomeApplication extends Application {
 			}
 		});
 		//小米Push初始化
-		MiPushRegistar.register(getApplicationContext(), APP_ID, APP_KEY);
+		MiPushRegistar.register(getApplicationContext(), "2882303761517188784", "5831718889784");
 		//华为Push初始化
 		HuaWeiRegister.register(this);
         //OPPO通道，参数1为app key，参数2为app secret

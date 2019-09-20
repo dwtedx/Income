@@ -166,12 +166,18 @@ public class PayingFragment extends BaseFragment implements RecordKeyboardView.O
             Snackbar.make(mRecyclerView, R.string.record_money_error, Snackbar.LENGTH_LONG).setAction("Action", null).show();
             return;
         }
-        Date beForTime = CommonUtility.stringToDate(DlIncomeService.getInstance(getContext()).findBeForTime());
+        //开始节点第一条记录处理 by sinyuu 20190920
+        DiIncome beForDiIncome = DlIncomeService.getInstance(getContext()).findBeForTime();
+        Date beForTime = CommonUtility.stringToDate(beForDiIncome.getRecordtime());
         if(null != beForTime && mCalendar.getTime().before(beForTime)){
-            //Toast.makeText(getContext(), getContext().getString(R.string.record_money_error_time) , Toast.LENGTH_SHORT).show();
-            Snackbar.make(mRecyclerView, R.string.record_money_error_time, Snackbar.LENGTH_LONG).setAction("Action", null).show();
-            return;
+            if(CommonConstants.INCOME_RECORD_UPDATEED == beForDiIncome.getIsupdate()) {
+
+            }else{
+                DlIncomeService.getInstance(getContext()).updateBeForTime(CommonUtility.stringDateFormartAddHours(mCalendar.getTime()));
+            }
         }
+        //开始节点第一条记录处理 结束 by sinyuu 20190920
+
         String chosedate = CommonUtility.stringDateFormart(mCalendar.getTime());
         String nowTime = CommonUtility.getCurrentTime();
         double money = Double.parseDouble(mRecordAccountEditText.getText().toString());

@@ -139,6 +139,11 @@ public class DiIncome {
         this.moneysumRight = moneysumRight;
     }
 
+    public DiIncome(String recordtime, int isupdate) {
+        this.recordtime = recordtime;
+        this.isupdate = isupdate;
+    }
+
     public int getId() {
         return id;
     }

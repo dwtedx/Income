@@ -152,14 +152,23 @@ public class DlIncomeService {
 	 * 查询记录befortime
 	 * @return
 	 */
-	public String findBeForTime(){
+	public DiIncome findBeForTime(){
 		SQLiteDatabase db = dbOpenHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT recordtime FROM di_income where role = 3 LIMIT 1", null);
+		Cursor cursor = db.rawQuery("SELECT recordtime, isupdate FROM di_income where role = 3 LIMIT 1", null);
 		if(cursor.moveToFirst()){
-			return  cursor.getString(cursor.getColumnIndex("recordtime"));
+			return  new DiIncome(cursor.getString(cursor.getColumnIndex("recordtime")), cursor.getInt(cursor.getColumnIndex("isupdate")));
 		}
 		cursor.close();
 		return null;
+	}
+
+	/**
+	 * 更新开始节点的时间
+	 * @return
+	 */
+	public void updateBeForTime(String time){
+		SQLiteDatabase db = dbOpenHelper.getWritableDatabase();
+		db.execSQL("UPDATE di_income set recordtime = ? WHERE role = ?", new Object[]{time, 3});
 	}
 
 	/**

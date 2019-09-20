@@ -147,6 +147,7 @@ public class SetupActivity extends BaseActivity implements View.OnClickListener,
                 break;
             case R.id.profile_data_text:
                 dataRegain();
+                break;
             case R.id.profile_password_text:
                 setPassWord();
                 break;
