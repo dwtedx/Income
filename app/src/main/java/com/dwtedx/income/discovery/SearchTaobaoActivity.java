@@ -110,7 +110,7 @@ public class SearchTaobaoActivity extends BaseActivity implements AppTitleBar.On
     private void searchTaobaoItem() {
         keyword = mEtSearch.getText().toString().trim();
         if (CommonUtility.isEmpty(keyword)) {
-            Toast.makeText(this, getString(R.string.please_enter_query), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.please_enter_query_tip), Toast.LENGTH_SHORT).show();
             //判断输入的内容是否含有特殊字符
         } else if (CommonUtility.hasSpecialCharacter(keyword)) {
             Toast.makeText(this, getString(R.string.special_characters), Toast.LENGTH_SHORT).show();

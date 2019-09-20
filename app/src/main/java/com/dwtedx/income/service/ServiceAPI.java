@@ -40,6 +40,7 @@ public class ServiceAPI {
     public static String WEB_API_INCOME_SYNCHRONIZE_EGAIN = WEB_API_DOMAIN + "/income/synchronizeegain";
     public static String WEB_API_INCOME_DELETEINCOME = WEB_API_DOMAIN + "/income/deleteincome";
     public static String WEB_API_INCOME_DELETEINCOMEID = WEB_API_DOMAIN + "/income/deleteincomeid";
+    public static String WEB_API_INCOME_UPDATEINCOMEBEFORTIME = WEB_API_DOMAIN + "/income/updateincomebefortime";
 
     public static String WEB_API_SCAN_DELETESCAN = WEB_API_DOMAIN + "/scan/deletescan";
 

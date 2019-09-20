@@ -80,7 +80,7 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
         }
         mView = inflater.inflate(R.layout.fragment_money_line, container, false);
 
-        mDlIncomeService = DlIncomeService.getInstance(getContext());
+        mDlIncomeService = DlIncomeService.getInstance(getActivity());
 
         mLeftLayout = (LinearLayout) mView.findViewById(R.id.home_list_layout);
         mLeftLayout.setOnClickListener(this);
@@ -98,7 +98,7 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
         mTextViewTip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), AddRecordActivity.class));
+                startActivity(new Intent(getActivity(), AddRecordActivity.class));
             }
         });
 
@@ -110,7 +110,7 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
 
         // 设置适配器
         mDiIncomeItems = new ArrayList<>();
-        mDiIncomeMoneyLineAdapter = new DiIncomeLineAdapter(getContext(), mDiIncomeItems, mDlIncomeService);
+        mDiIncomeMoneyLineAdapter = new DiIncomeLineAdapter(getActivity(), mDiIncomeItems, mDlIncomeService);
         mRecyclerView.setAdapter(mDiIncomeMoneyLineAdapter);
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -124,7 +124,7 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
                 super.onScrolled(recyclerView, dx, dy);
                 if(null != mDiIncomeMoneyLineAdapter.getmDisplayEditView() && View.VISIBLE == mDiIncomeMoneyLineAdapter.getmDisplayEditView().getVisibility()) {
                     //添加动画
-                    Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_top);
+                    Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_out_top);
                     mDiIncomeMoneyLineAdapter.getmDisplayEditView().startAnimation(hyperspaceJumpAnimation);
                     mDiIncomeMoneyLineAdapter.getmDisplayEditView().setVisibility(View.GONE);
                 }
@@ -163,7 +163,7 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
             double leftMoney = mDlIncomeService.getSumMoneyByData(CommonConstants.INCOME_ROLE_INCOME, startTime, endTime).getMoneysum();
             double rightMoney = mDlIncomeService.getSumMoneyByData(CommonConstants.INCOME_ROLE_PAYING, startTime, endTime).getMoneysum();
             //预算
-            DiBudget budget = DIBudgetService.getInstance(getContext()).findLastRow();
+            DiBudget budget = DIBudgetService.getInstance(getActivity()).findLastRow();
             mDiIncomeItems.add(new DiIncome(CommonConstants.INCOME_ROLE_POOL, CommonUtility.twoPlaces(leftMoney), CommonUtility.twoPlaces(rightMoney), budget.getMoneylast(), (mStartTimeCalendar.get(mStartTimeCalendar.MONTH) + 1) + "月"));
             mDiIncomeItems.addAll(diIncomes);
         }
@@ -186,7 +186,7 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
     @Override
     public void onRefresh() {
         if (!isLogin()) {
-            new MaterialDialog.Builder(getContext())
+            new MaterialDialog.Builder(getActivity())
                     .title(R.string.tip)
                     .content(R.string.synchronize_tip)
                     .positiveText(R.string.ok)
@@ -196,7 +196,7 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                             //NEGATIVE   POSITIVE
                             if (which.name().equals("POSITIVE")) {
-                                startActivity(new Intent(getContext(), LoginV2Activity.class));
+                                startActivity(new Intent(getActivity(), LoginV2Activity.class));
                             }
                         }
                     })
@@ -247,7 +247,7 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
                     //保存扫单
                     for (DiScan diScan : mDiIncome.getScanList()) {
                         diScan.setIsupdate(CommonConstants.INCOME_RECORD_UPDATEED);
-                        DIScanService.getInstance(getContext()).update(diScan);
+                        DIScanService.getInstance(getActivity()).update(diScan);
                     }
 
                 }
@@ -275,17 +275,17 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
 
     private void synchronizeBudget() {
         Calendar calendar = Calendar.getInstance();
-        final List<DiBudget> mDiBudgetList = DIBudgetService.getInstance(getContext()).findNotUpdate(calendar.get(Calendar.YEAR), (calendar.get(Calendar.MONTH) + 1));
+        final List<DiBudget> mDiBudgetList = DIBudgetService.getInstance(getActivity()).findNotUpdate(calendar.get(Calendar.YEAR), (calendar.get(Calendar.MONTH) + 1));
         if (mDiBudgetList.size() == 0) {
             mRecyclerView.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     if (mSynchronizeCount > 0) {
                         //Snackbar.make(mRecyclerView, mSynchronizeCount + getString(R.string.synchronize_done), Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                        Toast.makeText(getContext(), mSynchronizeCount + getString(R.string.synchronize_done), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), mSynchronizeCount + getString(R.string.synchronize_done), Toast.LENGTH_SHORT).show();
                     } else {
                         //Snackbar.make(mRecyclerView, mSynchronizeCount + getString(R.string.synchronize_done), Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                        Toast.makeText(getContext(), R.string.synchronize_done_tip, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), R.string.synchronize_done_tip, Toast.LENGTH_SHORT).show();
                     }
                     mSpringView.onFinishFreshAndLoad();
                 }}, 1000);
@@ -301,15 +301,15 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
             public void onSuccess(Void data) {
                 for (DiBudget mDiBudget : mDiBudgetList) {
                     mDiBudget.setIsupdate(CommonConstants.INCOME_RECORD_UPDATEED);
-                    DIBudgetService.getInstance(getContext()).update(mDiBudget);
+                    DIBudgetService.getInstance(getActivity()).update(mDiBudget);
                 }
                 if (mSynchronizeCount > 0) {
                     //Snackbar.make(mRecyclerView, mSynchronizeCount + getString(R.string.synchronize_done), Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                    Toast.makeText(getContext(), mSynchronizeCount + getString(R.string.synchronize_done), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), mSynchronizeCount + getString(R.string.synchronize_done), Toast.LENGTH_SHORT).show();
                     mSynchronizeCount = 0;
                 } else {
                     //Snackbar.make(mRecyclerView, getString(R.string.synchronize_done_tip), Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                    Toast.makeText(getContext(), R.string.synchronize_done_tip, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.synchronize_done_tip, Toast.LENGTH_SHORT).show();
                 }
                 mSpringView.onFinishFreshAndLoad();
             }
@@ -334,7 +334,7 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
             if (isLogin()) {
                 return;
             }
-            new MaterialDialog.Builder(getContext())
+            new MaterialDialog.Builder(getActivity())
                     .title(R.string.tip)
                     .content(R.string.show_synchronize_tip)
                     .positiveText(R.string.ok)
@@ -344,13 +344,13 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                             //NEGATIVE   POSITIVE
                             if (which.name().equals("POSITIVE")) {
-                                startActivity(new Intent(getContext(), LoginV2Activity.class));
+                                startActivity(new Intent(getActivity(), LoginV2Activity.class));
                             }
                         }
                     })
                     .show();
         } else if (x > 95 && x <= 97) {
-            new MaterialDialog.Builder(getContext())
+            new MaterialDialog.Builder(getActivity())
                     .title(R.string.tip)
                     .content(R.string.show_score_tip)
                     .positiveText(R.string.ok)
@@ -360,7 +360,7 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                             //NEGATIVE   POSITIVE
                             if (which.name().equals("POSITIVE")) {
-                                Uri uri = Uri.parse("market://details?id=" + getContext().getPackageName());
+                                Uri uri = Uri.parse("market://details?id=" + getActivity().getPackageName());
                                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
@@ -375,11 +375,11 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.home_list_layout:
-                startActivity(new Intent(getContext(), IncomeListActivity.class));
+                startActivity(new Intent(getActivity(), IncomeListActivity.class));
                 break;
 
             case R.id.home_item_layout:
-                startActivity(new Intent(getContext(), SearchActivity.class));
+                startActivity(new Intent(getActivity(), SearchActivity.class));
                 break;
         }
     }

@@ -26,12 +26,15 @@ import com.afollestad.materialdialogs.simplelist.MaterialSimpleListAdapter;
 import com.afollestad.materialdialogs.simplelist.MaterialSimpleListItem;
 import com.dwtedx.income.R;
 import com.dwtedx.income.addrecord.adapter.IncomeRecyclerViewAdatper;
+import com.dwtedx.income.base.BaseActivity;
 import com.dwtedx.income.base.BaseFragment;
+import com.dwtedx.income.connect.SaDataProccessHandler;
 import com.dwtedx.income.entity.DiAccount;
 import com.dwtedx.income.entity.DiIncome;
 import com.dwtedx.income.entity.DiType;
 import com.dwtedx.income.accounttype.IncomeTypeActivity;
 import com.dwtedx.income.provider.AccountSharedPreferences;
+import com.dwtedx.income.service.IncomeService;
 import com.dwtedx.income.sqliteservice.DIAccountService;
 import com.dwtedx.income.sqliteservice.DITypeService;
 import com.dwtedx.income.sqliteservice.DlIncomeService;
@@ -165,12 +168,35 @@ public class IncomeFragment extends BaseFragment implements RecordKeyboardView.O
             Snackbar.make(mRecyclerView, R.string.record_money_error, Snackbar.LENGTH_LONG).setAction("Action", null).show();
             return;
         }
-        Date beForTime = CommonUtility.stringToDate(DlIncomeService.getInstance(getContext()).findBeForTime());
-        if (null != beForTime && mCalendar.getTime().before(beForTime)) {
-            //Toast.makeText(getContext(), getContext().getString(R.string.record_money_error_time), Toast.LENGTH_SHORT).show();
-            Snackbar.make(mRecyclerView, R.string.record_money_error_time, Snackbar.LENGTH_LONG).setAction("Action", null).show();
-            return;
+        //开始节点第一条记录处理 by sinyuu 20190920
+        DiIncome beForDiIncome = DlIncomeService.getInstance(getContext()).findBeForTime();
+        if(null != beForDiIncome) {
+            Date beForTime = CommonUtility.stringToDate(beForDiIncome.getRecordtime());
+            if (null != beForTime && mCalendar.getTime().before(beForTime)) {
+                if (CommonConstants.INCOME_RECORD_UPDATEED == beForDiIncome.getIsupdate()) {
+                    //同步数据库
+                    SaDataProccessHandler<Void, Void, Void> dataVerHandler = new SaDataProccessHandler<Void, Void, Void>((BaseActivity) getActivity()) {
+                        @Override
+                        public void onSuccess(Void data) {
+                            DlIncomeService.getInstance(getContext()).updateBeForTime(CommonUtility.stringDateFormartAddHours(mCalendar.getTime()));
+                            saveIncome();
+                        }
+                    };
+                    IncomeService.getInstance().updateIncomeBeforTime(CommonUtility.stringDateFormartAddHours(mCalendar.getTime()), dataVerHandler);
+                } else {
+                    DlIncomeService.getInstance(getContext()).updateBeForTime(CommonUtility.stringDateFormartAddHours(mCalendar.getTime()));
+                    saveIncome();
+                }
+            }else{
+                saveIncome();
+            }
+        }else{
+            saveIncome();
         }
+        //开始节点第一条记录处理 结束 by sinyuu 20190920
+    }
+
+    private void saveIncome(){
         String chosedate = CommonUtility.stringDateFormart(mCalendar.getTime());
         String nowTime = CommonUtility.getCurrentTime();
         double money = Double.parseDouble(mRecordAccountEditText.getText().toString());

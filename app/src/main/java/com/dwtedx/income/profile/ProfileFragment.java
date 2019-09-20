@@ -119,60 +119,64 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         switch (v.getId()) {
             case R.id.nav_header_view:
                 if (isLogin()) {
-                    startActivity(new Intent(getContext(), ProfileInfoActivity.class));
+                    startActivity(new Intent(getActivity(), ProfileInfoActivity.class));
                 } else {
-                    startActivity(new Intent(getContext(), LoginV2Activity.class));
+                    startActivity(new Intent(getActivity(), LoginV2Activity.class));
                 }
                 break;
             case R.id.profile_type_pay:
-                startActivity(new Intent(getContext(), PayingTypeActivity.class));
+                startActivity(new Intent(getActivity(), PayingTypeActivity.class));
                 break;
             case R.id.profile_type_income:
-                startActivity(new Intent(getContext(), IncomeTypeActivity.class));
+                startActivity(new Intent(getActivity(), IncomeTypeActivity.class));
                 break;
             case R.id.profile_share:
-                startActivity(new Intent(getContext(), ShareActivity.class));
+                startActivity(new Intent(getActivity(), ShareActivity.class));
                 break;
             case R.id.profile_account:
-                startActivity(new Intent(getContext(), AccountActivity.class));
+                startActivity(new Intent(getActivity(), AccountActivity.class));
                 break;
             case R.id.setup_reset_pass:
                 break;
 //            case R.id.profile_theme:
-//                new ColorChooserDialog.Builder(getContext(), R.string.color_palette)
+//                new ColorChooserDialog.Builder(getActivity(), R.string.color_palette)
 //                        .titleSub(R.string.app_name)
 //                        .preselect(primaryPreselect)
 //                        .show();
 //                break;
 //            case R.id.profile_accent:
-//                new ColorChooserDialog.Builder(getContext(), R.string.color_palette)
+//                new ColorChooserDialog.Builder(getActivity(), R.string.color_palette)
 //                        .titleSub(R.string.app_name)
 //                        .accentMode(true)
 //                        .preselect(accentPreselect)
 //                        .show();
 //                break;
             case R.id.profile_setup:
-                startActivity(new Intent(getContext(), ProfileInfoActivity.class));
+                startActivity(new Intent(getActivity(), ProfileInfoActivity.class));
                 break;
 
             case R.id.profile_budget:
-                startActivity(new Intent(getContext(), BudgetActivity.class));
+                startActivity(new Intent(getActivity(), BudgetActivity.class));
                 break;
 
             case R.id.profile_nav_setup:
-                startActivity(new Intent(getContext(), SetupActivity.class));
+                startActivity(new Intent(getActivity(), SetupActivity.class));
                 break;
 
             case R.id.home_item_layout:
-                startActivity(new Intent(getContext(), SetupActivity.class));
+                startActivity(new Intent(getActivity(), SetupActivity.class));
                 break;
 
             case R.id.m_profile_discover_button:
-                startActivity(new Intent(getContext(), DiscoveryActivity.class));
+                startActivity(new Intent(getActivity(), DiscoveryActivity.class));
                 break;
 
             case R.id.m_profile_topic_button:
-                startActivity(new Intent(getContext(), MyTopicActivity.class));
+                if (isLogin()) {
+                    startActivity(new Intent(getActivity(), MyTopicActivity.class));
+                } else {
+                    startActivity(new Intent(getActivity(), LoginV2Activity.class));
+                }
                 break;
         }
     }
@@ -181,9 +185,9 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     public void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int color) {
         if (dialog.isAccentMode()) {
             accentPreselect = color;
-            ThemeSingleton.get().positiveColor = DialogUtils.getActionTextStateList(getContext(), color);
-            ThemeSingleton.get().neutralColor = DialogUtils.getActionTextStateList(getContext(), color);
-            ThemeSingleton.get().negativeColor = DialogUtils.getActionTextStateList(getContext(), color);
+            ThemeSingleton.get().positiveColor = DialogUtils.getActionTextStateList(getActivity(), color);
+            ThemeSingleton.get().neutralColor = DialogUtils.getActionTextStateList(getActivity(), color);
+            ThemeSingleton.get().negativeColor = DialogUtils.getActionTextStateList(getActivity(), color);
             ThemeSingleton.get().widgetColor = color;
         } else {
             primaryPreselect = color;

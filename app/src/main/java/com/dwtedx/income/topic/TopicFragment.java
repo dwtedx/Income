@@ -69,12 +69,12 @@ public class TopicFragment extends BaseFragment implements SwipeRecyclerView.OnL
 
         mRightLayout.setOnClickListener(this);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.getRecyclerView().setLayoutManager(layoutManager);
 
         mRecyclerView.setOnLoadListener(this);
         //自定义分割线的样式
-        mRecyclerView.getRecyclerView().addItemDecoration(new RecycleViewDivider(getContext(), LinearLayoutManager.HORIZONTAL, 32, ContextCompat.getColor(getContext(), R.color.common_background_color)));
+        mRecyclerView.getRecyclerView().addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.HORIZONTAL, 32, ContextCompat.getColor(getActivity(), R.color.common_background_color)));
         mDiTopicList = new ArrayList<>();
         mAdapter = new TopicRecyclerAdapter(getActivity(), mDiTopicList);
         mRecyclerView.setAdapter(mAdapter);
@@ -99,7 +99,7 @@ public class TopicFragment extends BaseFragment implements SwipeRecyclerView.OnL
     }
 
     private void getTopicItemInfo(final boolean isShow, final boolean isClear) {
-        SaDataProccessHandler<Void, Void, List<DiTopic>> dataVerHandler = new SaDataProccessHandler<Void, Void, List<DiTopic>>((BaseActivity) getContext()) {
+        SaDataProccessHandler<Void, Void, List<DiTopic>> dataVerHandler = new SaDataProccessHandler<Void, Void, List<DiTopic>>((BaseActivity) getActivity()) {
             @Override
             public void onSuccess(List<DiTopic> data) {
                 if(isShow){
@@ -123,7 +123,7 @@ public class TopicFragment extends BaseFragment implements SwipeRecyclerView.OnL
 
                 //没有数据的时候
                 if(isClear && data.size() == 0){
-                    View nodataview = LayoutInflater.from(getContext()).inflate(R.layout.layout_nodate_view, null, false);
+                    View nodataview = LayoutInflater.from(getActivity()).inflate(R.layout.layout_nodate_view, null, false);
                     mRecyclerView.setEmptyView(nodataview);
                 }
             }
@@ -138,7 +138,10 @@ public class TopicFragment extends BaseFragment implements SwipeRecyclerView.OnL
 
             @Override
             public void handlerError(SaException e) {
-                super.handlerError(e);
+                //super.handlerError(e);
+                //没有数据的时候
+                View nodataview = LayoutInflater.from(getContext()).inflate(R.layout.layout_nodate_view, null, false);
+                mRecyclerView.setEmptyView(nodataview);
                 mRecyclerView.complete();
                 if(isShow){
                     hideLoading();
@@ -180,11 +183,11 @@ public class TopicFragment extends BaseFragment implements SwipeRecyclerView.OnL
 
             case R.id.home_item_layout:
                 if(!isLogin()){
-                    Toast.makeText(getContext(), R.string.topic_add_send_top, Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getContext(), LoginV2Activity.class));
+                    Toast.makeText(getActivity(), R.string.topic_add_send_top, Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getActivity(), LoginV2Activity.class));
                     return;
                 }
-                startActivity(new Intent(getContext(), AddTopicActivity.class));
+                startActivity(new Intent(getActivity(), AddTopicActivity.class));
                 break;
         }
     }

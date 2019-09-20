@@ -218,13 +218,35 @@ public class ScanDetailActivity extends BaseActivity implements AppTitleBar.OnTi
             Snackbar.make(findViewById(R.id.app_title), R.string.record_money_error, Snackbar.LENGTH_LONG).setAction("Action", null).show();
             return;
         }
-        Date beForTime = CommonUtility.stringToDate(DlIncomeService.getInstance(this).findBeForTime());
-        if(null != beForTime && mCalendar.getTime().before(beForTime)){
-            //Toast.makeText(this, this.getString(R.string.record_money_error_time) , Toast.LENGTH_SHORT).show();
-            Snackbar.make(findViewById(R.id.app_title), R.string.record_money_error_time, Snackbar.LENGTH_LONG).setAction("Action", null).show();
-            return;
+        //开始节点第一条记录处理 by sinyuu 20190920
+        DiIncome beForDiIncome = DlIncomeService.getInstance(this).findBeForTime();
+        if(null != beForDiIncome) {
+            Date beForTime = CommonUtility.stringToDate(beForDiIncome.getRecordtime());
+            if (null != beForTime && mCalendar.getTime().before(beForTime)) {
+                if (CommonConstants.INCOME_RECORD_UPDATEED == beForDiIncome.getIsupdate()) {
+                    //同步数据库
+                    SaDataProccessHandler<Void, Void, Void> dataVerHandler = new SaDataProccessHandler<Void, Void, Void>(this) {
+                        @Override
+                        public void onSuccess(Void data) {
+                            DlIncomeService.getInstance(ScanDetailActivity.this).updateBeForTime(CommonUtility.stringDateFormartAddHours(mCalendar.getTime()));
+                            saveIncome();
+                        }
+                    };
+                    IncomeService.getInstance().updateIncomeBeforTime(CommonUtility.stringDateFormartAddHours(mCalendar.getTime()), dataVerHandler);
+                } else {
+                    DlIncomeService.getInstance(this).updateBeForTime(CommonUtility.stringDateFormartAddHours(mCalendar.getTime()));
+                    saveIncome();
+                }
+            }else{
+                saveIncome();
+            }
+        }else{
+            saveIncome();
         }
+        //开始节点第一条记录处理 结束 by sinyuu 20190920
+    }
 
+    private void saveIncome(){
         final String nowTime = CommonUtility.getCurrentTime();
         final double money = Double.parseDouble(mRecordAccountText.getText().toString());
         mRecordAccountText.setText("");

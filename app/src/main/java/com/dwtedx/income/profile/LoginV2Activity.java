@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.dwtedx.income.R;
 import com.dwtedx.income.base.BaseActivity;
+import com.dwtedx.income.connect.ProgressDialog;
 import com.dwtedx.income.connect.SaDataProccessHandler;
 import com.dwtedx.income.entity.ApplicationData;
 import com.dwtedx.income.entity.DiUserInfo;
@@ -48,10 +49,14 @@ public class LoginV2Activity extends BaseActivity implements AppTitleBar.OnTitle
 
     private LoginSharedPreferences mLoginSharedPreferences;
 
+    private ProgressDialog mProgressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_v2);
+
+        mProgressDialog = getProgressDialog();
 
         initView();
         getUserInfo();
@@ -149,7 +154,7 @@ public class LoginV2Activity extends BaseActivity implements AppTitleBar.OnTitle
     UMAuthListener umAuthListener = new UMAuthListener() {
         @Override
         public void onStart(SHARE_MEDIA share_media) {
-
+            mProgressDialog.show();
         }
 
         @Override
@@ -160,11 +165,13 @@ public class LoginV2Activity extends BaseActivity implements AppTitleBar.OnTitle
 
         @Override
         public void onError(SHARE_MEDIA platform, int action, Throwable t) {
+            mProgressDialog.hide();
             Toast.makeText(getApplicationContext(), "授权失败", Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform, int action) {
+            mProgressDialog.hide();
             Toast.makeText(getApplicationContext(), "授权取消", Toast.LENGTH_SHORT).show();
         }
     };
@@ -181,6 +188,7 @@ public class LoginV2Activity extends BaseActivity implements AppTitleBar.OnTitle
 
         @Override
         public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> info) {
+            mProgressDialog.hide();
             //Toast.makeText(getApplicationContext(), "用户信息获取成功", Toast.LENGTH_SHORT).show();
             mUMengInfo = new UMengInfo();
             if (SHARE_MEDIA.WEIXIN.equals(platform)) {
@@ -208,11 +216,13 @@ public class LoginV2Activity extends BaseActivity implements AppTitleBar.OnTitle
 
         @Override
         public void onError(SHARE_MEDIA platform, int action, Throwable t) {
+            mProgressDialog.hide();
             Toast.makeText(getApplicationContext(), "用户信息获取失败", Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform, int action) {
+            mProgressDialog.hide();
             Toast.makeText(getApplicationContext(), "用户信息获取取消", Toast.LENGTH_SHORT).show();
         }
     };

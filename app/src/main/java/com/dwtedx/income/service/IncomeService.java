@@ -791,4 +791,46 @@ public class IncomeService {
         return task;
     }
 
+    /**
+     * 开始节点第一条记录处理 by sinyuu 20190920
+     * @param stringDate
+     * @param handler
+     * @return
+     */
+    public SaAsyncTask<Void, Void, Void> updateIncomeBeforTime(final String stringDate, SaDataProccessHandler<Void, Void, Void> handler) {
+        handler.setUrl(ServiceAPI.WEB_API_INCOME_UPDATEINCOMEBEFORTIME);
+        SaAsyncTask<Void, Void, Void> task = new SaAsyncTask<Void, Void, Void>(handler) {
+            @Override
+            protected Void doInBackground(Void... params) {
+                Void result = null;
+                try {
+                    BaseHttpResponseHandler<Void> dataHandler = new BaseHttpResponseHandler<Void>() {
+
+                        @Override
+                        public Void getResult(Object jsonObject) throws SaException {
+                            Void resultData = ParseJsonToObject.getObject(Void.class, (JSONObject) jsonObject);
+                            return resultData;
+                        }
+                    };
+
+                    JSONObject requestParameter = new JSONObject();
+                    try {
+                        requestParameter.put("recordtime", stringDate);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        throw new SaException(SaError.ERROR_TYPE_JSON, e);
+                    }
+                    result = handler.getRequestExecutor().executeRequest(ServiceParamterUtil.genParamterJSONObject(requestParameter), dataHandler);
+                } catch (SaException e) {
+                    setErrorObj(e);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setErrorObj(new SaException(SaError.ERROR_TYPE_UNKNOWN, e));
+                }
+                return result;
+            }
+        };
+        task.execute();
+        return task;
+    }
 }
