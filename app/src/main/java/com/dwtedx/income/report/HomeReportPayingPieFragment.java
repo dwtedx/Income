@@ -98,9 +98,9 @@ public class HomeReportPayingPieFragment extends BaseFragment implements View.On
         mRightLayout = (LinearLayout) view.findViewById(R.id.home_item_layout);
         mRightLayout.setOnClickListener(this);
 
-        mDlIncomeService = DlIncomeService.getInstance(getActivity());
+        mDlIncomeService = DlIncomeService.getInstance(mFragmentContext);
 
-        mTf = Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Regular.ttf");
+        mTf = Typeface.createFromAsset(mFragmentContext.getAssets(), "OpenSans-Regular.ttf");
     }
 
     @Override
@@ -126,7 +126,7 @@ public class HomeReportPayingPieFragment extends BaseFragment implements View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.pie_chart_starttime:
-                DatePickerDialog pieStartdd = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog pieStartdd = new DatePickerDialog(mFragmentContext, new DatePickerDialog.OnDateSetListener() {
 
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -140,7 +140,7 @@ public class HomeReportPayingPieFragment extends BaseFragment implements View.On
                 break;
 
             case R.id.pie_chart_endtime:
-                DatePickerDialog pieEnddd = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog pieEnddd = new DatePickerDialog(mFragmentContext, new DatePickerDialog.OnDateSetListener() {
 
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -154,7 +154,7 @@ public class HomeReportPayingPieFragment extends BaseFragment implements View.On
                 break;
 
             case R.id.home_item_layout:
-                startActivity(new Intent(getActivity(), ReportActivity.class));
+                startActivity(new Intent(mFragmentContext, ReportActivity.class));
                 break;
         }
     }
@@ -167,7 +167,7 @@ public class HomeReportPayingPieFragment extends BaseFragment implements View.On
     private void generatePayingDataPie() {
 
         if (-1 != CommonUtility.compareDate(mPieStartTimePie, mPieEndTimePie)) {
-            //Toast.makeText(getActivity(), getString(R.string.report_date_error_ago), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(mFragmentContext, getString(R.string.report_date_error_ago), Toast.LENGTH_SHORT).show();
             Snackbar.make(mReportScrollview, R.string.report_date_error_ago, Snackbar.LENGTH_LONG).setAction("Action", null).show();
             return;
         }
@@ -219,7 +219,7 @@ public class HomeReportPayingPieFragment extends BaseFragment implements View.On
 
         SpannableString allPayStr = new SpannableString(getString(R.string.record_pay_all) + "\n￥" + CommonUtility.doubleFormat(allPay));
         allPayStr.setSpan(new RelativeSizeSpan(1.6f), 0, 3, 0);
-        allPayStr.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getActivity(), R.color.common_body_tip_colors)), 0, 3, 0);
+        allPayStr.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mFragmentContext, R.color.common_body_tip_colors)), 0, 3, 0);
         allPayStr.setSpan(new RelativeSizeSpan(1.8f), 3, allPayStr.length(), 0);
 
         mPieChart.setUsePercentValues(true);
@@ -277,14 +277,14 @@ public class HomeReportPayingPieFragment extends BaseFragment implements View.On
         mPieChart.animateY(900);
 
         //自定义数据显示
-        RecyclerView.LayoutManager layoutManagerHeader = new GridLayoutManager(getActivity(), 2) {
+        RecyclerView.LayoutManager layoutManagerHeader = new GridLayoutManager(mFragmentContext, 2) {
             @Override
             public boolean canScrollVertically() {
                 return false;
             }
         };
         mFooterRecyclerView.setLayoutManager(layoutManagerHeader);
-        PayingPieFooterRecyclerAdapter footerAdapter = new PayingPieFooterRecyclerAdapter(getActivity(), l.getEntries());
+        PayingPieFooterRecyclerAdapter footerAdapter = new PayingPieFooterRecyclerAdapter(mFragmentContext, l.getEntries());
         mFooterRecyclerView.setAdapter(footerAdapter);
     }
 

@@ -25,9 +25,13 @@ public abstract class BaseFragment extends Fragment {
         }
     };
 
+    public BaseActivity mFragmentContext;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        //缓存context
+        mFragmentContext = (BaseActivity)context;
         // 在当前的activity中注册广播
         IntentFilter filter = new IntentFilter();
         filter.addAction(CommonBroadcast.BROADCAST_ACTION);

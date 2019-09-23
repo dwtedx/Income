@@ -474,25 +474,26 @@ public class ScanDetailActivity extends BaseActivity implements AppTitleBar.OnTi
             //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
             //以下只列举部分获取周边POI信息相关的结果
             //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
-            //获取周边POI信息
-            //POI信息包括POI ID、名称等，具体信息请参照类参考中POI类的相关说明
-            List<Poi> poiList = location.getPoiList();
+            if(null == location){
+                Toast.makeText(ScanDetailActivity.this, R.string.scan_location_tip, Toast.LENGTH_SHORT).show();
+                return;
+            }
             String cityStr = "中国";
             if (!CommonUtility.isEmpty(location.getCity())) {
                 cityStr = location.getCity();
             }
-            if (poiList.size() > 0) {
+            if (null != location.getPoiList() && location.getPoiList().size() > 0) {
                 //位置
-                mPoiList = new ArrayList<>();
+                mPoiList = new ArrayList<String>();
                 mPoiList.add(cityStr);
                 for (Poi poi : location.getPoiList()) {
                     mPoiList.add(cityStr + "·" + poi.getName());
                 }
-                cityStr += "·" + poiList.get(0).getName();
+                cityStr += "·" + location.getPoiList().get(0).getName();
             }
-            if(CommonUtility.isEmpty(mIncome.getLocation())) {
-                mRecordIconLocation.setText(cityStr);
-            }
+            mRecordIconLocation.setText(cityStr);
+            //获取周边POI信息
+            //POI信息包括POI ID、名称等，具体信息请参照类参考中POI类的相关说明
         }
     }
 

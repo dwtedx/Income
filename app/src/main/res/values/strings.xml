@@ -377,6 +377,7 @@
     <string name="scan_result_not_tip">未扫描到结果</string>
     <string name="scan_result_location">定位中&#8230;</string>
     <string name="scan_location_title">所在位置</string>
+    <string name="scan_location_tip">定位异常，请检查是否授予定位权限</string>
 
     <!-- 发现话题投票 -->
     <string name="topic_tip">分享提示</string>

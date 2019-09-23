@@ -1,5 +1,6 @@
 package com.dwtedx.income.profile;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -81,8 +82,8 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             mView.findViewById(id).setOnClickListener(this);
         }
 
-        primaryPreselect = DialogUtils.resolveColor(getActivity(), R.attr.colorPrimary);
-        accentPreselect = DialogUtils.resolveColor(getActivity(), R.attr.colorAccent);
+        primaryPreselect = DialogUtils.resolveColor(mFragmentContext, R.attr.colorPrimary);
+        accentPreselect = DialogUtils.resolveColor(mFragmentContext, R.attr.colorAccent);
 
     }
 
@@ -119,63 +120,63 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         switch (v.getId()) {
             case R.id.nav_header_view:
                 if (isLogin()) {
-                    startActivity(new Intent(getActivity(), ProfileInfoActivity.class));
+                    startActivity(new Intent(mFragmentContext, ProfileInfoActivity.class));
                 } else {
-                    startActivity(new Intent(getActivity(), LoginV2Activity.class));
+                    startActivity(new Intent(mFragmentContext, LoginV2Activity.class));
                 }
                 break;
             case R.id.profile_type_pay:
-                startActivity(new Intent(getActivity(), PayingTypeActivity.class));
+                startActivity(new Intent(mFragmentContext, PayingTypeActivity.class));
                 break;
             case R.id.profile_type_income:
-                startActivity(new Intent(getActivity(), IncomeTypeActivity.class));
+                startActivity(new Intent(mFragmentContext, IncomeTypeActivity.class));
                 break;
             case R.id.profile_share:
-                startActivity(new Intent(getActivity(), ShareActivity.class));
+                startActivity(new Intent(mFragmentContext, ShareActivity.class));
                 break;
             case R.id.profile_account:
-                startActivity(new Intent(getActivity(), AccountActivity.class));
+                startActivity(new Intent(mFragmentContext, AccountActivity.class));
                 break;
             case R.id.setup_reset_pass:
                 break;
 //            case R.id.profile_theme:
-//                new ColorChooserDialog.Builder(getActivity(), R.string.color_palette)
+//                new ColorChooserDialog.Builder(mFragmentContext, R.string.color_palette)
 //                        .titleSub(R.string.app_name)
 //                        .preselect(primaryPreselect)
 //                        .show();
 //                break;
 //            case R.id.profile_accent:
-//                new ColorChooserDialog.Builder(getActivity(), R.string.color_palette)
+//                new ColorChooserDialog.Builder(mFragmentContext, R.string.color_palette)
 //                        .titleSub(R.string.app_name)
 //                        .accentMode(true)
 //                        .preselect(accentPreselect)
 //                        .show();
 //                break;
             case R.id.profile_setup:
-                startActivity(new Intent(getActivity(), ProfileInfoActivity.class));
+                startActivity(new Intent(mFragmentContext, ProfileInfoActivity.class));
                 break;
 
             case R.id.profile_budget:
-                startActivity(new Intent(getActivity(), BudgetActivity.class));
+                startActivity(new Intent(mFragmentContext, BudgetActivity.class));
                 break;
 
             case R.id.profile_nav_setup:
-                startActivity(new Intent(getActivity(), SetupActivity.class));
+                startActivity(new Intent(mFragmentContext, SetupActivity.class));
                 break;
 
             case R.id.home_item_layout:
-                startActivity(new Intent(getActivity(), SetupActivity.class));
+                startActivity(new Intent(mFragmentContext, SetupActivity.class));
                 break;
 
             case R.id.m_profile_discover_button:
-                startActivity(new Intent(getActivity(), DiscoveryActivity.class));
+                startActivity(new Intent(mFragmentContext, DiscoveryActivity.class));
                 break;
 
             case R.id.m_profile_topic_button:
                 if (isLogin()) {
-                    startActivity(new Intent(getActivity(), MyTopicActivity.class));
+                    startActivity(new Intent(mFragmentContext, MyTopicActivity.class));
                 } else {
-                    startActivity(new Intent(getActivity(), LoginV2Activity.class));
+                    startActivity(new Intent(mFragmentContext, LoginV2Activity.class));
                 }
                 break;
         }
@@ -185,17 +186,17 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     public void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int color) {
         if (dialog.isAccentMode()) {
             accentPreselect = color;
-            ThemeSingleton.get().positiveColor = DialogUtils.getActionTextStateList(getActivity(), color);
-            ThemeSingleton.get().neutralColor = DialogUtils.getActionTextStateList(getActivity(), color);
-            ThemeSingleton.get().negativeColor = DialogUtils.getActionTextStateList(getActivity(), color);
+            ThemeSingleton.get().positiveColor = DialogUtils.getActionTextStateList(mFragmentContext, color);
+            ThemeSingleton.get().neutralColor = DialogUtils.getActionTextStateList(mFragmentContext, color);
+            ThemeSingleton.get().negativeColor = DialogUtils.getActionTextStateList(mFragmentContext, color);
             ThemeSingleton.get().widgetColor = color;
         } else {
             primaryPreselect = color;
-            if (((BaseActivity)getActivity()).getSupportActionBar() != null)
-                ((BaseActivity)getActivity()).getSupportActionBar().setBackgroundDrawable(new ColorDrawable(color));
+            if (((BaseActivity)mFragmentContext).getSupportActionBar() != null)
+                ((BaseActivity)mFragmentContext).getSupportActionBar().setBackgroundDrawable(new ColorDrawable(color));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                getActivity().getWindow().setStatusBarColor(CircleView.shiftColorDown(color));
-                getActivity().getWindow().setNavigationBarColor(color);
+                mFragmentContext.getWindow().setStatusBarColor(CircleView.shiftColorDown(color));
+                mFragmentContext.getWindow().setNavigationBarColor(color);
             }
         }
     }
