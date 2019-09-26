@@ -74,7 +74,7 @@ public class SetupActivity extends BaseActivity implements View.OnClickListener,
         mAppTitleBar = (AppTitleBar) findViewById(R.id.app_title);
         mAppTitleBar.setOnTitleClickListener(this);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        //setSupportActionBar(toolbar);isHardwareDetected
         ////设置是否有返回箭头
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -196,11 +196,13 @@ public class SetupActivity extends BaseActivity implements View.OnClickListener,
 
     private void setUpFingerprint() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            FingerprintUiHelper fingerprintUiHelper = new FingerprintUiHelper(getSystemService(FingerprintManager.class),null, null, null);
-            if(null == fingerprintUiHelper){
+            FingerprintManager fingerprintManager = getSystemService(FingerprintManager.class);
+            if(null == fingerprintManager){
                 Toast.makeText(this, R.string.fingerprint_description_null_tip, Toast.LENGTH_SHORT).show();
                 return;
             }
+            FingerprintUiHelper fingerprintUiHelper = new FingerprintUiHelper(fingerprintManager,null, null, null);
+
             if(!fingerprintUiHelper.isFingerprintAuthAvailable()){
                 Toast.makeText(this, R.string.fingerprint_not_support_one, Toast.LENGTH_SHORT).show();
                 return;

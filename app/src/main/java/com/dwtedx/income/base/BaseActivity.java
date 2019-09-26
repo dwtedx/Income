@@ -1,9 +1,12 @@
 package com.dwtedx.income.base;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -19,6 +22,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -94,46 +98,50 @@ public abstract class BaseActivity extends AppCompatActivity {
         //友盟统计
         MobclickAgent.onResume(this);
         //口令检测   使用剪切板在API11以后的版本
-        ClipboardManager manager = (ClipboardManager) ApplicationData.mIncomeApplication.getSystemService(Context.CLIPBOARD_SERVICE);
-        boolean ddd = mNotTopicActivitys.contains(getLocalClassName());
-        if (manager != null && !mNotTopicActivitys.contains(getLocalClassName())) {
-            if (manager.hasPrimaryClip() && manager.getPrimaryClip().getItemCount() > 0) {
-                CharSequence addedText = manager.getPrimaryClip().getItemAt(0).getText();
-                String addedTextString = String.valueOf(addedText);
-                if(!CommonUtility.isEmpty(addedTextString) && addedTextString.contains("打开DD记账→查看详情")){
-                    //名字读取
-                    int nameLastIndexOf = addedTextString.lastIndexOf("】");
-                    String rmmoveNameLastIndex = addedTextString.substring(0, nameLastIndexOf);
-                    String content = rmmoveNameLastIndex.substring(rmmoveNameLastIndex.lastIndexOf("【") + 1).trim();
-                    content = String.format(getResources().getString(R.string.topic_context_tip), content);
-                    //id读取
-                    int lastIndexOf = addedTextString.lastIndexOf("$");
-                    String rmmoveLastIndex = addedTextString.substring(0, lastIndexOf);
-                    String topicId = rmmoveLastIndex.substring(rmmoveLastIndex.lastIndexOf("$") + 1).trim();
-                    Log.i(getLocalClassName(), "onResume topicId =======================================" + topicId);
-                    byte[] decodeByte = Base64.decode(topicId .getBytes(), Base64.DEFAULT);
-                    String decode = new String(decodeByte);
-                    Log.i(getLocalClassName(), "解密 onResume topicId =======================================" + decode);
-                    if(CommonUtility.isNumeric(decode)) {
-                        clearClipboard();
-                        //提示
-                        new MaterialDialog.Builder(this)
-                                .title(R.string.topic_tip)
-                                .content(content)
-                                .positiveText(R.string.ok)
-                                .negativeText(R.string.cancel)
-                                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                    @Override
-                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                        Intent intent = new Intent(BaseActivity.this, TopicDetailActivity.class);
-                                        intent.putExtra("topicId",Integer.parseInt(decode));
-                                        startActivity(intent);
-                                    }
-                                })
-                                .show();
+        try {
+            ClipboardManager manager = (ClipboardManager) ApplicationData.mIncomeApplication.getSystemService(Context.CLIPBOARD_SERVICE);
+            if (manager != null && !mNotTopicActivitys.contains(getLocalClassName())) {
+                if (manager.hasPrimaryClip() && manager.getPrimaryClip().getItemCount() > 0) {
+                    CharSequence addedText = manager.getPrimaryClip().getItemAt(0).getText();
+                    String addedTextString = String.valueOf(addedText);
+                    if (!CommonUtility.isEmpty(addedTextString) && addedTextString.contains("打开DD记账")) {
+                        //名字读取
+                        int nameLastIndexOf = addedTextString.lastIndexOf("】");
+                        String rmmoveNameLastIndex = addedTextString.substring(0, nameLastIndexOf);
+                        String content = rmmoveNameLastIndex.substring(rmmoveNameLastIndex.lastIndexOf("【") + 1).trim();
+                        content = String.format(getResources().getString(R.string.topic_context_tip), content);
+                        //id读取
+                        int lastIndexOf = addedTextString.lastIndexOf("$");
+                        String rmmoveLastIndex = addedTextString.substring(0, lastIndexOf);
+                        String topicId = rmmoveLastIndex.substring(rmmoveLastIndex.lastIndexOf("$") + 1).trim();
+                        Log.i(getLocalClassName(), "onResume topicId =======================================" + topicId);
+                        byte[] decodeByte = Base64.decode(topicId.getBytes(), Base64.DEFAULT);
+                        String decode = new String(decodeByte);
+                        Log.i(getLocalClassName(), "解密 onResume topicId =======================================" + decode);
+                        if (CommonUtility.isNumeric(decode)) {
+                            clearClipboard();
+                            //提示
+                            new MaterialDialog.Builder(this)
+                                    .title(R.string.topic_tip)
+                                    .content(content)
+                                    .positiveText(R.string.ok)
+                                    .negativeText(R.string.cancel)
+                                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                        @Override
+                                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                            Intent intent = new Intent(BaseActivity.this, TopicDetailActivity.class);
+                                            intent.putExtra("topicId", Integer.parseInt(decode));
+                                            startActivity(intent);
+                                        }
+                                    })
+                                    .show();
+                        }
                     }
                 }
             }
+        }catch (Exception e){
+            e.printStackTrace();
+            Toast.makeText(this, R.string.topic_errot_tip, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -199,4 +207,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         return false;
     }
 
+
+    /**
+     * 判断某个界面是否在前台
+     *
+     * @return 是否在前台显示
+     */
+    public boolean isForeground() {
+        if (this == null || this.isDestroyed() || this.isFinishing()) {
+            return false;
+        }
+        return true;
+    }
 }

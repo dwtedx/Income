@@ -54,7 +54,7 @@ public class MainFingerprintActivity extends BaseActivity implements View.OnClic
         mFragment = new FingerprintAuthenticationDialogFragment();
         //fragment.setCryptoObject(new FingerprintManager.CryptoObject(mCipher));
         mFragment.setCancelable(false);
-        mFragment.show(getFragmentManager(), DIALOG_FRAGMENT_TAG);
+        showFragment();
         mUserNameFragment = new MainUserNameAuthDialogFragment();
         mUserNameFragment.setCancelable(false);
 
@@ -93,12 +93,28 @@ public class MainFingerprintActivity extends BaseActivity implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.m_fingerprint_layout:
-                mFragment.show(getFragmentManager(), DIALOG_FRAGMENT_TAG);
+                showFragment();
                 break;
 
             case R.id.m_fingerprint_description_userpass:
-                mUserNameFragment.show(getFragmentManager(), DIALOG_FRAGMENT_USER_TAG);
+                showFragmentUser();
                 break;
+        }
+    }
+
+    private void showFragment(){
+        try {
+            mFragment.show(getFragmentManager(), DIALOG_FRAGMENT_TAG);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void showFragmentUser(){
+        try {
+            mUserNameFragment.show(getFragmentManager(), DIALOG_FRAGMENT_USER_TAG);
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

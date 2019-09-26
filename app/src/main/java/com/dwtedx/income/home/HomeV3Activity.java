@@ -257,7 +257,7 @@ public class HomeV3Activity extends BaseActivity implements ViewPager.OnPageChan
             @Override
             public void onSuccess(final DiVersion data) {
                 ApplicationData.mAppVersionAudit = data.getAudit();
-                if (data.isUpdate()) {
+                if (data.isUpdate() && isForeground()) {
                     new MaterialDialog.Builder(HomeV3Activity.this)
                             .title(getString(R.string.tip_update) + data.getVersion())
                             .content(data.getContent())

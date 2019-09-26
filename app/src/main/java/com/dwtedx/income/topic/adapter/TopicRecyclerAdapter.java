@@ -116,7 +116,7 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
         final int pos = getRealPosition(holder);
         final DiTopic data = mList.get(pos);
 
-        TopicImageLoader.loadImageUser(mContext, data.getUserpath(), holder.mUserImageView);
+        TopicImageLoader.loadImageUser(holder.mUserImageView.getContext(), data.getUserpath(), holder.mUserImageView);
         holder.mUserNameView.setText(data.getUsername());
         holder.mTimeView.setText(RelativeDateFormat.format(data.getCreatetimestr()));
         holder.mItemDescView.setText(data.getDescription());
@@ -172,7 +172,7 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
                         holder.mImageView.setLayoutParams(para);
 
                     }
-                    TopicImageLoader.loadImage(mContext, data.getTopicimg().get(0), holder.mImageView);
+                    TopicImageLoader.loadImage(holder.mImageView.getContext(), data.getTopicimg().get(0), holder.mImageView);
                     break;
 
                 case 4:

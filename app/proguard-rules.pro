@@ -41,6 +41,7 @@
 
 -keep public class com.dwtedx.income.entity.
 -keep public class com.dwtedx.income.entity.** { *; }
+-keep public class com.dwtedx.income.push.IncomeUmengNotifyActivity {*;}
 
 -keepclasseswithmembernames class * {
     native <methods>;
