@@ -28,11 +28,10 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <WebView
+        <com.dwtedx.income.widget.x5webview.X5WebView
             android:id="@+id/gongdoocar_webview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbarSize="0dp" />
+            android:layout_height="match_parent" />
 
         <ProgressBar
             android:id="@+id/songsong_progressbar"

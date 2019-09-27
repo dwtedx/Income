@@ -28,6 +28,7 @@ import com.baidu.ocr.sdk.exception.OCRError;
 import com.baidu.ocr.sdk.model.AccessToken;
 import com.dwtedx.income.entity.ApplicationData;
 import com.dwtedx.income.updateapp.UpdateService;
+import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
@@ -91,9 +92,9 @@ public class IncomeApplication extends Application {
 
 		initAlibcTrade();
 
-		//百度OCR
-		initAccessTokenWithAkSk();
+		initAccessTokenWithAkSk();//百度OCR
 
+		initX5WebView();
 	}
 
 	@Override
@@ -170,6 +171,24 @@ public class IncomeApplication extends Application {
 				//Toast.makeText(getApplicationContext(), "AK，SK方式获取token失败 / 错误消息="+error.getMessage(), Toast.LENGTH_SHORT).show();
 			}
 		}, getApplicationContext(),  ORC_API_KEY, ORC_SECRET_KEY);
+	}
+
+	private void initX5WebView(){
+		//搜集本地tbs内核信息并上报服务器，服务器返回结果决定使用哪个内核。
+		QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
+
+			@Override
+			public void onViewInitFinished(boolean arg0) {
+				//x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
+				Log.d(TAG, " onViewInitFinished is " + arg0);
+			}
+
+			@Override
+			public void onCoreInitFinished() {
+			}
+		};
+		//x5内核初始化接口
+		QbSdk.initX5Environment(getApplicationContext(),  cb);
 	}
 
 }
