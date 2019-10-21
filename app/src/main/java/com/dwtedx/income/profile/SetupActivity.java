@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.text.InputType;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -27,6 +28,7 @@ import com.dwtedx.income.entity.DiAccount;
 import com.dwtedx.income.entity.DiIncome;
 import com.dwtedx.income.entity.DiScan;
 import com.dwtedx.income.entity.DiType;
+import com.dwtedx.income.entity.DiUserInfo;
 import com.dwtedx.income.entity.DiVersion;
 import com.dwtedx.income.provider.AppUpdateVersionSharedPreferences;
 import com.dwtedx.income.provider.CustomerIDSharedPreferences;
@@ -56,7 +58,9 @@ import java.util.Set;
 public class SetupActivity extends BaseActivity implements View.OnClickListener, AppTitleBar.OnTitleClickListener {
 
     private AppTitleBar mAppTitleBar;
-    private int[] mClickView = {R.id.profile_fingerprint_text, R.id.profile_data_text, R.id.profile_password_text, R.id.setup_update, R.id.message_recommendation, R.id.setup_user_agreement, R.id.about_me, R.id.login_out, R.id.share_app, R.id.clear_cache, R.id.setup_score};
+    private int[] mClickView = {R.id.profile_username_text, R.id.profile_phone_text, R.id.profile_fingerprint_text, R.id.profile_data_text, R.id.profile_password_text, R.id.setup_update, R.id.message_recommendation, R.id.setup_user_agreement, R.id.about_me, R.id.login_out, R.id.share_app, R.id.clear_cache, R.id.setup_score};
+    private TextView mSetupPhoneText;
+    private TextView mSetupNameText;
     private TextView mClearCacheText;
     private TextView mSetupVersion;
     private Switch mFingerprintSwitch;
@@ -103,6 +107,8 @@ public class SetupActivity extends BaseActivity implements View.OnClickListener,
             findViewById(R.id.login_out).setVisibility(View.GONE);
         }
 
+        mSetupPhoneText = (TextView) findViewById(R.id.setup_phone_textview);
+        mSetupNameText = (TextView) findViewById(R.id.setup_username_textview);
         mSetupVersion = (TextView) findViewById(R.id.setup_version);
         mSetupVersion.setText(UpdateService.getAPKVersion(this));
         mClearCacheText = (TextView) findViewById(R.id.profile_clear_cache_text);
@@ -115,6 +121,19 @@ public class SetupActivity extends BaseActivity implements View.OnClickListener,
 
         mHandler = new Handler();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(null != ApplicationData.mDiUserInfo) {
+            //赋值
+            mSetupPhoneText.setText(ApplicationData.mDiUserInfo.getPhone());
+            mSetupNameText.setText(ApplicationData.mDiUserInfo.getUsername());
+        }else {
+            mSetupPhoneText.setText(null);
+            mSetupNameText.setText(null);
+        }
     }
 
     public void onTitleClick(int type) {
@@ -142,6 +161,12 @@ public class SetupActivity extends BaseActivity implements View.OnClickListener,
     public void onClick(View v) {
         Intent intent = null;
         switch (v.getId()) {
+            case R.id.profile_phone_text:
+                setPhone();
+                break;
+            case R.id.profile_username_text:
+                setUserName();
+                break;
             case R.id.profile_fingerprint_text:
                 setUpFingerprint();
                 break;
@@ -331,6 +356,52 @@ public class SetupActivity extends BaseActivity implements View.OnClickListener,
                     }
                 })
                 .show();
+    }
+
+    private void setUserName() {
+        if (!isLogin()) {
+            startActivity(new Intent(SetupActivity.this, LoginV2Activity.class));
+            return;
+        }
+        if(!CommonUtility.isEmpty(mSetupNameText.getText().toString())){
+            Snackbar.make(findViewById(R.id.app_title), R.string.user_name_tip, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            return;
+        }
+        new MaterialDialog.Builder(this)
+                .title(R.string.user_name)
+                .inputType(InputType.TYPE_CLASS_TEXT |
+                        InputType.TYPE_TEXT_VARIATION_PERSON_NAME |
+                        InputType.TYPE_TEXT_FLAG_CAP_WORDS)
+                .inputRange(4, 10)
+                .positiveText(R.string.ok)
+                .negativeText(R.string.cancel)
+                .input("用户名(只能设置一次)", mSetupNameText.getText().toString(), false, new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(@NonNull MaterialDialog dialog, final CharSequence input) {
+                        if(!CommonUtility.isNumericOrABC(input.toString())){
+                            Snackbar.make(findViewById(R.id.app_title), R.string.user_name_tip1, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                            return;
+                        }
+                        SaDataProccessHandler<Void, Void, DiUserInfo> dataVerHandler = new SaDataProccessHandler<Void, Void, DiUserInfo>(SetupActivity.this) {
+                            @Override
+                            public void onSuccess(DiUserInfo data) {
+                                mSetupNameText.setText(input.toString());
+                                ApplicationData.mDiUserInfo = data;
+                                Snackbar.make(findViewById(R.id.app_title), R.string.user_name_set_suss, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                            }
+                        };
+                        UserService.getInstance().updateUserName(input.toString(), dataVerHandler);
+                    }
+                }).show();
+    }
+
+    private void setPhone() {
+        if (!isLogin()) {
+            startActivity(new Intent(SetupActivity.this, LoginV2Activity.class));
+            return;
+        }
+        Intent intent = new Intent(this, MobileActivity.class);
+        startActivity(intent);
     }
 
     private void setPassWord() {

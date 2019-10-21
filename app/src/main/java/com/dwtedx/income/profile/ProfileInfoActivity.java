@@ -8,10 +8,8 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
-import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -36,15 +34,12 @@ import java.io.File;
 public class ProfileInfoActivity extends BaseActivity implements AppTitleBar.OnTitleClickListener, View.OnClickListener {
 
     private AppTitleBar mToolBar;
-    private int[] mClickView = {R.id.user_name_head_view, R.id.user_name_text, R.id.user_nick_name_text, R.id.user_phone_text,
-            R.id.user_email_text, R.id.user_signature_text, R.id.user_work_text, R.id.user_weixin_text, R.id.user_qq_text, R.id.user_sex_text,
-            R.id.user_birthday_text};
+    private int[] mClickView = {R.id.user_name_head_view, R.id.user_nick_name_text, R.id.user_email_text, R.id.user_signature_text,
+            R.id.user_work_text, R.id.user_weixin_text, R.id.user_qq_text, R.id.user_sex_text, R.id.user_birthday_text};
 
     //所有要显示信息的View
     private CircleImageView mHeadImageView;
-    private Button mNameText;
     private Button mNickNameText;
-    private Button mPhoneText;
     private Button mEmailText;
     private Button mSignatureText;
     private Button mWorkText;
@@ -78,9 +73,7 @@ public class ProfileInfoActivity extends BaseActivity implements AppTitleBar.OnT
         if(null != ApplicationData.mDiUserInfo) {
             //赋值
             Glide.with(this).load(ApplicationData.mDiUserInfo.getHead()).into(mHeadImageView);
-            mNameText.setText(ApplicationData.mDiUserInfo.getUsername());
             mNickNameText.setText(ApplicationData.mDiUserInfo.getName());
-            mPhoneText.setText(ApplicationData.mDiUserInfo.getPhone());
             mEmailText.setText(ApplicationData.mDiUserInfo.getEmail());
             mSignatureText.setText(ApplicationData.mDiUserInfo.getSignature());
             mWorkText.setText(ApplicationData.mDiUserInfo.getWork());
@@ -91,9 +84,7 @@ public class ProfileInfoActivity extends BaseActivity implements AppTitleBar.OnT
         }else{
             //赋值
             Glide.with(this).load(R.mipmap.userhead).into(mHeadImageView);
-            mNameText.setText("");
             mNickNameText.setText("");
-            mPhoneText.setText("");
             mEmailText.setText("");
             mSignatureText.setText("");
             mWorkText.setText("");
@@ -109,9 +100,7 @@ public class ProfileInfoActivity extends BaseActivity implements AppTitleBar.OnT
         mToolBar = (AppTitleBar) findViewById(R.id.app_title);
         mToolBar.setOnTitleClickListener(this);
         mHeadImageView = (CircleImageView) findViewById(R.id.imageView_head);
-        mNameText = (Button) findViewById(R.id.user_name_text);
         mNickNameText = (Button) findViewById(R.id.user_nick_name_text);
-        mPhoneText = (Button) findViewById(R.id.user_phone_text);
         mEmailText = (Button) findViewById(R.id.user_email_text);
         mSignatureText = (Button) findViewById(R.id.user_signature_text);
         mWorkText = (Button) findViewById(R.id.user_work_text);
@@ -144,14 +133,6 @@ public class ProfileInfoActivity extends BaseActivity implements AppTitleBar.OnT
                 selectPicture();
                 break;
 
-            case R.id.user_phone_text:
-                setPhone();
-                break;
-
-            case R.id.user_name_text:
-                setUserName();
-                break;
-
             case R.id.user_nick_name_text:
             case R.id.user_email_text:
             case R.id.user_signature_text:
@@ -172,53 +153,6 @@ public class ProfileInfoActivity extends BaseActivity implements AppTitleBar.OnT
         }
         startActivity(new Intent(this, ProfileInfoEditActivity.class));
     }
-
-    private void setPhone() {
-        if (!isLogin()) {
-            startActivity(new Intent(ProfileInfoActivity.this, LoginV2Activity.class));
-            return;
-        }
-        Intent intent = new Intent(this, MobileActivity.class);
-        startActivity(intent);
-    }
-
-    private void setUserName() {
-        if (!isLogin()) {
-            startActivity(new Intent(ProfileInfoActivity.this, LoginV2Activity.class));
-            return;
-        }
-        if(!CommonUtility.isEmpty(mNameText.getText().toString())){
-            Snackbar.make(findViewById(R.id.app_title), R.string.user_name_tip, Snackbar.LENGTH_LONG).setAction("Action", null).show();
-            return;
-        }
-        new MaterialDialog.Builder(this)
-                .title(R.string.user_name)
-                .inputType(InputType.TYPE_CLASS_TEXT |
-                        InputType.TYPE_TEXT_VARIATION_PERSON_NAME |
-                        InputType.TYPE_TEXT_FLAG_CAP_WORDS)
-                .inputRange(4, 10)
-                .positiveText(R.string.ok)
-                .negativeText(R.string.cancel)
-                .input("用户名(只能设置一次)", mNameText.getText().toString(), false, new MaterialDialog.InputCallback() {
-                    @Override
-                    public void onInput(@NonNull MaterialDialog dialog, final CharSequence input) {
-                        if(!CommonUtility.isNumericOrABC(input.toString())){
-                            Snackbar.make(findViewById(R.id.app_title), R.string.user_name_tip1, Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                            return;
-                        }
-                        SaDataProccessHandler<Void, Void, DiUserInfo> dataVerHandler = new SaDataProccessHandler<Void, Void, DiUserInfo>(ProfileInfoActivity.this) {
-                            @Override
-                            public void onSuccess(DiUserInfo data) {
-                                mNameText.setText(input.toString());
-                                ApplicationData.mDiUserInfo = data;
-                                Snackbar.make(findViewById(R.id.app_title), R.string.user_name_set_suss, Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                            }
-                        };
-                        UserService.getInstance().updateUserName(input.toString(), dataVerHandler);
-                    }
-                }).show();
-    }
-
 
     //头像上传////////////////头像上传///////////////////头像上传/////////////////////头像上传//////////////////头像上传/////////
     //选择相片

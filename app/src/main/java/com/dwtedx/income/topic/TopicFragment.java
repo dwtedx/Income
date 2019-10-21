@@ -153,18 +153,22 @@ public class TopicFragment extends BaseFragment implements SwipeRecyclerView.OnL
     }
 
     private void showLoading(){
-        RotateAnimation mRotateUpAnim = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        mRotateUpAnim.setInterpolator(new LinearInterpolator());
-        mRotateUpAnim.setRepeatCount(Integer.MAX_VALUE);
-        mRotateUpAnim.setDuration(600);
-        mRotateUpAnim.setFillAfter(true);
-        mProgressBarView.startAnimation(mRotateUpAnim);
-        mProgressBarView.setVisibility(View.VISIBLE);
+        if(isAdded()) {
+            RotateAnimation mRotateUpAnim = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            mRotateUpAnim.setInterpolator(new LinearInterpolator());
+            mRotateUpAnim.setRepeatCount(Integer.MAX_VALUE);
+            mRotateUpAnim.setDuration(600);
+            mRotateUpAnim.setFillAfter(true);
+            mProgressBarView.startAnimation(mRotateUpAnim);
+            mProgressBarView.setVisibility(View.VISIBLE);
+        }
     }
 
     private void hideLoading() {
-        mProgressBarView.clearAnimation();
-        mProgressBarView.setVisibility(View.GONE);
+        if(isAdded()) {
+            mProgressBarView.clearAnimation();
+            mProgressBarView.setVisibility(View.GONE);
+        }
     }
 
     @Override

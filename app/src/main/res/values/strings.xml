@@ -167,6 +167,8 @@
     <string name="profile_login_sess">登录成功</string>
     <string name="profile_login_out">退出当前帐号</string>
     <string name="profile_setup_password">修改密码</string>
+    <string name="profile_setup_phone">更换手机号</string>
+    <string name="profile_setup_username">用户名设置</string>
 
     <string name="profile_fingerprint">指纹认证</string>
     <string name="profile_fingerprint_tis">进入App先指纹认证</string>
