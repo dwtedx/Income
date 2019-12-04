@@ -30,6 +30,8 @@ import com.dwtedx.income.entity.DiAccount;
 import com.dwtedx.income.entity.DiBudget;
 import com.dwtedx.income.entity.DiIncome;
 import com.dwtedx.income.entity.DiType;
+import com.dwtedx.income.home.IncomeLineFragment;
+import com.dwtedx.income.home.IncomeListActivity;
 import com.dwtedx.income.home.adapter.IncomeDetailRecyclerViewAdatper;
 import com.dwtedx.income.provider.AccountSharedPreferences;
 import com.dwtedx.income.service.IncomeService;
@@ -88,7 +90,7 @@ public class IncomeDetailActivity extends BaseActivity implements RecordKeyboard
         mAppTitleBar.setOnTitleClickListener(this);
 
         try {
-            mIncome = ParseJsonToObject.getObject(DiIncome.class, new JSONObject(getIntent().getExtras().getString("income")));
+            mIncome = ParseJsonToObject.getObject(DiIncome.class, new JSONObject(getIntent().getStringExtra("income")));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -400,6 +402,8 @@ public class IncomeDetailActivity extends BaseActivity implements RecordKeyboard
                         IncomeDetailActivity.this.finish();
                     }
 
+                    IncomeLineFragment.mLoadIncome = true;
+                    IncomeListActivity.mLoadIncome = true;
                     Toast.makeText(IncomeDetailActivity.this, IncomeDetailActivity.this.getString(R.string.save_success) , Toast.LENGTH_SHORT).show();
                     //Snackbar.make(findViewById(R.id.app_title), R.string.save_success, Snackbar.LENGTH_LONG).setAction("Action", null).show();
                     //更新时间
@@ -455,6 +459,8 @@ public class IncomeDetailActivity extends BaseActivity implements RecordKeyboard
                 DIAccountService.getInstance(this).update(accountnow);
             }
 
+            IncomeLineFragment.mLoadIncome = true;
+            IncomeListActivity.mLoadIncome = true;
             Toast.makeText(this, this.getString(R.string.save_success), Toast.LENGTH_SHORT).show();
             //Snackbar.make(findViewById(R.id.app_title), R.string.save_success, Snackbar.LENGTH_LONG).setAction("Action", null).show();
             //更新时间

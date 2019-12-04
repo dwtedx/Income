@@ -53,6 +53,8 @@ import com.dwtedx.income.entity.DiType;
 import com.dwtedx.income.entity.OcrResultInfo;
 import com.dwtedx.income.entity.OcrWordsResultInfo;
 import com.dwtedx.income.entity.ScanTicketInfo;
+import com.dwtedx.income.home.IncomeLineFragment;
+import com.dwtedx.income.home.IncomeListActivity;
 import com.dwtedx.income.provider.AccountSharedPreferences;
 import com.dwtedx.income.provider.ScanTipSharedPreferences;
 import com.dwtedx.income.scan.adapter.ScanResultAdapter;
@@ -527,6 +529,8 @@ public class ScanResultActivity extends BaseActivity implements RecognizeService
             }
         }
 
+        IncomeLineFragment.mLoadIncome = true;
+        IncomeListActivity.mLoadIncome = true;
         Toast.makeText(this, this.getString(R.string.save_success), Toast.LENGTH_SHORT).show();
         //Snackbar.make (mRecyclerView, R.string.save_success, Snackbar.LENGTH_LONG).setAction("Action", null).show();
         //更新时间

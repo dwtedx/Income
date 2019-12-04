@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,6 +34,8 @@ import com.dwtedx.income.entity.DiBudget;
 import com.dwtedx.income.entity.DiIncome;
 import com.dwtedx.income.entity.DiScan;
 import com.dwtedx.income.entity.DiType;
+import com.dwtedx.income.home.IncomeLineFragment;
+import com.dwtedx.income.home.IncomeListActivity;
 import com.dwtedx.income.provider.AccountSharedPreferences;
 import com.dwtedx.income.scan.adapter.ScanDetailAdapter;
 import com.dwtedx.income.service.IncomeService;
@@ -214,8 +215,7 @@ public class ScanDetailActivity extends BaseActivity implements AppTitleBar.OnTi
     private void save() {
         mRecordAccountText.requestFocus();//获取焦点 光标出现
         if(CommonUtility.isEmpty(mRecordAccountText.getText().toString())){
-            //Toast.makeText(this, this.getString(R.string.record_money_error) , Toast.LENGTH_SHORT).show();
-            Snackbar.make(findViewById(R.id.app_title), R.string.record_money_error, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            Toast.makeText(this, this.getString(R.string.record_money_error) , Toast.LENGTH_SHORT).show();
             return;
         }
         //开始节点第一条记录处理 by sinyuu 20190920
@@ -328,8 +328,9 @@ public class ScanDetailActivity extends BaseActivity implements AppTitleBar.OnTi
 
                     }
 
+                    IncomeLineFragment.mLoadIncome = true;
+                    IncomeListActivity.mLoadIncome = true;
                     Toast.makeText(ScanDetailActivity.this, ScanDetailActivity.this.getString(R.string.save_success) , Toast.LENGTH_SHORT).show();
-                    //Snackbar.make(findViewById(R.id.app_title), R.string.save_success, Snackbar.LENGTH_LONG).setAction("Action", null).show();
                     //更新时间
                     mCalendar = Calendar.getInstance();
                 }
@@ -383,8 +384,9 @@ public class ScanDetailActivity extends BaseActivity implements AppTitleBar.OnTi
                 DIBudgetService.getInstance(ScanDetailActivity.this).update(budgetnew);
             }
 
+            IncomeLineFragment.mLoadIncome = true;
+            IncomeListActivity.mLoadIncome = true;
             Toast.makeText(this, this.getString(R.string.save_success), Toast.LENGTH_SHORT).show();
-            //Snackbar.make(findViewById(R.id.app_title), R.string.save_success, Snackbar.LENGTH_LONG).setAction("Action", null).show();
             //更新时间
             mCalendar = Calendar.getInstance();
 

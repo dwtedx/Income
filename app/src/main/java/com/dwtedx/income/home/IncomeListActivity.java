@@ -46,6 +46,7 @@ import java.util.List;
 
 public class IncomeListActivity extends BaseActivity implements PullToRefreshBase.OnRefreshListener2<ListView>, AdapterView.OnItemClickListener, View.OnClickListener, AppTitleBar.OnTitleClickListener {
 
+    public static boolean mLoadIncome;
     private AppTitleBar mAppTitleBar;
 
     private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -78,6 +79,7 @@ public class IncomeListActivity extends BaseActivity implements PullToRefreshBas
         mAppTitleBar = (AppTitleBar) findViewById(R.id.app_title);
         mAppTitleBar.setOnTitleClickListener(this);
 
+        mLoadIncome = true;
 
         mPullListView = (PullToRefreshListView) findViewById(R.id.listView);
         mTextViewTip = (TextView) findViewById(R.id.listView_tip);
@@ -117,7 +119,10 @@ public class IncomeListActivity extends BaseActivity implements PullToRefreshBas
     @Override
     protected void onResume() {
         super.onResume();
-        showIncome();
+        if(mLoadIncome){
+            mLoadIncome = false;
+            showIncome();
+        }
     }
 
     public void showIncome() {

@@ -53,10 +53,10 @@ import java.util.List;
  */
 public class IncomeLineFragment extends BaseFragment implements SpringView.OnFreshListener, View.OnClickListener {
 
-    private View mView;
-
+    public static boolean mLoadIncome;
     private DlIncomeService mDlIncomeService;
 
+    private View mView;
     private SpringView mSpringView;
     private RecyclerView mRecyclerView;
     //private View headerView;
@@ -78,6 +78,7 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
         if(null != mView){
             return mView;
         }
+        mLoadIncome = true;
         mView = inflater.inflate(R.layout.fragment_money_line, container, false);
 
         mDlIncomeService = DlIncomeService.getInstance(mFragmentContext);
@@ -145,6 +146,13 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
     @Override
     public void onResume() {
         super.onResume();
+        if(mLoadIncome){
+            mLoadIncome = false;
+            showIncome();
+        }
+    }
+
+    public void showIncome() {
         mDiIncomeItems.clear();
         //添加当前月收入与支出
         //获取当前月第一天：

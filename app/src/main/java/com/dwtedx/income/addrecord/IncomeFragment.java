@@ -33,6 +33,8 @@ import com.dwtedx.income.entity.DiAccount;
 import com.dwtedx.income.entity.DiIncome;
 import com.dwtedx.income.entity.DiType;
 import com.dwtedx.income.accounttype.IncomeTypeActivity;
+import com.dwtedx.income.home.IncomeLineFragment;
+import com.dwtedx.income.home.IncomeListActivity;
 import com.dwtedx.income.provider.AccountSharedPreferences;
 import com.dwtedx.income.service.IncomeService;
 import com.dwtedx.income.sqliteservice.DIAccountService;
@@ -213,6 +215,8 @@ public class IncomeFragment extends BaseFragment implements RecordKeyboardView.O
         account.setUpdatetime(CommonUtility.getCurrentTime());
         DIAccountService.getInstance(getContext()).update(account);
 
+        IncomeLineFragment.mLoadIncome = true;
+        IncomeListActivity.mLoadIncome = true;
         Toast.makeText(getContext(), getContext().getString(R.string.save_success), Toast.LENGTH_SHORT).show();
         //Snackbar.make(mRecyclerView, R.string.save_success, Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
