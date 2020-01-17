@@ -72,6 +72,10 @@
     <string name="home_record_scan">扫描小票</string>
     <string name="home_record_scan_beta">Beta</string>
     <string name="home_record_detail">精准查账</string>
+    <string name="home_privacy">隐私政策</string>
+    <string name="home_privacy_ok">同意</string>
+    <string name="home_privacy_cancel">暂不使用</string>
+    <string name="home_privacy_content">请你务必谨慎阅读，充分理解“隐私政策”各条款，包括但不限于：为了向你提供记账服务以及内容分享等服务，我们需要收集你的设备信息，操作日志等个人信息。你可可以阅读《隐私政策》了解信息信息。如你同意，请点击“同意开始接受我买的服务。”</string>
 
 
     <!-- 添加收支记录 -->

@@ -651,6 +651,51 @@
                 android:background="@color/common_color_white">
 
                 <Button
+                    android:id="@+id/m_privacy"
+                    style="@style/common_text_style_14_333333"
+                    android:layout_width="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:paddingStart="@dimen/common_margin_45dp"
+                    android:paddingLeft="@dimen/common_margin_45dp"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:paddingEnd="@dimen/common_margin_12dp"
+                    android:paddingRight="@dimen/common_margin_12dp"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:text="@string/home_privacy" />
+
+                <ImageView
+                    android:layout_width="@dimen/common_margin_20dp"
+                    android:layout_height="@dimen/common_margin_20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/common_margin_16dp"
+                    android:layout_marginLeft="@dimen/common_margin_16dp"
+                    android:contentDescription="@string/app_name"
+                    android:src="@mipmap/nav_privacy"
+                    android:tint="@color/common_body_tip_colors" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:src="@mipmap/forward"
+                    android:tint="@color/common_body_tip_colors" />
+
+                <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@color/common_color_white">
+
+                <Button
                     android:id="@+id/about_me"
                     style="@style/common_text_style_14_333333"
                     android:layout_width="match_parent"

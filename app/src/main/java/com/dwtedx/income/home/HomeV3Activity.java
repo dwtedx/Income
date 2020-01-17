@@ -1,7 +1,6 @@
 package com.dwtedx.income.home;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -10,18 +9,24 @@ import android.os.Bundle;
 import android.provider.Settings;
 import androidx.annotation.NonNull;
 
-import com.dwtedx.income.topic.AddTopicActivity;
+import com.dwtedx.income.profile.WebViewActivity;
+import com.dwtedx.income.provider.HomePrivacySharedPreferences;
 import com.dwtedx.income.topic.GlideEngine;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
+
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -51,11 +56,8 @@ import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
-import com.luck.picture.lib.config.PictureSelectionConfig;
 import com.luck.picture.lib.entity.LocalMedia;
-import com.luck.picture.lib.style.PictureCropParameterStyle;
 import com.luck.picture.lib.style.PictureWindowAnimationStyle;
-import com.luck.picture.lib.tools.PictureFileUtils;
 import com.umeng.socialize.UMShareAPI;
 
 import java.io.File;
@@ -111,6 +113,7 @@ public class HomeV3Activity extends BaseActivity implements ViewPager.OnPageChan
         initFolder();
         getVersions();
         showGuide();
+        showPrivacy();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -342,6 +345,49 @@ public class HomeV3Activity extends BaseActivity implements ViewPager.OnPageChan
                         .setEnterAnimation(enterAnimation)//进入动画
                         .setExitAnimation(exitAnimation))//退出动画
                 .show();
+    }
+
+    private void showPrivacy() {
+        HomePrivacySharedPreferences.init(this);
+        if(HomePrivacySharedPreferences.getIsTip()){
+            View view = getLayoutInflater().inflate(R.layout.activity_homev3_privacy, null, false);
+            TextView textView = (TextView) view.findViewById(R.id.m_home_privacy_content);
+            SpannableStringBuilder spannable = new SpannableStringBuilder(getString(R.string.home_privacy_content));
+            spannable.setSpan(new ForegroundColorSpan(Color.parseColor("#FF4081")), 80, 84, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); //这个一定要记得设置，不然点击不生效textView.setMovementMethod(LinkMovementMethod.getInstance());
+            textView.setText(spannable);
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(HomeV3Activity.this, WebViewActivity.class);
+                    intent.putExtra("url", "http://income.dwtedx.com/privacy.html");
+                    intent.putExtra("title", getString(R.string.home_privacy));
+                    startActivity(intent);
+                }
+            });
+
+            new MaterialDialog.Builder(this)
+                    .title(R.string.home_privacy)
+                    .customView(view, false)
+                    .positiveText(R.string.home_privacy_ok)
+                    .negativeText(R.string.home_privacy_cancel)
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            //NEGATIVE   POSITIVE
+                            if (which.name().equals("POSITIVE")) {
+                                HomePrivacySharedPreferences.setIsTip(UpdateService.getAPKVersionCode(HomeV3Activity.this));
+                            }
+                        }
+                    })
+                    .onNegative(new MaterialDialog.SingleButtonCallback(){
+
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            System.exit(0);
+                        }
+                    })
+                    .show();
+        }
     }
 
     ////////百度orc扫描//////////////////////////////////////百度orc扫描//////////////////////////////////////百度orc扫描//////////////////////////////
