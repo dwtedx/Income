@@ -3,7 +3,7 @@ package com.dwtedx.income.account.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +13,6 @@ import android.widget.LinearLayout;
 import com.dwtedx.income.R;
 import com.dwtedx.income.account.ChooseAccountImageActivity;
 import com.dwtedx.income.utility.CommonUtility;
-
-import java.util.List;
 
 /**
  * 继承RecyclerView的Adapter，它会强制开发者使用ViewHolder模式,所以继承适配器的时候传入的泛型是一个继承自ViewHolder的实现类

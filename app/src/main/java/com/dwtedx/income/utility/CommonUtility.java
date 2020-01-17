@@ -25,7 +25,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Environment;
 import android.os.SystemClock;
-import android.support.v4.widget.NestedScrollView;
+import androidx.core.widget.NestedScrollView;
 import android.telephony.TelephonyManager;
 import android.text.Layout;
 import android.text.StaticLayout;
@@ -38,8 +38,6 @@ import android.view.Display;
 import android.view.Surface;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-
-import com.dwtedx.income.R;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

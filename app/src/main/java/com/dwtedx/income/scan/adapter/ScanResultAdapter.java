@@ -1,9 +1,8 @@
 package com.dwtedx.income.scan.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import android.widget.RelativeLayout;
 
 import com.dwtedx.income.R;
 import com.dwtedx.income.entity.ScanTicketInfo;
-import com.dwtedx.income.sqliteservice.DIScanService;
 
 import java.util.List;
 

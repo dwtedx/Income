@@ -1,25 +1,18 @@
 package com.dwtedx.income.discovery;
 
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.dwtedx.income.R;
 import com.dwtedx.income.base.BaseActivity;
 import com.dwtedx.income.connect.SaDataProccessHandler;
-import com.dwtedx.income.connect.SaException;
 import com.dwtedx.income.discovery.adapter.DiscoveryRecommendRecyclerAdapter;
 import com.dwtedx.income.entity.TaobaoItemInfo;
 import com.dwtedx.income.entity.TaobaoSearchItemInfo;
 import com.dwtedx.income.service.TaobaoService;
-import com.dwtedx.income.sqliteservice.DIAccountService;
-import com.dwtedx.income.sqliteservice.DlIncomeService;
-import com.dwtedx.income.utility.CommonConstants;
-import com.dwtedx.income.utility.CommonUtility;
 import com.dwtedx.income.utility.ParseJsonToObject;
 import com.dwtedx.income.widget.AppTitleBar;
 import com.dwtedx.income.widget.RecycleViewDivider;

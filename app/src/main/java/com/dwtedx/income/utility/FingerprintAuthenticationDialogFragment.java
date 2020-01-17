@@ -21,8 +21,8 @@ import android.content.Context;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
-import android.view.KeyEvent;
+import androidx.annotation.RequiresApi;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

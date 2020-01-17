@@ -1,20 +1,14 @@
 package com.dwtedx.income.report.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.dwtedx.income.R;
-import com.dwtedx.income.discovery.ItemCategoryTopActivity;
-import com.dwtedx.income.discovery.ItemNineNineActivity;
-import com.dwtedx.income.entity.DiscoveryHeaderInfo;
 import com.github.mikephil.charting.components.LegendEntry;
 
 import butterknife.BindView;

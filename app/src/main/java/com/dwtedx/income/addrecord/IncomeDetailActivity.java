@@ -3,11 +3,11 @@ package com.dwtedx.income.addrecord;
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
+import androidx.annotation.NonNull;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -46,7 +46,6 @@ import com.dwtedx.income.utility.ParseJsonToObject;
 import com.dwtedx.income.widget.AppTitleBar;
 import com.dwtedx.income.widget.RecordKeyboardView;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;

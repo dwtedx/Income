@@ -123,7 +123,7 @@
             android:src="@mipmap/imageloader_default_smll"
             android:visibility="visible"/>
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/m_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -145,7 +145,7 @@
         android:focusable="true"
         android:focusableInTouchMode="true">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/m_vote_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

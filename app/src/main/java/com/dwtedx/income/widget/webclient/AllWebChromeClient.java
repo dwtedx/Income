@@ -8,7 +8,7 @@
 */
 package com.dwtedx.income.widget.webclient;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.View;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;

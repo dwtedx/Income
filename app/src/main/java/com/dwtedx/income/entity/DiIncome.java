@@ -22,7 +22,7 @@ public class DiIncome {
     private String location;
     private String voicepath;
     private String imagepath;
-    private int recordtype;
+    private int recordtype;//0:普通记账 1:扫单
     private String recordtime;
     private String createtime;
     private String updatetime;

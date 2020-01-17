@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 import com.dwtedx.income.broadcast.CommonBroadcast;
 import com.dwtedx.income.entity.ApplicationData;

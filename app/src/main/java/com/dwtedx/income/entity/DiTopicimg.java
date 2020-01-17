@@ -2,7 +2,7 @@ package com.dwtedx.income.entity;
 
 import android.graphics.Rect;
 import android.os.Parcel;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.previewlibrary.enitity.IThumbViewInfo;
 

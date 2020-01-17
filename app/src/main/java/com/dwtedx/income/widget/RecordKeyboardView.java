@@ -2,15 +2,10 @@ package com.dwtedx.income.widget;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.design.widget.Snackbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,11 +13,6 @@ import android.widget.Toast;
 import com.dwtedx.income.R;
 import com.dwtedx.income.utility.CommonUtility;
 import com.dwtedx.income.utility.ReportUtil;
-
-import java.lang.ref.WeakReference;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class RecordKeyboardView extends RelativeLayout implements OnClickListener {
 

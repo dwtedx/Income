@@ -1,7 +1,7 @@
 package com.dwtedx.income.account;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
+import com.google.android.material.snackbar.Snackbar;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -13,7 +13,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.dwtedx.income.R;
 import com.dwtedx.income.base.BaseActivity;
 import com.dwtedx.income.entity.DiAccount;
-import com.dwtedx.income.provider.AccountSharedPreferences;
 import com.dwtedx.income.sqliteservice.DIAccountService;
 import com.dwtedx.income.utility.CommonUtility;
 import com.dwtedx.income.widget.AppTitleBar;

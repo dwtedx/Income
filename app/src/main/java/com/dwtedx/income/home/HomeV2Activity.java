@@ -7,12 +7,12 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
+import androidx.annotation.NonNull;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +23,6 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.baidu.ocr.ui.camera.CameraActivity;
 import com.dwtedx.income.IncomeApplication;
 import com.dwtedx.income.R;
 import com.dwtedx.income.addrecord.AddRecordActivity;
@@ -481,10 +480,10 @@ public class HomeV2Activity extends BaseActivity implements View.OnClickListener
         }
         mCameraFileName = CommonUtility.getTempImageName();
         mCameraFileNamePath = CommonConstants.INCOME_IMAGES + "/" +mCameraFileName;
-        Intent intent = new Intent(HomeV2Activity.this, CameraActivity.class);
-        intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH, mCameraFileNamePath);
-        intent.putExtra(CameraActivity.KEY_CONTENT_TYPE, CameraActivity.CONTENT_TYPE_GENERAL);
-        startActivityForResult(intent, REQUEST_CODE_RECEIPT);
+        //Intent intent = new Intent(HomeV2Activity.this, CameraActivity.class);
+        //intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH, mCameraFileNamePath);
+        //intent.putExtra(CameraActivity.KEY_CONTENT_TYPE, CameraActivity.CONTENT_TYPE_GENERAL);
+        //startActivityForResult(intent, REQUEST_CODE_RECEIPT);
     }
 
     @Override
@@ -493,7 +492,7 @@ public class HomeV2Activity extends BaseActivity implements View.OnClickListener
         // 识别成功回调，通用票据识别
         if (requestCode == REQUEST_CODE_RECEIPT && resultCode == Activity.RESULT_OK) {
             Intent intent = new Intent(HomeV2Activity.this, ScanResultActivity.class);
-            intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH, mCameraFileNamePath);
+            //intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH, mCameraFileNamePath);
             startActivity(intent);
         }
     }

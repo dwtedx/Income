@@ -2,7 +2,7 @@ package com.dwtedx.income.account;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +14,6 @@ import com.dwtedx.income.base.BaseFragment;
 import com.dwtedx.income.entity.DiAccount;
 import com.dwtedx.income.home.HomeV2Activity;
 import com.dwtedx.income.home.adapter.DiAccountAdapter;
-import com.dwtedx.income.account.AccountListActivity;
 import com.dwtedx.income.sqliteservice.DIAccountService;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;

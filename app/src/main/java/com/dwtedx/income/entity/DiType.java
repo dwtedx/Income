@@ -10,7 +10,7 @@ public class DiType {
     private String username;
     private int userid;
     private String name;
-    private int type;
+    private int type;//1收入 2支出
     private String icon;
     private String color;
     private int sequence;

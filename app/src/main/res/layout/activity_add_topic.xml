@@ -19,7 +19,7 @@
         app:right_btn_visible="true"
         app:text="@string/topic_add_title" />
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/m_app_title"
@@ -45,7 +45,7 @@
                 android:maxLength="200"
                 android:padding="@dimen/common_margin_16dp"/>
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/m_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -165,7 +165,7 @@
 
             </RelativeLayout>
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/m_vote_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -180,6 +180,6 @@
 
         </LinearLayout>
 
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>

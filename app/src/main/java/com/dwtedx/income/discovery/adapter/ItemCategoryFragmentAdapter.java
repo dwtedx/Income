@@ -1,9 +1,9 @@
 package com.dwtedx.income.discovery.adapter;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -21,10 +21,6 @@ import com.dwtedx.income.discovery.SnacksFragment;
 import com.dwtedx.income.discovery.SpecialOfferFragment;
 import com.dwtedx.income.discovery.UnderwearFragment;
 import com.dwtedx.income.discovery.WomensClothingFragment;
-import com.dwtedx.income.report.ReportIncomeBarFragment;
-import com.dwtedx.income.report.ReportIncomePieFragment;
-import com.dwtedx.income.report.ReportPayingLineFragment;
-import com.dwtedx.income.report.ReportPayingPieFragment;
 
 import java.util.ArrayList;
 import java.util.List;

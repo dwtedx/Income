@@ -1,8 +1,8 @@
 package com.dwtedx.income.scan;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.dwtedx.income.R;
 import com.dwtedx.income.base.BaseActivity;

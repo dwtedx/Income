@@ -8,7 +8,7 @@
 */
 package com.dwtedx.income.widget.x5webview;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;

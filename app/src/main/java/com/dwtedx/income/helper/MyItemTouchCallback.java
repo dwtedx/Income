@@ -2,15 +2,17 @@ package com.dwtedx.income.helper;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.ItemTouchHelper;
 
 /**
  * Created by Administrator on 2016/4/12.
  */
 public class MyItemTouchCallback extends ItemTouchHelper.Callback {
+
+    private int mBkColor = -1;
+    private OnDragListener onDragListener;
 
     private ItemTouchAdapter itemTouchAdapter;
     public MyItemTouchCallback(ItemTouchAdapter itemTouchAdapter){
@@ -26,7 +28,6 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
     public boolean isItemViewSwipeEnabled() {
         return true;
     }
-
 
     @Override
     public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
@@ -71,14 +72,6 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
     @Override
     public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
         if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
-            if (background == null && bkcolor == -1) {
-                Drawable drawable = viewHolder.itemView.getBackground();
-                if (drawable == null) {
-                    bkcolor = 0;
-                } else {
-                    background = drawable;
-                }
-            }
             viewHolder.itemView.setBackgroundColor(Color.LTGRAY);
         }
         super.onSelectedChanged(viewHolder, actionState);
@@ -89,19 +82,17 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
         super.clearView(recyclerView, viewHolder);
 
         viewHolder.itemView.setAlpha(1.0f);
-        if (background != null) viewHolder.itemView.setBackgroundDrawable(background);
-        if (bkcolor != -1) viewHolder.itemView.setBackgroundColor(bkcolor);
-        //viewHolder.itemView.setBackgroundColor(0);
+        viewHolder.itemView.setBackgroundColor(mBkColor);
 
         if (onDragListener!=null){
             onDragListener.onFinishDrag();
         }
     }
 
-    private Drawable background = null;
-    private int bkcolor = -1;
+    public void setmBkColor(int mBkColor) {
+        this.mBkColor = mBkColor;
+    }
 
-    private OnDragListener onDragListener;
     public MyItemTouchCallback setOnDragListener(OnDragListener onDragListener) {
         this.onDragListener = onDragListener;
         return this;

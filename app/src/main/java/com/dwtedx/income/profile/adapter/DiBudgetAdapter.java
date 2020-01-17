@@ -1,22 +1,13 @@
 package com.dwtedx.income.profile.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.dwtedx.income.R;
-import com.dwtedx.income.entity.DiAccount;
 import com.dwtedx.income.entity.DiBudget;
 import com.dwtedx.income.utility.CommonUtility;
 

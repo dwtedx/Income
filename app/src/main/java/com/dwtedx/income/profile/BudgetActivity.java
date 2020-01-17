@@ -1,10 +1,9 @@
 package com.dwtedx.income.profile;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
+import androidx.annotation.NonNull;
+
 import android.text.InputType;
-import android.view.View;
 import android.widget.ListView;
 
 import com.afollestad.materialdialogs.DialogAction;

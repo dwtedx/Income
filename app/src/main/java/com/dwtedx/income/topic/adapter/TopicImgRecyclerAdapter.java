@@ -2,28 +2,18 @@ package com.dwtedx.income.topic.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Rect;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dwtedx.income.R;
-import com.dwtedx.income.discovery.ItemCategoryActivity;
-import com.dwtedx.income.discovery.ItemCategoryTopActivity;
-import com.dwtedx.income.discovery.ItemNineNineActivity;
 import com.dwtedx.income.entity.DiTopicimg;
-import com.dwtedx.income.entity.DiscoveryHeaderInfo;
 import com.dwtedx.income.topic.TopicImageLoader;
 import com.previewlibrary.GPreviewBuilder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;

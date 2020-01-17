@@ -1,28 +1,18 @@
 package com.dwtedx.income.scan.adapter;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Paint;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.dwtedx.income.R;
-import com.dwtedx.income.discovery.ItemRecommendActivity;
-import com.dwtedx.income.entity.TaobaoItemInfo;
 import com.dwtedx.income.scan.ChooseLocationActivity;
-import com.dwtedx.income.utility.CommonConstants;
-import com.dwtedx.income.utility.CommonUtility;
-import com.dwtedx.income.utility.ParseJsonToObject;
-import com.dwtedx.income.widget.swiperecyclerview.SwipeRecyclerView;
 
 import java.util.List;
 

@@ -1,11 +1,10 @@
 package com.dwtedx.income.discovery.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,26 +12,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.alibaba.baichuan.android.trade.AlibcTrade;
-import com.alibaba.baichuan.android.trade.model.AlibcShowParams;
-import com.alibaba.baichuan.android.trade.model.OpenType;
-import com.alibaba.baichuan.android.trade.page.AlibcBasePage;
-import com.alibaba.baichuan.android.trade.page.AlibcDetailPage;
-import com.alibaba.baichuan.trade.biz.core.taoke.AlibcTaokeParams;
 import com.bumptech.glide.Glide;
 import com.dwtedx.income.R;
 import com.dwtedx.income.discovery.ItemRecommendActivity;
-import com.dwtedx.income.discovery.TaobaoTradeCallback;
 import com.dwtedx.income.entity.TaobaoItemInfo;
-import com.dwtedx.income.entity.TaobaoSearchItemInfo;
 import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.utility.CommonUtility;
 import com.dwtedx.income.utility.ParseJsonToObject;
-import com.dwtedx.income.widget.swiperecyclerview.SwipeRecyclerView;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

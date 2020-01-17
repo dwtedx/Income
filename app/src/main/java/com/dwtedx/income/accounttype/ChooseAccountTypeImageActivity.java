@@ -1,15 +1,14 @@
 package com.dwtedx.income.accounttype;
 
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 
 import com.dwtedx.income.R;
-import com.dwtedx.income.account.adapter.ChooseAccountImageRecyclerViewAdatper;
 import com.dwtedx.income.accounttype.adapter.ChooseAccountTypeImageRecyclerViewAdatper;
 import com.dwtedx.income.base.BaseActivity;
 import com.dwtedx.income.utility.CommonConstants;

@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import com.dwtedx.income.home.HomeV3Activity;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -37,7 +39,6 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.location.Poi;
 import com.baidu.ocr.sdk.exception.OCRError;
-import com.baidu.ocr.ui.camera.CameraActivity;
 import com.dwtedx.income.R;
 import com.dwtedx.income.accounttype.ChoosePayingTypeActivity;
 import com.dwtedx.income.base.BaseActivity;
@@ -132,7 +133,7 @@ public class ScanResultActivity extends BaseActivity implements RecognizeService
         mAppTitle.setOnTitleClickListener(this);
         mTypeRecordLayout.setOnClickListener(this);
 
-        mCameraFileNamePath = getIntent().getStringExtra(CameraActivity.KEY_OUTPUT_FILE_PATH);
+        mCameraFileNamePath = getIntent().getStringExtra(HomeV3Activity.KEY_OUTPUT_FILE_PATH);
         mProgressDialog = getProgressDialog();
 
         mCalendar = Calendar.getInstance();
@@ -238,13 +239,16 @@ public class ScanResultActivity extends BaseActivity implements RecognizeService
         try {
             OcrResultInfo resultData = ParseJsonToObject.getObject(OcrResultInfo.class, new JSONObject(result));
             if (resultData.getWords_result_num() == 0) {
-                Snackbar.make(mRecyclerView, getString(R.string.scan_result_not_tip), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar.make(mRecyclerView, getString(R.string.scan_result_not_tip), Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 return;
             }
             Log.i(getLocalClassName(), result);
             readWordName(resultData);
 
+            if (mScanTicketInfoInfo.size() == 0) {
+                Snackbar.make(mRecyclerView, getString(R.string.scan_result_not_tip), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                return;
+            }
             //引导
             showGuide();
         } catch (JSONException e) {

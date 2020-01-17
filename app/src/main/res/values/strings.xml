@@ -43,6 +43,7 @@
     <string name="nav_set">设置</string>
     <string name="nav_more">更多工具</string>
     <string name="nav_share">晒账单</string>
+    <string name="nav_expexcel">导出账单</string>
     <string name="nav_export">导出</string>
     <string name="money_line_loading">玩命加载中&#8230;</string>
     <string name="pull_to_refresh_pull_label_synchronize">下拉开始同步&#8230;</string>
@@ -406,6 +407,28 @@
     <string name="topic_detail_talk_tip">回复成功</string>
     <string name="topic_detail_delete_tip">删除成功</string>
     <string name="topic_detail_delete_confirm_tip">确定要删除此话题吗？</string>
+    <string name="topic_picture_tip">图片路径异常，请稍后重试？</string>
+
+    <string name="exp_excel_title">账单导出</string>
+    <string name="exp_excel_right_title">历史</string>
+    <string name="exp_excel_list_title">账单导出记录</string>
+    <string name="exp_excel_name">任务名</string>
+    <string name="exp_excel_role">账单类型</string>
+    <string name="exp_excel_moneysumstart">起止金额</string>
+    <string name="exp_excel_moneysumend">结束金额</string>
+    <string name="exp_excel_type">消费类别</string>
+    <string name="exp_excel_account">钱包/支付方式</string>
+    <string name="exp_excel_recordtimestart">消费起止时间</string>
+    <string name="exp_excel_recordtimeend">消费结束时间</string>
+    <string name="exp_excel_type_tip">请先选择账单类型</string>
+    <string-array name="exp_excel_role">
+        <item>支出</item>
+        <item>收入</item>
+    </string-array>
+
+    <string name="ucrop_rotate">旋转</string>
+    <string name="ucrop_scale">缩放</string>
+    <string name="ucrop_crop">剪裁</string>
 
     <!--<string name="app_name">PushDemo</string>-->
     <!--<string name="ok">确认</string>-->

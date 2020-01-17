@@ -1,1 +1,1 @@
-include ':app', ':pulltorefresh', ':ocrui', ':imagepreview'
+include ':app', ':pulltorefresh', ':ucrop', ':pictureselector'

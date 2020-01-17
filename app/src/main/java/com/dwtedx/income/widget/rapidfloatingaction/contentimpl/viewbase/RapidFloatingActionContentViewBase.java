@@ -2,8 +2,8 @@ package com.dwtedx.income.widget.rapidfloatingaction.contentimpl.viewbase;
 
 import android.animation.AnimatorSet;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v4.view.ViewCompat;
+import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;

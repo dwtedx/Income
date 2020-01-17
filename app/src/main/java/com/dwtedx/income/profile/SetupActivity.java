@@ -6,12 +6,14 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
+import androidx.annotation.NonNull;
+
+import com.dwtedx.income.home.IncomeLineFragment;
+import com.dwtedx.income.home.IncomeListActivity;
+import com.google.android.material.snackbar.Snackbar;
 import android.text.InputType;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,7 +55,6 @@ import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
 
 import java.util.List;
-import java.util.Set;
 
 public class SetupActivity extends BaseActivity implements View.OnClickListener, AppTitleBar.OnTitleClickListener {
 
@@ -557,6 +558,9 @@ public class SetupActivity extends BaseActivity implements View.OnClickListener,
                             DIAccountService.getInstance(SetupActivity.this).saveSynchronizeEgain(account);
                         }
                         cancelProgressDialog();
+                        //刷新
+                        IncomeLineFragment.mLoadIncome = true;
+                        IncomeListActivity.mLoadIncome = true;
                         Snackbar.make(findViewById(R.id.app_title), R.string.profile_data_success, Snackbar.LENGTH_LONG).setAction("Action", null).show();
                     }
 

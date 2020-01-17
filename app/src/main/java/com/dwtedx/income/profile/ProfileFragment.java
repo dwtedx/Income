@@ -1,13 +1,12 @@
 package com.dwtedx.income.profile;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.afollestad.materialdialogs.util.DialogUtils;
-import com.baidu.ocr.ui.camera.ICameraControl;
 import com.bumptech.glide.Glide;
 import com.dwtedx.income.R;
 import com.dwtedx.income.account.AccountActivity;
@@ -27,7 +25,7 @@ import com.dwtedx.income.base.BaseActivity;
 import com.dwtedx.income.base.BaseFragment;
 import com.dwtedx.income.discovery.DiscoveryActivity;
 import com.dwtedx.income.entity.ApplicationData;
-import com.dwtedx.income.home.HomeV2Activity;
+import com.dwtedx.income.expexcel.ExpExcelActivity;
 import com.dwtedx.income.report.ShareActivity;
 import com.dwtedx.income.topic.MyTopicActivity;
 import com.dwtedx.income.utility.CommonConstants;
@@ -43,8 +41,8 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     private TextView mHeadName;
     private TextView mSignatureView;
     private int[] mClickView = {R.id.nav_header_view, R.id.profile_type_pay, R.id.profile_type_income, R.id.profile_account,
-            R.id.setup_reset_pass, R.id.profile_theme, R.id.profile_accent, R.id.profile_setup, R.id.profile_share,
-            R.id.profile_budget, R.id.profile_nav_setup, R.id.m_profile_discover_button, R.id.m_profile_topic_button};
+            R.id.setup_reset_pass, R.id.profile_theme, R.id.profile_accent, R.id.profile_setup, R.id.profile_share, R.id.profile_expexcel,
+            R.id.profile_budget, R.id.profile_nav_setup, R.id.m_profile_discover_button, R.id.m_profile_topic_button };
 
     // color chooser dialog
     private int primaryPreselect;
@@ -133,6 +131,9 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                 break;
             case R.id.profile_share:
                 startActivity(new Intent(mFragmentContext, ShareActivity.class));
+                break;
+            case R.id.profile_expexcel:
+                startActivity(new Intent(mFragmentContext, ExpExcelActivity.class));
                 break;
             case R.id.profile_account:
                 startActivity(new Intent(mFragmentContext, AccountActivity.class));

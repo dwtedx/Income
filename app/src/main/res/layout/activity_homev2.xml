@@ -18,7 +18,7 @@
             app:tabIndicatorColor                // 下方滚动的下划线颜色
             app:tabSelectedTextColor              // tab被选中后，文字的颜色
             app:tabTextColor                      // tab默认的文字颜色  -->
-        <android.support.design.widget.TabLayout
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/tablayouts"
             style="@style/common_text_style_14_333333"
             android:layout_width="wrap_content"
