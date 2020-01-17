@@ -93,7 +93,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         //口令检测   使用剪切板在API11以后的版本
         try {
             ClipboardManager manager = (ClipboardManager) ApplicationData.mIncomeApplication.getSystemService(Context.CLIPBOARD_SERVICE);
-            if (manager != null && !mNotTopicActivitys.contains(getLocalClassName())) {
+            String calssName = getLocalClassName();
+            if (manager != null && !mNotTopicActivitys.contains(calssName)) {
                 if (manager.hasPrimaryClip() && manager.getPrimaryClip().getItemCount() > 0) {
                     CharSequence addedText = manager.getPrimaryClip().getItemAt(0).getText();
                     String addedTextString = String.valueOf(addedText);
