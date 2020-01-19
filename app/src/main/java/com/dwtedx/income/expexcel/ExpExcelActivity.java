@@ -1,26 +1,35 @@
 package com.dwtedx.income.expexcel;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.dwtedx.income.R;
 import com.dwtedx.income.base.BaseActivity;
+import com.dwtedx.income.connect.SaDataProccessHandler;
+import com.dwtedx.income.entity.ApplicationData;
 import com.dwtedx.income.entity.DiAccount;
 import com.dwtedx.income.entity.DiExpexcel;
 import com.dwtedx.income.entity.DiType;
+import com.dwtedx.income.service.ExpExcelService;
 import com.dwtedx.income.sqliteservice.DIAccountService;
 import com.dwtedx.income.sqliteservice.DITypeService;
 import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.utility.CommonUtility;
 import com.dwtedx.income.widget.AppTitleBar;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -47,6 +56,10 @@ public class ExpExcelActivity extends BaseActivity implements AppTitleBar.OnTitl
     Button mExpExcelRecordtimeend;
     @BindView(R.id.m_save_btn)
     Button mSaveBtn;
+
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    Calendar mStartTimeCalendar;
+    Calendar mEndTimeCalendar;
 
     DiExpexcel mDiExpexcel;
 
@@ -94,15 +107,109 @@ public class ExpExcelActivity extends BaseActivity implements AppTitleBar.OnTitl
                 showAccount();
                 break;
             case R.id.m_exp_excel_recordtimestart:
-
+                showStartData();
                 break;
             case R.id.m_exp_excel_recordtimeend:
-
+                showEndData();
                 break;
             case R.id.m_save_btn:
-
+                pool();
                 break;
         }
+    }
+
+    private void pool() {
+        if(CommonUtility.isEmpty(mExpExcelName.getText().toString())){
+            Toast.makeText(ExpExcelActivity.this, R.string.exp_excel_error_tip, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(!CommonUtility.isEmpty(mExpExcelMoneysumstart.getText().toString())){
+            mDiExpexcel.setMoneysumstart(Double.parseDouble(mExpExcelMoneysumstart.getText().toString()));
+        }
+        if(!CommonUtility.isEmpty(mExpExcelMoneysumend.getText().toString())){
+            mDiExpexcel.setMoneysumend(Double.parseDouble(mExpExcelMoneysumend.getText().toString()));
+        }
+        mDiExpexcel.setUserid(ApplicationData.mDiUserInfo.getId());
+        mDiExpexcel.setUsername(ApplicationData.mDiUserInfo.getUsername());
+        mDiExpexcel.setName(mExpExcelName.getText().toString());
+        //保存提示
+        SaDataProccessHandler<Void, Void, Integer> dataVerHandler = new SaDataProccessHandler<Void, Void, Integer>(this) {
+            @Override
+            public void onSuccess(Integer data) {
+                if(null == data || data == 0){
+                    new MaterialDialog.Builder(ExpExcelActivity.this)
+                            .title(R.string.tip)
+                            .content(R.string.exp_excel_error_tip_z)
+                            .positiveText(R.string.ok)
+                            .negativeText(R.string.cancel)
+                            .show();
+                    return;
+                }
+                if(data > 2000){
+                    new MaterialDialog.Builder(ExpExcelActivity.this)
+                            .title(R.string.tip)
+                            .content(R.string.exp_excel_error_tip_m)
+                            .positiveText(R.string.ok)
+                            .negativeText(R.string.cancel)
+                            .show();
+                    return;
+                }
+                String tipCount = getString(R.string.exp_excel_save_tip_count);
+                tipCount = String.format(tipCount, data);
+                new MaterialDialog.Builder(ExpExcelActivity.this)
+                        .title(R.string.tip)
+                        .content(tipCount)
+                        .positiveText(R.string.ok)
+                        .negativeText(R.string.cancel)
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                save();
+                            }
+                        })
+                        .show();
+            }
+        };
+        ExpExcelService.getInstance().poolExpExcel(mDiExpexcel, dataVerHandler);
+    }
+
+    private void save() {
+        //保存
+        SaDataProccessHandler<Void, Void, Void> dataVerHandler = new SaDataProccessHandler<Void, Void, Void>(this) {
+            @Override
+            public void onSuccess(Void data) {
+                Toast.makeText(ExpExcelActivity.this, R.string.exp_excel_save_tip, Toast.LENGTH_SHORT).show();
+            }
+        };
+        ExpExcelService.getInstance().seveExpExcel(mDiExpexcel, dataVerHandler);
+    }
+
+    private void showStartData(){
+        mStartTimeCalendar = Calendar.getInstance();
+        DatePickerDialog pieStartdd = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                mStartTimeCalendar.set(year, monthOfYear, dayOfMonth);
+                mExpExcelRecordtimestart.setText(format.format(mStartTimeCalendar.getTime()));
+                mDiExpexcel.setRecordtimestart(format.format(mStartTimeCalendar.getTime()) + " 00:00:00");
+            }
+        }, mStartTimeCalendar.get(Calendar.YEAR), mStartTimeCalendar.get(Calendar.MONTH), mStartTimeCalendar.get(Calendar.DAY_OF_MONTH));
+        pieStartdd.show();
+    }
+
+    private void showEndData(){
+        mEndTimeCalendar = Calendar.getInstance();
+        DatePickerDialog pieStartdd = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                mEndTimeCalendar.set(year, monthOfYear, dayOfMonth);
+                mExpExcelRecordtimeend.setText(format.format(mEndTimeCalendar.getTime()));
+                mDiExpexcel.setRecordtimeend(format.format(mEndTimeCalendar.getTime()) + " 24:00:00");
+            }
+        }, mEndTimeCalendar.get(Calendar.YEAR), mEndTimeCalendar.get(Calendar.MONTH), mEndTimeCalendar.get(Calendar.DAY_OF_MONTH));
+        pieStartdd.show();
     }
 
     private void showAccount() {

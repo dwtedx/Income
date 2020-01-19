@@ -290,4 +290,18 @@ public class LoginV2Activity extends BaseActivity implements AppTitleBar.OnTitle
         UserService.getInstance().otherLoginV2(mUMengInfo, dataVerHandler);
     }
 
+
+    /**
+     * 此方法必须重写，以决绝退出activity时 dialog未dismiss而报错的bug
+     */
+    @Override
+    protected void onDestroy() {
+        try{
+            mProgressDialog.dismiss();
+        }catch (Exception e) {
+            System.out.println("myDialog取消，失败！");
+        }
+        super.onDestroy();
+    }
+
 }

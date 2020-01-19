@@ -16,6 +16,7 @@
     <color name="common_division_line">#dddddd</color>
     <color name="common_price_color">#f70707</color>
     <color name="common_tip_bg_color">#C1000000</color>
+    <color name="common_color_black">#000000</color>
 
     <color name="guide_shadow_bg_color">#5E000000</color>
     <color name="account_add_color">#F44336</color>

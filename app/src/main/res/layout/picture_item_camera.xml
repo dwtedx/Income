@@ -6,7 +6,6 @@
     android:gravity="center_vertical"
     android:orientation="vertical">
 
-    <!-- PictureSelector的拍照按钮覆盖 -->
     <TextView
         android:id="@+id/tvCamera"
         android:layout_width="wrap_content"

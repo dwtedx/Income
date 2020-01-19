@@ -1,1 +1,1 @@
-include ':app', ':pulltorefresh', ':ucrop', ':pictureselector'
+include ':app', ':pulltorefresh'

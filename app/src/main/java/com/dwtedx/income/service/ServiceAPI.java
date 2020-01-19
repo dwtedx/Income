@@ -14,8 +14,8 @@ public class ServiceAPI {
     private final static String CONFIG_FILE_NAME = "income_config_data.tmp";
     private final static String CONFIG_SERVER_NAME = "server_uri";
 
-    public static String WEB_API_DOMAIN = "https://diapp.dwtedx.com";//正式
-//    public static String WEB_API_DOMAIN = "http://172.16.118.114:8080/incomeser";//开发
+//    public static String WEB_API_DOMAIN = "https://diapp.dwtedx.com";//正式
+    public static String WEB_API_DOMAIN = "http://172.16.118.114:8080/incomeser";//开发
 //    public static String WEB_API_DOMAIN = "http://192.168.31.114:8080/incomeser";//开发mac mini
 
     public static String WEB_API_USER_OTHER_LOGIN = WEB_API_DOMAIN + "/user/otherlogin";
@@ -93,6 +93,9 @@ public class ServiceAPI {
     public static String WEB_API_TOPIC_SEVETOPICTALK = WEB_API_DOMAIN + "/topic/sevetopictalk";
     public static String WEB_API_TOPIC_SEVETOPICSHARE = WEB_API_DOMAIN + "/topic/sevetopicshare";
     public static String WEB_API_TOPIC_DELETETOPIC = WEB_API_DOMAIN + "/topic/deletetopic";
+
+    public static String WEB_API_EXPEXCEL_POOL = WEB_API_DOMAIN + "/expexcel/pool";
+    public static String WEB_API_EXPEXCEL_SAVE = WEB_API_DOMAIN + "/expexcel/save";
 
     /**
      * @return void    返回类型

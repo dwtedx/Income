@@ -186,15 +186,12 @@
 
             </RelativeLayout>
 
-            <LinearLayout
-                style="@style/common_horizontal_division_line_style"
-                android:visibility="gone"/>
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:visibility="gone"
                 android:background="@color/common_color_white">
 
                 <ImageView
