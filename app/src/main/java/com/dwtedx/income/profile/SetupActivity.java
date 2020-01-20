@@ -59,7 +59,7 @@ import java.util.List;
 public class SetupActivity extends BaseActivity implements View.OnClickListener, AppTitleBar.OnTitleClickListener {
 
     private AppTitleBar mAppTitleBar;
-    private int[] mClickView = {R.id.profile_username_text, R.id.profile_phone_text, R.id.profile_fingerprint_text, R.id.profile_data_text, R.id.profile_password_text, R.id.setup_update, R.id.message_recommendation, R.id.setup_user_agreement, R.id.about_me, R.id.login_out, R.id.share_app, R.id.clear_cache, R.id.setup_score, R.id.m_privacy};
+    private int[] mClickView = {R.id.profile_username_text, R.id.profile_phone_text, R.id.profile_fingerprint_text, R.id.profile_data_text, R.id.profile_password_text, R.id.setup_update, R.id.message_recommendation, R.id.setup_user_agreement, R.id.about_me, R.id.login_out, R.id.share_app, R.id.clear_cache, R.id.setup_score, R.id.m_privacy, R.id.m_useragreement};
     private TextView mSetupPhoneText;
     private TextView mSetupNameText;
     private TextView mClearCacheText;
@@ -196,6 +196,12 @@ public class SetupActivity extends BaseActivity implements View.OnClickListener,
                 intent = new Intent(this, WebViewActivity.class);
                 intent.putExtra("url", "http://income.dwtedx.com/privacy.html");
                 intent.putExtra("title", getString(R.string.home_privacy));
+                startActivity(intent);
+                break;
+            case R.id.m_useragreement:
+                intent = new Intent(this, WebViewActivity.class);
+                intent.putExtra("url", "http://income.dwtedx.com/useragreement.html");
+                intent.putExtra("title", getString(R.string.home_useragreement));
                 startActivity(intent);
                 break;
             case R.id.about_me:

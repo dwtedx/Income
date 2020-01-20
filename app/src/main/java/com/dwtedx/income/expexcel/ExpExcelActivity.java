@@ -1,6 +1,7 @@
 package com.dwtedx.income.expexcel;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,8 @@ import com.dwtedx.income.entity.ApplicationData;
 import com.dwtedx.income.entity.DiAccount;
 import com.dwtedx.income.entity.DiExpexcel;
 import com.dwtedx.income.entity.DiType;
+import com.dwtedx.income.profile.LoginV2Activity;
+import com.dwtedx.income.provider.ExpExcelTipSharedPreferences;
 import com.dwtedx.income.service.ExpExcelService;
 import com.dwtedx.income.sqliteservice.DIAccountService;
 import com.dwtedx.income.sqliteservice.DITypeService;
@@ -30,6 +33,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.core.widget.NestedScrollView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -69,6 +73,7 @@ public class ExpExcelActivity extends BaseActivity implements AppTitleBar.OnTitl
         setContentView(R.layout.activity_exp_excel);
         ButterKnife.bind(this);
 
+        ExpExcelTipSharedPreferences.init(ExpExcelActivity.this);
         mAppTitle.setOnTitleClickListener(this);
 
         mExpExcelRole.setOnClickListener(this);
@@ -79,7 +84,12 @@ public class ExpExcelActivity extends BaseActivity implements AppTitleBar.OnTitl
         mSaveBtn.setOnClickListener(this);
 
         mDiExpexcel = new DiExpexcel();
+        mDiExpexcel.setRole(-1);
 
+        if(ExpExcelTipSharedPreferences.getIsTip()) {
+            //如果有历史记录直接跳转list
+            getExpExcelInfo();
+        }
     }
 
     @Override
@@ -89,7 +99,8 @@ public class ExpExcelActivity extends BaseActivity implements AppTitleBar.OnTitl
                 finish();
                 break;
             case AppTitleBar.OnTitleClickListener.TITLE_CLICK_RIGHT:
-
+                Intent intent = new Intent(ExpExcelActivity.this, ExpExcelListActivity.class);
+                startActivity(intent);
                 break;
         }
     }
@@ -119,8 +130,17 @@ public class ExpExcelActivity extends BaseActivity implements AppTitleBar.OnTitl
     }
 
     private void pool() {
+        if(!isLogin()){
+            Intent intent = new Intent(this, LoginV2Activity.class);
+            startActivity(intent);
+            return;
+        }
         if(CommonUtility.isEmpty(mExpExcelName.getText().toString())){
             Toast.makeText(ExpExcelActivity.this, R.string.exp_excel_error_tip, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(-1 == mDiExpexcel.getRole()){
+            Toast.makeText(this, R.string.exp_excel_type_tip, Toast.LENGTH_SHORT).show();
             return;
         }
         if(!CommonUtility.isEmpty(mExpExcelMoneysumstart.getText().toString())){
@@ -178,6 +198,7 @@ public class ExpExcelActivity extends BaseActivity implements AppTitleBar.OnTitl
         SaDataProccessHandler<Void, Void, Void> dataVerHandler = new SaDataProccessHandler<Void, Void, Void>(this) {
             @Override
             public void onSuccess(Void data) {
+                ExpExcelTipSharedPreferences.setIsTip(true);
                 Toast.makeText(ExpExcelActivity.this, R.string.exp_excel_save_tip, Toast.LENGTH_SHORT).show();
             }
         };
@@ -213,7 +234,7 @@ public class ExpExcelActivity extends BaseActivity implements AppTitleBar.OnTitl
     }
 
     private void showAccount() {
-        if(0 == mDiExpexcel.getRole()){
+        if(-1 == mDiExpexcel.getRole()){
             Toast.makeText(this, R.string.exp_excel_type_tip, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -251,7 +272,7 @@ public class ExpExcelActivity extends BaseActivity implements AppTitleBar.OnTitl
     }
 
     private void showType() {
-        if(0 == mDiExpexcel.getRole()){
+        if(-1 == mDiExpexcel.getRole()){
             Toast.makeText(this, R.string.exp_excel_type_tip, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -296,13 +317,42 @@ public class ExpExcelActivity extends BaseActivity implements AppTitleBar.OnTitl
                     @Override
                     public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         if (which == 0) {
-                            mDiExpexcel.setRole(CommonConstants.INCOME_ROLE_PAYING);
+                            mDiExpexcel.setRole(CommonConstants.INCOME_ROLE_ALL);
                         } else if (which == 1) {
+                            mDiExpexcel.setRole(CommonConstants.INCOME_ROLE_PAYING);
+                        }else if (which == 2) {
                             mDiExpexcel.setRole(CommonConstants.INCOME_ROLE_INCOME);
                         }
                         mExpExcelRole.setText(text.toString());
                     }
                 }).show();
+    }
+
+
+    private void getExpExcelInfo() {
+
+        SaDataProccessHandler<Void, Void, DiExpexcel> dataVerHandler = new SaDataProccessHandler<Void, Void, DiExpexcel>(this) {
+            @Override
+            public void onSuccess(DiExpexcel data) {
+                if(CommonConstants.STATUS_EXPDONE == data.getStatus()){
+                    new MaterialDialog.Builder(ExpExcelActivity.this)
+                            .title(R.string.tip)
+                            .content(R.string.exp_excel_done_tip)
+                            .positiveText(R.string.ok)
+                            .negativeText(R.string.cancel)
+                            .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                    ExpExcelTipSharedPreferences.setIsTip(false);
+                                    Intent intent = new Intent(ExpExcelActivity.this, ExpExcelListActivity.class);
+                                    startActivity(intent);
+                                }
+                            })
+                            .show();
+                }
+            }
+        };
+        ExpExcelService.getInstance().getMyLastExpExcelInfo(dataVerHandler);
     }
 
 }

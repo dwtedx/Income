@@ -34,6 +34,7 @@ public class CommonConstants {
 
     public final static String INCOME_APP_NAME = "Income";
 
+    public final static int INCOME_ROLE_ALL = 0;//全部
     public final static int INCOME_ROLE_INCOME = 1;//收入
     public final static int INCOME_ROLE_PAYING = 2;//支出
     public final static int INCOME_ROLE_START = 3;//开始节点
@@ -152,5 +153,11 @@ public class CommonConstants {
     //0:审核中 1:上线
     public final static int APP_VERSION_AUDIT_DEF = 0;
     public final static int APP_VERSION_AUDIT_PASS = 1;
+
+    //0:新建 1:导出中 2:导出完成
+    public static final int STATUS_EXPNEW = 0;
+    public static final int STATUS_EXPING = 1;
+    public static final int STATUS_EXPDONE = 2;
+    public static final int STATUS_EXPERR = 3;
 
 }

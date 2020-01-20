@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:padding="@dimen/common_margin_16dp">
+
+    <TextView
+        android:id="@+id/m_item_name_text_view"
+        style="@style/common_text_style_14_333333"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="aa砥发送卡砥砺奋进砥砺奋进"
+        app:layout_constraintEnd_toStartOf="@+id/m_item_status_text_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/m_item_status_text_view"
+        style="@style/common_text_style_14_333333"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_margin_16dp"
+        android:text="已完成"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/m_item_role_title_text_view"
+        style="@style/common_text_style_14_737373"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_margin_8dp"
+        android:text="@string/exp_excel_role"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/m_item_name_text_view" />
+
+    <TextView
+        android:id="@+id/m_item_role_text_view"
+        style="@style/common_text_style_14_333333"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_margin_8dp"
+        android:layout_marginTop="@dimen/common_margin_8dp"
+        android:text="全部"
+        app:layout_constraintStart_toEndOf="@+id/m_item_role_title_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/m_item_name_text_view" />
+
+    <TextView
+        android:id="@+id/m_item_money_title_text_view"
+        style="@style/common_text_style_14_737373"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_margin_16dp"
+        android:layout_marginTop="@dimen/common_margin_8dp"
+        android:text="@string/exp_excel_moneysum"
+        app:layout_constraintStart_toEndOf="@+id/m_item_role_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/m_item_name_text_view" />
+
+    <TextView
+        android:id="@+id/m_item_money_text_view"
+        style="@style/common_text_style_14_333333"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_margin_8dp"
+        android:layout_marginTop="@dimen/common_margin_8dp"
+        android:text="20000000000 - 20000000000"
+        app:layout_constraintStart_toEndOf="@+id/m_item_money_title_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/m_item_name_text_view" />
+
+    <TextView
+        android:id="@+id/m_item_type_title_text_view"
+        style="@style/common_text_style_14_737373"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_margin_8dp"
+        android:text="@string/exp_excel_type"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/m_item_role_title_text_view" />
+
+    <TextView
+        android:id="@+id/m_item_type_text_view"
+        style="@style/common_text_style_14_333333"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_margin_8dp"
+        android:layout_marginTop="@dimen/common_margin_8dp"
+        android:text="一般，一般，一般，一般，一般，一般，一般，一般，一般，一般，一般，一般，一般，一般"
+        app:layout_constraintStart_toEndOf="@+id/m_item_role_title_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/m_item_role_title_text_view" />
+
+    <TextView
+        android:id="@+id/m_item_account_title_text_view"
+        style="@style/common_text_style_14_737373"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_margin_8dp"
+        android:text="@string/exp_excel_account1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/m_item_type_text_view" />
+
+    <TextView
+        android:id="@+id/m_item_account_text_view"
+        style="@style/common_text_style_14_333333"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_margin_8dp"
+        android:layout_marginTop="@dimen/common_margin_8dp"
+        android:text="一般，一般，一般，一般，一般，一般，一般，一般，一般，一般，一般，一般，一般，一般"
+        app:layout_constraintStart_toEndOf="@+id/m_item_account_title_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/m_item_type_text_view" />
+
+    <TextView
+        android:id="@+id/m_item_recoretime_title_text_view"
+        style="@style/common_text_style_14_737373"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_margin_8dp"
+        android:text="@string/exp_excel_recordtime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/m_item_account_text_view" />
+
+    <TextView
+        android:id="@+id/m_item_recoretime_text_view"
+        style="@style/common_text_style_14_333333"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_margin_8dp"
+        android:layout_marginTop="@dimen/common_margin_8dp"
+        android:text="2018-02-02 - 2020-02-02"
+        app:layout_constraintStart_toEndOf="@+id/m_item_recoretime_title_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/m_item_account_text_view" />
+
+    <TextView
+        android:id="@+id/m_item_time_title_text_view"
+        style="@style/common_text_style_14_737373"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_margin_8dp"
+        android:text="@string/exp_excel_create_time"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/m_item_recoretime_text_view" />
+
+    <TextView
+        android:id="@+id/m_item_time_text_view"
+        style="@style/common_text_style_14_333333"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_margin_8dp"
+        android:layout_marginTop="@dimen/common_margin_8dp"
+        android:text="2018-02-02 - 2020-02-02"
+        app:layout_constraintStart_toEndOf="@+id/m_item_time_title_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/m_item_recoretime_text_view" />
+
+    <LinearLayout
+        android:id="@+id/m_item_excel_down_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_margin_8dp"
+        android:paddingTop="@dimen/common_margin_8dp"
+        android:paddingBottom="@dimen/common_margin_8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/m_item_time_text_view">
+
+        <ImageView
+            android:id="@+id/m_item_excel_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_profile_excel_black"
+            android:tint="@color/common_color_green" />
+
+        <TextView
+            android:id="@+id/m_item_excel_text_view"
+            style="@style/common_text_style_14_333333"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_margin_8dp"
+            android:singleLine="true"
+            android:ellipsize="start"
+            android:text="2018-02-02 - 2020-02-022018-02-02 - 2020-02-022018-02-02 - 2020-02-022018-02-02 - 2020-02-022018-02-02 - 2020-02-02.xsl"
+            app:layout_constraintStart_toEndOf="@+id/m_item_excel_image_view"
+            app:layout_constraintTop_toBottomOf="@+id/m_item_recoretime_text_view" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

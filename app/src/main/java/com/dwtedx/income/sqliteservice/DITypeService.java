@@ -162,12 +162,16 @@ public class DITypeService {
 	 * @return
 	 */
 	public List<DiType> findAll(Integer type){
-		List<DiType> accounts = new ArrayList<DiType>();
+		List<DiType> types = new ArrayList<DiType>();
+		if(0 == type){
+			types = findAll();
+			return types;
+		}
 		SQLiteDatabase db = dbOpenHelper.getReadableDatabase();
 		Cursor cursor = db.rawQuery("SELECT id, username, userid, name, type, icon, color, sequence, remark, createtime, updatetime, serverid, deletefalag FROM di_type where deletefalag = 0 and type = ? order by sequence asc;",
 				new String[]{type.toString()});
 		while(cursor.moveToNext()){
-			accounts.add(new DiType(
+			types.add(new DiType(
 					cursor.getInt(cursor.getColumnIndex("id")),
 					cursor.getString(cursor.getColumnIndex("username")),
 					cursor.getInt(cursor.getColumnIndex("userid")),
@@ -184,7 +188,37 @@ public class DITypeService {
 			));
 		}
 		cursor.close();
-		return accounts;
+		return types;
+
+	}
+
+	/**
+	 * 查询记录
+	 * @return
+	 */
+	public List<DiType> findAll(){
+		List<DiType> types = new ArrayList<DiType>();
+		SQLiteDatabase db = dbOpenHelper.getReadableDatabase();
+		Cursor cursor = db.rawQuery("SELECT id, username, userid, name, type, icon, color, sequence, remark, createtime, updatetime, serverid, deletefalag FROM di_type where deletefalag = 0 order by type desc;", null);
+		while(cursor.moveToNext()){
+			types.add(new DiType(
+					cursor.getInt(cursor.getColumnIndex("id")),
+					cursor.getString(cursor.getColumnIndex("username")),
+					cursor.getInt(cursor.getColumnIndex("userid")),
+					cursor.getString(cursor.getColumnIndex("name")),
+					cursor.getInt(cursor.getColumnIndex("type")),
+					cursor.getString(cursor.getColumnIndex("icon")),
+					cursor.getString(cursor.getColumnIndex("color")),
+					cursor.getInt(cursor.getColumnIndex("sequence")),
+					cursor.getString(cursor.getColumnIndex("remark")),
+					cursor.getString(cursor.getColumnIndex("createtime")),
+					cursor.getString(cursor.getColumnIndex("updatetime")),
+					cursor.getInt(cursor.getColumnIndex("serverid")),
+					cursor.getInt(cursor.getColumnIndex("deletefalag"))
+			));
+		}
+		cursor.close();
+		return types;
 
 	}
 

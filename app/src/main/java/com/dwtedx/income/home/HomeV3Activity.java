@@ -20,6 +20,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.MenuItem;
 import android.view.View;
@@ -356,21 +358,41 @@ public class HomeV3Activity extends BaseActivity implements ViewPager.OnPageChan
         if(HomePrivacySharedPreferences.getIsTip()){
             View view = getLayoutInflater().inflate(R.layout.activity_homev3_privacy, null, false);
             TextView textView = (TextView) view.findViewById(R.id.m_home_privacy_content);
-            SpannableStringBuilder spannable = new SpannableStringBuilder(getString(R.string.home_privacy_content));
-            spannable.setSpan(new ForegroundColorSpan(Color.parseColor("#FF4081")), 80, 84, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); //这个一定要记得设置，不然点击不生效textView.setMovementMethod(LinkMovementMethod.getInstance());
-            textView.setText(spannable);
-            textView.setOnClickListener(new View.OnClickListener() {
+
+            final SpannableStringBuilder style = new SpannableStringBuilder();
+            //设置文字
+            style.append(getString(R.string.home_privacy_content));
+            //设置部分文字点击事件
+            ClickableSpan clickableSpan = new ClickableSpan() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(View widget) {
                     Intent intent = new Intent(HomeV3Activity.this, WebViewActivity.class);
                     intent.putExtra("url", "http://income.dwtedx.com/privacy.html");
                     intent.putExtra("title", getString(R.string.home_privacy));
                     startActivity(intent);
                 }
-            });
+            };
+            style.setSpan(clickableSpan, 86, 90, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ClickableSpan clickableSpan1 = new ClickableSpan() {
+                @Override
+                public void onClick(View widget) {
+                    Intent intent = new Intent(HomeV3Activity.this, WebViewActivity.class);
+                    intent.putExtra("url", "http://income.dwtedx.com/useragreement.html");
+                    intent.putExtra("title", getString(R.string.home_useragreement));
+                    startActivity(intent);
+                }
+            };
+            style.setSpan(clickableSpan1, 93, 97, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //设置部分文字颜色
+            ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(Color.parseColor("#FF4081"));
+            style.setSpan(foregroundColorSpan, 86, 90, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            style.setSpan(foregroundColorSpan, 93, 97, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //配置给TextView
+            textView.setMovementMethod(LinkMovementMethod.getInstance());
+            textView.setText(style);
 
             new MaterialDialog.Builder(this)
-                    .title(R.string.home_privacy)
+                    .title(R.string.home_privacy_useragreement)
                     .customView(view, false)
                     .positiveText(R.string.home_privacy_ok)
                     .negativeText(R.string.home_privacy_cancel)

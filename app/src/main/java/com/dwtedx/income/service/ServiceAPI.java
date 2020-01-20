@@ -96,6 +96,8 @@ public class ServiceAPI {
 
     public static String WEB_API_EXPEXCEL_POOL = WEB_API_DOMAIN + "/expexcel/pool";
     public static String WEB_API_EXPEXCEL_SAVE = WEB_API_DOMAIN + "/expexcel/save";
+    public static String WEB_API_EXPEXCEL_FINDLIST = WEB_API_DOMAIN + "/expexcel/findlist";
+    public static String WEB_API_EXPEXCEL_FINDLAST = WEB_API_DOMAIN + "/expexcel/findlast";
 
     /**
      * @return void    返回类型

@@ -11,9 +11,9 @@ public class DiExpexcel {
 
     private int role;
 
-    private double moneysumstart;
+    private Double moneysumstart;
 
-    private double moneysumend;
+    private Double moneysumend;
 
     private String type;
 
@@ -28,6 +28,10 @@ public class DiExpexcel {
     private String recordtimeend;
 
     private int recordtype;
+
+    private String filepath;
+
+    private int status;
 
     private String remark;
 
@@ -81,19 +85,19 @@ public class DiExpexcel {
         this.role = role;
     }
 
-    public double getMoneysumstart() {
+    public Double getMoneysumstart() {
         return moneysumstart;
     }
 
-    public void setMoneysumstart(double moneysumstart) {
+    public void setMoneysumstart(Double moneysumstart) {
         this.moneysumstart = moneysumstart;
     }
 
-    public double getMoneysumend() {
+    public Double getMoneysumend() {
         return moneysumend;
     }
 
-    public void setMoneysumend(double moneysumend) {
+    public void setMoneysumend(Double moneysumend) {
         this.moneysumend = moneysumend;
     }
 
@@ -199,5 +203,21 @@ public class DiExpexcel {
 
     public void setUpdateuser(int updateuser) {
         this.updateuser = updateuser;
+    }
+
+    public String getFilepath() {
+        return filepath;
+    }
+
+    public void setFilepath(String filepath) {
+        this.filepath = filepath;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

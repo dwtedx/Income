@@ -7,12 +7,7 @@ import com.dwtedx.income.connect.SaAsyncTask;
 import com.dwtedx.income.connect.SaDataProccessHandler;
 import com.dwtedx.income.connect.SaError;
 import com.dwtedx.income.connect.SaException;
-import com.dwtedx.income.entity.ApplicationData;
 import com.dwtedx.income.entity.DiExpexcel;
-import com.dwtedx.income.entity.DiTopic;
-import com.dwtedx.income.entity.DiTopicimg;
-import com.dwtedx.income.entity.DiTopictalk;
-import com.dwtedx.income.entity.DiTopicvote;
 import com.dwtedx.income.utility.ParseJsonToObject;
 
 import org.json.JSONException;
@@ -101,6 +96,87 @@ public class ExpExcelService {
                     setErrorObj(new SaException(SaError.ERROR_TYPE_UNKNOWN, e));
                 }
                 return null;
+            }
+        };
+        task.execute();
+        return task;
+    }
+
+    /**
+     * 数据获取
+     * @param handler
+     * @return
+     */
+    public SaAsyncTask<Void, Void, DiExpexcel> getMyLastExpExcelInfo(SaDataProccessHandler<Void, Void, DiExpexcel> handler) {
+        handler.setUrl(ServiceAPI.WEB_API_EXPEXCEL_FINDLAST);
+        SaAsyncTask<Void, Void, DiExpexcel> task = new SaAsyncTask<Void, Void, DiExpexcel>(handler) {
+            @Override
+            protected DiExpexcel doInBackground(Void... params) {
+                DiExpexcel result = null;
+                try {
+                    BaseHttpResponseHandler<DiExpexcel> dataHandler = new BaseHttpResponseHandler<DiExpexcel>() {
+                                @Override
+                                public DiExpexcel getResult(Object jsonObject) throws SaException {
+                                    DiExpexcel resultData = ParseJsonToObject.getObject(DiExpexcel.class, (JSONObject) jsonObject);
+                                    return resultData;
+                                }
+                            };
+                    result = handler.getRequestExecutor().executeRequest(ServiceParamterUtil.genParamterJSONObject(new JSONObject()), dataHandler);
+                } catch (SaException e) {
+                    setErrorObj(e);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setErrorObj(new SaException(SaError.ERROR_TYPE_UNKNOWN, e));
+                }
+                return result;
+            }
+        };
+        task.execute();
+        return task;
+    }
+
+    /**
+     * 数据获取
+     *
+     * @param start
+     * @param length
+     * @param handler
+     * @return
+     */
+    public SaAsyncTask<Void, Void, List<DiExpexcel>> getMyExpExcelInfo(final int start, final int length, SaDataProccessHandler<Void, Void, List<DiExpexcel>>
+            handler) {
+        handler.setUrl(ServiceAPI.WEB_API_EXPEXCEL_FINDLIST);
+        SaAsyncTask<Void, Void, List<DiExpexcel>> task = new SaAsyncTask<Void, Void, List<DiExpexcel>>(handler) {
+            @Override
+            protected List<DiExpexcel> doInBackground(Void... params) {
+                List<DiExpexcel> result = null;
+                try {
+                    BaseHttpResponseHandler<List<DiExpexcel>> dataHandler = new
+                            BaseHttpResponseHandler<List<DiExpexcel>>() {
+
+                                @Override
+                                public List<DiExpexcel> getResult(Object jsonObject) throws SaException {
+                                    List<DiExpexcel> resultData = ParseJsonToObject.getObjectList(DiExpexcel.class, jsonObject);
+                                    return resultData;
+                                }
+                            };
+                    JSONObject requestParameter = new JSONObject();
+                    try {
+                        requestParameter.put("start", start);
+                        requestParameter.put("length", length);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        throw new SaException(SaError.ERROR_TYPE_JSON, e);
+                    }
+                    result = handler.getRequestExecutor().executeRequest(ServiceParamterUtil.
+                            genParamterJSONObject(requestParameter), dataHandler);
+                } catch (SaException e) {
+                    setErrorObj(e);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setErrorObj(new SaException(SaError.ERROR_TYPE_UNKNOWN, e));
+                }
+                return result;
             }
         };
         task.execute();

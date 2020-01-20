@@ -8,6 +8,8 @@ import com.dwtedx.income.connect.SaDataProccessHandler;
 import com.dwtedx.income.connect.SaException;
 import com.dwtedx.income.entity.DiExpexcel;
 import com.dwtedx.income.entity.DiTopic;
+import com.dwtedx.income.expexcel.adapter.ExpExcelRecyclerAdapter;
+import com.dwtedx.income.service.ExpExcelService;
 import com.dwtedx.income.service.TopicService;
 import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.widget.AppTitleBar;
@@ -35,6 +37,7 @@ public class ExpExcelListActivity extends BaseActivity implements AppTitleBar.On
     SpringView mSpringView;
 
     List<DiExpexcel> mDiExpexcel;
+    ExpExcelRecyclerAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +47,13 @@ public class ExpExcelListActivity extends BaseActivity implements AppTitleBar.On
 
         mAppTitle.setOnTitleClickListener(this);
 
-        mDiExpexcel = new ArrayList<DiExpexcel>();
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerview.setLayoutManager(layoutManager);
-        mRecyclerview.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.VERTICAL, 1, R.color.common_division_line));
+        mRecyclerview.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.HORIZONTAL, 1, R.color.common_division_line));
+        mDiExpexcel = new ArrayList<DiExpexcel>();
+        mAdapter = new ExpExcelRecyclerAdapter(this, mDiExpexcel);
+        mRecyclerview.setAdapter(mAdapter);
 
         mSpringView.setListener(this);
         mSpringView.setHeader(new AliHeader(this, R.mipmap.spring_ali, true));   //参数为：logo图片资源，是否显示文字
@@ -72,21 +78,26 @@ public class ExpExcelListActivity extends BaseActivity implements AppTitleBar.On
 
     @Override
     public void onRefresh() {
-
+        getExpExcelInfo(false, true);
     }
 
     @Override
     public void onLoadmore() {
-
+        getExpExcelInfo(false, false);
     }
 
     private void getExpExcelInfo(final boolean isShow, final boolean isClear) {
 
-        SaDataProccessHandler<Void, Void, List<DiTopic>> dataVerHandler = new SaDataProccessHandler<Void, Void, List<DiTopic>>(this) {
+        SaDataProccessHandler<Void, Void, List<DiExpexcel>> dataVerHandler = new SaDataProccessHandler<Void, Void, List<DiExpexcel>>(this) {
             @Override
-            public void onSuccess(List<DiTopic> data) {
-
-
+            public void onSuccess(List<DiExpexcel> data) {
+                //第一次请求才缓存
+                if (isClear) {
+                    mDiExpexcel.clear();
+                }
+                mDiExpexcel.addAll(data);
+                mAdapter.notifyDataSetChanged();
+                mSpringView.onFinishFreshAndLoad();
             }
 
             @Override
@@ -95,14 +106,8 @@ public class ExpExcelListActivity extends BaseActivity implements AppTitleBar.On
                     super.onPreExecute();
                 }
             }
-
-            @Override
-            public void handlerError(SaException e) {
-                super.handlerError(e);
-            }
         };
-
-        TopicService.getInstance().getMyTopicinfo(isClear ? 0 : mDiExpexcel.size(), CommonConstants.PAGE_LENGTH_NUMBER, dataVerHandler);
+        ExpExcelService.getInstance().getMyExpExcelInfo(isClear ? 0 : mDiExpexcel.size(), CommonConstants.PAGE_LENGTH_NUMBER, dataVerHandler);
     }
 
 }

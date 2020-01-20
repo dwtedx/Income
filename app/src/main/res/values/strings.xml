@@ -72,10 +72,12 @@
     <string name="home_record_scan">扫描小票</string>
     <string name="home_record_scan_beta">Beta</string>
     <string name="home_record_detail">精准查账</string>
+    <string name="home_privacy_useragreement">用户协议和隐私政策</string>
     <string name="home_privacy">隐私政策</string>
+    <string name="home_useragreement">用户协议</string>
     <string name="home_privacy_ok">同意</string>
     <string name="home_privacy_cancel">暂不使用</string>
-    <string name="home_privacy_content">请你务必谨慎阅读，充分理解“隐私政策”各条款，包括但不限于：为了向你提供记账服务以及内容分享等服务，我们需要收集你的设备信息，操作日志等个人信息。你可可以阅读《隐私政策》了解信息信息。如你同意，请点击“同意开始接受我买的服务。”</string>
+    <string name="home_privacy_content">请你务必谨慎阅读，充分理解“隐私政策”和“用户协议”各条款，包括但不限于：为了向你提供记账服务以及内容分享等服务，我们需要收集你的设备信息，操作日志等个人信息。你可以阅读《隐私政策》和《用户协议》了解信息信息。如你同意，请点击“同意开始接受我买的服务。”</string>
 
 
     <!-- 添加收支记录 -->
@@ -418,11 +420,14 @@
     <string name="exp_excel_list_title">账单导出记录</string>
     <string name="exp_excel_name">任务名</string>
     <string name="exp_excel_role">账单类型</string>
-    <string name="exp_excel_moneysumstart">起止金额</string>
+    <string name="exp_excel_moneysum">起止金额</string>
+    <string name="exp_excel_moneysumstart">起始金额</string>
     <string name="exp_excel_moneysumend">结束金额</string>
     <string name="exp_excel_type">消费类别</string>
     <string name="exp_excel_account">钱包/支付方式</string>
-    <string name="exp_excel_recordtimestart">消费起止时间</string>
+    <string name="exp_excel_account1">支付方式</string>
+    <string name="exp_excel_recordtime">消费起止时间</string>
+    <string name="exp_excel_recordtimestart">消费起始时间</string>
     <string name="exp_excel_recordtimeend">消费结束时间</string>
     <string name="exp_excel_type_tip">请先选择账单类型</string>
     <string name="exp_excel_error_tip">请输入任务名</string>
@@ -430,7 +435,11 @@
     <string name="exp_excel_error_tip_m">导出结果大于2000，请更改导出条件</string>
     <string name="exp_excel_save_tip_count">预计导出%1$d条账单，是否继续？</string>
     <string name="exp_excel_save_tip">任务创建成功，请稍后在历史记录中下载</string>
+    <string name="exp_excel_done_tip">检测到你有新任务已经导出完成，是否前往下载？</string>
+    <string name="exp_excel_tip">注：导出结果以云服务器账单为准</string>
+    <string name="exp_excel_create_time">导出时间</string>
     <string-array name="exp_excel_role">
+        <item>全部</item>
         <item>支出</item>
         <item>收入</item>
     </string-array>
