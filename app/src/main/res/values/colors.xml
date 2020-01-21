@@ -18,6 +18,9 @@
     <color name="common_tip_bg_color">#C1000000</color>
     <color name="common_color_black">#000000</color>
     <color name="common_color_green">#217346</color>
+    <color name="common_color_vip">#F2CB51</color>
+
+    <color name="private_lave_white">#D0FFFFFF</color>
 
     <color name="guide_shadow_bg_color">#5E000000</color>
     <color name="account_add_color">#F44336</color>

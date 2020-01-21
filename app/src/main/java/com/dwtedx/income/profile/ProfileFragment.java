@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ import com.dwtedx.income.report.ShareActivity;
 import com.dwtedx.income.topic.MyTopicActivity;
 import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.utility.CommonUtility;
+import com.dwtedx.income.vip.VipInfoActivity;
 import com.dwtedx.income.widget.CircleImageView;
 import com.dwtedx.income.widget.theme.CircleView;
 import com.dwtedx.income.widget.theme.ColorChooserDialog;
@@ -39,7 +41,8 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     private View mView;
     private CircleImageView mHeadImageView;
     private TextView mHeadName;
-    private TextView mSignatureView;
+    private TextView mUserLaveTextView;
+    private ImageView mUserLaveImageView;
     private int[] mClickView = {R.id.nav_header_view, R.id.profile_type_pay, R.id.profile_type_income, R.id.profile_account,
             R.id.setup_reset_pass, R.id.profile_theme, R.id.profile_accent, R.id.profile_setup, R.id.profile_share, R.id.profile_expexcel,
             R.id.profile_budget, R.id.profile_nav_setup, R.id.m_profile_discover_button, R.id.m_profile_topic_button };
@@ -74,7 +77,8 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
 
         mHeadImageView = (CircleImageView) mView.findViewById(R.id.imageView);
         mHeadName = (TextView) mView.findViewById(R.id.usernameView);
-        mSignatureView = (TextView) mView.findViewById(R.id.userSignatureView);
+        mUserLaveTextView = (TextView) mView.findViewById(R.id.user_lave_text_view);
+        mUserLaveImageView = (ImageView) mView.findViewById(R.id.user_lave_image_view);
 
         for (int id : mClickView) {
             mView.findViewById(id).setOnClickListener(this);
@@ -104,11 +108,13 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             if(CommonUtility.isEmpty(signature)){
                 signature = getString(R.string.app_slogan);
             }
-            mSignatureView.setText(signature);
+            //TODO 会员等级
+            //mSignatureView.setText(signature);
         } else {
             Glide.with(this).load(R.mipmap.userhead).into(mHeadImageView);
             mHeadName.setText(getString(R.string.profile_login));
-            mSignatureView.setText(getString(R.string.app_slogan));
+            //TODO 会员等级
+            //mSignatureView.setText(getString(R.string.app_slogan));
         }
 
     }
@@ -118,7 +124,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         switch (v.getId()) {
             case R.id.nav_header_view:
                 if (isLogin()) {
-                    startActivity(new Intent(mFragmentContext, ProfileInfoActivity.class));
+                    startActivity(new Intent(mFragmentContext, VipInfoActivity.class));
                 } else {
                     startActivity(new Intent(mFragmentContext, LoginV2Activity.class));
                 }
