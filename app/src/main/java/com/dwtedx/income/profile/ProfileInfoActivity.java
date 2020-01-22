@@ -157,6 +157,10 @@ public class ProfileInfoActivity extends BaseActivity implements AppTitleBar.OnT
     //头像上传////////////////头像上传///////////////////头像上传/////////////////////头像上传//////////////////头像上传/////////
     //选择相片
     private void selectPicture() {
+        if (!isLogin()) {
+            startActivity(new Intent(ProfileInfoActivity.this, LoginV2Activity.class));
+            return;
+        }
         mCameraFileName = CommonUtility.getTempImageName();
         mCameraCapFileName = "CAP" + mCameraFileName;
         new MaterialDialog.Builder(this)
