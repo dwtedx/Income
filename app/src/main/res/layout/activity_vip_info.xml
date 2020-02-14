@@ -7,7 +7,7 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="170dp"
+        android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -21,7 +21,8 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:titleEnabled="false">
 
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            <RelativeLayout
+                android:id="@+id/m_title_bar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/common_margin_50dp"
                 android:background="@color/common_body_color">
@@ -71,16 +72,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
+                android:layout_marginTop="50dp"
                 android:gravity="center_vertical"
-                android:paddingBottom="@dimen/common_margin_16dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/common_margin_16dp"
+                android:paddingBottom="@dimen/common_margin_16dp">
 
                 <com.dwtedx.income.widget.CircleImageView
                     android:id="@+id/m_head_image_view"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_centerHorizontal="true"
-                    android:paddingTop="@dimen/activity_vertical_margin"
                     android:src="@mipmap/userhead" />
 
                 <TextView
@@ -95,13 +97,24 @@
                     android:textSize="@dimen/common_text_size_16sp" />
 
                 <TextView
-                    style="@style/common_text_style_14_333333"
+                    android:id="@+id/m_user_vip_time_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/m_user_name_text_view"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/common_margin_8dp"
+                    android:text="@string/profile_login"
+                    android:textColor="@color/common_color_vip"
+                    android:visibility="gone" />
+
+                <TextView
                     android:id="@+id/m_vip_users_text_view"
+                    style="@style/common_text_style_14_333333"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/common_margin_16dp"
-                    android:text="358人已开通VIP"
                     android:background="@drawable/vip_users_gray_line_shape"
+                    android:text="358人已开通VIP"
                     android:textSize="@dimen/common_text_size_12sp" />
 
             </RelativeLayout>
@@ -149,162 +162,207 @@
                     android:gravity="center_horizontal"
                     android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:id="@+id/m_vip_month_1_view"
+                    <RelativeLayout
                         android:layout_width="90dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="100dp"
                         android:layout_marginStart="@dimen/common_margin_8dp"
-                        android:layout_marginEnd="@dimen/common_margin_8dp"
-                        android:background="@drawable/vip_gray_line_shape"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/common_text_style_14_333333"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/vip_month_1" />
+                        android:layout_marginEnd="@dimen/common_margin_8dp">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/common_margin_8dp"
-                            android:background="@color/common_color_white"
+                            android:id="@+id/m_vip_month_1_view"
+                            android:layout_width="90dp"
+                            android:layout_height="100dp"
+                            android:background="@drawable/vip_gray_line_shape"
                             android:gravity="center_horizontal"
-                            android:orientation="horizontal"
-                            android:textSize="@dimen/common_text_size_16sp">
+                            android:orientation="vertical">
 
                             <TextView
                                 style="@style/common_text_style_14_333333"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/rmb"
-                                android:textColor="@color/common_color_vip"
-                                android:textSize="@dimen/common_text_size_16sp" />
+                                android:text="@string/vip_month_1" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/common_margin_8dp"
+                                android:background="@color/common_color_white"
+                                android:gravity="center_horizontal"
+                                android:orientation="horizontal"
+                                android:textSize="@dimen/common_text_size_16sp">
+
+                                <TextView
+                                    style="@style/common_text_style_14_333333"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/rmb"
+                                    android:textColor="@color/common_color_vip"
+                                    android:textSize="@dimen/common_text_size_16sp" />
+
+                                <TextView
+                                    style="@style/common_text_style_14_333333"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/vip_month_money_sell_1"
+                                    android:textColor="@color/common_color_vip"
+                                    android:textSize="28sp" />
+
+                            </LinearLayout>
 
                             <TextView
-                                style="@style/common_text_style_14_333333"
+                                android:id="@+id/m_vip_month_1_del_text_view"
+                                style="@style/common_text_style_14_737373"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/vip_month_money_sell_1"
-                                android:textColor="@color/common_color_vip"
-                                android:textSize="28sp" />
+                                android:layout_marginTop="@dimen/common_margin_4dp"
+                                android:text="@string/vip_month_money_1" />
 
                         </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/m_vip_month_1_del_text_view"
-                            style="@style/common_text_style_14_737373"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/vip_month_money_1" />
+                        <ImageView
+                            android:id="@+id/m_vip_month_1_image_view"
+                            android:layout_width="@dimen/common_margin_30dp"
+                            android:layout_height="@dimen/common_margin_30dp"
+                            android:visibility="gone"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:src="@mipmap/vip_item_check_box" />
+                    </RelativeLayout>
 
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/m_vip_month_3_view"
+                    <RelativeLayout
                         android:layout_width="90dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="100dp"
                         android:layout_marginStart="@dimen/common_margin_8dp"
-                        android:layout_marginEnd="@dimen/common_margin_8dp"
-                        android:background="@drawable/vip_gray_line_shape"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/common_text_style_14_333333"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/vip_month_3" />
+                        android:layout_marginEnd="@dimen/common_margin_8dp">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/common_margin_8dp"
-                            android:background="@color/common_color_white"
+                            android:id="@+id/m_vip_month_3_view"
+                            android:layout_width="90dp"
+                            android:layout_height="100dp"
+                            android:background="@drawable/vip_black_line_shape"
                             android:gravity="center_horizontal"
-                            android:orientation="horizontal"
-                            android:textSize="@dimen/common_text_size_16sp">
+                            android:orientation="vertical">
 
                             <TextView
                                 style="@style/common_text_style_14_333333"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/rmb"
-                                android:textColor="@color/common_color_vip"
-                                android:textSize="@dimen/common_text_size_16sp" />
+                                android:text="@string/vip_month_3" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/common_margin_8dp"
+                                android:background="@color/common_color_white"
+                                android:gravity="center_horizontal"
+                                android:orientation="horizontal"
+                                android:textSize="@dimen/common_text_size_16sp">
+
+                                <TextView
+                                    style="@style/common_text_style_14_333333"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/rmb"
+                                    android:textColor="@color/common_color_vip"
+                                    android:textSize="@dimen/common_text_size_16sp" />
+
+                                <TextView
+                                    style="@style/common_text_style_14_333333"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/vip_month_money_sell_3"
+                                    android:textColor="@color/common_color_vip"
+                                    android:textSize="28sp" />
+
+                            </LinearLayout>
 
                             <TextView
-                                style="@style/common_text_style_14_333333"
+                                android:id="@+id/m_vip_month_3_del_text_view"
+                                style="@style/common_text_style_14_737373"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/vip_month_money_sell_3"
-                                android:textColor="@color/common_color_vip"
-                                android:textSize="28sp" />
+                                android:layout_marginTop="@dimen/common_margin_4dp"
+                                android:text="@string/vip_month_money_3" />
 
                         </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/m_vip_month_3_del_text_view"
-                            style="@style/common_text_style_14_737373"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/vip_month_money_3" />
+                        <ImageView
+                            android:id="@+id/m_vip_month_3_image_view"
+                            android:layout_width="@dimen/common_margin_30dp"
+                            android:layout_height="@dimen/common_margin_30dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:src="@mipmap/vip_item_check_box" />
 
-                    </LinearLayout>
+                    </RelativeLayout>
 
-                    <LinearLayout
-                        android:id="@+id/m_vip_month_12_view"
+                    <RelativeLayout
                         android:layout_width="90dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="100dp"
                         android:layout_marginStart="@dimen/common_margin_8dp"
-                        android:layout_marginEnd="@dimen/common_margin_8dp"
-                        android:background="@drawable/vip_gray_line_shape"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/common_text_style_14_333333"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/vip_month_12" />
+                        android:layout_marginEnd="@dimen/common_margin_8dp">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/common_margin_8dp"
-                            android:background="@color/common_color_white"
+                            android:id="@+id/m_vip_month_12_view"
+                            android:layout_width="90dp"
+                            android:layout_height="100dp"
+                            android:background="@drawable/vip_gray_line_shape"
                             android:gravity="center_horizontal"
-                            android:orientation="horizontal"
-                            android:textSize="@dimen/common_text_size_16sp">
+                            android:orientation="vertical">
 
                             <TextView
                                 style="@style/common_text_style_14_333333"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/rmb"
-                                android:textColor="@color/common_color_vip"
-                                android:textSize="@dimen/common_text_size_16sp" />
+                                android:text="@string/vip_month_12" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/common_margin_8dp"
+                                android:background="@color/common_color_white"
+                                android:gravity="center_horizontal"
+                                android:orientation="horizontal"
+                                android:textSize="@dimen/common_text_size_16sp">
+
+                                <TextView
+                                    style="@style/common_text_style_14_333333"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/rmb"
+                                    android:textColor="@color/common_color_vip"
+                                    android:textSize="@dimen/common_text_size_16sp" />
+
+                                <TextView
+                                    style="@style/common_text_style_14_333333"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/vip_month_money_sell_12"
+                                    android:textColor="@color/common_color_vip"
+                                    android:textSize="28sp" />
+
+                            </LinearLayout>
 
                             <TextView
-                                style="@style/common_text_style_14_333333"
+                                android:id="@+id/m_vip_month_12_del_text_view"
+                                style="@style/common_text_style_14_737373"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/vip_month_money_sell_12"
-                                android:textColor="@color/common_color_vip"
-                                android:textSize="28sp" />
+                                android:layout_marginTop="@dimen/common_margin_4dp"
+                                android:text="@string/vip_month_money_12" />
 
                         </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/m_vip_month_12_del_text_view"
-                            style="@style/common_text_style_14_737373"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/vip_month_money_12" />
+                        <ImageView
+                            android:id="@+id/m_vip_month_12_image_view"
+                            android:layout_width="@dimen/common_margin_30dp"
+                            android:layout_height="@dimen/common_margin_30dp"
+                            android:visibility="gone"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:src="@mipmap/vip_item_check_box" />
 
-                    </LinearLayout>
-
+                    </RelativeLayout>
                 </LinearLayout>
 
             </LinearLayout>
@@ -340,25 +398,25 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/common_color_white"
                 android:paddingStart="@dimen/common_margin_16dp"
-                android:paddingEnd="@dimen/common_margin_16dp"
                 android:paddingTop="@dimen/common_margin_8dp"
-                android:paddingBottom="@dimen/common_margin_8dp"
-                android:background="@color/common_color_white">
+                android:paddingEnd="@dimen/common_margin_16dp"
+                android:paddingBottom="@dimen/common_margin_8dp">
 
                 <ImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:tint="@color/common_body_tip_colors"
-                    android:src="@mipmap/scan_ticket"/>
+                    android:src="@mipmap/scan_ticket"
+                    android:tint="@color/common_body_tip_colors" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:orientation="vertical"
                     android:layout_marginStart="@dimen/common_margin_16dp"
-                    android:background="@color/common_color_white">
+                    android:background="@color/common_color_white"
+                    android:orientation="vertical">
 
                     <TextView
                         style="@style/common_text_style_14_333333"
@@ -372,11 +430,11 @@
                         style="@style/common_text_style_14_737373"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/common_margin_4dp"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginTop="@dimen/common_margin_4dp"
                         android:gravity="center_vertical"
-                        android:textSize="@dimen/common_text_size_12sp"
-                        android:text="@string/vip_user_model1_tip" />
+                        android:text="@string/vip_user_model1_tip"
+                        android:textSize="@dimen/common_text_size_12sp" />
 
                 </LinearLayout>
 
@@ -385,26 +443,26 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/common_color_white"
                 android:paddingStart="@dimen/common_margin_16dp"
-                android:paddingEnd="@dimen/common_margin_16dp"
                 android:paddingTop="@dimen/common_margin_8dp"
-                android:paddingBottom="@dimen/common_margin_8dp"
-                android:background="@color/common_color_white">
+                android:paddingEnd="@dimen/common_margin_16dp"
+                android:paddingBottom="@dimen/common_margin_8dp">
 
                 <ImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:padding="@dimen/common_margin_4dp"
-                    android:tint="@color/common_body_tip_colors"
-                    android:src="@mipmap/fingerprint"/>
+                    android:src="@mipmap/fingerprint"
+                    android:tint="@color/common_body_tip_colors" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:orientation="vertical"
                     android:layout_marginStart="@dimen/common_margin_16dp"
-                    android:background="@color/common_color_white">
+                    android:background="@color/common_color_white"
+                    android:orientation="vertical">
 
                     <TextView
                         style="@style/common_text_style_14_333333"
@@ -418,11 +476,11 @@
                         style="@style/common_text_style_14_737373"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/common_margin_4dp"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginTop="@dimen/common_margin_4dp"
                         android:gravity="center_vertical"
-                        android:textSize="@dimen/common_text_size_12sp"
-                        android:text="@string/vip_user_model2_tip" />
+                        android:text="@string/vip_user_model2_tip"
+                        android:textSize="@dimen/common_text_size_12sp" />
 
                 </LinearLayout>
 
@@ -431,26 +489,26 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/common_color_white"
                 android:paddingStart="@dimen/common_margin_16dp"
-                android:paddingEnd="@dimen/common_margin_16dp"
                 android:paddingTop="@dimen/common_margin_8dp"
-                android:paddingBottom="@dimen/common_margin_8dp"
-                android:background="@color/common_color_white">
+                android:paddingEnd="@dimen/common_margin_16dp"
+                android:paddingBottom="@dimen/common_margin_8dp">
 
                 <ImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:padding="@dimen/common_margin_4dp"
-                    android:tint="@color/common_body_tip_colors"
-                    android:src="@drawable/ic_profile_excel_black"/>
+                    android:src="@drawable/ic_profile_excel_black"
+                    android:tint="@color/common_body_tip_colors" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:orientation="vertical"
                     android:layout_marginStart="@dimen/common_margin_16dp"
-                    android:background="@color/common_color_white">
+                    android:background="@color/common_color_white"
+                    android:orientation="vertical">
 
                     <TextView
                         style="@style/common_text_style_14_333333"
@@ -464,11 +522,11 @@
                         style="@style/common_text_style_14_737373"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/common_margin_4dp"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginTop="@dimen/common_margin_4dp"
                         android:gravity="center_vertical"
-                        android:textSize="@dimen/common_text_size_12sp"
-                        android:text="@string/vip_user_model3_tip" />
+                        android:text="@string/vip_user_model3_tip"
+                        android:textSize="@dimen/common_text_size_12sp" />
 
                 </LinearLayout>
 
@@ -477,26 +535,26 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/common_color_white"
                 android:paddingStart="@dimen/common_margin_16dp"
-                android:paddingEnd="@dimen/common_margin_16dp"
                 android:paddingTop="@dimen/common_margin_8dp"
-                android:paddingBottom="@dimen/common_margin_8dp"
-                android:background="@color/common_color_white">
+                android:paddingEnd="@dimen/common_margin_16dp"
+                android:paddingBottom="@dimen/common_margin_8dp">
 
                 <ImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:padding="@dimen/common_margin_4dp"
-                    android:tint="@color/common_body_tip_colors"
-                    android:src="@drawable/ic_report_black_24dp"/>
+                    android:src="@drawable/ic_report_black_24dp"
+                    android:tint="@color/common_body_tip_colors" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:orientation="vertical"
                     android:layout_marginStart="@dimen/common_margin_16dp"
-                    android:background="@color/common_color_white">
+                    android:background="@color/common_color_white"
+                    android:orientation="vertical">
 
                     <TextView
                         style="@style/common_text_style_14_333333"
@@ -510,11 +568,11 @@
                         style="@style/common_text_style_14_737373"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/common_margin_4dp"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginTop="@dimen/common_margin_4dp"
                         android:gravity="center_vertical"
-                        android:textSize="@dimen/common_text_size_12sp"
-                        android:text="@string/vip_user_model4_tip" />
+                        android:text="@string/vip_user_model4_tip"
+                        android:textSize="@dimen/common_text_size_12sp" />
 
                 </LinearLayout>
 
@@ -523,26 +581,26 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/common_color_white"
                 android:paddingStart="@dimen/common_margin_16dp"
-                android:paddingEnd="@dimen/common_margin_16dp"
                 android:paddingTop="@dimen/common_margin_8dp"
-                android:paddingBottom="@dimen/common_margin_8dp"
-                android:background="@color/common_color_white">
+                android:paddingEnd="@dimen/common_margin_16dp"
+                android:paddingBottom="@dimen/common_margin_8dp">
 
                 <ImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:padding="@dimen/common_margin_4dp"
-                    android:tint="@color/common_body_tip_colors"
-                    android:src="@drawable/ic_search_black_24dp"/>
+                    android:src="@drawable/ic_search_black_24dp"
+                    android:tint="@color/common_body_tip_colors" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:orientation="vertical"
                     android:layout_marginStart="@dimen/common_margin_16dp"
-                    android:background="@color/common_color_white">
+                    android:background="@color/common_color_white"
+                    android:orientation="vertical">
 
                     <TextView
                         style="@style/common_text_style_14_333333"
@@ -556,11 +614,11 @@
                         style="@style/common_text_style_14_737373"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/common_margin_4dp"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginTop="@dimen/common_margin_4dp"
                         android:gravity="center_vertical"
-                        android:textSize="@dimen/common_text_size_12sp"
-                        android:text="@string/vip_user_model5_tip" />
+                        android:text="@string/vip_user_model5_tip"
+                        android:textSize="@dimen/common_text_size_12sp" />
 
                 </LinearLayout>
 
@@ -569,26 +627,26 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/common_color_white"
                 android:paddingStart="@dimen/common_margin_16dp"
-                android:paddingEnd="@dimen/common_margin_16dp"
                 android:paddingTop="@dimen/common_margin_8dp"
-                android:paddingBottom="@dimen/common_margin_8dp"
-                android:background="@color/common_color_white">
+                android:paddingEnd="@dimen/common_margin_16dp"
+                android:paddingBottom="@dimen/common_margin_8dp">
 
                 <ImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:padding="@dimen/common_margin_4dp"
-                    android:tint="@color/common_body_tip_colors"
-                    android:src="@drawable/ic_domain_black_24dp"/>
+                    android:src="@drawable/ic_domain_black_24dp"
+                    android:tint="@color/common_body_tip_colors" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:orientation="vertical"
                     android:layout_marginStart="@dimen/common_margin_16dp"
-                    android:background="@color/common_color_white">
+                    android:background="@color/common_color_white"
+                    android:orientation="vertical">
 
                     <TextView
                         style="@style/common_text_style_14_333333"
@@ -602,11 +660,11 @@
                         style="@style/common_text_style_14_737373"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/common_margin_4dp"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginTop="@dimen/common_margin_4dp"
                         android:gravity="center_vertical"
-                        android:textSize="@dimen/common_text_size_12sp"
-                        android:text="@string/vip_user_model6_tip" />
+                        android:text="@string/vip_user_model6_tip"
+                        android:textSize="@dimen/common_text_size_12sp" />
 
                 </LinearLayout>
 

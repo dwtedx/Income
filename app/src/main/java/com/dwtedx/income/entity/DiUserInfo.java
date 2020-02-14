@@ -1,9 +1,7 @@
 package com.dwtedx.income.entity;
 
-import java.util.Date;
-
 public class DiUserInfo {
-    private Integer id;
+    private int id;
 
     private String username;//用户名
 
@@ -37,15 +35,21 @@ public class DiUserInfo {
 
     private String qqopenid;
 
+    private int vipflag;
+
+    private String vipendtime;
+
+    private String vipendtimeStr;
+
     private String createtime;
 
     private String updatetime;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -191,5 +195,29 @@ public class DiUserInfo {
 
     public void setSignature(String signature) {
         this.signature = signature;
+    }
+
+    public int getVipflag() {
+        return vipflag;
+    }
+
+    public void setVipflag(int vipflag) {
+        this.vipflag = vipflag;
+    }
+
+    public String getVipendtime() {
+        return vipendtime;
+    }
+
+    public void setVipendtime(String vipendtime) {
+        this.vipendtime = vipendtime;
+    }
+
+    public String getVipendtimeStr() {
+        return vipendtimeStr;
+    }
+
+    public void setVipendtimeStr(String vipendtimeStr) {
+        this.vipendtimeStr = vipendtimeStr;
     }
 }

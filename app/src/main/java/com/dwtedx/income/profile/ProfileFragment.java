@@ -43,6 +43,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     private TextView mHeadName;
     private TextView mUserLaveTextView;
     private ImageView mUserLaveImageView;
+    private LinearLayout mUserLaveLayoutView;
     private int[] mClickView = {R.id.nav_header_view, R.id.profile_type_pay, R.id.profile_type_income, R.id.profile_account,
             R.id.setup_reset_pass, R.id.profile_theme, R.id.profile_accent, R.id.profile_setup, R.id.profile_share, R.id.profile_expexcel,
             R.id.profile_budget, R.id.profile_nav_setup, R.id.m_profile_discover_button, R.id.m_profile_topic_button };
@@ -79,6 +80,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         mHeadName = (TextView) mView.findViewById(R.id.usernameView);
         mUserLaveTextView = (TextView) mView.findViewById(R.id.user_lave_text_view);
         mUserLaveImageView = (ImageView) mView.findViewById(R.id.user_lave_image_view);
+        mUserLaveLayoutView = (LinearLayout) mView.findViewById(R.id.user_lave_layout_view);
 
         for (int id : mClickView) {
             mView.findViewById(id).setOnClickListener(this);
@@ -108,13 +110,24 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             if(CommonUtility.isEmpty(signature)){
                 signature = getString(R.string.app_slogan);
             }
-            //TODO 会员等级
+            // 会员等级
             //mSignatureView.setText(signature);
+            mUserLaveLayoutView.setVisibility(View.VISIBLE);
+            if(super.isVIP()) {
+                mUserLaveImageView.setImageResource(R.drawable.ic_profile_vip_diamond_yellow);
+                mUserLaveTextView.setText(R.string.profile_user_lave_vip);
+            }else {
+                mUserLaveImageView.setImageResource(R.drawable.ic_profile_vip_diamond_black);
+                mUserLaveTextView.setText(R.string.profile_user_lave_general);
+            }
+
         } else {
             Glide.with(this).load(R.mipmap.userhead).into(mHeadImageView);
             mHeadName.setText(getString(R.string.profile_login));
-            //TODO 会员等级
+
+            // 会员等级
             //mSignatureView.setText(getString(R.string.app_slogan));
+            mUserLaveLayoutView.setVisibility(View.GONE);
         }
 
     }

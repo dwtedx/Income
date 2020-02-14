@@ -314,6 +314,7 @@
     <string name="profile_password_weixin">当前设备没有安装微信客户端！</string>
     <string name="profile_password_reset_title">重置密码</string>
     <string name="profile_user_lave_general">普通会员</string>
+    <string name="profile_user_lave_vip">VIP高级会员</string>
 
     <string name="login_text">登录</string>
     <string name="login_username_text">手机号/用户名</string>
@@ -447,6 +448,7 @@
 
     <string name="vip_title">我的VIP</string>
     <string name="vip_button">立即开通VIP</string>
+    <string name="vip_button_fee">续费VIP</string>
     <string name="vip_sell_text">限时折扣</string>
     <string name="vip_month_1">1个月</string>
     <string name="vip_month_3">3个月</string>
@@ -470,6 +472,7 @@
     <string name="vip_user_model5_tip">查找账单更快捷</string>
     <string name="vip_user_model6">云SSD存储</string>
     <string name="vip_user_model6_tip">VIP会员享独立的云SSD存储，数据更安全</string>
+    <string name="vip__user_vip_time">VIP过期时间：</string>
 
     <string name="ucrop_rotate">旋转</string>
     <string name="ucrop_scale">缩放</string>

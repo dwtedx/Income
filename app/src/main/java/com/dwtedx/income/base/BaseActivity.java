@@ -201,6 +201,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         return false;
     }
 
+    public boolean isVIP(){
+        if(isLogin()){
+            if(ApplicationData.mDiUserInfo.getVipflag() == 1){
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * 判断某个界面是否在前台

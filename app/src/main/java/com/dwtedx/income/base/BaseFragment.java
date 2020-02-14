@@ -73,4 +73,13 @@ public abstract class BaseFragment extends Fragment {
         }
         return false;
     }
+
+    public boolean isVIP(){
+        if(isLogin()){
+            if(ApplicationData.mDiUserInfo.getVipflag() == 1){
+                return true;
+            }
+        }
+        return false;
+    }
 }
