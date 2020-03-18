@@ -192,7 +192,7 @@ public class VipInfoActivity extends BaseActivity implements View.OnClickListene
                     @Override
                     public void run() {
                         PayTask alipay = new PayTask(VipInfoActivity.this);
-                        Map<String, String> result = alipay.payV2(data.getOrderParam() + "&" + data.getSign(), true);
+                        Map<String, String> result = alipay.payV2(data.getOrderParam(), true);
                         Log.i("msp", result.toString());
 
                         android.os.Message msg = new Message();
