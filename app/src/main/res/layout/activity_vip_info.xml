@@ -8,14 +8,15 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/common_color_vip_black"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/common_body_color"
+            android:layout_height="225dp"
             android:fitsSystemWindows="true"
-            app:contentScrim="@color/common_body_color"
+            app:contentScrim="@color/common_color_vip_black"
+            android:background="@mipmap/vip_head_bg"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
@@ -24,8 +25,8 @@
             <RelativeLayout
                 android:id="@+id/m_title_bar_layout"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/common_margin_50dp"
-                android:background="@color/common_body_color">
+                android:layout_marginTop="@dimen/ali_auth_space_20"
+                android:layout_height="@dimen/common_margin_50dp">
 
                 <LinearLayout
                     android:id="@+id/m_title_back_btn"
@@ -379,6 +380,18 @@
                 android:text="@string/vip_button"
                 android:textColor="@color/common_color_vip"
                 android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/m_taobao_activity_images"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:adjustViewBounds="true"
+                android:background="@color/common_color_white"
+                android:contentDescription="@string/app_name"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/vip_userinvite"
+                android:visibility="visible" />
 
             <TextView
                 style="@style/common_text_style_14_333333"

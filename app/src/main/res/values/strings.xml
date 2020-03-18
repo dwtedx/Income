@@ -456,9 +456,9 @@
     <string name="vip_month_money_sell_1">6.8</string>
     <string name="vip_month_money_sell_3">18.8</string>
     <string name="vip_month_money_sell_12">68.8</string>
-    <string name="vip_month_money_1">￥9.8</string>
-    <string name="vip_month_money_3">￥28.8</string>
-    <string name="vip_month_money_12">￥98.8</string>
+    <string name="vip_month_money_1">￥9.9</string>
+    <string name="vip_month_money_3">￥29.8</string>
+    <string name="vip_month_money_12">￥99.8</string>
     <string name="vip_user_model">会员权益</string>
     <string name="vip_user_model1">扫单高精度模式</string>
     <string name="vip_user_model1_tip">扫描消费小票高精度识别，提高准确率</string>
@@ -473,6 +473,8 @@
     <string name="vip_user_model6">云SSD存储</string>
     <string name="vip_user_model6_tip">VIP会员享独立的云SSD存储，数据更安全</string>
     <string name="vip__user_vip_time">VIP过期时间：</string>
+
+    <string name="alipay_error_appid_rsa_private">支付宝配置APPID</string>
 
     <string name="ucrop_rotate">旋转</string>
     <string name="ucrop_scale">缩放</string>

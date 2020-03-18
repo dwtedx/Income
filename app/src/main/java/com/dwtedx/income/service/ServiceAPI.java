@@ -99,6 +99,8 @@ public class ServiceAPI {
     public static String WEB_API_EXPEXCEL_FINDLIST = WEB_API_DOMAIN + "/expexcel/findlist";
     public static String WEB_API_EXPEXCEL_FINDLAST = WEB_API_DOMAIN + "/expexcel/findlast";
 
+    public static String WEB_API_VIPINFO_ORDER = WEB_API_DOMAIN + "/vipinfo/order";
+
     /**
      * @return void    返回类型
      * @throws

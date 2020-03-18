@@ -19,6 +19,7 @@
     <color name="common_color_black">#000000</color>
     <color name="common_color_green">#217346</color>
     <color name="common_color_vip">#F2CB51</color>
+    <color name="common_color_vip_black">#090709</color>
 
     <color name="private_lave_white">#D0FFFFFF</color>
 

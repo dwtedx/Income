@@ -160,4 +160,11 @@ public class CommonConstants {
     public static final int STATUS_EXPDONE = 2;
     public static final int STATUS_EXPERR = 3;
 
+    //0:充值VIp 1:活动获得VIP
+    public final static int VIP_TYPE_BUY = 0;
+    public final static int VIP_TYPE_GIVE = 1;
+    //1:支付宝 2:微信
+    public final static int PAY_TYPE_ALIPAY = 1;
+    public final static int PAY_TYPE_WEIXIN = 2;
+
 }
