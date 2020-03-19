@@ -28,8 +28,12 @@ import com.dwtedx.income.entity.UserVipInfo;
 import com.dwtedx.income.service.ExpExcelService;
 import com.dwtedx.income.service.VipInfoService;
 import com.dwtedx.income.utility.CommonConstants;
+import com.dwtedx.income.utility.CommonUtility;
 import com.dwtedx.income.widget.CircleImageView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 
 import androidx.core.content.ContextCompat;
@@ -88,7 +92,24 @@ public class VipInfoActivity extends BaseActivity implements View.OnClickListene
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
-                        Toast.makeText(VipInfoActivity.this, "支付成功" + payResult, Toast.LENGTH_SHORT).show();
+                        Date date = new Date();
+                        if (ApplicationData.mDiUserInfo.getVipflag() == 1) {
+                            date = CommonUtility.stringToDate(ApplicationData.mDiUserInfo.getVipendtimeStr());
+                        }
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(date);//设置起时间 
+                        cal.add(Calendar.MONTH, mMonths);//增加一个月
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        String dateString = formatter.format(cal.getTime());
+
+                        ApplicationData.mDiUserInfo.setVipflag(CommonConstants.VIP_TYPE_VIP);
+                        ApplicationData.mDiUserInfo.setVipendtime(dateString);
+                        ApplicationData.mDiUserInfo.setVipendtimeStr(dateString);
+
+                        mUserVipTimeTextView.setVisibility(View.VISIBLE);
+                        mUserVipTimeTextView.setText(getString(R.string.vip__user_vip_time) + ApplicationData.mDiUserInfo.getVipendtimeStr());
+                        registerBtn.setText(R.string.vip_button_fee);
+                        Toast.makeText(VipInfoActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
                         Toast.makeText(VipInfoActivity.this, "支付失败" + payResult, Toast.LENGTH_SHORT).show();
