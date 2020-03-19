@@ -27,6 +27,7 @@ import com.dwtedx.income.connect.ProgressDialog;
 import com.dwtedx.income.connect.SaException;
 import com.dwtedx.income.entity.ApplicationData;
 import com.dwtedx.income.topic.TopicDetailActivity;
+import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.utility.CommonUtility;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.PushAgent;
@@ -203,7 +204,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public boolean isVIP(){
         if(isLogin()){
-            if(ApplicationData.mDiUserInfo.getVipflag() == 1){
+            if(ApplicationData.mDiUserInfo.getVipflag() == CommonConstants.VIP_TYPE_VIP){
                 return true;
             }
         }

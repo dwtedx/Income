@@ -382,7 +382,7 @@
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/m_taobao_activity_images"
+                android:id="@+id/m_vip_invite_images"
                 android:layout_width="match_parent"
                 android:layout_height="110dp"
                 android:layout_marginTop="@dimen/activity_vertical_margin"

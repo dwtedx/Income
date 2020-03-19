@@ -1,6 +1,8 @@
 package com.dwtedx.income.expexcel;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import com.dwtedx.income.R;
 import com.dwtedx.income.base.BaseActivity;
@@ -35,6 +37,8 @@ public class ExpExcelListActivity extends BaseActivity implements AppTitleBar.On
     RecyclerView mRecyclerview;
     @BindView(R.id.m_springview)
     SpringView mSpringView;
+    @BindView(R.id.m_excel_no_data)
+    TextView mExcelNoData;
 
     List<DiExpexcel> mDiExpexcel;
     ExpExcelRecyclerAdapter mAdapter;
@@ -98,6 +102,8 @@ public class ExpExcelListActivity extends BaseActivity implements AppTitleBar.On
                 mDiExpexcel.addAll(data);
                 mAdapter.notifyDataSetChanged();
                 mSpringView.onFinishFreshAndLoad();
+                //显示空态
+                mExcelNoData.setVisibility(View.VISIBLE);
             }
 
             @Override

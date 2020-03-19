@@ -252,6 +252,10 @@
             android:name=".vip.VipInfoActivity"
             android:fitsSystemWindows="true"
             android:label="@string/app_name" />
+        <activity
+            android:name=".vip.VipInviteActivity"
+            android:fitsSystemWindows="true"
+            android:label="@string/app_name" />
 
         <!-- 友盟相关 开始 -->
         <!-- 微信 -->

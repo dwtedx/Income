@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 
 import com.dwtedx.income.broadcast.CommonBroadcast;
 import com.dwtedx.income.entity.ApplicationData;
+import com.dwtedx.income.utility.CommonConstants;
 import com.umeng.analytics.MobclickAgent;
 
 /**
@@ -76,7 +77,7 @@ public abstract class BaseFragment extends Fragment {
 
     public boolean isVIP(){
         if(isLogin()){
-            if(ApplicationData.mDiUserInfo.getVipflag() == 1){
+            if(ApplicationData.mDiUserInfo.getVipflag() == CommonConstants.VIP_TYPE_VIP){
                 return true;
             }
         }

@@ -1,6 +1,7 @@
 package com.dwtedx.income.vip;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -72,6 +73,8 @@ public class VipInfoActivity extends BaseActivity implements View.OnClickListene
     ImageView mVipMonth3ImageView;
     @BindView(R.id.m_vip_month_12_image_view)
     ImageView mVipMonth12ImageView;
+    @BindView(R.id.m_vip_invite_images)
+    ImageView mVipinviteImages;
 
     double mPayAccount;//支付金额
     int mMonths;//月份
@@ -93,13 +96,13 @@ public class VipInfoActivity extends BaseActivity implements View.OnClickListene
                     if (TextUtils.equals(resultStatus, "9000")) {
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
                         Date date = new Date();
-                        if (ApplicationData.mDiUserInfo.getVipflag() == 1) {
-                            date = CommonUtility.stringToDate(ApplicationData.mDiUserInfo.getVipendtimeStr());
+                        if (ApplicationData.mDiUserInfo.getVipflag() == CommonConstants.VIP_TYPE_VIP) {
+                            date = CommonUtility.stringToDate(ApplicationData.mDiUserInfo.getVipendtimeStr() + " 00:00:00");
                         }
                         Calendar cal = Calendar.getInstance();
                         cal.setTime(date);//设置起时间 
                         cal.add(Calendar.MONTH, mMonths);//增加一个月
-                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                         String dateString = formatter.format(cal.getTime());
 
                         ApplicationData.mDiUserInfo.setVipflag(CommonConstants.VIP_TYPE_VIP);
@@ -146,6 +149,7 @@ public class VipInfoActivity extends BaseActivity implements View.OnClickListene
         mVipMonth3View.setOnClickListener(this);
         mVipMonth12View.setOnClickListener(this);
         registerBtn.setOnClickListener(this);
+        mVipinviteImages.setOnClickListener(this);
     }
 
     @Override
@@ -191,6 +195,10 @@ public class VipInfoActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.m_save_btn:
                 saveVip();
+                break;
+            case R.id.m_vip_invite_images:
+                Intent intent = new Intent(this, VipInviteActivity.class);
+                startActivity(intent);
                 break;
         }
     }
