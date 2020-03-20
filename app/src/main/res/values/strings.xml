@@ -473,6 +473,8 @@
     <string name="vip_user_model6">云SSD存储</string>
     <string name="vip_user_model6_tip">VIP会员享独立的云SSD存储，数据更安全</string>
     <string name="vip__user_vip_time">VIP过期时间：</string>
+    <string name="vip_user_nvite_success">已邀请成功</string>
+    <string name="vip_user_nvite_ing">正在邀请</string>
 
     <string name="alipay_error_appid_rsa_private">支付宝配置APPID</string>
 
