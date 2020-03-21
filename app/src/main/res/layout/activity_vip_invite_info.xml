@@ -13,7 +13,7 @@
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="240dp"
+            android:layout_height="540dp"
             android:background="@mipmap/vip_invite"
             android:fitsSystemWindows="true"
             app:contentScrim="@color/common_color_vip_black"
@@ -66,6 +66,55 @@
                     android:text="@string/vip_title"
                     android:textColor="@color/common_color_vip"
                     android:textSize="16sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/common_margin_16dp"
+                android:paddingBottom="32dp">
+
+                <TextView
+                    android:id="@+id/vip_invite_phone_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/vip_invite_phone_title"
+                    android:layout_above="@+id/m_vip_invite_phone_view"
+                    android:textColor="@color/common_color_vip"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/m_vip_invite_phone_view"
+                    style="@style/common_text_style_14_333333"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/vip_gray_line_shape"
+                    android:paddingBottom="@dimen/common_margin_12dp"
+                    android:paddingTop="@dimen/common_margin_12dp"
+                    android:hint="@string/vip_invite_phone"
+                    android:layout_above="@+id/m_vip_invite_btn"
+                    android:textSize="@dimen/common_text_size_16sp"
+                    android:layout_margin="@dimen/common_margin_16dp" />
+
+                <Button
+                    android:id="@+id/m_vip_invite_btn"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_margin_45dp"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:background="@drawable/button_vip_yellow_bg"
+                    android:text="@string/vip_button"
+                    android:textColor="@color/common_color_vip_black"
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 

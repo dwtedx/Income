@@ -475,6 +475,8 @@
     <string name="vip__user_vip_time">VIP过期时间：</string>
     <string name="vip_user_nvite_success">已邀请成功</string>
     <string name="vip_user_nvite_ing">正在邀请</string>
+    <string name="vip_invite_phone_title">好友手机号</string>
+    <string name="vip_invite_phone">请输入好友的手机号码</string>
 
     <string name="alipay_error_appid_rsa_private">支付宝配置APPID</string>
 
