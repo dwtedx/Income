@@ -56,24 +56,12 @@ public class VipInviteActivity extends BaseActivity implements View.OnClickListe
         mDiUserinviteinfoList.add(new DiUserinviteinfo());
         mDiUserinviteinfoList.add(new DiUserinviteinfo());
         mDiUserinviteinfoList.add(new DiUserinviteinfo());
-        mDiUserinviteinfoList.add(new DiUserinviteinfo());
-        mDiUserinviteinfoList.add(new DiUserinviteinfo());
-        mDiUserinviteinfoList.add(new DiUserinviteinfo());
-        mDiUserinviteinfoList.add(new DiUserinviteinfo());
-        mDiUserinviteinfoList.add(new DiUserinviteinfo());
-        mDiUserinviteinfoList.add(new DiUserinviteinfo());
-        mDiUserinviteinfoList.add(new DiUserinviteinfo());
-        mDiUserinviteinfoList.add(new DiUserinviteinfo());
-        mDiUserinviteinfoList.add(new DiUserinviteinfo());
-        mDiUserinviteinfoList.add(new DiUserinviteinfo());
-        mDiUserinviteinfoList.add(new DiUserinviteinfo());
-        mDiUserinviteinfoList.add(new DiUserinviteinfo());
-        mDiUserinviteinfoList.add(new DiUserinviteinfo());
-        mDiUserinviteinfoList.add(new DiUserinviteinfo());
 
         mAdapter = new VipInviteRecyclerAdapter(this, mDiUserinviteinfoList);
         mRecyclerview.setNestedScrollingEnabled(false);//禁止滑动
         mRecyclerview.setAdapter(mAdapter);
+
+        mTitleBackBtn.setOnClickListener(this);
     }
 
     @Override
@@ -85,8 +73,8 @@ public class VipInviteActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.user_name_head_view:
-
+            case R.id.m_title_back_btn:
+                finish();
                 break;
         }
     }

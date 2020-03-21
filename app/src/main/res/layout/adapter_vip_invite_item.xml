@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/common_color_white"
-    android:padding="@dimen/common_margin_16dp"
-    android:orientation="vertical">
+    android:orientation="horizontal"
+    android:padding="@dimen/common_margin_16dp">
 
     <TextView
         android:id="@+id/m_phone_text_view"
         style="@style/common_text_style_14_333333"
         android:layout_width="wrap_content"
+        android:textSize="@dimen/common_text_size_16sp"
         android:layout_height="wrap_content"
-        android:text="18625007590"/>
+        android:text="18625007590" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/m_vip_invite_ctratetime"
+        style="@style/common_text_style_14_737373"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="end"
+        android:layout_marginStart="@dimen/common_margin_8dp"
+        android:text="2020-03-04 13:23:23" />
+
+</RelativeLayout>

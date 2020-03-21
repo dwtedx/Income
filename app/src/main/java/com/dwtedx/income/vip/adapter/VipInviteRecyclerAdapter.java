@@ -56,6 +56,8 @@ public class VipInviteRecyclerAdapter extends RecyclerView.Adapter<VipInviteRecy
 
         @BindView(R.id.m_phone_text_view)
         TextView mPhoneTextView;
+        @BindView(R.id.m_vip_invite_ctratetime)
+        TextView mVipInviteTime;
 
         public ViewHolder(View itemView) {
             super(itemView);

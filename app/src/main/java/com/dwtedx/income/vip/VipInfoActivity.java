@@ -181,8 +181,8 @@ public class VipInfoActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.user_name_head_view:
-
+            case R.id.m_title_back_btn:
+                finish();
                 break;
             case R.id.m_vip_month_1_view:
                 chooseMonth(1);

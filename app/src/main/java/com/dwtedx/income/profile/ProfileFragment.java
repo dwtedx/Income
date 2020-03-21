@@ -46,7 +46,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     private LinearLayout mUserLaveLayoutView;
     private int[] mClickView = {R.id.nav_header_view, R.id.profile_type_pay, R.id.profile_type_income, R.id.profile_account,
             R.id.setup_reset_pass, R.id.profile_theme, R.id.profile_accent, R.id.profile_setup, R.id.profile_share, R.id.profile_expexcel,
-            R.id.profile_budget, R.id.profile_nav_setup, R.id.m_profile_discover_button, R.id.m_profile_topic_button };
+            R.id.profile_budget, R.id.profile_nav_setup, R.id.m_profile_discover_button, R.id.m_profile_topic_button, R.id.profile_vip };
 
     // color chooser dialog
     private int primaryPreselect;
@@ -195,6 +195,14 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             case R.id.m_profile_topic_button:
                 if (isLogin()) {
                     startActivity(new Intent(mFragmentContext, MyTopicActivity.class));
+                } else {
+                    startActivity(new Intent(mFragmentContext, LoginV2Activity.class));
+                }
+                break;
+
+            case R.id.profile_vip:
+                if (isLogin()) {
+                    startActivity(new Intent(mFragmentContext, VipInfoActivity.class));
                 } else {
                     startActivity(new Intent(mFragmentContext, LoginV2Activity.class));
                 }

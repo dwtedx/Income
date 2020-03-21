@@ -191,6 +191,52 @@
                 android:background="@color/common_color_white">
 
                 <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_profile_vip_diamond_black" />
+
+                <Button
+                    android:id="@+id/profile_vip"
+                    style="@style/common_text_style_14_333333"
+                    android:layout_width="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:paddingStart="@dimen/common_margin_45dp"
+                    android:paddingLeft="@dimen/common_margin_45dp"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:paddingEnd="@dimen/common_margin_12dp"
+                    android:paddingRight="@dimen/common_margin_12dp"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:text="@string/nav_vip" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:src="@mipmap/forward"
+                    android:tint="@color/common_body_tip_colors" />
+
+            </RelativeLayout>
+
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+            <LinearLayout
+                style="@style/common_horizontal_division_line_style"
+                android:layout_marginTop="@dimen/common_margin_12dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@color/common_color_white">
+
+                <ImageView
                     android:layout_width="@dimen/common_margin_20dp"
                     android:layout_height="@dimen/common_margin_20dp"
                     android:layout_centerVertical="true"
