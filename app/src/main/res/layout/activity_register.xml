@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         commtitle:left_btn_text="@string/back"
         commtitle:left_btn_visible="true"
-        commtitle:right_btn_visible="true"
+        commtitle:right_btn_visible="false"
         commtitle:right_btn_text="@string/register_username"
         commtitle:text="@string/register" />
 
@@ -150,6 +150,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/common_margin_12dp"
         android:text="@string/register_by_username"
+        android:visibility="gone"
         android:padding="@dimen/activity_vertical_margin"
         android:textAllCaps="false"
         android:textCursorDrawable="@null" />

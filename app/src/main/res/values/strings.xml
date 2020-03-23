@@ -478,10 +478,11 @@
     <string name="vip_user_nvite_ing">正在邀请</string>
     <string name="vip_invite_phone_title">好友手机号</string>
     <string name="vip_invite_phone">请输入好友的手机号码</string>
+    <string name="vip_invite_phone_err">请输入正确的手机号码</string>
     <string name="vip_invite_btn">立即邀请</string>
     <string name="vip_invite_ctratetime">邀请时间</string>
     <string name="vip_invite_rule">邀请规则</string>
-    <string name="vip_invite_rule_detail">1.每成功邀请到一个好友，即可获得30天VIP；\n2.每个用户邀请好友无上限，即可永久得VIP；\n3.被邀请者下载APP并使用手机号注册成功即算邀请成功；\n4.如果有多人同时邀请一人（同一个手机号），则只有最后一名邀请者有效；\n5.在法律允许范围内，DD记账保留邀请活动的最终解释权；</string>
+    <string name="vip_invite_rule_detail">1.每成功邀请成功一个好友，即可获得30天VIP；\n2.每个用户邀请好友无上限，即可永久得VIP；\n3.被邀请者下载APP并使用手机号注册成功即算邀请成功；\n4.如果有多人同时邀请一人（同一个手机号），则只有最后一名邀请者有效；\n5.在法律允许范围内，DD记账保留邀请活动的最终解释权；</string>
 
     <string name="alipay_error_appid_rsa_private">支付宝配置APPID</string>
 
