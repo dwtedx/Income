@@ -13,7 +13,7 @@
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="450dp"
+            android:layout_height="405dp"
             android:background="@mipmap/vip_invite"
             android:fitsSystemWindows="true"
             app:contentScrim="@color/common_color_vip_black"
@@ -72,17 +72,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_gravity="bottom">
-
-                <TextView
-                    style="@style/common_text_style_14_333333"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="@string/vip_invite_phone_title"
-                    android:layout_above="@+id/m_vip_invite_phone_view"
-                    android:textColor="@color/common_color_vip"
-                    android:textStyle="bold"
-                    android:textSize="16sp" />
 
                 <EditText
                     android:id="@+id/m_vip_invite_phone_view"
