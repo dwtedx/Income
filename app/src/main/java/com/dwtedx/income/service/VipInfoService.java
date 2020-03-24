@@ -10,6 +10,7 @@ import com.dwtedx.income.connect.SaError;
 import com.dwtedx.income.connect.SaException;
 import com.dwtedx.income.entity.ApplicationData;
 import com.dwtedx.income.entity.DiExpexcel;
+import com.dwtedx.income.entity.DiUserinviteinfo;
 import com.dwtedx.income.entity.UserVipInfo;
 import com.dwtedx.income.utility.ParseJsonToObject;
 
@@ -98,6 +99,41 @@ public class VipInfoService {
                     setErrorObj(new SaException(SaError.ERROR_TYPE_UNKNOWN, e));
                 }
                 return null;
+            }
+        };
+        task.execute();
+        return task;
+    }
+
+    public SaAsyncTask<Void, Void, List<DiUserinviteinfo>> getUserInvite(int status, SaDataProccessHandler<Void, Void, List<DiUserinviteinfo>> handler) {
+        handler.setUrl(ServiceAPI.WEB_API_VIPINVITE_FIND);
+        SaAsyncTask<Void, Void, List<DiUserinviteinfo>> task = new SaAsyncTask<Void, Void, List<DiUserinviteinfo>>(handler) {
+            @Override
+            protected List<DiUserinviteinfo> doInBackground(Void... params) {
+                List<DiUserinviteinfo> result = null;
+                try {
+                    BaseHttpResponseHandler<List<DiUserinviteinfo>> dataHandler = new BaseHttpResponseHandler<List<DiUserinviteinfo>>() {
+                        @Override
+                        public List<DiUserinviteinfo> getResult(Object jsonObject) throws SaException {
+                            List<DiUserinviteinfo> resultData = ParseJsonToObject.getObjectList(DiUserinviteinfo.class, jsonObject);
+                            return resultData;
+                        }
+                    };
+                    JSONObject requestParameter = new JSONObject();
+                    try {
+                        requestParameter.put("id", status);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        throw new SaException(SaError.ERROR_TYPE_JSON, e);
+                    }
+                    result = handler.getRequestExecutor().executeRequest(ServiceParamterUtil.genParamterJSONObject(requestParameter), dataHandler);
+                } catch (SaException e) {
+                    setErrorObj(e);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setErrorObj(new SaException(SaError.ERROR_TYPE_UNKNOWN, e));
+                }
+                return result;
             }
         };
         task.execute();

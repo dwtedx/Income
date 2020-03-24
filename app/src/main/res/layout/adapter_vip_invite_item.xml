@@ -4,25 +4,42 @@
     android:layout_height="wrap_content"
     android:background="@color/common_color_white"
     android:orientation="horizontal"
-    android:padding="@dimen/common_margin_16dp">
+    android:paddingStart="@dimen/common_margin_16dp"
+    android:paddingEnd="@dimen/common_margin_16dp"
+    android:paddingTop="@dimen/common_margin_12dp"
+    android:paddingBottom="@dimen/common_margin_12dp">
 
-    <TextView
-        android:id="@+id/m_phone_text_view"
-        style="@style/common_text_style_14_333333"
-        android:layout_width="wrap_content"
-        android:textSize="@dimen/common_text_size_16sp"
-        android:layout_height="wrap_content"
-        android:text="18625007590" />
-
-    <TextView
-        android:id="@+id/m_vip_invite_ctratetime"
-        style="@style/common_text_style_14_737373"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="end"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/m_phone_text_view"
+            style="@style/common_text_style_14_333333"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="18625007590"
+            android:textSize="@dimen/common_text_size_16sp" />
+
+        <TextView
+            android:id="@+id/m_vip_invite_ctratetime"
+            style="@style/common_text_style_14_737373"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2020-03-04 13:23:23" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/m_vip_invite_btn"
+        style="?android:textAppearanceSmall"
+        android:layout_width="65dp"
+        android:layout_height="35dp"
+        android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
-        android:layout_gravity="end"
-        android:layout_marginStart="@dimen/common_margin_8dp"
-        android:text="2020-03-04 13:23:23" />
+        android:textSize="@dimen/common_text_size_12sp"
+        android:background="@drawable/button_vip_bg"
+        android:text="@string/vip_invite_again_btn"
+        android:textColor="@color/common_color_white" />
 
 </RelativeLayout>

@@ -6,18 +6,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.dwtedx.income.R;
 import com.dwtedx.income.base.BaseActivity;
 import com.dwtedx.income.connect.SaDataProccessHandler;
-import com.dwtedx.income.connect.SaException;
 import com.dwtedx.income.entity.DiUserinviteinfo;
-import com.dwtedx.income.profile.SetupActivity;
 import com.dwtedx.income.service.VipInfoService;
 import com.dwtedx.income.utility.CommonUtility;
 import com.dwtedx.income.vip.adapter.VipInviteRecyclerAdapter;
 import com.dwtedx.income.widget.RecycleViewDivider;
+import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
@@ -33,7 +33,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class VipInviteActivity extends BaseActivity implements View.OnClickListener {
+public class VipInviteActivity extends BaseActivity implements View.OnClickListener, VipInviteRecyclerAdapter.OnInviteButtonClick, TabLayout.OnTabSelectedListener {
 
     @BindView(R.id.m_title_back_btn)
     LinearLayout mTitleBackBtn;
@@ -45,9 +45,13 @@ public class VipInviteActivity extends BaseActivity implements View.OnClickListe
     EditText mVipInvitePhoneView;
     @BindView(R.id.m_vip_invite_btn)
     Button mVipInviteBtn;
+    @BindView(R.id.m_nodata_relative_layout)
+    RelativeLayout mNodataRelativeLayout;
 
     List<DiUserinviteinfo> mDiUserinviteinfoList;
     VipInviteRecyclerAdapter mAdapter;
+
+    int status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,16 +69,12 @@ public class VipInviteActivity extends BaseActivity implements View.OnClickListe
         mRecyclerview.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.HORIZONTAL, 1, R.color.common_division_line));
 
         mDiUserinviteinfoList = new ArrayList<DiUserinviteinfo>();
-        mDiUserinviteinfoList.add(new DiUserinviteinfo());
-        mDiUserinviteinfoList.add(new DiUserinviteinfo());
-        mDiUserinviteinfoList.add(new DiUserinviteinfo());
-        mDiUserinviteinfoList.add(new DiUserinviteinfo());
-        mDiUserinviteinfoList.add(new DiUserinviteinfo());
-        mDiUserinviteinfoList.add(new DiUserinviteinfo());
-
         mAdapter = new VipInviteRecyclerAdapter(this, mDiUserinviteinfoList);
+        mAdapter.setmOnInviteButtonClick(this);
         mRecyclerview.setNestedScrollingEnabled(false);//禁止滑动
         mRecyclerview.setAdapter(mAdapter);
+
+        mTabs.addOnTabSelectedListener(this);
 
         mTitleBackBtn.setOnClickListener(this);
         mVipInviteBtn.setOnClickListener(this);
@@ -83,7 +83,27 @@ public class VipInviteActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
+        getUserInvite();
+    }
 
+    private void getUserInvite() {
+        mDiUserinviteinfoList.clear();
+        SaDataProccessHandler<Void, Void, List<DiUserinviteinfo>> dataVerHandler = new SaDataProccessHandler<Void, Void, List<DiUserinviteinfo>>(this) {
+            @Override
+            public void onSuccess(List<DiUserinviteinfo> data) {
+                mDiUserinviteinfoList.addAll(data);
+                if (mDiUserinviteinfoList.size() == 0) {
+                    mNodataRelativeLayout.setVisibility(View.VISIBLE);
+                    mRecyclerview.setVisibility(View.GONE);
+                } else {
+                    mNodataRelativeLayout.setVisibility(View.GONE);
+                    mRecyclerview.setVisibility(View.VISIBLE);
+                    mAdapter.notifyDataSetChanged();
+                }
+            }
+        };
+
+        VipInfoService.getInstance().getUserInvite(status, dataVerHandler);
     }
 
     @Override
@@ -99,13 +119,45 @@ public class VipInviteActivity extends BaseActivity implements View.OnClickListe
         }
     }
 
+    @Override
+    public void OnInviteClick(View v) {
+        openShare();
+    }
+
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        int tabIndex = mTabs.getSelectedTabPosition();
+        switch (tabIndex){
+            case 0:
+                status = 0;
+                break;
+
+            case 1:
+                status = 2;
+                break;
+        }
+        getUserInvite();
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
+    }
+
+
     private void save() {
         String phone = mVipInvitePhoneView.getText().toString();
-        if(CommonUtility.isEmpty(phone)){
+        if (CommonUtility.isEmpty(phone)) {
             Toast.makeText(this, R.string.vip_invite_phone, Toast.LENGTH_SHORT).show();
             return;
         }
-        if(!CommonUtility.isPhoneNumberValid(phone)){
+        if (!CommonUtility.isPhoneNumberValid(phone)) {
             Toast.makeText(this, R.string.vip_invite_phone_err, Toast.LENGTH_SHORT).show();
             return;
         }

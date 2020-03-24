@@ -80,7 +80,9 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/vip_gray_line_shape"
                     android:paddingBottom="@dimen/common_margin_12dp"
+                    android:lines="1"
                     android:paddingTop="@dimen/common_margin_12dp"
+                    android:inputType="number"
                     android:hint="@string/vip_invite_phone"
                     android:layout_above="@+id/m_vip_invite_btn"
                     android:textSize="@dimen/common_text_size_16sp"
@@ -154,8 +156,29 @@
                 android:id="@+id/m_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:background="@color/common_color_white"
                 android:divider="@null" />
+
+            <RelativeLayout
+                android:id="@+id/m_nodata_relative_layout"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:visibility="visible"
+                android:background="@color/common_color_white"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/common_text_style_14_737373"
+                    android:layout_width="wrap_content"
+                    android:textSize="@dimen/common_text_size_12sp"
+                    android:drawableTop="@mipmap/no_data_tip"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/common_margin_6dp"
+                    android:gravity="center"
+                    android:text="@string/no_data"
+                    android:layout_centerInParent="true"/>
+            </RelativeLayout>
 
             <LinearLayout
                 style="@style/common_horizontal_division_line_style"
