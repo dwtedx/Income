@@ -170,7 +170,11 @@ public class ScanResultActivity extends BaseActivity implements RecognizeService
         //调用通用票据识别服务
         //RecognizeService.recReceipt(this, mCameraFileNamePath, this);
         //通用文字识别 recGeneralBasic（普通）recAccurateBasic（高精度）
-        RecognizeService.recAccurateBasic(this, mCameraFileNamePath, this);
+        if(isVIP()){
+            RecognizeService.recAccurateBasic(this, mCameraFileNamePath, this);
+        }else{
+            RecognizeService.recGeneralBasic(this, mCameraFileNamePath, this);
+        }
     }
 
     private void setDiType() {

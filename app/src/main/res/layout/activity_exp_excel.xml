@@ -18,11 +18,12 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/common_background_color"
         android:layout_below="@+id/m_app_title">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/common_background_color"
             android:orientation="vertical"
             android:paddingTop="@dimen/activity_vertical_margin"

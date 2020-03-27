@@ -11,14 +11,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.dwtedx.income.R;
 import com.dwtedx.income.entity.DiExpexcel;
+import com.dwtedx.income.expexcel.ExpExcelActivity;
+import com.dwtedx.income.expexcel.ExpExcelListActivity;
 import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.utility.CommonUtility;
 
 import java.util.Date;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,17 +78,28 @@ public class ExpExcelRecyclerAdapter extends RecyclerView.Adapter<ExpExcelRecycl
      * @param url     要浏览的资源地址
      */
     public static void openBrowser(Context context, String url) {
-        final Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse(url));
-        // 注意此处的判断intent.resolveActivity()可以返回显示该Intent的Activity对应的组件名
-        // 官方解释 : Name of the component implementing an activity that can display the intent
-        if (intent.resolveActivity(context.getPackageManager()) != null) {
-            final ComponentName componentName = intent.resolveActivity(context.getPackageManager()); // 打印Log   ComponentName到底是什么 L.d("componentName = " + componentName.getClassName());
-            context.startActivity(Intent.createChooser(intent, "请选择浏览器"));
-        } else {
-            Toast.makeText(context.getApplicationContext(), "请下载浏览器", Toast.LENGTH_SHORT).show();
-        }
+        new MaterialDialog.Builder(context)
+                .title(R.string.tip)
+                .content(R.string.exp_excel_down_tip)
+                .positiveText(R.string.ok)
+                .negativeText(R.string.cancel)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        final Intent intent = new Intent();
+                        intent.setAction(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse(url));
+                        // 注意此处的判断intent.resolveActivity()可以返回显示该Intent的Activity对应的组件名
+                        // 官方解释 : Name of the component implementing an activity that can display the intent
+                        if (intent.resolveActivity(context.getPackageManager()) != null) {
+                            final ComponentName componentName = intent.resolveActivity(context.getPackageManager()); // 打印Log   ComponentName到底是什么 L.d("componentName = " + componentName.getClassName());
+                            context.startActivity(Intent.createChooser(intent, "请选择浏览器"));
+                        } else {
+                            Toast.makeText(context.getApplicationContext(), "请下载浏览器", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+                .show();
     }
 
     private String getRecoreTime(String start, String end) {

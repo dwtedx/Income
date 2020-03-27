@@ -145,9 +145,13 @@ public class ExpExcelActivity extends BaseActivity implements AppTitleBar.OnTitl
         }
         if(!CommonUtility.isEmpty(mExpExcelMoneysumstart.getText().toString())){
             mDiExpexcel.setMoneysumstart(Double.parseDouble(mExpExcelMoneysumstart.getText().toString()));
+        }else{
+            mDiExpexcel.setMoneysumstart(null);
         }
         if(!CommonUtility.isEmpty(mExpExcelMoneysumend.getText().toString())){
             mDiExpexcel.setMoneysumend(Double.parseDouble(mExpExcelMoneysumend.getText().toString()));
+        }else{
+            mDiExpexcel.setMoneysumend(null);
         }
         mDiExpexcel.setUserid(ApplicationData.mDiUserInfo.getId());
         mDiExpexcel.setUsername(ApplicationData.mDiUserInfo.getUsername());
@@ -165,7 +169,7 @@ public class ExpExcelActivity extends BaseActivity implements AppTitleBar.OnTitl
                             .show();
                     return;
                 }
-                if(data > 2000){
+                if(data > 5000){
                     new MaterialDialog.Builder(ExpExcelActivity.this)
                             .title(R.string.tip)
                             .content(R.string.exp_excel_error_tip_m)
@@ -199,7 +203,18 @@ public class ExpExcelActivity extends BaseActivity implements AppTitleBar.OnTitl
             @Override
             public void onSuccess(Void data) {
                 ExpExcelTipSharedPreferences.setIsTip(true);
-                Toast.makeText(ExpExcelActivity.this, R.string.exp_excel_save_tip, Toast.LENGTH_SHORT).show();
+                new MaterialDialog.Builder(ExpExcelActivity.this)
+                        .title(R.string.tip)
+                        .content(R.string.exp_excel_save_tip)
+                        .positiveText(R.string.ok)
+                        .negativeText(R.string.cancel)
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                startActivity(new Intent(ExpExcelActivity.this, ExpExcelListActivity.class));
+                            }
+                        })
+                        .show();
             }
         };
         ExpExcelService.getInstance().seveExpExcel(mDiExpexcel, dataVerHandler);
@@ -334,7 +349,7 @@ public class ExpExcelActivity extends BaseActivity implements AppTitleBar.OnTitl
         SaDataProccessHandler<Void, Void, DiExpexcel> dataVerHandler = new SaDataProccessHandler<Void, Void, DiExpexcel>(this) {
             @Override
             public void onSuccess(DiExpexcel data) {
-                if(CommonConstants.STATUS_EXPDONE == data.getStatus()){
+                if(null != data && CommonConstants.STATUS_EXPDONE == data.getStatus()){
                     new MaterialDialog.Builder(ExpExcelActivity.this)
                             .title(R.string.tip)
                             .content(R.string.exp_excel_done_tip)

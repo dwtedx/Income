@@ -435,12 +435,13 @@
     <string name="exp_excel_type_tip">请先选择账单类型</string>
     <string name="exp_excel_error_tip">请输入任务名</string>
     <string name="exp_excel_error_tip_z">可导出结果为0，请更改导出条件</string>
-    <string name="exp_excel_error_tip_m">导出结果大于2000，请更改导出条件</string>
+    <string name="exp_excel_error_tip_m">导出结果大于5000，请更改导出条件</string>
     <string name="exp_excel_save_tip_count">预计导出%1$d条账单，是否继续？</string>
-    <string name="exp_excel_save_tip">任务创建成功，请稍后在历史记录中下载</string>
+    <string name="exp_excel_save_tip">任务创建成功，是否前往历史记录中下载Excel？</string>
     <string name="exp_excel_done_tip">检测到你有新任务已经导出完成，是否前往下载？</string>
     <string name="exp_excel_tip">注：导出结果以云服务器账单为准</string>
     <string name="exp_excel_create_time">导出时间</string>
+    <string name="exp_excel_down_tip">是否要下载导出的Excel文件？</string>
     <string-array name="exp_excel_role">
         <item>全部</item>
         <item>支出</item>

@@ -103,7 +103,11 @@ public class ExpExcelListActivity extends BaseActivity implements AppTitleBar.On
                 mAdapter.notifyDataSetChanged();
                 mSpringView.onFinishFreshAndLoad();
                 //显示空态
-                mExcelNoData.setVisibility(View.VISIBLE);
+                if(mDiExpexcel.size() > 0) {
+                    mExcelNoData.setVisibility(View.GONE);
+                }else{
+                    mExcelNoData.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
