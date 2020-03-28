@@ -14,8 +14,8 @@ public class ServiceAPI {
     private final static String CONFIG_FILE_NAME = "income_config_data.tmp";
     private final static String CONFIG_SERVER_NAME = "server_uri";
 
-//    public static String WEB_API_DOMAIN = "https://diapp.dwtedx.com";//正式
-    public static String WEB_API_DOMAIN = "http://172.16.118.114:8080/incomeser";//开发
+    public static String WEB_API_DOMAIN = "https://diapp.dwtedx.com";//正式
+//    public static String WEB_API_DOMAIN = "http://172.16.118.114:8080/incomeser";//开发
 //    public static String WEB_API_DOMAIN = "http://192.168.31.114:8080/incomeser";//开发mac
 
     public static String WEB_API_USER_OTHER_LOGIN = WEB_API_DOMAIN + "/user/otherlogin";
@@ -102,6 +102,7 @@ public class ServiceAPI {
     public static String WEB_API_VIPINFO_ORDER = WEB_API_DOMAIN + "/vipinfo/order";
     public static String WEB_API_VIPINVITE_SAVE = WEB_API_DOMAIN + "/vipinvite/save";
     public static String WEB_API_VIPINVITE_FIND = WEB_API_DOMAIN + "/vipinvite/find";
+    public static String WEB_API_VIPINFO_VIPCOUNT = WEB_API_DOMAIN + "/vipinfo/vipcount";
 
     /**
      * @return void    返回类型

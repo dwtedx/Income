@@ -11,6 +11,7 @@ import com.dwtedx.income.connect.SaException;
 import com.dwtedx.income.entity.ApplicationData;
 import com.dwtedx.income.entity.DiExpexcel;
 import com.dwtedx.income.entity.DiUserinviteinfo;
+import com.dwtedx.income.entity.IdInfo;
 import com.dwtedx.income.entity.UserVipInfo;
 import com.dwtedx.income.utility.ParseJsonToObject;
 
@@ -53,6 +54,40 @@ public class VipInfoService {
                                 }
                             };
                     JSONObject requestParameter = ParseJsonToObject.getJsonFromObj(userVipInfo);
+                    result = handler.getRequestExecutor().executeRequest(ServiceParamterUtil.genParamterJSONObject(requestParameter), dataHandler);
+                } catch (SaException e) {
+                    setErrorObj(e);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setErrorObj(new SaException(SaError.ERROR_TYPE_UNKNOWN, e));
+                }
+                return result;
+            }
+        };
+        task.execute();
+        return task;
+    }
+
+    /**
+     * 获取VIP数量
+     * @param handler
+     * @return
+     */
+    public SaAsyncTask<Void, Void, IdInfo> getVipOpenCount(SaDataProccessHandler<Void, Void, IdInfo> handler) {
+        handler.setUrl(ServiceAPI.WEB_API_VIPINFO_VIPCOUNT);
+        SaAsyncTask<Void, Void, IdInfo> task = new SaAsyncTask<Void, Void, IdInfo>(handler) {
+            @Override
+            protected IdInfo doInBackground(Void... params) {
+                IdInfo result = null;
+                try {
+                    BaseHttpResponseHandler<IdInfo> dataHandler = new BaseHttpResponseHandler<IdInfo>() {
+                                @Override
+                                public IdInfo getResult(Object jsonObject) throws SaException {
+                                    IdInfo resultData = ParseJsonToObject.getObject(IdInfo.class, (JSONObject) jsonObject);
+                                    return resultData;
+                                }
+                            };
+                    JSONObject requestParameter = new JSONObject();
                     result = handler.getRequestExecutor().executeRequest(ServiceParamterUtil.genParamterJSONObject(requestParameter), dataHandler);
                 } catch (SaException e) {
                     setErrorObj(e);

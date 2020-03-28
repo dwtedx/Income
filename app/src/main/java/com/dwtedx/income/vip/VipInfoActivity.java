@@ -25,6 +25,7 @@ import com.dwtedx.income.alipay.PayResult;
 import com.dwtedx.income.base.BaseActivity;
 import com.dwtedx.income.connect.SaDataProccessHandler;
 import com.dwtedx.income.entity.ApplicationData;
+import com.dwtedx.income.entity.IdInfo;
 import com.dwtedx.income.entity.UserVipInfo;
 import com.dwtedx.income.service.ExpExcelService;
 import com.dwtedx.income.service.VipInfoService;
@@ -150,14 +151,23 @@ public class VipInfoActivity extends BaseActivity implements View.OnClickListene
         mVipMonth12View.setOnClickListener(this);
         registerBtn.setOnClickListener(this);
         mVipinviteImages.setOnClickListener(this);
+
+        getVipCount();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         if (super.isLogin()) {
+            String userName = ApplicationData.mDiUserInfo.getName();
+            if(CommonUtility.isEmpty(userName)){
+                userName = ApplicationData.mDiUserInfo.getPhone();
+            }
+            if(CommonUtility.isEmpty(userName)){
+                userName = ApplicationData.mDiUserInfo.getUsername();
+            }
+            mUserNameTextView.setText(userName);
             Glide.with(this).load(ApplicationData.mDiUserInfo.getHead()).into(mHeadImageView);
-            mUserNameTextView.setText(ApplicationData.mDiUserInfo.getName());
 
             // 会员等级
             if (super.isVIP()) {
@@ -272,5 +282,17 @@ public class VipInfoActivity extends BaseActivity implements View.OnClickListene
                 mMonths = 12;
                 break;
         }
+    }
+
+    private void getVipCount() {
+
+        SaDataProccessHandler<Void, Void, IdInfo> dataVerHandler = new SaDataProccessHandler<Void, Void, IdInfo>(this) {
+            @Override
+            public void onSuccess(IdInfo data) {
+                String countStr = data.getId() + getString(R.string.vip_open_count);
+                mVipUsersTextView.setText(countStr);
+            }
+        };
+        VipInfoService.getInstance().getVipOpenCount(dataVerHandler);
     }
 }

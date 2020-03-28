@@ -25,6 +25,7 @@ import com.dwtedx.income.sqliteservice.DIAccountService;
 import com.dwtedx.income.sqliteservice.DITypeService;
 import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.utility.CommonUtility;
+import com.dwtedx.income.vip.VipInfoActivity;
 import com.dwtedx.income.widget.AppTitleBar;
 
 import java.text.SimpleDateFormat;
@@ -33,7 +34,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.core.widget.NestedScrollView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -86,7 +86,7 @@ public class ExpExcelActivity extends BaseActivity implements AppTitleBar.OnTitl
         mDiExpexcel = new DiExpexcel();
         mDiExpexcel.setRole(-1);
 
-        if(ExpExcelTipSharedPreferences.getIsTip()) {
+        if (ExpExcelTipSharedPreferences.getIsTip()) {
             //如果有历史记录直接跳转list
             getExpExcelInfo();
         }
@@ -107,7 +107,7 @@ public class ExpExcelActivity extends BaseActivity implements AppTitleBar.OnTitl
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.m_exp_excel_role:
                 showRole();
                 break;
@@ -130,27 +130,27 @@ public class ExpExcelActivity extends BaseActivity implements AppTitleBar.OnTitl
     }
 
     private void pool() {
-        if(!isLogin()){
+        if (!isLogin()) {
             Intent intent = new Intent(this, LoginV2Activity.class);
             startActivity(intent);
             return;
         }
-        if(CommonUtility.isEmpty(mExpExcelName.getText().toString())){
+        if (CommonUtility.isEmpty(mExpExcelName.getText().toString())) {
             Toast.makeText(ExpExcelActivity.this, R.string.exp_excel_error_tip, Toast.LENGTH_SHORT).show();
             return;
         }
-        if(-1 == mDiExpexcel.getRole()){
+        if (-1 == mDiExpexcel.getRole()) {
             Toast.makeText(this, R.string.exp_excel_type_tip, Toast.LENGTH_SHORT).show();
             return;
         }
-        if(!CommonUtility.isEmpty(mExpExcelMoneysumstart.getText().toString())){
+        if (!CommonUtility.isEmpty(mExpExcelMoneysumstart.getText().toString())) {
             mDiExpexcel.setMoneysumstart(Double.parseDouble(mExpExcelMoneysumstart.getText().toString()));
-        }else{
+        } else {
             mDiExpexcel.setMoneysumstart(null);
         }
-        if(!CommonUtility.isEmpty(mExpExcelMoneysumend.getText().toString())){
+        if (!CommonUtility.isEmpty(mExpExcelMoneysumend.getText().toString())) {
             mDiExpexcel.setMoneysumend(Double.parseDouble(mExpExcelMoneysumend.getText().toString()));
-        }else{
+        } else {
             mDiExpexcel.setMoneysumend(null);
         }
         mDiExpexcel.setUserid(ApplicationData.mDiUserInfo.getId());
@@ -160,7 +160,7 @@ public class ExpExcelActivity extends BaseActivity implements AppTitleBar.OnTitl
         SaDataProccessHandler<Void, Void, Integer> dataVerHandler = new SaDataProccessHandler<Void, Void, Integer>(this) {
             @Override
             public void onSuccess(Integer data) {
-                if(null == data || data == 0){
+                if (null == data || data == 0) {
                     new MaterialDialog.Builder(ExpExcelActivity.this)
                             .title(R.string.tip)
                             .content(R.string.exp_excel_error_tip_z)
@@ -169,7 +169,7 @@ public class ExpExcelActivity extends BaseActivity implements AppTitleBar.OnTitl
                             .show();
                     return;
                 }
-                if(data > 5000){
+                if (data > 5000) {
                     new MaterialDialog.Builder(ExpExcelActivity.this)
                             .title(R.string.tip)
                             .content(R.string.exp_excel_error_tip_m)
@@ -198,6 +198,37 @@ public class ExpExcelActivity extends BaseActivity implements AppTitleBar.OnTitl
     }
 
     private void save() {
+        if (isVIP()) {
+            saveExp();
+        }else {
+            //免费导出3条
+            SaDataProccessHandler<Void, Void, List<DiExpexcel>> dataVerHandler = new SaDataProccessHandler<Void, Void, List<DiExpexcel>>(this) {
+                @Override
+                public void onSuccess(List<DiExpexcel> data) {
+                    if (data.size() >= 3) {
+                        new MaterialDialog.Builder(ExpExcelActivity.this)
+                                .title(R.string.tip)
+                                .content(R.string.exp_excel_vip_down_tip)
+                                .positiveText(R.string.ok)
+                                .negativeText(R.string.cancel)
+                                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                        Intent intent = new Intent(ExpExcelActivity.this, VipInfoActivity.class);
+                                        startActivity(intent);
+                                    }
+                                })
+                                .show();
+                    }else{
+                        saveExp();
+                    }
+                }
+            };
+            ExpExcelService.getInstance().getMyExpExcelInfo(0, CommonConstants.PAGE_LENGTH_NUMBER, dataVerHandler);
+        }
+    }
+
+    private void saveExp() {
         //保存
         SaDataProccessHandler<Void, Void, Void> dataVerHandler = new SaDataProccessHandler<Void, Void, Void>(this) {
             @Override
@@ -220,7 +251,7 @@ public class ExpExcelActivity extends BaseActivity implements AppTitleBar.OnTitl
         ExpExcelService.getInstance().seveExpExcel(mDiExpexcel, dataVerHandler);
     }
 
-    private void showStartData(){
+    private void showStartData() {
         mStartTimeCalendar = Calendar.getInstance();
         DatePickerDialog pieStartdd = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 
@@ -234,7 +265,7 @@ public class ExpExcelActivity extends BaseActivity implements AppTitleBar.OnTitl
         pieStartdd.show();
     }
 
-    private void showEndData(){
+    private void showEndData() {
         mEndTimeCalendar = Calendar.getInstance();
         DatePickerDialog pieStartdd = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 
@@ -249,13 +280,13 @@ public class ExpExcelActivity extends BaseActivity implements AppTitleBar.OnTitl
     }
 
     private void showAccount() {
-        if(-1 == mDiExpexcel.getRole()){
+        if (-1 == mDiExpexcel.getRole()) {
             Toast.makeText(this, R.string.exp_excel_type_tip, Toast.LENGTH_SHORT).show();
             return;
         }
         List<DiAccount> accounts = DIAccountService.getInstance(this).findAll();
         List<String> accountStrs = new ArrayList<>();
-        for (DiAccount account:accounts) {
+        for (DiAccount account : accounts) {
             accountStrs.add(account.getName());
         }
         new MaterialDialog.Builder(this)
@@ -271,7 +302,7 @@ public class ExpExcelActivity extends BaseActivity implements AppTitleBar.OnTitl
                             accountId += account.getServerid() + ",";
                             accountName += account.getName() + ",";
                         }
-                        if(!CommonUtility.isEmpty(accountId)){
+                        if (!CommonUtility.isEmpty(accountId)) {
                             accountId = accountId.substring(0, accountId.length() - 1);
                             accountName = accountName.substring(0, accountName.length() - 1);
                         }
@@ -287,13 +318,13 @@ public class ExpExcelActivity extends BaseActivity implements AppTitleBar.OnTitl
     }
 
     private void showType() {
-        if(-1 == mDiExpexcel.getRole()){
+        if (-1 == mDiExpexcel.getRole()) {
             Toast.makeText(this, R.string.exp_excel_type_tip, Toast.LENGTH_SHORT).show();
             return;
         }
         List<DiType> types = DITypeService.getInstance(this).findAll(mDiExpexcel.getRole());
         List<String> typeStrs = new ArrayList<>();
-        for (DiType type:types) {
+        for (DiType type : types) {
             typeStrs.add(type.getName());
         }
         new MaterialDialog.Builder(this)
@@ -309,7 +340,7 @@ public class ExpExcelActivity extends BaseActivity implements AppTitleBar.OnTitl
                             typeId += type.getServerid() + ",";
                             typeName += type.getName() + ",";
                         }
-                        if(!CommonUtility.isEmpty(typeId)){
+                        if (!CommonUtility.isEmpty(typeId)) {
                             typeId = typeId.substring(0, typeId.length() - 1);
                             typeName = typeName.substring(0, typeName.length() - 1);
                         }
@@ -335,7 +366,7 @@ public class ExpExcelActivity extends BaseActivity implements AppTitleBar.OnTitl
                             mDiExpexcel.setRole(CommonConstants.INCOME_ROLE_ALL);
                         } else if (which == 1) {
                             mDiExpexcel.setRole(CommonConstants.INCOME_ROLE_PAYING);
-                        }else if (which == 2) {
+                        } else if (which == 2) {
                             mDiExpexcel.setRole(CommonConstants.INCOME_ROLE_INCOME);
                         }
                         mExpExcelRole.setText(text.toString());
@@ -349,7 +380,7 @@ public class ExpExcelActivity extends BaseActivity implements AppTitleBar.OnTitl
         SaDataProccessHandler<Void, Void, DiExpexcel> dataVerHandler = new SaDataProccessHandler<Void, Void, DiExpexcel>(this) {
             @Override
             public void onSuccess(DiExpexcel data) {
-                if(null != data && CommonConstants.STATUS_EXPDONE == data.getStatus()){
+                if (null != data && CommonConstants.STATUS_EXPDONE == data.getStatus()) {
                     new MaterialDialog.Builder(ExpExcelActivity.this)
                             .title(R.string.tip)
                             .content(R.string.exp_excel_done_tip)

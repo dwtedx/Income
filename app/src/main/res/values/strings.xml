@@ -442,6 +442,7 @@
     <string name="exp_excel_tip">注：导出结果以云服务器账单为准</string>
     <string name="exp_excel_create_time">导出时间</string>
     <string name="exp_excel_down_tip">是否要下载导出的Excel文件？</string>
+    <string name="exp_excel_vip_down_tip">免费导出3次已经用完，是否开通VIP继续导出？</string>
     <string-array name="exp_excel_role">
         <item>全部</item>
         <item>支出</item>
@@ -485,6 +486,7 @@
     <string name="vip_invite_ctratetime">邀请时间</string>
     <string name="vip_invite_rule">邀请规则</string>
     <string name="vip_invite_rule_detail">1.每成功邀请成功一个好友，即可获得30天VIP；\n2.每个用户邀请好友无上限，即可永久得VIP；\n3.被邀请者下载APP并使用手机号注册成功即算邀请成功；\n4.如果有多人同时邀请一人（同一个手机号），则只有最后一名邀请者有效；\n5.在法律允许范围内，DD记账保留邀请活动的最终解释权；</string>
+    <string name="vip_open_count">人已开通VIP</string>
 
     <string name="alipay_error_appid_rsa_private">支付宝配置APPID</string>
 
