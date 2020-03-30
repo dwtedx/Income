@@ -47,8 +47,11 @@
 
     <color name="bottom_bg">#AA000000</color>
 
-    <color name="ucrop_color_widget_active">#FF4081</color>
-    <color name="ucrop_color_active_controls_color">#FF4081</color>
-    <color name="ucrop_color_widget_rotate_mid_line">#FF4081</color>
+    <color name="ucrop_color_widget_active">#00AAEE</color>
+    <color name="ucrop_color_active_controls_color">#00AAEE</color>
+    <color name="ucrop_color_widget_rotate_mid_line">#00AAEE</color>
+    <color name="ucrop_color_widget_text">#00AAEE</color>
+    <!--<color name="ucrop_color_default_crop_frame">#737373</color>-->
+    <!--<color name="ucrop_color_default_crop_grid">#737373</color>-->
 
 </resources>

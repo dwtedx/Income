@@ -7,24 +7,22 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
-import com.bumptech.glide.request.target.ImageViewTarget;
-import com.bumptech.glide.request.transition.DrawableCrossFadeFactory;
-import com.dwtedx.income.R;
-import com.luck.picture.lib.engine.ImageEngine;
-import com.luck.picture.lib.listener.ImageCompleteCallback;
-import com.luck.picture.lib.tools.MediaUtils;
-import com.luck.picture.lib.widget.longimage.ImageSource;
-import com.luck.picture.lib.widget.longimage.ImageViewState;
-import com.luck.picture.lib.widget.longimage.SubsamplingScaleImageView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.bumptech.glide.request.target.ImageViewTarget;
+import com.dwtedx.income.R;
+import com.luck.picture.lib.engine.ImageEngine;
+import com.luck.picture.lib.listener.OnImageCompleteCallback;
+import com.luck.picture.lib.tools.MediaUtils;
+import com.luck.picture.lib.widget.longimage.ImageSource;
+import com.luck.picture.lib.widget.longimage.ImageViewState;
+import com.luck.picture.lib.widget.longimage.SubsamplingScaleImageView;
 
 /**
  * @author：luck
@@ -42,12 +40,8 @@ public class GlideEngine implements ImageEngine {
      */
     @Override
     public void loadImage(@NonNull Context context, @NonNull String url, @NonNull ImageView imageView) {
-        // * other https://www.jianshu.com/p/28f5bcee409f
-        DrawableCrossFadeFactory drawableCrossFadeFactory =
-                new DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build();
         Glide.with(context)
                 .load(url)
-                .transition(DrawableTransitionOptions.withCrossFade(drawableCrossFadeFactory))
                 .into(imageView);
     }
 
@@ -59,12 +53,12 @@ public class GlideEngine implements ImageEngine {
      * @param url
      * @param imageView
      * @param longImageView
-     * @param callback      网络图片加载回调监听
+     * @param callback      网络图片加载回调监听 {link after version 2.5.1 Please use the #OnImageCompleteCallback#}
      */
     @Override
     public void loadImage(@NonNull Context context, @NonNull String url,
                           @NonNull ImageView imageView,
-                          SubsamplingScaleImageView longImageView, ImageCompleteCallback callback) {
+                          SubsamplingScaleImageView longImageView, OnImageCompleteCallback callback) {
         Glide.with(context)
                 .asBitmap()
                 .load(url)
@@ -212,15 +206,11 @@ public class GlideEngine implements ImageEngine {
      */
     @Override
     public void loadGridImage(@NonNull Context context, @NonNull String url, @NonNull ImageView imageView) {
-        // * other https://www.jianshu.com/p/28f5bcee409f
-        DrawableCrossFadeFactory drawableCrossFadeFactory =
-                new DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build();
         Glide.with(context)
                 .load(url)
                 .override(200, 200)
                 .centerCrop()
                 .apply(new RequestOptions().placeholder(R.drawable.picture_image_placeholder))
-                .transition(DrawableTransitionOptions.withCrossFade(drawableCrossFadeFactory))
                 .into(imageView);
     }
 
