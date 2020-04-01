@@ -223,6 +223,7 @@
     <string name="profile_type_remark">备注</string>
     <string name="profile_type_remark_tip">请输入备注</string>
     <string name="profile_type_color_tip">类别使用图标预置颜色</string>
+    <string name="profile_type_add_tip">普通用户免费添加20个类别，是否开通VIP继续添加？</string>
 
     <!-- 账户相关 -->
     <string name="title_activity_add_account">添加账户</string>
@@ -475,6 +476,8 @@
     <string name="vip_user_model5_tip">查找账单更快捷</string>
     <string name="vip_user_model6">云SSD存储</string>
     <string name="vip_user_model6_tip">VIP会员享独立的云SSD存储，数据更安全</string>
+    <string name="vip_user_model7">自定义记账类别</string>
+    <string name="vip_user_model7_tip">VIP会员可无限制自定义记账类别，记账更安心</string>
     <string name="vip__user_vip_time">VIP过期时间：</string>
     <string name="vip_user_nvite_success">已邀请成功</string>
     <string name="vip_user_nvite_ing">正在邀请</string>

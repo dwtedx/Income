@@ -558,6 +558,52 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:padding="@dimen/common_margin_4dp"
+                    android:src="@mipmap/pay"
+                    android:tint="@color/common_body_tip_colors" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/common_margin_16dp"
+                    android:background="@color/common_color_white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/common_text_style_14_333333"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:text="@string/vip_user_model7" />
+
+                    <TextView
+                        style="@style/common_text_style_14_737373"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="@dimen/common_margin_4dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/vip_user_model7_tip"
+                        android:textSize="@dimen/common_text_size_12sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/common_color_white"
+                android:paddingStart="@dimen/common_margin_16dp"
+                android:paddingTop="@dimen/common_margin_8dp"
+                android:paddingEnd="@dimen/common_margin_16dp"
+                android:paddingBottom="@dimen/common_margin_8dp">
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:padding="@dimen/common_margin_4dp"
                     android:src="@drawable/ic_report_black_24dp"
                     android:tint="@color/common_body_tip_colors" />
 
@@ -604,52 +650,6 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:padding="@dimen/common_margin_4dp"
-                    android:src="@drawable/ic_search_black_24dp"
-                    android:tint="@color/common_body_tip_colors" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/common_margin_16dp"
-                    android:background="@color/common_color_white"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/common_text_style_14_333333"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
-                        android:text="@string/vip_user_model5" />
-
-                    <TextView
-                        style="@style/common_text_style_14_737373"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginTop="@dimen/common_margin_4dp"
-                        android:gravity="center_vertical"
-                        android:text="@string/vip_user_model5_tip"
-                        android:textSize="@dimen/common_text_size_12sp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/common_color_white"
-                android:paddingStart="@dimen/common_margin_16dp"
-                android:paddingTop="@dimen/common_margin_8dp"
-                android:paddingEnd="@dimen/common_margin_16dp"
-                android:paddingBottom="@dimen/common_margin_8dp">
-
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:padding="@dimen/common_margin_4dp"
                     android:src="@drawable/ic_domain_black_24dp"
                     android:tint="@color/common_body_tip_colors" />
 
@@ -677,6 +677,52 @@
                         android:layout_marginTop="@dimen/common_margin_4dp"
                         android:gravity="center_vertical"
                         android:text="@string/vip_user_model6_tip"
+                        android:textSize="@dimen/common_text_size_12sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/common_color_white"
+                android:paddingStart="@dimen/common_margin_16dp"
+                android:paddingTop="@dimen/common_margin_8dp"
+                android:paddingEnd="@dimen/common_margin_16dp"
+                android:paddingBottom="@dimen/common_margin_8dp">
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:padding="@dimen/common_margin_4dp"
+                    android:src="@drawable/ic_search_black_24dp"
+                    android:tint="@color/common_body_tip_colors" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/common_margin_16dp"
+                    android:background="@color/common_color_white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/common_text_style_14_333333"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:text="@string/vip_user_model5" />
+
+                    <TextView
+                        style="@style/common_text_style_14_737373"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="@dimen/common_margin_4dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/vip_user_model5_tip"
                         android:textSize="@dimen/common_text_size_12sp" />
 
                 </LinearLayout>

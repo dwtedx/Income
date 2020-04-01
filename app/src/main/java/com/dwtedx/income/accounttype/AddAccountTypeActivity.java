@@ -4,6 +4,13 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.ColorInt;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.dwtedx.income.connect.SaException;
+import com.dwtedx.income.expexcel.ExpExcelActivity;
+import com.dwtedx.income.profile.SetupActivity;
+import com.dwtedx.income.vip.VipInfoActivity;
 import com.google.android.material.snackbar.Snackbar;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,6 +33,9 @@ import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.utility.CommonUtility;
 import com.dwtedx.income.widget.AppTitleBar;
 
+import java.util.List;
+
+import androidx.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -152,6 +162,38 @@ public class AddAccountTypeActivity extends BaseActivity implements OnClickListe
     }
 
     private void addType() {
+        if (isVIP()) {
+            addTypeSave();
+        }else {
+            SaDataProccessHandler<Void, Void, List<DiType>> dataVerHandler = new
+                    SaDataProccessHandler<Void, Void, List<DiType>>(AddAccountTypeActivity.this) {
+                        @Override
+                        public void onSuccess(List<DiType> data) {
+                            if (data.size() >= 20) {
+                                new MaterialDialog.Builder(AddAccountTypeActivity.this)
+                                        .title(R.string.tip)
+                                        .content(R.string.profile_type_add_tip)
+                                        .positiveText(R.string.ok)
+                                        .negativeText(R.string.cancel)
+                                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                            @Override
+                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                Intent intent = new Intent(AddAccountTypeActivity.this, VipInfoActivity.class);
+                                                startActivity(intent);
+                                            }
+                                        })
+                                        .show();
+                            }else{
+                                addTypeSave();
+                            }
+                        }
+                    };
+            IncomeService.getInstance().typeCynchronizeSingleList(dataVerHandler);
+        }
+    }
+
+    private void addTypeSave() {
+
         final DiType diType = new DiType(ApplicationData.mDiUserInfo.getName(), ApplicationData.mDiUserInfo.getId(), mTypeName.getText().toString(),
                 mIncomeRole, mTypeImage, mSelectedColor, 100, mTypeRemark.getText().toString(), CommonUtility.getCurrentTime(),
                 CommonUtility.getCurrentTime(), 0, CommonConstants.DELETEFALAG_NOTDELETE);
