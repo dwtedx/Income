@@ -42,6 +42,7 @@
 -keep public class com.dwtedx.income.entity.
 -keep public class com.dwtedx.income.entity.** { *; }
 -keep public class com.dwtedx.income.push.IncomeUmengNotifyActivity {*;}
+-keep public class com.dwtedx.income.alipay.** { *; }
 
 -keepclasseswithmembernames class * {
     native <methods>;
@@ -115,6 +116,15 @@
 -keep interface mtopsdk.mtop.global.init.IMtopInitTask {*;}
 -keep class * implements mtopsdk.mtop.global.init.IMtopInitTask {*;}
 #taobao end
+
+#alipay pay
+-keep class com.alipay.android.app.IAlixPay{*;}
+-keep class com.alipay.android.app.IAlixPay$Stub{*;}
+-keep class com.alipay.android.app.IRemoteServiceCallback{*;}
+-keep class com.alipay.android.app.IRemoteServiceCallback$Stub{*;}
+-keep class com.alipay.sdk.app.PayTask{ public *;}
+-keep class com.alipay.sdk.app.AuthTask{ public *;}
+#alipay pay end
 
 #umeng tongji
 -keep class com.umeng.** {*;}
