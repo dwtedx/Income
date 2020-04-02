@@ -68,7 +68,7 @@
     <string name="rmb">￥</string>
     <string name="home_network_tip">当前设备网络异常，是否前往设置？</string>
     <string name="home_scan_error_tip">扫单初始化失败，请检查网络环境后再重试</string>
-    <string name="copyright">&#169; COPYRIGHT 2015&#8211;2019.SHINYUU ALL RIGHTS RESERVED.</string>
+    <string name="copyright">&#169; COPYRIGHT 2015&#8211;2020.SHINYUU ALL RIGHTS RESERVED.</string>
     <string name="home_record_quick">快速记账</string>
     <string name="home_record_scan">扫描小票</string>
     <string name="home_record_scan_beta">Beta</string>
