@@ -140,7 +140,7 @@
     <string name="action_login_tis">社交帐号直接登录DD记账</string>
 
     <!-- 更新 -->
-    <string name="insert_card">插入卡</string>
+    <string name="insert_card">下载文件失败，请检查权限或从应用市场更新</string>
     <string name="down_fail">下载失败</string>
     <string name="is_downing">正在下载</string>
     <string name="down_sucess">下载成功，点击安装！</string>
