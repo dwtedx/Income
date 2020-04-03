@@ -170,7 +170,9 @@
     <string name="message_recommendation">意见反馈</string>
     <string name="share_app">分享App</string>
     <string name="share_text">分享</string>
-    <string name="about_me">关于我</string>
+    <string name="about_me">关于我们</string>
+    <string name="contact_me">联系我们</string>
+    <string name="contact_me_weixin">微信号:dwtedx</string>
     <string name="profile_login">请登录</string>
     <string name="profile_login_sess">登录成功</string>
     <string name="profile_login_out">退出当前帐号</string>
