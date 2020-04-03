@@ -205,7 +205,7 @@ public class ExpExcelActivity extends BaseActivity implements AppTitleBar.OnTitl
             SaDataProccessHandler<Void, Void, List<DiExpexcel>> dataVerHandler = new SaDataProccessHandler<Void, Void, List<DiExpexcel>>(this) {
                 @Override
                 public void onSuccess(List<DiExpexcel> data) {
-                    if (data.size() >= 3) {
+                    if (data.size() >= 5) {
                         new MaterialDialog.Builder(ExpExcelActivity.this)
                                 .title(R.string.tip)
                                 .content(R.string.exp_excel_vip_down_tip)

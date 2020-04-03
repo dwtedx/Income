@@ -401,7 +401,7 @@ public class HomeV3Activity extends BaseActivity implements ViewPager.OnPageChan
                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                             //NEGATIVE   POSITIVE
                             if (which.name().equals("POSITIVE")) {
-                                HomePrivacySharedPreferences.setIsTip(UpdateService.getAPKVersionCode(HomeV3Activity.this));
+                                HomePrivacySharedPreferences.setIsTip(false);
                             }
                         }
                     })

@@ -24,32 +24,21 @@ public class HomePrivacySharedPreferences {
 	}
 	
 	public static void clear() {
-		// Retrieve an editor to modify the shared preferences.
 		SharedPreferences.Editor editor = mSettingPreferences.edit();
 		editor.putString(HOME_PRIVACY_PREFERENCES, null);
-		// Commit changes.
 		editor.commit();
 	}
 
 	@SuppressLint("NewApi")
 	public static boolean getIsTip() {
-		int code = UpdateService.getAPKVersionCode(mContext);
-		int cacheCode = mSettingPreferences.getInt(HOME_PRIVACY_PREFERENCES, 0);
-		if(0 == cacheCode){
-			return true;
-		}
-		if(code != cacheCode){
-			return true;
-		}
-		return false;
+		boolean isTip = mSettingPreferences.getBoolean(HOME_PRIVACY_PREFERENCES, true);
+		return isTip;
 	}
 
 	@SuppressLint("NewApi")
-	public static void setIsTip(int versionCode) {
-		// Retrieve an editor to modify the shared preferences.
+	public static void setIsTip(boolean isTip) {
 		SharedPreferences.Editor editor = mSettingPreferences.edit();
-		editor.putInt(HOME_PRIVACY_PREFERENCES, versionCode);
-		// Commit changes.
+		editor.putBoolean(HOME_PRIVACY_PREFERENCES, isTip);
 		editor.commit();
 	}
 	

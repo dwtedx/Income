@@ -443,7 +443,7 @@
     <string name="exp_excel_tip">注：导出结果以云服务器账单为准</string>
     <string name="exp_excel_create_time">导出时间</string>
     <string name="exp_excel_down_tip">是否要下载导出的Excel文件？</string>
-    <string name="exp_excel_vip_down_tip">免费导出3次已经用完，是否开通VIP继续导出？</string>
+    <string name="exp_excel_vip_down_tip">免费导出5次已经用完，是否开通VIP继续导出？</string>
     <string-array name="exp_excel_role">
         <item>全部</item>
         <item>支出</item>
