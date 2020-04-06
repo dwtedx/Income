@@ -9,7 +9,7 @@ import com.dwtedx.income.updateapp.UpdateService;
 
 public class HomePrivacySharedPreferences {
 	
-	private static final String HOME_PRIVACY_PREFERENCES = "home_privacy_preferences";
+	private static final String HOME_PRIVACY_PREFERENCES = "home_privacy_bool_preferences";
 
 	private static SharedPreferences mSettingPreferences;
 	private static Context mContext;
