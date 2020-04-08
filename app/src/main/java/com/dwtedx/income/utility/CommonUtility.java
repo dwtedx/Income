@@ -25,7 +25,9 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Environment;
 import android.os.SystemClock;
+
 import androidx.core.widget.NestedScrollView;
+
 import android.telephony.TelephonyManager;
 import android.text.Layout;
 import android.text.StaticLayout;
@@ -728,9 +730,8 @@ public class CommonUtility {
         BigDecimal b = new BigDecimal(mdouble);
         double dNum = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         //后面为0社区
-        if(Math.round(dNum) - dNum == 0)
-        {
-            return String.valueOf((long)dNum);
+        if (Math.round(dNum) - dNum == 0) {
+            return String.valueOf((long) dNum);
         }
         return String.valueOf(dNum);
     }
@@ -747,6 +748,7 @@ public class CommonUtility {
 
     /**
      * 是否为数字和小数点
+     *
      * @param str
      * @return
      */
@@ -761,17 +763,15 @@ public class CommonUtility {
 
     /**
      * 过滤非数字和小数点
+     *
      * @param str
      * @return
      */
-    public static String getNumericPoints(String str)
-    {
+    public static String getNumericPoints(String str) {
         char[] charArr = str.toCharArray();
         String result = "";
-        for (int i = 0; i < charArr.length; i++)
-        {
-            if (("0123456789.").indexOf(charArr[i] + "") != -1)
-            {
+        for (int i = 0; i < charArr.length; i++) {
+            if (("0123456789.").indexOf(charArr[i] + "") != -1) {
                 result += charArr[i];
             }
         }
@@ -890,14 +890,12 @@ public class CommonUtility {
 
     //方法二
     //java中double类型如果小数点后为零显示整数，否则保留
-    public static String doubleTrans(double num)
-    {
+    public static String doubleTrans(double num) {
         BigDecimal b = new BigDecimal(num);
         double dNum = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         //后面为0社区
-        if(Math.round(dNum) - dNum == 0)
-        {
-            return String.valueOf((long)dNum);
+        if (Math.round(dNum) - dNum == 0) {
+            return String.valueOf((long) dNum);
         }
         return String.valueOf(dNum);
     }
@@ -1157,7 +1155,7 @@ public class CommonUtility {
     /**
      * 获取运行时间
      *
-     * @return 运行时间(单位/s)
+     * @return 运行时间(单位 / s)
      */
     public static long getRunTimes() {
         long ut = SystemClock.elapsedRealtime() / 1000;
@@ -1731,18 +1729,23 @@ public class CommonUtility {
      * @return
      */
     public static int getImageIdByName(Context ctx, String name) {
-        if(isEmpty(name)){
+        try {
+            if (isEmpty(name)) {
+                return 0;
+            }
+            if (name.indexOf(".") != -1) {
+                name = name.substring(0, name.lastIndexOf("."));
+            }
+            int resId = ctx.getResources().getIdentifier(name, "mipmap", ctx.getPackageName());
+            //如果没有在"mipmap"下找到imageName,将会返回0
+            if (0 == resId) {
+                resId = ctx.getResources().getIdentifier(name, "drawable", ctx.getPackageName());
+            }
+            return resId;
+        } catch (Exception e) {
+            e.printStackTrace();
             return 0;
         }
-        if (name.indexOf(".") != -1) {
-            name = name.substring(0, name.lastIndexOf("."));
-        }
-        int resId = ctx.getResources().getIdentifier(name, "mipmap", ctx.getPackageName());
-        //如果没有在"mipmap"下找到imageName,将会返回0
-        if(0 == resId){
-            resId = ctx.getResources().getIdentifier(name, "drawable", ctx.getPackageName());
-        }
-        return resId;
     }
 
     /**
@@ -1782,11 +1785,12 @@ public class CommonUtility {
 
     /**
      * 判断该字符串是否为字母和数字
+     *
      * @param str
      * @return
      */
-    public static boolean isNumericOrABC(String str){
-        String regEx="[A-Z,a-z,0-9,-]*";
+    public static boolean isNumericOrABC(String str) {
+        String regEx = "[A-Z,a-z,0-9,-]*";
         Pattern pattern = Pattern.compile(regEx);
         return pattern.matcher(str).matches();
     }
