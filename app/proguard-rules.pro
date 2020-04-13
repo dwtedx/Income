@@ -71,8 +71,8 @@
 
 # adding this in to preserve line numbers so that the stack traces
 # can be remapped
--renamesourcefileattribute SourceFile
--keepattributes SourceFile,LineNumberTable
+#-renamesourcefileattribute SourceFile
+#-keepattributes SourceFile,LineNumberTable
 
 #AVLoadingIndicatorView
 -keep class com.wang.avi.** { *; }

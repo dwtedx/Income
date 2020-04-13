@@ -146,6 +146,7 @@ public class VipInfoActivity extends BaseActivity implements View.OnClickListene
         mPayAccount = 18.8;
         mMonths = 3;
 
+        mTitleBackBtn.setOnClickListener(this);
         mVipMonth1View.setOnClickListener(this);
         mVipMonth3View.setOnClickListener(this);
         mVipMonth12View.setOnClickListener(this);

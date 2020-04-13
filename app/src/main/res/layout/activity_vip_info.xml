@@ -115,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/common_margin_16dp"
                     android:background="@drawable/vip_users_gray_line_shape"
-                    android:text="358人已开通VIP"
+                    android:text="0人已开通VIP"
                     android:textSize="@dimen/common_text_size_12sp" />
 
             </RelativeLayout>
