@@ -213,7 +213,9 @@ public class TopicDetailActivity extends BaseActivity implements AppTitleBar.OnT
             mAppTitle.setRightVisibility(View.VISIBLE);
         }
         mAllLayoutView.setVisibility(View.VISIBLE);
-        TopicImageLoader.loadImageUser(mImageView.getContext(), mDiTopic.getUserpath(), mUserImageView);
+        if(isForeground()) {
+            TopicImageLoader.loadImageUser(mImageView.getContext(), mDiTopic.getUserpath(), mUserImageView);
+        }
         mUserNameView.setText(mDiTopic.getUsername());
         mTimeView.setText(RelativeDateFormat.format(mDiTopic.getCreatetimestr()));
         mItemDescView.setText(mDiTopic.getDescription());
@@ -269,7 +271,9 @@ public class TopicDetailActivity extends BaseActivity implements AppTitleBar.OnT
                         mImageView.setLayoutParams(para);
 
                     }
-                    TopicImageLoader.loadImage(mImageView.getContext(), mDiTopic.getTopicimg().get(0), mImageView);
+                    if(isForeground()) {
+                        TopicImageLoader.loadImage(mImageView.getContext(), mDiTopic.getTopicimg().get(0), mImageView);
+                    }
                     break;
 
                 case 4:
