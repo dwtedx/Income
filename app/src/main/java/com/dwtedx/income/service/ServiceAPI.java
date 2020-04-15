@@ -104,6 +104,8 @@ public class ServiceAPI {
     public static String WEB_API_VIPINVITE_FIND = WEB_API_DOMAIN + "/vipinvite/find";
     public static String WEB_API_VIPINFO_VIPCOUNT = WEB_API_DOMAIN + "/vipinfo/vipcount";
 
+    public static String WEB_API_REPORT_SAVE = WEB_API_DOMAIN + "/report/save";
+
     /**
      * @return void    返回类型
      * @throws

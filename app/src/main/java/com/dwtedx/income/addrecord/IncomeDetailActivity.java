@@ -85,67 +85,70 @@ public class IncomeDetailActivity extends BaseActivity implements RecordKeyboard
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_income_detail);
-        mAppTitleBar = (AppTitleBar) findViewById(R.id.app_title);
-        mAppTitleBar.setOnTitleClickListener(this);
 
         try {
+            mAppTitleBar = (AppTitleBar) findViewById(R.id.app_title);
+            mAppTitleBar.setOnTitleClickListener(this);
+
             mIncome = ParseJsonToObject.getObject(DiIncome.class, new JSONObject(getIntent().getStringExtra("income")));
+
+            if(null == mIncome){
+                Toast.makeText(getApplicationContext(), "账目异常，请检查后重试", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+
+            mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+            mRecordAccountEditText = (TextView) findViewById(R.id.record_account);
+            mRecordAccountEditText.setText(CommonUtility.doubleFormat(mIncome.getMoneysum()));
+            mRecordAccountCount = (TextView) findViewById(R.id.record_account_count);
+            mRecordKeyboardView = (RecordKeyboardView) findViewById(R.id.record_keyboard_view);
+            mRecordKeyboardView.setRecordAccountTextView(mRecordAccountEditText, mRecordAccountCount);
+            mRecordKeyboardView.setmIsC(true);
+            mRecordKeyboardView.setOnKeyboardClickListener(this);
+
+            mDiTypeList = DITypeService.getInstance(this).findAll(mIncome.getRole());
+            mCheckImageView = (ImageView) findViewById(R.id.imageView);
+            mCheckImageView.setImageResource(CommonUtility.getImageIdByName(this, DITypeService.getInstance(this).find(mIncome.getTypeid()).getIcon()));
+            mCheckTextView = (TextView) findViewById(R.id.textView);
+            mCheckTextView.setText(mIncome.getType());
+            mCheckTypeId = mIncome.getTypeid();
+
+
+            AccountSharedPreferences.init(this);
+            mRecordKeyboardView.getMrCeditCard().setText(mIncome.getAccount());
+            mAccountID = mIncome.getAccountid();
+
+            mCalendar = Calendar.getInstance();
+            mCalendar.setTime(CommonUtility.stringToDate(mIncome.getRecordtime()));
+            mRecordKeyboardView.getmRecordTime().setText(CommonUtility.stringDateFormartMMdd(mCalendar.getTime()));
+
+            mRecordRemarkStr = mIncome.getRemark();
+
+            mRecyclerView.setHasFixedSize(true);//如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
+            mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(getSpanCount(), StaggeredGridLayoutManager.VERTICAL));//设置RecyclerView的布局管理
+            //mRecyclerView.addItemDecoration();//设置RecyclerView中item的分割线，用的少，一般都用在item中设置margin分隔两个item
+            mRecyclerView.setItemAnimator(new DefaultItemAnimator());//设置item的添加删除动画，采用默认的动画效果
+            adapter = new IncomeDetailRecyclerViewAdatper(this, mDiTypeList);
+            mRecyclerView.setAdapter(adapter);//设置Adapter
+            adapter.setOnItemClickListener(new IncomeDetailRecyclerViewAdatper.OnItemClickListener() {//添加监听器
+                @Override
+                public void onItemClick(View view, int postion) {
+                    mCheckImageView.setImageResource(CommonUtility.getImageIdByName(IncomeDetailActivity.this, mDiTypeList.get(postion).getIcon()));
+                    mCheckImageView.setAnimation(AnimationUtils.loadAnimation(IncomeDetailActivity.this, android.R.anim.fade_in));
+                    mCheckTextView.setText(mDiTypeList.get(postion).getName());
+                    mCheckTextView.setAnimation(AnimationUtils.loadAnimation(IncomeDetailActivity.this, android.R.anim.fade_in));
+                    mCheckTypeId = mDiTypeList.get(postion).getId();
+                }
+
+                @Override
+                public void onItemLongClick(View view, int postion) {
+                    //Toast.makeText(getContext(), "长按的是：" + postion, Toast.LENGTH_SHORT).show();
+                }
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if(null == mIncome){
-            Toast.makeText(getApplicationContext(), "账目异常，请检查后重试", Toast.LENGTH_SHORT).show();
-            finish();
-        }
-
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mRecordAccountEditText = (TextView) findViewById(R.id.record_account);
-        mRecordAccountEditText.setText(CommonUtility.doubleFormat(mIncome.getMoneysum()));
-        mRecordAccountCount = (TextView) findViewById(R.id.record_account_count);
-        mRecordKeyboardView = (RecordKeyboardView) findViewById(R.id.record_keyboard_view);
-        mRecordKeyboardView.setRecordAccountTextView(mRecordAccountEditText, mRecordAccountCount);
-        mRecordKeyboardView.setmIsC(true);
-        mRecordKeyboardView.setOnKeyboardClickListener(this);
-
-        mDiTypeList = DITypeService.getInstance(this).findAll(mIncome.getRole());
-        mCheckImageView = (ImageView) findViewById(R.id.imageView);
-        mCheckImageView.setImageResource(CommonUtility.getImageIdByName(this, DITypeService.getInstance(this).find(mIncome.getTypeid()).getIcon()));
-        mCheckTextView = (TextView) findViewById(R.id.textView);
-        mCheckTextView.setText(mIncome.getType());
-        mCheckTypeId = mIncome.getTypeid();
-
-
-        AccountSharedPreferences.init(this);
-        mRecordKeyboardView.getMrCeditCard().setText(mIncome.getAccount());
-        mAccountID = mIncome.getAccountid();
-
-        mCalendar = Calendar.getInstance();
-        mCalendar.setTime(CommonUtility.stringToDate(mIncome.getRecordtime()));
-        mRecordKeyboardView.getmRecordTime().setText(CommonUtility.stringDateFormartMMdd(mCalendar.getTime()));
-
-        mRecordRemarkStr = mIncome.getRemark();
-
-        mRecyclerView.setHasFixedSize(true);//如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
-        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(getSpanCount(), StaggeredGridLayoutManager.VERTICAL));//设置RecyclerView的布局管理
-        //mRecyclerView.addItemDecoration();//设置RecyclerView中item的分割线，用的少，一般都用在item中设置margin分隔两个item
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());//设置item的添加删除动画，采用默认的动画效果
-        adapter = new IncomeDetailRecyclerViewAdatper(this, mDiTypeList);
-        mRecyclerView.setAdapter(adapter);//设置Adapter
-        adapter.setOnItemClickListener(new IncomeDetailRecyclerViewAdatper.OnItemClickListener() {//添加监听器
-            @Override
-            public void onItemClick(View view, int postion) {
-                mCheckImageView.setImageResource(CommonUtility.getImageIdByName(IncomeDetailActivity.this, mDiTypeList.get(postion).getIcon()));
-                mCheckImageView.setAnimation(AnimationUtils.loadAnimation(IncomeDetailActivity.this, android.R.anim.fade_in));
-                mCheckTextView.setText(mDiTypeList.get(postion).getName());
-                mCheckTextView.setAnimation(AnimationUtils.loadAnimation(IncomeDetailActivity.this, android.R.anim.fade_in));
-                mCheckTypeId = mDiTypeList.get(postion).getId();
-            }
-
-            @Override
-            public void onItemLongClick(View view, int postion) {
-                //Toast.makeText(getContext(), "长按的是：" + postion, Toast.LENGTH_SHORT).show();
-            }
-        });
 
     }
 

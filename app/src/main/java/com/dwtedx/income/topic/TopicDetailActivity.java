@@ -3,11 +3,13 @@ package com.dwtedx.income.topic;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Base64;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +30,7 @@ import com.dwtedx.income.entity.ApplicationData;
 import com.dwtedx.income.entity.DiTopic;
 import com.dwtedx.income.entity.DiTopictalk;
 import com.dwtedx.income.profile.LoginV2Activity;
+import com.dwtedx.income.service.ReportService;
 import com.dwtedx.income.service.TopicService;
 import com.dwtedx.income.topic.adapter.TopicImgRecyclerAdapter;
 import com.dwtedx.income.topic.adapter.TopicTalkRecyclerAdapter;
@@ -48,7 +51,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class TopicDetailActivity extends BaseActivity implements AppTitleBar.OnTitleClickListener{
+public class TopicDetailActivity extends BaseActivity implements AppTitleBar.OnTitleClickListener {
 
     @BindView(R.id.m_app_title)
     AppTitleBar mAppTitle;
@@ -112,6 +115,8 @@ public class TopicDetailActivity extends BaseActivity implements AppTitleBar.OnT
     LinearLayout mItemWxfavoriteShareLayoutView;
     @BindView(R.id.m_item_sms_share_layout_view)
     LinearLayout mItemSmsShareLayoutView;
+    @BindView(R.id.m_item_report_view)
+    TextView mItemReportView;
 
     private int mTopicId;
     private DiTopic mDiTopic;
@@ -204,7 +209,7 @@ public class TopicDetailActivity extends BaseActivity implements AppTitleBar.OnT
 
     private void init() {
         //删除按钮
-        if(isLogin() && ApplicationData.mDiUserInfo.getId() == mDiTopic.getUserid()){
+        if (isLogin() && ApplicationData.mDiUserInfo.getId() == mDiTopic.getUserid()) {
             mAppTitle.setRightVisibility(View.VISIBLE);
         }
         mAllLayoutView.setVisibility(View.VISIBLE);
@@ -377,6 +382,7 @@ public class TopicDetailActivity extends BaseActivity implements AppTitleBar.OnT
         mItemQzoneShareLayoutView.setOnClickListener(onClickListener);
         mItemAlipayShareLayoutView.setOnClickListener(onClickListener);
         mItemSmsShareLayoutView.setOnClickListener(onClickListener);
+        mItemReportView.setOnClickListener(onClickListener);
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -422,9 +428,29 @@ public class TopicDetailActivity extends BaseActivity implements AppTitleBar.OnT
                 case R.id.m_item_sms_share_layout_view:
                     openShare(SHARE_MEDIA.SMS);
                     break;
+
+                case R.id.m_item_report_view:
+                    //举报
+                    report();
+                    break;
             }
         }
     };
+
+    private void report() {
+        if (null == ApplicationData.mDiUserInfo || ApplicationData.mDiUserInfo.getId() == 0) {
+            Toast.makeText(TopicDetailActivity.this, "举报需要先登录哦", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(TopicDetailActivity.this, LoginV2Activity.class));
+            return;
+        }
+        SaDataProccessHandler<Void, Void, Void> dataVerHandler = new SaDataProccessHandler<Void, Void, Void>(TopicDetailActivity.this) {
+            @Override
+            public void onSuccess(Void dataVode) {
+                Toast.makeText(TopicDetailActivity.this, "举报成功，请等待管理员复查", Toast.LENGTH_SHORT).show();
+            }
+        };
+        ReportService.getInstance().saveReport(mDiTopic.getId(), dataVerHandler);
+    }
 
     private void topicLiked(View v) {
         if (null == ApplicationData.mDiUserInfo || ApplicationData.mDiUserInfo.getId() == 0) {
@@ -483,7 +509,7 @@ public class TopicDetailActivity extends BaseActivity implements AppTitleBar.OnT
         //System.out.println("解密" + decode);
 
         String desc = mDiTopic.getDescription();
-        if(mDiTopic.getDescription().length() > 17){
+        if (mDiTopic.getDescription().length() > 17) {
             desc = mDiTopic.getDescription().substring(0, 17) + "...";
         }
 
@@ -519,14 +545,15 @@ public class TopicDetailActivity extends BaseActivity implements AppTitleBar.OnT
         }
     };
 
-    private void saveShare(SHARE_MEDIA share_media){
+    private void saveShare(SHARE_MEDIA share_media) {
         int userid = 0;
-        if(null != ApplicationData.mDiUserInfo && ApplicationData.mDiUserInfo.getId() > 0){
+        if (null != ApplicationData.mDiUserInfo && ApplicationData.mDiUserInfo.getId() > 0) {
             userid = ApplicationData.mDiUserInfo.getId();
         }
         SaDataProccessHandler<Void, Void, Void> dataVerHandler = new SaDataProccessHandler<Void, Void, Void>(TopicDetailActivity.this) {
             @Override
-            public void onSuccess(Void dataVode) { }
+            public void onSuccess(Void dataVode) {
+            }
         };
         TopicService.getInstance().topicShare(mTopicId, userid, share_media.getName(), dataVerHandler);
     }

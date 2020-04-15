@@ -420,6 +420,7 @@
     <string name="topic_detail_delete_tip">删除成功</string>
     <string name="topic_detail_delete_confirm_tip">确定要删除此话题吗？</string>
     <string name="topic_picture_tip">图片路径异常，请稍后重试？</string>
+    <string name="topic_report_tip">举报</string>
 
     <string name="exp_excel_title">账单导出</string>
     <string name="exp_excel_right_title">历史</string>

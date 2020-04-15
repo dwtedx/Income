@@ -436,6 +436,35 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/common_margin_16dp"
+                    android:paddingLeft="@dimen/common_margin_16dp"
+                    android:paddingRight="@dimen/common_margin_16dp"
+                    android:paddingStart="@dimen/common_margin_16dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="@dimen/common_margin_8dp"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/m_item_report_view"
+                            style="@style/common_text_style_14_737373"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_topic_report_black"
+                            android:drawablePadding="@dimen/common_margin_4dp"
+                            android:drawableStart="@drawable/ic_topic_report_black"
+                            android:text="@string/topic_report_tip"
+                            android:textSize="@dimen/common_text_size_12sp"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+
                 <LinearLayout style="@style/common_horizontal_division_line_style" />
 
             </LinearLayout>
