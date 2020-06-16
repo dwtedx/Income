@@ -269,7 +269,6 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
                             .setPictureStyle(mPictureParameterStyle)// 动态自定义相册主题
                             .setPictureCropStyle(mCropParameterStyle)// 动态自定义裁剪主题
                             .setPictureWindowAnimationStyle(new PictureWindowAnimationStyle(R.anim.activity_slide_in, R.anim.activity_slide_out))// 自定义相册启动退出动画
-                            .setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)// 设置相册Activity方向，不设置默认使用系统
                             .isNotPreviewDownload(true)// 预览图片长按是否可以下载
                             .loadImageEngine(GlideEngine.createGlideEngine())// 外部传入图片加载引擎，必传项
                             .openExternalPreview(position, mLocalMediaList);
@@ -407,7 +406,7 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
         // 进入相册 以下是例子：用不到的api可以不写
         PictureSelector.create(AddTopicActivity.this)
                 .openGallery(PictureMimeType.ofImage())//全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
-                .loadImageEngine(GlideEngine.createGlideEngine())// 外部传入图片加载引擎，必传项
+                .imageEngine(GlideEngine.createGlideEngine())// 外部传入图片加载引擎，必传项
                 .isWeChatStyle(true)// 是否开启微信图片选择风格
                 .setPictureWindowAnimationStyle(new PictureWindowAnimationStyle(R.anim.activity_slide_in, R.anim.activity_slide_out))// 自定义相册启动退出动画
                 .setPictureStyle(mPictureParameterStyle)// 动态自定义相册主题
@@ -415,13 +414,12 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
                 .maxSelectNum(9)// 最大图片选择数量 int
                 .minSelectNum(1)// 最小选择数量 int
                 .imageSpanCount(4)// 每行显示个数 int
-                .setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)// 设置相册Activity方向，不设置默认使用系统
                 .selectionMode(PictureConfig.MULTIPLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
-                .previewImage(true)// 是否可预览图片 true or false
+                .isPreviewImage(true)// 是否可预览图片 true or false
                 .isCamera(true)// 是否显示拍照按钮 true or false
                 .isZoomAnim(true)// 图片列表点击 缩放效果 默认true
-                .enableCrop(false)// 是否裁剪 true or false
-                .compress(true)// 是否压缩 true or false
+                .isEnableCrop(false)// 是否裁剪 true or false
+                .isCompress(true)// 是否压缩 true or false
                 .withAspectRatio(1, 1)// int 裁剪比例 如16:9 3:2 3:4 1:1 可自定义
                 .hideBottomControls(false)// 是否显示uCrop工具栏，默认不显示 true or false
                 .isGif(true)// 是否显示gif图片 true or false
@@ -429,9 +427,9 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
                 .circleDimmedLayer(false)// 是否圆形裁剪 true or false
                 .showCropFrame(true)// 是否显示裁剪矩形边框 圆形裁剪时建议设为false   true or false
                 .showCropGrid(false)// 是否显示裁剪矩形网格 圆形裁剪时建议设为false    true or false
-                .openClickSound(false)// 是否开启点击声音 true or false
-                .selectionMedia(mLocalMediaList)// 是否传入已选图片 List<LocalMedia> list
-                .previewEggs(true)// 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中) true or false
+                .isOpenClickSound(false)// 是否开启点击声音 true or false
+                .selectionData(mLocalMediaList)// 是否传入已选图片 List<LocalMedia> list
+                .isPreviewEggs(true)// 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中) true or false
                 .minimumCompressSize(300)// 小于100kb的图片不压缩
                 .rotateEnabled(true) // 裁剪是否可旋转图片 true or false
                 .scaleEnabled(true)// 裁剪是否可放大缩小图片 true or false

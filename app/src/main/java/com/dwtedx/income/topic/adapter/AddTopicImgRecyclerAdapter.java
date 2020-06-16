@@ -174,8 +174,7 @@ public class AddTopicImgRecyclerAdapter extends RecyclerView.Adapter<AddTopicImg
             }
 
             long duration = media.getDuration();
-            viewHolder.tvDuration.setVisibility(PictureMimeType.eqVideo(media.getMimeType())
-                    ? View.VISIBLE : View.GONE);
+            viewHolder.tvDuration.setVisibility(PictureMimeType.isHasVideo(media.getMimeType()) ? View.VISIBLE : View.GONE);
             if (chooseModel == PictureMimeType.ofAudio()) {
                 viewHolder.tvDuration.setVisibility(View.VISIBLE);
                 viewHolder.tvDuration.setCompoundDrawablesRelativeWithIntrinsicBounds

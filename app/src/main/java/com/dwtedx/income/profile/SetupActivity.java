@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 
 import com.dwtedx.income.home.IncomeLineFragment;
 import com.dwtedx.income.home.IncomeListActivity;
+import com.dwtedx.income.provider.ScanSetupSharedPreferences;
 import com.google.android.material.snackbar.Snackbar;
 import android.text.InputType;
 import android.view.View;
@@ -59,12 +60,13 @@ import java.util.List;
 public class SetupActivity extends BaseActivity implements View.OnClickListener, AppTitleBar.OnTitleClickListener {
 
     private AppTitleBar mAppTitleBar;
-    private int[] mClickView = {R.id.profile_username_text, R.id.profile_phone_text, R.id.profile_fingerprint_text, R.id.profile_data_text, R.id.profile_password_text, R.id.setup_update, R.id.message_recommendation, R.id.setup_user_agreement, R.id.about_me, R.id.login_out, R.id.share_app, R.id.clear_cache, R.id.setup_score, R.id.m_privacy, R.id.m_useragreement};
+    private int[] mClickView = {R.id.profile_username_text, R.id.profile_phone_text, R.id.profile_fingerprint_text, R.id.profile_scan_button, R.id.profile_data_text, R.id.profile_password_text, R.id.setup_update, R.id.message_recommendation, R.id.setup_user_agreement, R.id.about_me, R.id.login_out, R.id.share_app, R.id.clear_cache, R.id.setup_score, R.id.m_privacy, R.id.m_useragreement};
     private TextView mSetupPhoneText;
     private TextView mSetupNameText;
     private TextView mClearCacheText;
     private TextView mSetupVersion;
     private Switch mFingerprintSwitch;
+    private Switch mScanSwitch;
 
     private ProgressDialog mProgressDialog;
     //数据恢复的记录标记
@@ -96,6 +98,23 @@ public class SetupActivity extends BaseActivity implements View.OnClickListener,
                     mFingerprintSwitch.setSwitchTextAppearance(SetupActivity.this,R.style.s_true);
                 }else {
                     mFingerprintSwitch.setSwitchTextAppearance(SetupActivity.this,R.style.s_false);
+                }
+            }
+        });
+
+        //扫单模式开关
+        mScanSwitch = (Switch) findViewById(R.id.profile_scan_switch);
+        ScanSetupSharedPreferences.init(this);
+        mScanSwitch.setChecked(ScanSetupSharedPreferences.getScanSetup());
+        mScanSwitch.setSwitchTextAppearance(this, ScanSetupSharedPreferences.getScanSetup()?R.style.s_true:R.style.s_false);
+        mScanSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                //控制开关字体颜色
+                if (b) {
+                    mScanSwitch.setSwitchTextAppearance(SetupActivity.this,R.style.s_true);
+                }else {
+                    mScanSwitch.setSwitchTextAppearance(SetupActivity.this,R.style.s_false);
                 }
             }
         });
@@ -171,6 +190,9 @@ public class SetupActivity extends BaseActivity implements View.OnClickListener,
             case R.id.profile_fingerprint_text:
                 setUpFingerprint();
                 break;
+            case R.id.profile_scan_button:
+                setUpScan();
+                break;
             case R.id.profile_data_text:
                 dataRegain();
                 break;
@@ -230,6 +252,11 @@ public class SetupActivity extends BaseActivity implements View.OnClickListener,
                 startActivity(intent);
                 break;
         }
+    }
+
+    private void setUpScan() {
+        ScanSetupSharedPreferences.setScanSetup(!ScanSetupSharedPreferences.getScanSetup());
+        mScanSwitch.setChecked(ScanSetupSharedPreferences.getScanSetup());
     }
 
     private void setUpFingerprint() {

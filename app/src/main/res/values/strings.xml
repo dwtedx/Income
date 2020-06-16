@@ -144,7 +144,7 @@
     <string name="down_fail">下载失败</string>
     <string name="is_downing">正在下载</string>
     <string name="down_sucess">下载成功，点击安装！</string>
-    <string name="version_name">版本：v</string>
+    <string name="version_name">版本：V</string>
 
     <string name="title_activity_profile">个人中心</string>
     <string name="title_activity_profile_info">个人信息</string>
@@ -166,7 +166,7 @@
     <string name="clear_success">成功清空缓存</string>
     <string name="setup_score">去评分</string>
     <string name="update">版本更新</string>
-    <string name="user_agreement">DD记账主页</string>
+    <string name="user_agreement">DD记账</string>
     <string name="message_recommendation">意见反馈</string>
     <string name="share_app">分享App</string>
     <string name="share_text">分享</string>
@@ -179,6 +179,8 @@
     <string name="profile_setup_password">修改密码</string>
     <string name="profile_setup_phone">更换手机号</string>
     <string name="profile_setup_username">用户名设置</string>
+    <string name="profile_setup_scan">扫单模式</string>
+    <string name="profile_setup_scan_tip">关闭可直接进入快速记账</string>
 
     <string name="profile_fingerprint">指纹认证</string>
     <string name="profile_fingerprint_tis">进入App先指纹认证</string>

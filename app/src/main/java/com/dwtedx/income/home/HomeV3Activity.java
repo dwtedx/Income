@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.provider.Settings;
 import androidx.annotation.NonNull;
 
+import com.dwtedx.income.addrecord.AddRecordActivity;
 import com.dwtedx.income.profile.WebViewActivity;
 import com.dwtedx.income.provider.HomePrivacySharedPreferences;
+import com.dwtedx.income.provider.ScanSetupSharedPreferences;
 import com.dwtedx.income.topic.GlideEngine;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -106,12 +108,17 @@ public class HomeV3Activity extends BaseActivity implements ViewPager.OnPageChan
         mViewpager.addOnPageChangeListener(this);
         mViewpager.setOnSideListener(this);
 
+        ScanSetupSharedPreferences.init(this);
         mAddRecordView = (ImageView) findViewById(R.id.m_add_record_view);
         mAddRecordView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(MainActivity.this, "更多", Toast.LENGTH_LONG).show();
-                PopMenuView.getInstance().show(HomeV3Activity.this, mAddRecordView);
+                if(ScanSetupSharedPreferences.getScanSetup()) {
+                    //Toast.makeText(MainActivity.this, "更多", Toast.LENGTH_LONG).show();
+                    PopMenuView.getInstance().show(HomeV3Activity.this, mAddRecordView);
+                }else{
+                    startActivity(new Intent(HomeV3Activity.this, AddRecordActivity.class));
+                }
             }
         });
 
@@ -451,19 +458,18 @@ public class HomeV3Activity extends BaseActivity implements ViewPager.OnPageChan
         // 进入相册 以下是例子：用不到的api可以不写
         PictureSelector.create(HomeV3Activity.this)
                 .openGallery(PictureMimeType.ofImage())//全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
-                .loadImageEngine(GlideEngine.createGlideEngine())// 外部传入图片加载引擎，必传项
+                .imageEngine(GlideEngine.createGlideEngine())// 外部传入图片加载引擎，必传项
                 .isWeChatStyle(true)// 是否开启微信图片选择风格
                 .setPictureWindowAnimationStyle(new PictureWindowAnimationStyle(R.anim.activity_slide_in, R.anim.activity_slide_out))// 自定义相册启动退出动画
                 .setPictureStyle(mPictureParameterStyle)// 动态自定义相册主题
                 .setPictureCropStyle(mCropParameterStyle)// 动态自定义裁剪主题
                 .imageSpanCount(4)// 每行显示个数 int
-                .setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)// 设置相册Activity方向，不设置默认使用系统
                 .selectionMode(PictureConfig.SINGLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
-                .previewImage(true)// 是否可预览图片 true or false
+                .isPreviewImage(true)// 是否可预览图片 true or false
                 .isCamera(true)// 是否显示拍照按钮 true or false
                 .isZoomAnim(true)// 图片列表点击 缩放效果 默认true
-                .enableCrop(true)// 是否裁剪 true or false
-                .compress(true)// 是否压缩 true or false
+                .isEnableCrop(true)// 是否裁剪 true or false
+                .isCompress(true)// 是否压缩 true or false
                 .withAspectRatio(3, 4)// int 裁剪比例 如16:9 3:2 3:4 1:1 可自定义
                 .hideBottomControls(false)// 是否显示uCrop工具栏，默认不显示 true or false
                 .isGif(false)// 是否显示gif图片 true or false
@@ -471,7 +477,7 @@ public class HomeV3Activity extends BaseActivity implements ViewPager.OnPageChan
                 .circleDimmedLayer(false)// 是否圆形裁剪 true or false
                 .showCropFrame(true)// 是否显示裁剪矩形边框 圆形裁剪时建议设为false   true or false
                 .showCropGrid(true)// 是否显示裁剪矩形网格 圆形裁剪时建议设为false    true or false
-                .previewEggs(true)// 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中) true or false
+                .isPreviewEggs(true)// 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中) true or false
                 .minimumCompressSize(300)// 小于100kb的图片不压缩
                 .rotateEnabled(true) // 裁剪是否可旋转图片 true or false
                 .scaleEnabled(true)// 裁剪是否可放大缩小图片 true or false
