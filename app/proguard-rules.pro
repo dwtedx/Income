@@ -259,6 +259,9 @@
 -keep class com.yalantis.ucrop** { *; }
 -keep interface com.yalantis.ucrop** { *; }
 
+#Okio
+-dontwarn org.codehaus.mojo.animal_sniffer.*
+
  #rxjava
 -dontwarn sun.misc.**
 -keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {

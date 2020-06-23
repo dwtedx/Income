@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -562,15 +563,22 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
             for(int i = 0; i < mLocalMediaList.size(); i++) {
                 final int counti = i;
                 localMedia = mLocalMediaList.get(i);
-                // 1.media.getPath(); 为原图path
-                // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
-                // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
-                // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
+                // 例如 LocalMedia 里面返回五种path
+                // 1.media.getPath(); 原图path
+                // 2.media.getCutPath();裁剪后path，需判断media.isCut();切勿直接使用
+                // 3.media.getCompressPath();压缩后path，需判断media.isCompressed();切勿直接使用
+                // 4.media.getOriginalPath()); media.isOriginal());为true时此字段才有值
+                // 5.media.getAndroidQToPath();Android Q版本特有返回的字段，但如果开启了压缩或裁剪还是取裁剪或压缩路径；注意：.isAndroidQTransform 为false 此字段将返回空
+                // 如果同时开启裁剪和压缩，则取压缩路径为准因为是先裁剪后压缩
                 Uri uri = null;
                 if(localMedia.isCompressed()){
                     uri = Uri.fromFile(new File(localMedia.getCompressPath()));
                 }else{
-                    uri = Uri.fromFile(new File(localMedia.getPath()));
+                    if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                        uri = Uri.fromFile(new File(localMedia.getAndroidQToPath()));
+                    }else {
+                        uri = Uri.fromFile(new File(localMedia.getPath()));
+                    }
                 }
                 Bitmap bitmap = CommonUtility.getScalingBitmap(uri, this);
                 String imgData = CommonUtility.encodeTobase64(bitmap);
