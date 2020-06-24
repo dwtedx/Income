@@ -8,7 +8,7 @@ android {
         applicationId "com.dwtedx.income"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 64
+        versionCode 65
         versionName "3.2.4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
