@@ -52,6 +52,7 @@ public class TopicFragment extends BaseFragment implements SwipeRecyclerView.OnL
     SwipeRecyclerView mRecyclerView;
     @BindView(R.id.m_progress_bar_view)
     ProgressBar mProgressBarView;
+    RotateAnimation mRotateUpAnim;
 
     List<DiTopic> mDiTopicList;
     TopicRecyclerAdapter mAdapter;
@@ -153,7 +154,7 @@ public class TopicFragment extends BaseFragment implements SwipeRecyclerView.OnL
 
     private void showLoading(){
         if(isAdded()) {
-            RotateAnimation mRotateUpAnim = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            mRotateUpAnim = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
             mRotateUpAnim.setInterpolator(new LinearInterpolator());
             mRotateUpAnim.setRepeatCount(Integer.MAX_VALUE);
             mRotateUpAnim.setDuration(600);
@@ -194,4 +195,6 @@ public class TopicFragment extends BaseFragment implements SwipeRecyclerView.OnL
                 break;
         }
     }
+
+
 }

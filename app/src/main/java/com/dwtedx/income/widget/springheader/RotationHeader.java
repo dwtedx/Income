@@ -1,7 +1,5 @@
 package com.dwtedx.income.widget.springheader;
 
-import android.content.Context;
-import androidx.core.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,15 +9,13 @@ import android.view.animation.RotateAnimation;
 import android.widget.ProgressBar;
 
 import com.dwtedx.income.R;
-import com.liaoinstan.springview.container.BaseHeader;
+import com.liaoinstan.springview.container.BaseSimpleHeader;
+import com.liaoinstan.springview.widget.SpringView;
 
 /**
  * Created by Administrator on 2016/3/21.
  */
-public class RotationHeader extends BaseHeader {
-    private Context context;
-    private int rotationSrc;
-    private int rotationFuSrc;
+public class RotationHeader extends BaseSimpleHeader {
 
     private RotateAnimation mRotateUpAnim;
     private RotateAnimation mRotateUpAnim2;
@@ -33,14 +29,12 @@ public class RotationHeader extends BaseHeader {
     private ProgressBar progress4;
     private ProgressBar progress5;
 
-    public RotationHeader(Context context) {
-        this(context, R.drawable.progress_gear, R.drawable.progress_gear_fu);
-    }
+    //记录拖拽是否超过弹动高度
+    private boolean hasOverLimitHeight;
 
-    public RotationHeader(Context context, int rotationSrc, int rotationFuSrc) {
-        this.context = context;
-        this.rotationSrc = rotationSrc;
-        this.rotationFuSrc = rotationFuSrc;
+    public RotationHeader() {
+        setType(SpringView.Type.OVERLAP);
+        setMovePara(2.0f);
 
         mRotateUpAnim = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         mRotateUpAnim.setInterpolator(new LinearInterpolator());
@@ -75,17 +69,12 @@ public class RotationHeader extends BaseHeader {
 
     @Override
     public View getView(LayoutInflater inflater, ViewGroup viewGroup) {
-        View view = inflater.inflate(R.layout.rotation_header, viewGroup, true);
+        View view = inflater.inflate(R.layout.rotation_header, viewGroup, false);
         progress1 = view.findViewById(R.id.progress1);
         progress2 = view.findViewById(R.id.progress2);
         progress3 = view.findViewById(R.id.progress3);
         progress4 = view.findViewById(R.id.progress4);
         progress5 = view.findViewById(R.id.progress5);
-        progress1.setIndeterminateDrawable(ContextCompat.getDrawable(context, rotationSrc));
-        progress2.setIndeterminateDrawable(ContextCompat.getDrawable(context, rotationFuSrc));
-        progress3.setIndeterminateDrawable(ContextCompat.getDrawable(context, rotationFuSrc));
-        progress4.setIndeterminateDrawable(ContextCompat.getDrawable(context, rotationSrc));
-        progress5.setIndeterminateDrawable(ContextCompat.getDrawable(context, rotationFuSrc));
         return view;
     }
 
@@ -95,18 +84,17 @@ public class RotationHeader extends BaseHeader {
     }
 
     @Override
-    public void onPreDrag(View rootView) {
-
-    }
-
-    @Override
     public void onDropAnim(View rootView, int dy) {
-        float rota = 360 * dy / rootView.getMeasuredHeight();
-        progress1.setRotation(rota);
-        progress2.setRotation(-rota);
-        progress3.setRotation(-rota);
-        progress4.setRotation(rota);
-        progress5.setRotation(-rota);
+        int dragLimitHeight = getDragLimitHeight(rootView);
+        if (dy >= dragLimitHeight) hasOverLimitHeight = true;
+        if (!hasOverLimitHeight) {
+            float rota = 360 * dy / rootView.getMeasuredHeight();
+            progress1.setRotation(rota);
+            progress2.setRotation(-rota);
+            progress3.setRotation(-rota);
+            progress4.setRotation(rota);
+            progress5.setRotation(-rota);
+        }
     }
 
     @Override
@@ -129,5 +117,6 @@ public class RotationHeader extends BaseHeader {
         progress3.clearAnimation();
         progress4.clearAnimation();
         progress5.clearAnimation();
+        hasOverLimitHeight = false;
     }
 }

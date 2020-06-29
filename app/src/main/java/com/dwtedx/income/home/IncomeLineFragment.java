@@ -90,9 +90,8 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
 
         mSpringView = (SpringView) mView.findViewById(R.id.springview);
         mSpringView.setListener(this);
-        mSpringView.setHeader(new RotationHeader(mFragmentContext));
-        mSpringView.setFooter(new RotationFooter(mFragmentContext));
-        mSpringView.setType(SpringView.Type.OVERLAP);
+        mSpringView.setHeader(new RotationHeader());
+        mSpringView.setFooter(new RotationFooter());
 
         mRecyclerView = (RecyclerView) mView.findViewById(R.id.listView);
         mTextViewTip = (TextView) mView.findViewById(R.id.listView_tip);
