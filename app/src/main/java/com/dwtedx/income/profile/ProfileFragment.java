@@ -69,12 +69,13 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         mRightLayout = (LinearLayout) view.findViewById(R.id.home_item_layout);
         mRightLayout.setOnClickListener(this);
 
-        if(CommonConstants.APP_VERSION_AUDIT_PASS == ApplicationData.mAppVersionAudit){
-            mProfileSellLayout = (RelativeLayout) view.findViewById(R.id.ic_profile_sell_layout);
-            mProfileSellLayoutLine = (LinearLayout) view.findViewById(R.id.ic_profile_sell_layout_line);
-            mProfileSellLayout.setVisibility(View.VISIBLE);
-            mProfileSellLayoutLine.setVisibility(View.VISIBLE);
-        }
+        //暂不显示商城相关
+        //if(CommonConstants.APP_VERSION_AUDIT_PASS == ApplicationData.mAppVersionAudit){
+        //    mProfileSellLayout = (RelativeLayout) view.findViewById(R.id.ic_profile_sell_layout);
+        //    mProfileSellLayoutLine = (LinearLayout) view.findViewById(R.id.ic_profile_sell_layout_line);
+        //    mProfileSellLayout.setVisibility(View.VISIBLE);
+        //    mProfileSellLayoutLine.setVisibility(View.VISIBLE);
+        //}
 
         mHeadImageView = (CircleImageView) mView.findViewById(R.id.imageView);
         mHeadName = (TextView) mView.findViewById(R.id.usernameView);

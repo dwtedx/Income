@@ -2,24 +2,10 @@ package com.dwtedx.income.home;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.Settings;
-import androidx.annotation.NonNull;
-
-import com.dwtedx.income.addrecord.AddRecordActivity;
-import com.dwtedx.income.profile.WebViewActivity;
-import com.dwtedx.income.provider.HomePrivacySharedPreferences;
-import com.dwtedx.income.provider.ScanSetupSharedPreferences;
-import com.dwtedx.income.topic.GlideEngine;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.viewpager.widget.ViewPager;
-
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.method.LinkMovementMethod;
@@ -33,6 +19,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
+
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.app.hubert.guide.NewbieGuide;
@@ -40,6 +31,7 @@ import com.app.hubert.guide.model.GuidePage;
 import com.app.hubert.guide.model.HighLight;
 import com.dwtedx.income.IncomeApplication;
 import com.dwtedx.income.R;
+import com.dwtedx.income.addrecord.AddRecordActivity;
 import com.dwtedx.income.base.BaseActivity;
 import com.dwtedx.income.connect.SaDataProccessHandler;
 import com.dwtedx.income.connect.SaException;
@@ -47,15 +39,18 @@ import com.dwtedx.income.entity.ApplicationData;
 import com.dwtedx.income.entity.DiParacontent;
 import com.dwtedx.income.entity.DiVersion;
 import com.dwtedx.income.home.adapter.HomeFragmetAdapter;
-import com.dwtedx.income.profile.SetupActivity;
+import com.dwtedx.income.profile.WebViewActivity;
+import com.dwtedx.income.provider.HomePrivacySharedPreferences;
 import com.dwtedx.income.provider.HomeScanTipSharedPreferences;
+import com.dwtedx.income.provider.ScanSetupSharedPreferences;
 import com.dwtedx.income.scan.ScanResultActivity;
 import com.dwtedx.income.service.IncomeService;
 import com.dwtedx.income.service.UserService;
+import com.dwtedx.income.topic.GlideEngine;
 import com.dwtedx.income.updateapp.UpdateService;
 import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.utility.CommonUtility;
-import com.dwtedx.income.widget.SideViewPager;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -69,12 +64,12 @@ import com.umeng.socialize.UMShareAPI;
 import java.io.File;
 import java.util.List;
 
-public class HomeV3Activity extends BaseActivity implements ViewPager.OnPageChangeListener, SideViewPager.onSideListener{
+public class HomeV3Activity extends BaseActivity implements ViewPager.OnPageChangeListener {
 
     private BottomNavigationView mNavigation;
 
     private boolean mIsStartActivity;
-    private SideViewPager mViewpager;
+    private ViewPager mViewpager;
     private HomeFragmetAdapter adapter;
 
     private ImageView mAddRecordView;
@@ -101,12 +96,11 @@ public class HomeV3Activity extends BaseActivity implements ViewPager.OnPageChan
         mNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         //mNavigation.setSelectedItemId(R.id.navigation_notifications2);
 
-        mViewpager = (SideViewPager) findViewById(R.id.view_pagers);
+        mViewpager = (ViewPager) findViewById(R.id.view_pagers);
         adapter = new HomeFragmetAdapter(getSupportFragmentManager(), this);
         //viewpager加载adapter
         mViewpager.setAdapter(adapter);
         mViewpager.addOnPageChangeListener(this);
-        mViewpager.setOnSideListener(this);
 
         ScanSetupSharedPreferences.init(this);
         mAddRecordView = (ImageView) findViewById(R.id.m_add_record_view);
@@ -186,24 +180,6 @@ public class HomeV3Activity extends BaseActivity implements ViewPager.OnPageChan
 
     @Override
     public void onPageScrollStateChanged(int i) { }
-
-    @Override
-    public void onLeftSide() {
-        // 左边界滑动时处理
-        if(!mIsStartActivity) {
-            startActivity(new Intent(this, IncomeListActivity.class));
-            mIsStartActivity = true;
-        }
-    }
-
-    @Override
-    public void onRightSide() {
-        // 右边界滑动时处理
-        if(!mIsStartActivity) {
-            startActivity(new Intent(this, SetupActivity.class));
-            mIsStartActivity = true;
-        }
-    }
 
     @Override
     public void onBackPressed() {

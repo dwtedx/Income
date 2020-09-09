@@ -14,6 +14,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Handler;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
@@ -65,8 +67,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         //状态栏颜色 不支持4.4
         //getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimary));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-        {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             this.getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimary));
 
         }
@@ -93,48 +94,53 @@ public abstract class BaseActivity extends AppCompatActivity {
         MobclickAgent.onResume(this);
         //口令检测   使用剪切板在API11以后的版本
         try {
-            ClipboardManager manager = (ClipboardManager) ApplicationData.mIncomeApplication.getSystemService(Context.CLIPBOARD_SERVICE);
-            String calssName = getLocalClassName();
-            if (manager != null && !mNotTopicActivitys.contains(calssName)) {
-                if (manager.hasPrimaryClip() && manager.getPrimaryClip().getItemCount() > 0) {
-                    CharSequence addedText = manager.getPrimaryClip().getItemAt(0).getText();
-                    String addedTextString = String.valueOf(addedText);
-                    if (!CommonUtility.isEmpty(addedTextString) && addedTextString.contains("打开DD记账")) {
-                        //名字读取
-                        int nameLastIndexOf = addedTextString.lastIndexOf("】");
-                        String rmmoveNameLastIndex = addedTextString.substring(0, nameLastIndexOf);
-                        String content = rmmoveNameLastIndex.substring(rmmoveNameLastIndex.lastIndexOf("【") + 1).trim();
-                        content = String.format(getResources().getString(R.string.topic_context_tip), content);
-                        //id读取
-                        int lastIndexOf = addedTextString.lastIndexOf("$");
-                        String rmmoveLastIndex = addedTextString.substring(0, lastIndexOf);
-                        String topicId = rmmoveLastIndex.substring(rmmoveLastIndex.lastIndexOf("$") + 1).trim();
-                        Log.i(getLocalClassName(), "onResume topicId =======================================" + topicId);
-                        byte[] decodeByte = Base64.decode(topicId.getBytes(), Base64.DEFAULT);
-                        String decode = new String(decodeByte);
-                        Log.i(getLocalClassName(), "解密 onResume topicId =======================================" + decode);
-                        if (CommonUtility.isNumeric(decode)) {
-                            clearClipboard();
-                            //提示
-                            new MaterialDialog.Builder(this)
-                                    .title(R.string.topic_tip)
-                                    .content(content)
-                                    .positiveText(R.string.ok)
-                                    .negativeText(R.string.cancel)
-                                    .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                        @Override
-                                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                            Intent intent = new Intent(BaseActivity.this, TopicDetailActivity.class);
-                                            intent.putExtra("topicId", Integer.parseInt(decode));
-                                            startActivity(intent);
-                                        }
-                                    })
-                                    .show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    ClipboardManager manager = (ClipboardManager) ApplicationData.mIncomeApplication.getSystemService(Context.CLIPBOARD_SERVICE);
+                    String calssName = getLocalClassName();
+                    if (manager != null && !mNotTopicActivitys.contains(calssName)) {
+                        if (manager.hasPrimaryClip() && manager.getPrimaryClip().getItemCount() > 0) {
+                            CharSequence addedText = manager.getPrimaryClip().getItemAt(0).getText();
+                            String addedTextString = String.valueOf(addedText);
+                            if (!CommonUtility.isEmpty(addedTextString) && addedTextString.contains("打开DD记账")) {
+                                //名字读取
+                                int nameLastIndexOf = addedTextString.lastIndexOf("】");
+                                String rmmoveNameLastIndex = addedTextString.substring(0, nameLastIndexOf);
+                                String content = rmmoveNameLastIndex.substring(rmmoveNameLastIndex.lastIndexOf("【") + 1).trim();
+                                content = String.format(getResources().getString(R.string.topic_context_tip), content);
+                                //id读取
+                                int lastIndexOf = addedTextString.lastIndexOf("$");
+                                String rmmoveLastIndex = addedTextString.substring(0, lastIndexOf);
+                                String topicId = rmmoveLastIndex.substring(rmmoveLastIndex.lastIndexOf("$") + 1).trim();
+                                Log.i(getLocalClassName(), "onResume topicId =======================================" + topicId);
+                                byte[] decodeByte = Base64.decode(topicId.getBytes(), Base64.DEFAULT);
+                                String decode = new String(decodeByte);
+                                Log.i(getLocalClassName(), "解密 onResume topicId =======================================" + decode);
+                                if (CommonUtility.isNumeric(decode)) {
+                                    clearClipboard();
+                                    //提示
+                                    new MaterialDialog.Builder(BaseActivity.this)
+                                            .title(R.string.topic_tip)
+                                            .content(content)
+                                            .positiveText(R.string.ok)
+                                            .negativeText(R.string.cancel)
+                                            .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                                @Override
+                                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                    Intent intent = new Intent(BaseActivity.this, TopicDetailActivity.class);
+                                                    intent.putExtra("topicId", Integer.parseInt(decode));
+                                                    startActivity(intent);
+                                                }
+                                            })
+                                            .show();
+                                }
+                            }
                         }
                     }
                 }
-            }
-        }catch (Exception e){
+            }, 500);
+        } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, R.string.topic_errot_tip, Toast.LENGTH_SHORT).show();
         }
@@ -195,16 +201,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         return true;
     }
 
-    public boolean isLogin(){
-        if(null != ApplicationData.mDiUserInfo && ApplicationData.mDiUserInfo.getId() > 0){
+    public boolean isLogin() {
+        if (null != ApplicationData.mDiUserInfo && ApplicationData.mDiUserInfo.getId() > 0) {
             return true;
         }
         return false;
     }
 
-    public boolean isVIP(){
-        if(isLogin()){
-            if(ApplicationData.mDiUserInfo.getVipflag() == CommonConstants.VIP_TYPE_VIP){
+    public boolean isVIP() {
+        if (isLogin()) {
+            if (ApplicationData.mDiUserInfo.getVipflag() == CommonConstants.VIP_TYPE_VIP) {
                 return true;
             }
         }

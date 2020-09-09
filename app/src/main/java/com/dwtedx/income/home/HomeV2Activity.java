@@ -7,12 +7,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.Settings;
-import androidx.annotation.NonNull;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.viewpager.widget.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +14,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -46,7 +45,6 @@ import com.dwtedx.income.service.UserService;
 import com.dwtedx.income.updateapp.UpdateService;
 import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.utility.CommonUtility;
-import com.dwtedx.income.widget.SideViewPager;
 import com.dwtedx.income.widget.rapidfloatingaction.RapidFloatingActionButton;
 import com.dwtedx.income.widget.rapidfloatingaction.RapidFloatingActionHelper;
 import com.dwtedx.income.widget.rapidfloatingaction.RapidFloatingActionLayout;
@@ -54,15 +52,17 @@ import com.dwtedx.income.widget.rapidfloatingaction.contentimpl.labellist.RFACLa
 import com.dwtedx.income.widget.rapidfloatingaction.contentimpl.labellist.RapidFloatingActionContentLabelList;
 import com.dwtedx.income.widget.rapidfloatingaction.util.RFABShape;
 import com.dwtedx.income.widget.rapidfloatingaction.util.RFABTextUtil;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeV2Activity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener, SideViewPager.onSideListener, RapidFloatingActionContentLabelList.OnRapidFloatingActionContentLabelListListener {
+public class HomeV2Activity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener, RapidFloatingActionContentLabelList.OnRapidFloatingActionContentLabelListListener {
 
     private TabLayout mTabLayout;
-    private SideViewPager mViewpager;
+    private ViewPager mViewpager;
     private HomeFragmetAdapter adapter;
 
     private Button mHomeTipButton;
@@ -94,12 +94,11 @@ public class HomeV2Activity extends BaseActivity implements View.OnClickListener
         setContentView(R.layout.activity_homev2);
 
         mTabLayout = (TabLayout) findViewById(R.id.tablayouts);
-        mViewpager = (SideViewPager) findViewById(R.id.view_pagers);
+        mViewpager = (ViewPager) findViewById(R.id.view_pagers);
         adapter = new HomeFragmetAdapter(getSupportFragmentManager(), this);
         //viewpager加载adapter
         mViewpager.setAdapter(adapter);
         mViewpager.addOnPageChangeListener(this);
-        mViewpager.setOnSideListener(this);
         //TabLayout加载viewpager
         mTabLayout.setupWithViewPager(mViewpager);
         //设置TabLayout的模式
@@ -417,24 +416,6 @@ public class HomeV2Activity extends BaseActivity implements View.OnClickListener
                 break;
             case ViewPager.SCROLL_STATE_SETTLING:
                 break;
-        }
-    }
-
-    @Override
-    public void onLeftSide() {
-        // 左边界滑动时处理
-        if(!mIsStartActivity) {
-            startActivity(new Intent(HomeV2Activity.this, IncomeListActivity.class));
-            mIsStartActivity = true;
-        }
-    }
-
-    @Override
-    public void onRightSide() {
-        // 右边界滑动时处理
-        if(!mIsStartActivity) {
-            startActivity(new Intent(HomeV2Activity.this, SetupActivity.class));
-            mIsStartActivity = true;
         }
     }
 

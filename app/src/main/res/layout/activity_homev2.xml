@@ -81,7 +81,7 @@
         app:rfal_frame_alpha="0.7"
         app:rfal_frame_color="#ffffff">
 
-        <com.dwtedx.income.widget.SideViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pagers"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
