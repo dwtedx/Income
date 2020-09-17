@@ -15,7 +15,7 @@ public class ServiceAPI {
     private final static String CONFIG_SERVER_NAME = "server_uri";
 
     public static String WEB_API_DOMAIN = "https://diapp.dwtedx.com";//正式
-//    public static String WEB_API_DOMAIN = "http://172.16.118.114:8080/incomeser";//开发
+//    public static String WEB_API_DOMAIN = "http://10.110.1.74:8080/incomeser";//开发
 //    public static String WEB_API_DOMAIN = "http://192.168.31.114:8080/incomeser";//开发mac
 
     public static String WEB_API_USER_OTHER_LOGIN = WEB_API_DOMAIN + "/user/otherlogin";
