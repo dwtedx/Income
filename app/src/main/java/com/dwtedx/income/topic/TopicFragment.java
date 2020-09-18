@@ -96,6 +96,10 @@ public class TopicFragment extends BaseFragment implements SwipeRecyclerView.OnL
             isRefresh = false;
             getTopicItemInfo(true, true);
         }
+        int visible = mProgressBarView.getVisibility();
+         if(null != mRotateUpAnim &&  View.VISIBLE == visible) {
+            mProgressBarView.startAnimation(mRotateUpAnim);
+        }
     }
 
     private void getTopicItemInfo(final boolean isShow, final boolean isClear) {
@@ -154,18 +158,20 @@ public class TopicFragment extends BaseFragment implements SwipeRecyclerView.OnL
 
     private void showLoading(){
         if(isAdded()) {
-            mRotateUpAnim = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-            mRotateUpAnim.setInterpolator(new LinearInterpolator());
-            mRotateUpAnim.setRepeatCount(Integer.MAX_VALUE);
-            mRotateUpAnim.setDuration(600);
-            mRotateUpAnim.setFillAfter(true);
+            if(null == mRotateUpAnim) {
+                mRotateUpAnim = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                mRotateUpAnim.setInterpolator(new LinearInterpolator());
+                mRotateUpAnim.setRepeatCount(Integer.MAX_VALUE);
+                mRotateUpAnim.setDuration(600);
+                mRotateUpAnim.setFillAfter(true);
+            }
             mProgressBarView.startAnimation(mRotateUpAnim);
             mProgressBarView.setVisibility(View.VISIBLE);
         }
     }
 
     private void hideLoading() {
-        if(isAdded()) {
+        if(isAdded() && null != mRotateUpAnim) {
             mProgressBarView.clearAnimation();
             mProgressBarView.setVisibility(View.GONE);
         }
