@@ -458,6 +458,7 @@ public class HomeV3Activity extends BaseActivity implements ViewPager.OnPageChan
                 .rotateEnabled(true) // 裁剪是否可旋转图片 true or false
                 .scaleEnabled(true)// 裁剪是否可放大缩小图片 true or false
                 .isDragFrame(true)// 是否可拖动裁剪框(固定)
+                .isSingleDirectReturn(true)// 单选模式下是否直接返回，PictureConfig.SINGLE模式下有效
                 .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
 
     }
