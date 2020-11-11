@@ -1,12 +1,9 @@
 package com.dwtedx.income.base;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import androidx.fragment.app.Fragment;
 
-import com.dwtedx.income.broadcast.CommonBroadcast;
 import com.dwtedx.income.entity.ApplicationData;
 import com.dwtedx.income.utility.CommonConstants;
 import com.umeng.analytics.MobclickAgent;
@@ -18,14 +15,6 @@ import com.umeng.analytics.MobclickAgent;
  */
 public abstract class BaseFragment extends Fragment {
 
-    // 写一个广播的内部类，
-    private BroadcastReceiver mProadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            onBroadcastReceive(intent.getIntExtra(CommonBroadcast.BROADCAST_ACTION_TYPE, -1), intent);
-        }
-    };
-
     public BaseActivity mFragmentContext;
 
     @Override
@@ -33,10 +22,6 @@ public abstract class BaseFragment extends Fragment {
         super.onAttach(context);
         //缓存context
         mFragmentContext = (BaseActivity)context;
-        // 在当前的activity中注册广播
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(CommonBroadcast.BROADCAST_ACTION);
-        context.registerReceiver(mProadcastReceiver, filter);//注册
     }
 
     @Override
@@ -46,7 +31,6 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        getContext().unregisterReceiver(mProadcastReceiver);
         super.onDestroy();
     }
 

@@ -1,13 +1,11 @@
 package com.dwtedx.income.base;
 
 import android.annotation.TargetApi;
-import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -23,7 +21,6 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.dwtedx.income.R;
-import com.dwtedx.income.broadcast.CommonBroadcast;
 import com.dwtedx.income.connect.ErrorDilaog;
 import com.dwtedx.income.connect.ProgressDialog;
 import com.dwtedx.income.connect.SaException;
@@ -46,24 +43,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     //private final static String mNotTopicActivitys = "|topic.TopicDetailActivity|MainActivity|MainFingerprintActivity|MainShortcutActivity|";
     private final static String mNotTopicActivitys = "|MainActivity|MainFingerprintActivity|MainShortcutActivity|";
 
-    // 写一个广播的内部类，
-    private BroadcastReceiver mProadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            onBroadcastReceive(intent.getIntExtra(CommonBroadcast.BROADCAST_ACTION_TYPE, -1), intent);
-        }
-    };
-
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // 在当前的activity中注册广播
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(CommonBroadcast.BROADCAST_ACTION);
-        registerReceiver(mProadcastReceiver, filter);//注册
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//强制竖屏
 
         //状态栏颜色 不支持4.4
         //getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimary));
@@ -78,7 +61,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(mProadcastReceiver);
     }
 
     @Override
