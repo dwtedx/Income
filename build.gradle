@@ -8,7 +8,7 @@ buildscript {
         jcenter()
         google()
         maven {
-            url 'https://maven.google.com/'
+            url 'https://dl.google.com/dl/android/maven2/'
             name 'Google'
         }
         maven {
@@ -39,7 +39,7 @@ allprojects {
         jcenter()
         google()
         maven {
-            url 'https://maven.google.com/'
+            url 'https://dl.google.com/dl/android/maven2/'
             name 'Google'
         }
         maven {
