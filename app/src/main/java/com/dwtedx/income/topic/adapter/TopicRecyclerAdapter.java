@@ -35,6 +35,7 @@ import com.previewlibrary.GPreviewBuilder;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
 
 import java.util.List;
 
@@ -345,12 +346,18 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
                 SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.WEIXIN_FAVORITE, SHARE_MEDIA.SINA, SHARE_MEDIA.QZONE, SHARE_MEDIA.ALIPAY, SHARE_MEDIA.SMS};
 
         String shareContent = "我在使用DD记账，记录生活中的每一笔开支，还有有趣的记账圈【" + desc + "】，特此推荐给您 http://income.dwtedx.com ，复制这段描述$" + descId + "$→打开DD记账→查看详情";
-        new ShareAction((Activity) mContext)
+        UMImage image = null;
+        //if(null != topic.getTopicimg() && topic.getTopicimg().size() > 0) {
+        //    image = new UMImage(mContext,topic.getTopicimg().get(0).getUrl());//网络图片
+        //}
+        ShareAction shareAction = new ShareAction((Activity) mContext)
                 .setDisplayList(displaylist)
                 .withText(shareContent)
-                .setCallback(umShareListener)
-                .open();
-
+                .setCallback(umShareListener);
+        if(null != image) {
+            shareAction.withMedia(image);
+        }
+        shareAction.open();
     }
 
     private UMShareListener umShareListener = new UMShareListener() {

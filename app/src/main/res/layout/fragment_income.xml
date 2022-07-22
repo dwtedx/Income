@@ -105,7 +105,7 @@
     <com.dwtedx.income.widget.RecordKeyboardView
         android:id="@+id/record_keyboard_view"
         android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_height="278dp"/>
+        android:layout_height="278dp"
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

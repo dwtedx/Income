@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion '29.0.1'
+    compileSdkVersion 30
+    buildToolsVersion '30.0.3'
 
     defaultConfig {
         applicationId "com.dwtedx.income"
         minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 68
-        versionName "3.2.6"
+        targetSdkVersion 30
+        versionCode 70
+        versionName "3.4.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
@@ -18,6 +18,7 @@ android {
                 includeCompileClasspath = true
             }
         }
+        manifestPlaceholders = [qqappid : "1105404596"]
     }
     buildTypes {
         release {
@@ -39,13 +40,13 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file("./../dwtedx")
+            storeFile file("..//dwtedx")
             storePassword 'dwtedx??'
             keyAlias 'dwtedx'
             keyPassword 'dwtedx??'
         }
         release {
-            storeFile file("./../dwtedx")
+            storeFile file("..//dwtedx")
             storePassword 'dwtedx??'
             keyAlias 'dwtedx'
             keyPassword 'dwtedx??'
@@ -56,6 +57,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
 }
 
 repositories {
@@ -65,18 +67,21 @@ repositories {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    testImplementation 'junit:junit:4.12'
+    //implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.13.2'
+    //leakcanary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.8.1'
+
     implementation project(path: ':pulltorefresh')
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
     implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
     implementation 'com.wang.avi:library:2.1.3'
     implementation 'io.realm:realm-android:0.87.5'
@@ -98,12 +103,12 @@ dependencies {
     implementation(name:'avmpaar3-5.4.36', ext:'aar')
     implementation(name:'sgmiddletieraar3-5.4.9', ext:'aar')
     //Mtop
-    implementation files('libs/mtopsdk_allinone_open-3.1.2.5')
+    implementation files('libs/mtopsdk_allinone_open-3.1.2.5.jar')
     //applink
     implementation(name:'alibc_link_partner-4.1.15', ext:'aar')
     //ut
-    implementation files('libs/utdid4all-1.5.2')
-    implementation files('libs/app-monitor-sdk-2.6.4.5_for_bc')
+    implementation files('libs/utdid4all-1.5.2.jar')
+    implementation files('libs/app-monitor-sdk-2.6.4.5_for_bc.jar')
     // 电商基础组件
     implementation(name:'AlibcTradeCommon-4.0.0.8', ext:'aar')
     implementation(name:'AlibcTradeBiz-4.0.0.8', ext:'aar')
@@ -121,33 +126,43 @@ dependencies {
     implementation 'com.liaoinstan.springview:library:1.7.0'
     //QQ浏览器X5 内核
     implementation 'com.tencent.tbs.tbssdk:sdk:43697'
-    //umeng PushSDK PushSDK必须依赖基础组件库，所以需要加入对应依赖
-    implementation 'com.umeng.umsdk:common:2.2.5'
-    implementation 'com.umeng.umsdk:push:6.0.1'
+
+    //友盟推送 umeng PushSDK PushSDK必须依赖基础组件库，所以需要加入对应依赖
+    implementation 'com.umeng.umsdk:common:9.5.0'
+    implementation 'com.umeng.umsdk:asms:1.6.3'
+    //implementation 'com.umeng.umsdk:push:6.5.3'
+    implementation ('com.umeng.umsdk:push:6.5.3') {
+        exclude group: 'com.umeng.umsdk', module: 'utdid'
+    }
     //小米Push通道
-    implementation 'com.umeng.umsdk:xiaomi-push:3.6.17'
-    implementation 'com.umeng.umsdk:xiaomi-umengaccs:1.1.0'
+    implementation 'com.umeng.umsdk:xiaomi-umengaccs:1.3.0'
+    implementation 'com.umeng.umsdk:xiaomi-push:5.0.8'
     //华为Push通道
-    implementation 'com.umeng.umsdk:huawei-basetb:2.6.3.305'
-    implementation 'com.umeng.umsdk:huawei-pushtb:2.6.3.305'
-    implementation 'com.umeng.umsdk:huawei-umengaccs:1.2.1'
+    implementation 'com.umeng.umsdk:huawei-umengaccs:1.3.8'
+    implementation 'com.huawei.hms:push:6.5.0.300'
     //Oppo Push通道
-    implementation 'com.umeng.umsdk:oppo-push:1.0.1'
-    implementation 'com.umeng.umsdk:oppo-umengaccs:1.0.3'
-    //umeng 统计
-    implementation 'com.umeng.umsdk:analytics:8.1.6'
+    implementation 'com.umeng.umsdk:oppo-umengaccs:1.0.8-fix'
+    implementation 'com.umeng.umsdk:oppo-push:3.0.0'
+    // 友盟统计SDK
+    implementation 'com.umeng.umsdk:apm:1.7.0' // 错误分析模块改为独立库，看crash和性能数据请一定集成
+    implementation 'com.umeng.umsdk:abtest:1.0.0'//使用U-App中ABTest能力，可选
     //umeng 分享
-    implementation files('libs/libapshare20161108.jar')
-    implementation files('libs/SecurityEnvSDK-release-1.1.0.jar')
-    implementation files('libs/umeng-share-alipay-6.9.8.jar')
-    implementation files('libs/umeng-share-core-6.9.8.jar')
-    implementation files('libs/umeng-share-sms-6.9.8.jar')
-    implementation files('libs/umeng-share-email-6.9.8.jar')
-    implementation files('libs/umeng-share-QQ-simplify-6.9.8.jar')
-    implementation files('libs/umeng-share-sina-simplify-6.9.8.jar')
-    implementation files('libs/umeng-share-wechat-simplify-6.9.8.jar')
-    implementation files('libs/umeng-shareboard-widget-6.9.8.jar')
-    implementation files('libs/umeng-sharetool-6.9.8.jar')
+    implementation 'com.umeng.umsdk:link:1.2.0'
+    implementation 'com.umeng.umsdk:share-core:7.1.9'//分享核心库，必选
+    implementation 'com.umeng.umsdk:share-board:7.1.9'//分享面板功能，可选
+    implementation 'com.umeng.umsdk:share-wx:7.1.9'//微信完整版
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:6.8.0'//微信官方依赖库，必选
+    implementation 'com.umeng.umsdk:share-qq:7.1.9'//QQ完整版
+    implementation files('libs/open_sdk_3.5.11.6_r13b47b7_lite.jar') //QQ官方依赖库，必选
+    implementation 'com.squareup.okhttp3:okhttp:3.14.9'//QQ官方sdk 3.53及之后版本需要集成okhttp3.x，必选
+    implementation 'com.umeng.umsdk:share-sina:7.1.9'//新浪微博完整版
+    implementation 'io.github.sinaweibosdk:core:11.11.1@aar'//新浪微博官方SDK依赖库，必选
+    //implementation 'com.umeng.umsdk:share-dingding:7.1.9'//钉钉完整版
+    //implementation 'com.alibaba.android:ddsharesdk:1.2.0@jar'//钉钉官方依赖库，必选
+    implementation 'com.umeng.umsdk:share-alipay:7.1.9'//支付宝完整版
+    implementation files('libs/umeng-share-email-7.1.9.jar') //email
+    implementation files('libs/umeng-share-sms-7.1.9.jar') //短息
+
     //百度扫描和定位
     implementation files('libs/ocr-sdk.jar')
     implementation files('libs/BaiduLBS_Android.jar')

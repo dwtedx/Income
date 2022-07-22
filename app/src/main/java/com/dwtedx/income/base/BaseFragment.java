@@ -38,14 +38,14 @@ public abstract class BaseFragment extends Fragment {
     public void onResume() {
         super.onResume();
         //统计页面，"MainScreen"为页面名称，可自定义
-        MobclickAgent.onPageStart(getActivity().getLocalClassName());
+        //MobclickAgent.onPageStart(getActivity().getLocalClassName());
     }
     
     @Override
     public void onPause() {
         super.onPause();
         //友盟统计页面
-        MobclickAgent.onPageEnd(getActivity().getLocalClassName());
+        //MobclickAgent.onPageEnd(getActivity().getLocalClassName());
     }
 
     protected void onBroadcastReceive(int type, Intent intent) {

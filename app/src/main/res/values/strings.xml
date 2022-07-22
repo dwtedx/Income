@@ -104,8 +104,8 @@
     <string name="record_input_9">9</string>
     <string name="record_input_0">0</string>
     <string name="record_input_c">C</string>
-    <string name="record_input_add">＋</string>
-    <string name="record_input_subtract">－</string>
+    <string name="record_input_add">十</string>
+    <string name="record_input_subtract">一</string>
     <string name="record_input_point">.</string>
     <string name="record_input_back">&#xe7a9;</string>
 

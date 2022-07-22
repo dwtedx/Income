@@ -54,8 +54,14 @@ public abstract class BaseActivity extends AppCompatActivity {
             this.getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimary));
 
         }
+        onUMengPageCollectionMode();
         //推送的统计
         PushAgent.getInstance(this).onAppStart();
+    }
+
+    public void onUMengPageCollectionMode() {
+        //禁止默认的页面统计方式，这样将不会再自动统计Activity(默认页面统计只能统计Activity，不能统计Activity下面包含的Fragment)
+        MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
     }
 
     @Override
@@ -66,14 +72,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        finish();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         //友盟统计
-        MobclickAgent.onResume(this);
+        //MobclickAgent.onResume(this);
         //口令检测   使用剪切板在API11以后的版本
         try {
             new Handler().postDelayed(new Runnable() {
@@ -146,7 +151,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         //友盟统计
-        MobclickAgent.onPause(this);
+        //MobclickAgent.onPause(this);
     }
 
     protected void onBroadcastReceive(int type, Intent intent) {

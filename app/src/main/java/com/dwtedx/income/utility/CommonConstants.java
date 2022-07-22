@@ -170,4 +170,7 @@ public class CommonConstants {
     public final static int PAY_TYPE_ALIPAY = 1;
     public final static int PAY_TYPE_WEIXIN = 2;
 
+    public final static String UMENG_APP_KEY = "57352b9067e58eee2700000d";
+    public final static String UMENG_PUSH_CHANNEL = "dwtedx";
+    public final static String UMENG_MESSAGE_SECRET = "8b7ac86ea0aebdf27f289bda478ebc99";
 }
