@@ -27,7 +27,7 @@ public class DIBudgetService {
 
 	public static DIBudgetService getInstance(Context context) {
 		if (mService == null)
-			mService = new DIBudgetService(context);
+			mService = new DIBudgetService(context.getApplicationContext());
 		return mService;
 	}
 	

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.dwtedx.income.R;
 import com.dwtedx.income.base.BaseActivity;
@@ -16,6 +15,7 @@ import com.dwtedx.income.provider.CustomerIDSharedPreferences;
 import com.dwtedx.income.provider.LoginSharedPreferences;
 import com.dwtedx.income.service.UserService;
 import com.dwtedx.income.utility.CommonUtility;
+import com.dwtedx.income.utility.ToastUtil;
 import com.dwtedx.income.widget.AppTitleBar;
 
 /**
@@ -102,30 +102,30 @@ public class PassWordActivity extends BaseActivity implements AppTitleBar.OnTitl
         if (CommonUtility.isEmpty(ApplicationData.mDiUserInfo.getPassword())) {
             type = 1;
             if(CommonUtility.isEmpty(newPass) || CommonUtility.isEmpty(newConfig)){
-                Toast.makeText(this, R.string.profile_password_tip0, Toast.LENGTH_SHORT).show();
+                ToastUtil.toastShow(R.string.profile_password_tip0, ToastUtil.ICON.WARNING);
                 return;
             }
             if(!newPass.equals(newConfig)){
-                Toast.makeText(this, R.string.profile_password_tip1, Toast.LENGTH_SHORT).show();
+                ToastUtil.toastShow(R.string.profile_password_tip1, ToastUtil.ICON.WARNING);
                 return;
             }
         } else {
             type = 2;
             if(CommonUtility.isEmpty(pass)){
-                Toast.makeText(this, R.string.profile_password_tip2, Toast.LENGTH_SHORT).show();
+                ToastUtil.toastShow(R.string.profile_password_tip2, ToastUtil.ICON.WARNING);
                 return;
             }
             if(CommonUtility.isEmpty(newPass) || CommonUtility.isEmpty(newConfig)){
-                Toast.makeText(this, R.string.profile_password_tip0, Toast.LENGTH_SHORT).show();
+                ToastUtil.toastShow(R.string.profile_password_tip0, ToastUtil.ICON.WARNING);
                 return;
             }
             if(!newPass.equals(newConfig)){
-                Toast.makeText(this, R.string.profile_password_tip1, Toast.LENGTH_SHORT).show();
+                ToastUtil.toastShow(R.string.profile_password_tip1, ToastUtil.ICON.WARNING);
                 return;
             }
         }
         if(newPass.length() < 6){
-            Toast.makeText(this, R.string.profile_password_tip4, Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow(R.string.profile_password_tip4, ToastUtil.ICON.WARNING);
             return;
         }
 
@@ -138,7 +138,7 @@ public class PassWordActivity extends BaseActivity implements AppTitleBar.OnTitl
                 CustomerIDSharedPreferences.init(PassWordActivity.this);
                 CustomerIDSharedPreferences.clear();
                 ApplicationData.mDiUserInfo = null;
-                Toast.makeText(PassWordActivity.this, R.string.profile_password_tip3, Toast.LENGTH_SHORT).show();
+                ToastUtil.toastShow(R.string.profile_password_tip3, ToastUtil.ICON.WARNING);
                 PassWordActivity.this.finish();
             }
         };

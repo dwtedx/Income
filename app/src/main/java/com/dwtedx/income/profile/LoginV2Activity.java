@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dwtedx.income.R;
 import com.dwtedx.income.base.BaseActivity;
@@ -22,13 +21,11 @@ import com.dwtedx.income.service.UserService;
 import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.utility.CommonUtility;
 import com.dwtedx.income.utility.ParseJsonToObject;
+import com.dwtedx.income.utility.ToastUtil;
 import com.dwtedx.income.widget.AppTitleBar;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.Map;
 
@@ -159,20 +156,20 @@ public class LoginV2Activity extends BaseActivity implements AppTitleBar.OnTitle
 
         @Override
         public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
-            //Toast.makeText(getApplicationContext(), "授权成功", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("授权成功", ToastUtil.ICON.SUCCESS);
             mShareAPI.getPlatformInfo(LoginV2Activity.this, platform, umAuthUserInfoListener);
         }
 
         @Override
         public void onError(SHARE_MEDIA platform, int action, Throwable t) {
             mProgressDialog.hide();
-            Toast.makeText(getApplicationContext(), "授权失败", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("授权失败", ToastUtil.ICON.WARNING);
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform, int action) {
             mProgressDialog.hide();
-            Toast.makeText(getApplicationContext(), "授权取消", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("授权取消", ToastUtil.ICON.WARNING);
         }
     };
 
@@ -189,7 +186,7 @@ public class LoginV2Activity extends BaseActivity implements AppTitleBar.OnTitle
         @Override
         public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> info) {
             mProgressDialog.hide();
-            //Toast.makeText(getApplicationContext(), "用户信息获取成功", Toast.LENGTH_SHORT).show();
+            //"用户信息获取成功"
             mUMengInfo = new UMengInfo();
             if (SHARE_MEDIA.WEIXIN.equals(platform)) {
                 mUMengInfo.setName(info.get("name").toString());
@@ -217,13 +214,13 @@ public class LoginV2Activity extends BaseActivity implements AppTitleBar.OnTitle
         @Override
         public void onError(SHARE_MEDIA platform, int action, Throwable t) {
             mProgressDialog.hide();
-            Toast.makeText(getApplicationContext(), "用户信息获取失败", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("用户信息获取失败", ToastUtil.ICON.WARNING);
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform, int action) {
             mProgressDialog.hide();
-            Toast.makeText(getApplicationContext(), "用户信息获取取消", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("用户信息获取取消", ToastUtil.ICON.WARNING);
         }
     };
 
@@ -241,11 +238,11 @@ public class LoginV2Activity extends BaseActivity implements AppTitleBar.OnTitle
         final String passWord = mEtPassWord.getText().toString().trim();
 
         if (CommonUtility.isEmpty(name)) {
-            Toast.makeText(LoginV2Activity.this, "亲，请输入用户名！", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("亲，请输入用户名！", ToastUtil.ICON.WARNING);
             return;
         }
         if (CommonUtility.isEmpty(passWord)) {
-            Toast.makeText(LoginV2Activity.this, "亲，请输入密码！", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("亲，请输入密码！", ToastUtil.ICON.WARNING);
             return;
         }
         SaDataProccessHandler<Void, Void, DiUserInfo> dataVerHandler = new SaDataProccessHandler<Void, Void, DiUserInfo>(this) {
@@ -257,7 +254,7 @@ public class LoginV2Activity extends BaseActivity implements AppTitleBar.OnTitle
 
                 mLoginSharedPreferences.setUserInfoStr(name + "|" + passWord);
 
-                Toast.makeText(LoginV2Activity.this, getString(R.string.profile_login_sess), Toast.LENGTH_SHORT).show();
+                ToastUtil.toastShow(R.string.profile_login_sess, ToastUtil.ICON.SUCCESS);
                 finish();
             }
         };
@@ -277,10 +274,10 @@ public class LoginV2Activity extends BaseActivity implements AppTitleBar.OnTitle
                     ApplicationData.mDiUserInfo = data;
                     CustomerIDSharedPreferences.init(LoginV2Activity.this);
                     CustomerIDSharedPreferences.setCustomerId(data.getId());
-                    Toast.makeText(LoginV2Activity.this, getString(R.string.profile_login_sess), Toast.LENGTH_SHORT).show();
+                    ToastUtil.toastShow(R.string.profile_login_sess, ToastUtil.ICON.SUCCESS);
                     finish();
                 }else {
-                    Toast.makeText(LoginV2Activity.this, getString(R.string.register_tip4), Toast.LENGTH_SHORT).show();
+                    ToastUtil.toastShow(R.string.register_tip4, ToastUtil.ICON.SUCCESS);
                     Intent intent = new Intent(LoginV2Activity.this, RegisterActivity.class);
                     intent.putExtra("UMengInfo", ParseJsonToObject.getJsonFromObj(mUMengInfo).toString());
                     startActivity(intent);

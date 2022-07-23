@@ -14,23 +14,21 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.bumptech.glide.Glide;
 import com.dwtedx.income.R;
 import com.dwtedx.income.alipay.AlipayModel;
-import com.dwtedx.income.alipay.AuthResult;
 import com.dwtedx.income.alipay.PayResult;
 import com.dwtedx.income.base.BaseActivity;
 import com.dwtedx.income.connect.SaDataProccessHandler;
 import com.dwtedx.income.entity.ApplicationData;
 import com.dwtedx.income.entity.IdInfo;
 import com.dwtedx.income.entity.UserVipInfo;
-import com.dwtedx.income.service.ExpExcelService;
 import com.dwtedx.income.service.VipInfoService;
 import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.utility.CommonUtility;
+import com.dwtedx.income.utility.ToastUtil;
 import com.dwtedx.income.widget.CircleImageView;
 
 import java.text.SimpleDateFormat;
@@ -113,10 +111,10 @@ public class VipInfoActivity extends BaseActivity implements View.OnClickListene
                         mUserVipTimeTextView.setVisibility(View.VISIBLE);
                         mUserVipTimeTextView.setText(getString(R.string.vip__user_vip_time) + ApplicationData.mDiUserInfo.getVipendtimeStr());
                         registerBtn.setText(R.string.vip_button_fee);
-                        Toast.makeText(VipInfoActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
+                        ToastUtil.toastShow("支付成功", ToastUtil.ICON.SUCCESS);
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
-                        Toast.makeText(VipInfoActivity.this, "支付失败" + payResult, Toast.LENGTH_SHORT).show();
+                        ToastUtil.toastShow("支付失败", ToastUtil.ICON.WARNING);
                     }
                     break;
                 }

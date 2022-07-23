@@ -15,7 +15,7 @@ public class AccountSharedPreferences {
 	private static String strValString;
 
 	public static void init(Context context) {
-		mSettingPreferences = context.getSharedPreferences(ACCOUNT_PREFERENCES, Activity.MODE_PRIVATE);
+		mSettingPreferences = context.getApplicationContext().getSharedPreferences(ACCOUNT_PREFERENCES, Activity.MODE_PRIVATE);
 	}
 
 	public static void relese() {

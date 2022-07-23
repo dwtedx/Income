@@ -17,4 +17,5 @@ public class ApplicationData {
 	public static DiUserInfo mDiUserInfo;
 	public static IncomeApplication mIncomeApplication;
 	public static List<DiParacontent> scanParacontent;
+	public static String mChannel = "dwtedx";
 }

@@ -15,8 +15,8 @@ public class AddTipSharedPreferences {
 	private static Context mContext;
 
 	public static void init(Context context) {
-		mContext = context;
-		mSettingPreferences = context.getSharedPreferences(ADD_TIP_PREFERENCES, Activity.MODE_PRIVATE);
+		mContext = context.getApplicationContext();
+		mSettingPreferences = mContext.getSharedPreferences(ADD_TIP_PREFERENCES, Activity.MODE_PRIVATE);
 	}
 
 	public static void relese() {

@@ -15,7 +15,7 @@ public class AppUpdateVersionSharedPreferences {
 	private static SharedPreferences mSettingPreferences;
 
 	public static void init(Context context) {
-		mContext = context;
+		mContext = context.getApplicationContext();
 		mSettingPreferences = mContext.getSharedPreferences(APP_UPDATE_VERSION_PREFERENCES, Activity.MODE_PRIVATE);
 	}
 

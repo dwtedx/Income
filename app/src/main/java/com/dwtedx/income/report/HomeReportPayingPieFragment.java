@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
+
+import com.dwtedx.income.utility.ToastUtil;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
@@ -164,8 +166,7 @@ public class HomeReportPayingPieFragment extends BaseFragment implements View.On
     private void generatePayingDataPie() {
 
         if (-1 != CommonUtility.compareDate(mPieStartTimePie, mPieEndTimePie)) {
-            //Toast.makeText(mFragmentContext, getString(R.string.report_date_error_ago), Toast.LENGTH_SHORT).show();
-            Snackbar.make(mReportScrollview, R.string.report_date_error_ago, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            ToastUtil.toastShow(R.string.report_date_error_ago, ToastUtil.ICON.WARNING);
             return;
         }
 

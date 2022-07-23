@@ -23,7 +23,7 @@ public class DITypeService {
 
 	public static DITypeService getInstance(Context context) {
 		if (mService == null)
-			mService = new DITypeService(context);
+			mService = new DITypeService(context.getApplicationContext());
 		return mService;
 	}
 	

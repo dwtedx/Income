@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dwtedx.income.R;
 import com.dwtedx.income.base.BaseActivity;
@@ -27,6 +26,7 @@ import com.dwtedx.income.home.adapter.SearchHistoryAdapter;
 import com.dwtedx.income.service.TaobaoService;
 import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.utility.CommonUtility;
+import com.dwtedx.income.utility.ToastUtil;
 import com.dwtedx.income.widget.AppTitleBar;
 import com.dwtedx.income.widget.HorizontialListView;
 import com.dwtedx.income.widget.RecycleViewDivider;
@@ -110,10 +110,10 @@ public class SearchTaobaoActivity extends BaseActivity implements AppTitleBar.On
     private void searchTaobaoItem() {
         keyword = mEtSearch.getText().toString().trim();
         if (CommonUtility.isEmpty(keyword)) {
-            Toast.makeText(this, getString(R.string.please_enter_query_tip), Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow(R.string.please_enter_query_tip, ToastUtil.ICON.WARNING);
             //判断输入的内容是否含有特殊字符
         } else if (CommonUtility.hasSpecialCharacter(keyword)) {
-            Toast.makeText(this, getString(R.string.special_characters), Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow(R.string.special_characters, ToastUtil.ICON.WARNING);
         } else {
             getSearchDetail(keyword, true, true);
             searchHistoryList.add(0, keyword);

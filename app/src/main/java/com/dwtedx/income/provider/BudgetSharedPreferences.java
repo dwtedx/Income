@@ -15,7 +15,7 @@ public class BudgetSharedPreferences {
 	private static float strValString;
 
 	public static void init(Context context) {
-		mSettingPreferences = context.getSharedPreferences(BUDGET_PREFERENCES, Activity.MODE_PRIVATE);
+		mSettingPreferences = context.getApplicationContext().getSharedPreferences(BUDGET_PREFERENCES, Activity.MODE_PRIVATE);
 	}
 
 	public static void relese() {

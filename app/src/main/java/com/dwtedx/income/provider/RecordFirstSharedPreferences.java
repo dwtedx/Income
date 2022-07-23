@@ -12,7 +12,7 @@ public class RecordFirstSharedPreferences {
 	private static SharedPreferences mSettingPreferences;
 
 	public static void init(Context context) {
-		mSettingPreferences = context.getSharedPreferences(RECORD_FIRST_PREFERENCES, Activity.MODE_PRIVATE);
+		mSettingPreferences = context.getApplicationContext().getSharedPreferences(RECORD_FIRST_PREFERENCES, Activity.MODE_PRIVATE);
 	}
 
 	public static void relese() {

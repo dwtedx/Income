@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -42,8 +41,10 @@ import com.dwtedx.income.topic.GlideEngine;
 import com.dwtedx.income.updateapp.UpdateService;
 import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.utility.CommonUtility;
+import com.dwtedx.income.utility.FileUtils;
+import com.dwtedx.income.utility.PermissionsUtils;
+import com.dwtedx.income.utility.ToastUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -75,14 +76,17 @@ public class HomeV3Activity extends BaseActivity implements ViewPager.OnPageChan
     private PictureParameterStyle mPictureParameterStyle;//图片选择器主题
     private PictureCropParameterStyle mCropParameterStyle;
 
+    //记账动画
+    private PopMenuView mPopMenuView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homev3);
 
         mNavigation = (BottomNavigationView) findViewById(R.id.navigation);
-        //当labelVisibilityMode==0时或按钮数大于3则位移，那么只要将labelVisibilityMode值设置为不是0和-1就可以了
-        mNavigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
+        //当labelVisibilityMode==0时或按钮数大于3则位移，那么只要将labelVisibilityMode值设置为不是0和-1就可以了 LabelVisibilityMode.LABEL_VISIBILITY_LABELED
+        mNavigation.setLabelVisibilityMode(BottomNavigationView.LABEL_VISIBILITY_LABELED);
         //mNavigation.setItemTextAppearanceActive(R.style.bottom_selected_text);
         //mNavigation.setItemTextAppearanceInactive(R.style.bottom_normal_text);
         mNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -93,6 +97,7 @@ public class HomeV3Activity extends BaseActivity implements ViewPager.OnPageChan
         //viewpager加载adapter
         mViewpager.setAdapter(adapter);
         mViewpager.addOnPageChangeListener(this);
+        mViewpager.setOffscreenPageLimit(4);
 
         ScanSetupSharedPreferences.init(this);
         mAddRecordView = (ImageView) findViewById(R.id.m_add_record_view);
@@ -100,14 +105,18 @@ public class HomeV3Activity extends BaseActivity implements ViewPager.OnPageChan
             @Override
             public void onClick(View v) {
                 if(ScanSetupSharedPreferences.getScanSetup()) {
-                    //Toast.makeText(MainActivity.this, "更多", Toast.LENGTH_LONG).show();
-                    PopMenuView.getInstance().show(HomeV3Activity.this, mAddRecordView);
+                    //更多记账方式
+                    if(null == mPopMenuView) {
+                        mPopMenuView = new PopMenuView(HomeV3Activity.this.getApplicationContext());
+                    }
+                    mPopMenuView.show(HomeV3Activity.this, mAddRecordView);
                 }else{
                     startActivity(new Intent(HomeV3Activity.this, AddRecordActivity.class));
                 }
             }
         });
 
+        applyPermissions();
         isNetworkAvailable();
         initFolder();
         getVersions();
@@ -125,7 +134,7 @@ public class HomeV3Activity extends BaseActivity implements ViewPager.OnPageChan
                     mViewpager.setCurrentItem(1);
                     return true;
                 case R.id.navigation_record:
-                    Toast.makeText(HomeV3Activity.this, R.string.app_name, Toast.LENGTH_SHORT).show();
+                    ToastUtil.toastShow(R.string.app_name, ToastUtil.ICON.SUCCESS);
                     return true;
                 case R.id.navigation_discovery:
                     mViewpager.setCurrentItem(2);
@@ -175,8 +184,8 @@ public class HomeV3Activity extends BaseActivity implements ViewPager.OnPageChan
     @Override
     public void onBackPressed() {
         // 当popupWindow 正在展示的时候 按下返回键 关闭popupWindow 否则关闭activity
-        if (PopMenuView.getInstance().isShowing()) {
-            PopMenuView.getInstance().closePopupWindowAction();
+        if (mPopMenuView.isShowing()) {
+            mPopMenuView.closePopupWindowAction();
         }
         else {
             super.onBackPressed();
@@ -203,40 +212,42 @@ public class HomeV3Activity extends BaseActivity implements ViewPager.OnPageChan
         }
     }
 
-    private void initFolder() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            //申请WRITE_EXTERNAL_STORAGE权限
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE}, ACCESS_COARSE_STORAGE_REQUEST_CODE);
-        } else {
-            checkCacheFolder();
-        }
+    private void applyPermissions() {
+        //没有授权也能回调
+        PermissionsUtils.requestPermission(false, this, new PermissionsUtils.Callback() {
+            @Override
+            public void run(boolean hasPermissions) {
+                //这时hasPermissions可能为true也可能为false，取决于用户是否授权
+                if (!hasPermissions) {
+                    System.exit(0);
+                }
+            }
+        }, PermissionsUtils.PERMISSION_WRITE_EXTERNAL_STORAGE_CAMERA_LOCATION);
     }
 
-    public void checkCacheFolder() {
+    private void initFolder() {
         // create folder
-        File qhFolder = new File(CommonConstants.INCOME);
+        File qhFolder = new File(FileUtils.getFileRootPath(CommonConstants.INCOME));
         if (!qhFolder.exists()) {
             qhFolder.mkdirs();
         }
 
-        File imageFolder = new File(CommonConstants.INCOME_IMAGES);
+        File imageFolder = new File(FileUtils.getFileRootPath(CommonConstants.INCOME_IMAGES));
         if (!imageFolder.exists()) {
             imageFolder.mkdirs();
         }
 
-        File tempFolder = new File(CommonConstants.INCOME_TEMP);
+        File tempFolder = new File(FileUtils.getFileRootPath(CommonConstants.INCOME_TEMP));
         if (!tempFolder.exists()) {
             tempFolder.mkdirs();
         }
 
-        File downFolder = new File(CommonConstants.INCOME_DOWN);
+        File downFolder = new File(FileUtils.getFileRootPath(CommonConstants.INCOME_DOWN));
         if (!downFolder.exists()) {
             downFolder.mkdirs();
         }
 
-        File viodeFolder = new File(CommonConstants.INCOME_VIDEO);
+        File viodeFolder = new File(FileUtils.getFileRootPath(CommonConstants.INCOME_VIDEO));
         if (!viodeFolder.exists()) {
             viodeFolder.mkdirs();
         }
@@ -290,25 +301,6 @@ public class HomeV3Activity extends BaseActivity implements ViewPager.OnPageChan
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == ACCESS_COARSE_STORAGE_REQUEST_CODE) {
-            try {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                    // Permission Granted
-                    checkCacheFolder();
-                } else {
-                    // Permission Denied
-                    Toast.makeText(this, "访问被拒绝！会导致很多功能异常！请到设置里面开启", Toast.LENGTH_SHORT).show();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                Toast.makeText(this, "访问被拒绝！会导致很多功能异常！请到设置里面开启", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
     private void showGuide() {
         Animation enterAnimation = new AlphaAnimation(0f, 1f);
         enterAnimation.setDuration(600);
@@ -331,7 +323,7 @@ public class HomeV3Activity extends BaseActivity implements ViewPager.OnPageChan
     public void getScanParaAndShowScan() {
         if (!IncomeApplication.mHasGotToken) {
             //Snackbar.make(mLabelListSampleRfal, R.string.home_scan_error_tip, Snackbar.LENGTH_LONG).setAction("Action", null).show();
-            Toast.makeText(this, R.string.home_scan_error_tip, Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow(R.string.home_scan_error_tip, ToastUtil.ICON.WARNING);
             return;
         }
         if(null != ApplicationData.scanParacontent){

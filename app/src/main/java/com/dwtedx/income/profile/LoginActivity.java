@@ -3,7 +3,6 @@ package com.dwtedx.income.profile;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import com.dwtedx.income.R;
 import com.dwtedx.income.base.BaseActivity;
@@ -14,12 +13,10 @@ import com.dwtedx.income.entity.UMengInfo;
 import com.dwtedx.income.provider.CustomerIDSharedPreferences;
 import com.dwtedx.income.service.UserService;
 import com.dwtedx.income.utility.CommonConstants;
+import com.dwtedx.income.utility.ToastUtil;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.Map;
 
@@ -73,18 +70,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
 
         @Override
         public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
-            Toast.makeText(getApplicationContext(), "授权成功", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("授权成功", ToastUtil.ICON.SUCCESS);
             mShareAPI.getPlatformInfo(LoginActivity.this, platform, umAuthUserInfoListener);
         }
 
         @Override
         public void onError(SHARE_MEDIA platform, int action, Throwable t) {
-            Toast.makeText(getApplicationContext(), "授权失败", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("授权失败", ToastUtil.ICON.WARNING);
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform, int action) {
-            Toast.makeText(getApplicationContext(), "授权取消", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("授权取消", ToastUtil.ICON.WARNING);
         }
     };
 
@@ -100,7 +97,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
 
         @Override
         public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> info) {
-            //Toast.makeText(getApplicationContext(), "用户信息获取成功", Toast.LENGTH_SHORT).show();
+            //ToastUtil.toastShortShow("用户信息获取成功", ToastUtil.ICON.SUCCESS);
             mUMengInfo = new UMengInfo();
             if (SHARE_MEDIA.WEIXIN.equals(platform)) {
                 mUMengInfo.setName(info.get("name").toString());
@@ -128,12 +125,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
 
         @Override
         public void onError(SHARE_MEDIA platform, int action, Throwable t) {
-            Toast.makeText(getApplicationContext(), "用户信息获取失败", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("用户信息获取失败", ToastUtil.ICON.WARNING);
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform, int action) {
-            Toast.makeText(getApplicationContext(), "用户信息获取取消", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("用户信息获取取消", ToastUtil.ICON.WARNING);
         }
     };
 
@@ -157,7 +154,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                 ApplicationData.mDiUserInfo = data;
                 CustomerIDSharedPreferences.init(LoginActivity.this);
                 CustomerIDSharedPreferences.setCustomerId(data.getId());
-                Toast.makeText(LoginActivity.this, getString(R.string.profile_login_sess), Toast.LENGTH_SHORT).show();
+                ToastUtil.toastShow(R.string.profile_login_sess, ToastUtil.ICON.SUCCESS);
                 finish();
             }
         };

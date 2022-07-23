@@ -10,11 +10,9 @@ public class ExpExcelTipSharedPreferences {
 	private static final String EXP_EXCEL_TIP_PREFERENCES = "exp_excel_tip_preferences";
 
 	private static SharedPreferences mSettingPreferences;
-	private static Context mContext;
 
 	public static void init(Context context) {
-		mContext = context;
-		mSettingPreferences = context.getSharedPreferences(EXP_EXCEL_TIP_PREFERENCES, Activity.MODE_PRIVATE);
+		mSettingPreferences = context.getApplicationContext().getSharedPreferences(EXP_EXCEL_TIP_PREFERENCES, Activity.MODE_PRIVATE);
 	}
 
 	public static void relese() {

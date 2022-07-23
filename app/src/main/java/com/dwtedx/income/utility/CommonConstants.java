@@ -26,11 +26,12 @@ public class CommonConstants {
 
     public final static int PAGE_LENGTH_NUMBER = 20;
 
-    public final static String INCOME = Environment.getExternalStorageDirectory() + "/Income";
-    public final static String INCOME_IMAGES = Environment.getExternalStorageDirectory() + "/Income/Images";
-    public final static String INCOME_TEMP = Environment.getExternalStorageDirectory() + "/Income/Temp";
-    public final static String INCOME_DOWN = Environment.getExternalStorageDirectory() + "/Income/Download";
-    public final static String INCOME_VIDEO = Environment.getExternalStorageDirectory() + "/Income/Video";
+    //public final static String INCOME = Environment.getExternalStorageDirectory() + "/Income";
+    public final static String INCOME = "/Income";
+    public final static String INCOME_IMAGES = "/Income/Images";
+    public final static String INCOME_TEMP = "/Income/Temp";
+    public final static String INCOME_DOWN = "/Income/Download";
+    public final static String INCOME_VIDEO = "/Income/Video";
 
     public final static String INCOME_APP_NAME = "Income";
 
@@ -171,6 +172,5 @@ public class CommonConstants {
     public final static int PAY_TYPE_WEIXIN = 2;
 
     public final static String UMENG_APP_KEY = "57352b9067e58eee2700000d";
-    public final static String UMENG_PUSH_CHANNEL = "dwtedx";
     public final static String UMENG_MESSAGE_SECRET = "8b7ac86ea0aebdf27f289bda478ebc99";
 }

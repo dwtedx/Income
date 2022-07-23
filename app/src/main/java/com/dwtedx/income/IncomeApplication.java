@@ -11,11 +11,12 @@ package com.dwtedx.income;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Application;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.StrictMode;
 import android.provider.Settings.Secure;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.alibaba.baichuan.android.trade.callback.AlibcTradeInitCallback;
@@ -27,6 +28,7 @@ import com.dwtedx.income.entity.ApplicationData;
 import com.dwtedx.income.provider.HomePrivacySharedPreferences;
 import com.dwtedx.income.updateapp.UpdateService;
 import com.dwtedx.income.utility.CommonConstants;
+import com.dwtedx.income.utility.ToastUtil;
 import com.tencent.smtt.sdk.QbSdk;
 import com.tencent.tauth.Tencent;
 import com.umeng.commonsdk.UMConfigure;
@@ -89,11 +91,18 @@ public class IncomeApplication extends Application {
     }
 
     private void initAppInfo() {
-        ApplicationData.mClientSID = Secure.getString(getContentResolver(), Secure.ANDROID_ID);
-        ApplicationData.mAppVersion = UpdateService.getAPKVersion(getApplicationContext());
-        ApplicationData.mAppVersionCode = UpdateService.getAPKVersionCode(getApplicationContext());
-        ApplicationData.mIncomeApplication = this;
-        HomePrivacySharedPreferences.init(this);
+        try {
+            ApplicationData.mClientSID = Secure.getString(getContentResolver(), Secure.ANDROID_ID);
+            ApplicationData.mAppVersion = UpdateService.getAPKVersion(getApplicationContext());
+            ApplicationData.mAppVersionCode = UpdateService.getAPKVersionCode(getApplicationContext());
+            ApplicationData.mIncomeApplication = this;
+            //渠道
+            ApplicationInfo info = this.getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
+            ApplicationData.mChannel = info.metaData.getString("UMENG_CHANNEL");
+            HomePrivacySharedPreferences.init(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -111,14 +120,14 @@ public class IncomeApplication extends Application {
             @Override
             public void onSuccess() {
                 //初始化成功，设置相关的全局配置参数
-                //Toast.makeText(getApplicationContext(), "初始化成功", Toast.LENGTH_SHORT).show();
+                //ToastUtil.toastShortShow("初始化成功", ToastUtil.ICON.SUCCESS);
                 //AlibcTradeSDK.setTaokeParams(AlibcTaokeParams taokeParams);
             }
 
             @Override
             public void onFailure(int code, String msg) {
                 //初始化失败，可以根据code和msg判断失败原因，详情参见错误说明
-                Toast.makeText(getApplicationContext(), "初始化失败,错误码=" + code + " / 错误消息=" + msg, Toast.LENGTH_SHORT).show();
+                ToastUtil.toastShow("初始化失败,错误码=" + code + " / 错误消息=" + msg, ToastUtil.ICON.WARNING);
             }
         });
     }
@@ -127,7 +136,7 @@ public class IncomeApplication extends Application {
      * 预初始化函数UMConfigure.preInit()
      */
     private void initUMengPre(){
-        UMConfigure.preInit(getApplicationContext(), CommonConstants.UMENG_APP_KEY, CommonConstants.UMENG_PUSH_CHANNEL);
+        UMConfigure.preInit(getApplicationContext(), CommonConstants.UMENG_APP_KEY, ApplicationData.mChannel);
     }
 
     /**
@@ -139,7 +148,9 @@ public class IncomeApplication extends Application {
             return;
         }
         //日志开关
-        UMConfigure.setLogEnabled(true);
+        if (BuildConfig.DEBUG) {
+            UMConfigure.setLogEnabled(true);
+        }
         UMConfigure.getOaid(getApplicationContext(), new OnGetOaidListener() {
             @Override
             public void onGetOaid(String oaid) {
@@ -156,7 +167,7 @@ public class IncomeApplication extends Application {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                UMConfigure.init(getApplicationContext(), CommonConstants.UMENG_APP_KEY, CommonConstants.UMENG_PUSH_CHANNEL, UMConfigure.DEVICE_TYPE_PHONE, CommonConstants.UMENG_MESSAGE_SECRET);
+                UMConfigure.init(getApplicationContext(), CommonConstants.UMENG_APP_KEY, ApplicationData.mChannel, UMConfigure.DEVICE_TYPE_PHONE, CommonConstants.UMENG_MESSAGE_SECRET);
                 //注册推送服务，每次调用register方法都会回调该接口
                 PushAgent.getInstance(getApplicationContext()).register(new UPushRegisterCallback() {
 
@@ -210,7 +221,7 @@ public class IncomeApplication extends Application {
             @Override
             public void onError(OCRError error) {
                 error.printStackTrace();
-                //Toast.makeText(getApplicationContext(), "AK，SK方式获取token失败 / 错误消息="+error.getMessage(), Toast.LENGTH_SHORT).show();
+                ToastUtil.toastShow("AK，SK方式获取token失败 / 错误消息="+error.getMessage(), ToastUtil.ICON.WARNING);
             }
         }, getApplicationContext(), ORC_API_KEY, ORC_SECRET_KEY);
     }

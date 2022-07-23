@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
+
+import com.dwtedx.income.utility.ToastUtil;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.core.content.ContextCompat;
 import android.text.Editable;
@@ -185,12 +187,12 @@ public class AddAccountActivity extends BaseActivity implements OnClickListener,
                     public void onSuccess(IdInfo data) {
                         if(mAccountId > 0){
                             DIAccountService.getInstance(AddAccountActivity.this).update(diAccount);
-                            Toast.makeText(getContext(), getString(R.string.title_activity_update_account_sess), Toast.LENGTH_SHORT).show();
+                            ToastUtil.toastShow(R.string.title_activity_update_account_sess, ToastUtil.ICON.SUCCESS);
                             AddAccountActivity.this.finish();
                         }else {
                             diAccount.setServerid(data.getId());
                             DIAccountService.getInstance(AddAccountActivity.this).save(diAccount);
-                            Toast.makeText(getContext(), getString(R.string.title_activity_add_account_sess), Toast.LENGTH_SHORT).show();
+                            ToastUtil.toastShow(R.string.title_activity_add_account_sess, ToastUtil.ICON.SUCCESS);
                             //Snackbar.make(findViewById(R.id.app_title), getString(R.string.title_activity_add_account_sess), Snackbar.LENGTH_LONG).setAction("Action", null).show();
                             AddAccountActivity.this.finish();
                         }
@@ -227,8 +229,7 @@ public class AddAccountActivity extends BaseActivity implements OnClickListener,
                     @Override
                     public void onSuccess(Void data) {
                         DIAccountService.getInstance(AddAccountActivity.this).delete(localId);
-                        //Snackbar.make(findViewById(R.id.app_title), getString(R.string.profile_type_delete_sess), Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                        Toast.makeText(AddAccountActivity.this, R.string.title_activity_delete_account_sess, Toast.LENGTH_SHORT).show();
+                        ToastUtil.toastShow(R.string.title_activity_delete_account_sess, ToastUtil.ICON.SUCCESS);
                         AddAccountActivity.this.finish();
                     }
                 };

@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+
+import com.dwtedx.income.utility.ToastUtil;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
@@ -93,7 +95,7 @@ public class IncomeDetailActivity extends BaseActivity implements RecordKeyboard
             mIncome = ParseJsonToObject.getObject(DiIncome.class, new JSONObject(getIntent().getStringExtra("income")));
 
             if(null == mIncome){
-                Toast.makeText(getApplicationContext(), "账目异常，请检查后重试", Toast.LENGTH_SHORT).show();
+                ToastUtil.toastShow("账目异常，请检查后重试");
                 finish();
             }
 
@@ -142,7 +144,7 @@ public class IncomeDetailActivity extends BaseActivity implements RecordKeyboard
 
                 @Override
                 public void onItemLongClick(View view, int postion) {
-                    //Toast.makeText(getContext(), "长按的是：" + postion, Toast.LENGTH_SHORT).show();
+                    //"长按的是：" + postion
                 }
             });
 
@@ -182,14 +184,14 @@ public class IncomeDetailActivity extends BaseActivity implements RecordKeyboard
                                     @Override
                                     public void onSuccess(Void data) {
                                         deleteIncomeAccount();
-                                        Toast.makeText(IncomeDetailActivity.this, IncomeDetailActivity.this.getString(R.string.delete_success), Toast.LENGTH_SHORT).show();
+                                        ToastUtil.toastShow(R.string.delete_success);
                                         IncomeDetailActivity.this.finish();
                                     }
                                 };
                                 IncomeService.getInstance().deleteIncomeByServerId(mIncome, dataVerHandler);
                             }else {
                                 deleteIncomeAccount();
-                                Toast.makeText(IncomeDetailActivity.this, IncomeDetailActivity.this.getString(R.string.delete_success), Toast.LENGTH_SHORT).show();
+                                ToastUtil.toastShow(R.string.delete_success);
                                 IncomeDetailActivity.this.finish();
                             }
                         }
@@ -295,8 +297,7 @@ public class IncomeDetailActivity extends BaseActivity implements RecordKeyboard
 
     private void save() {
         if(CommonUtility.isEmpty(mRecordAccountEditText.getText().toString())){
-            //Toast.makeText(this, this.getString(R.string.record_money_error) , Toast.LENGTH_SHORT).show();
-            Snackbar.make(findViewById(R.id.app_title), R.string.record_money_error, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            ToastUtil.toastShow(R.string.record_money_error, ToastUtil.ICON.WARNING);
             return;
         }
         //开始节点第一条记录处理 by sinyuu 20190920
@@ -406,7 +407,7 @@ public class IncomeDetailActivity extends BaseActivity implements RecordKeyboard
 
                     IncomeLineFragment.mLoadIncome = true;
                     IncomeListActivity.mLoadIncome = true;
-                    Toast.makeText(IncomeDetailActivity.this, IncomeDetailActivity.this.getString(R.string.save_success) , Toast.LENGTH_SHORT).show();
+                    ToastUtil.toastShow(R.string.save_success);
                     //Snackbar.make(findViewById(R.id.app_title), R.string.save_success, Snackbar.LENGTH_LONG).setAction("Action", null).show();
                     //更新时间
                     mCalendar = Calendar.getInstance();
@@ -463,7 +464,7 @@ public class IncomeDetailActivity extends BaseActivity implements RecordKeyboard
 
             IncomeLineFragment.mLoadIncome = true;
             IncomeListActivity.mLoadIncome = true;
-            Toast.makeText(this, this.getString(R.string.save_success), Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow(R.string.save_success);
             //Snackbar.make(findViewById(R.id.app_title), R.string.save_success, Snackbar.LENGTH_LONG).setAction("Action", null).show();
             //更新时间
             mCalendar = Calendar.getInstance();

@@ -15,7 +15,7 @@ public class FingerprintSetupSharedPreferences {
 	private static boolean strValString;
 
 	public static void init(Context context) {
-		mSettingPreferences = context.getSharedPreferences(FINGERPRINT_SETUP_PREFERENCES, Activity.MODE_PRIVATE);
+		mSettingPreferences = context.getApplicationContext().getSharedPreferences(FINGERPRINT_SETUP_PREFERENCES, Activity.MODE_PRIVATE);
 	}
 
 	public static void relese() {

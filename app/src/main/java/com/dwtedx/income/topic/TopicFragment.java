@@ -25,6 +25,7 @@ import com.dwtedx.income.profile.LoginV2Activity;
 import com.dwtedx.income.service.TopicService;
 import com.dwtedx.income.topic.adapter.TopicRecyclerAdapter;
 import com.dwtedx.income.utility.CommonConstants;
+import com.dwtedx.income.utility.ToastUtil;
 import com.dwtedx.income.widget.RecycleViewDivider;
 import com.dwtedx.income.widget.swiperecyclerview.SwipeRecyclerView;
 import com.previewlibrary.ZoomMediaLoader;
@@ -44,8 +45,6 @@ public class TopicFragment extends BaseFragment implements SwipeRecyclerView.OnL
 
     public static boolean isRefresh;
 
-    View mView;
-
     @BindView(R.id.home_item_layout)
     LinearLayout mRightLayout;
     @BindView(R.id.m_recyclerview)
@@ -59,11 +58,8 @@ public class TopicFragment extends BaseFragment implements SwipeRecyclerView.OnL
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if(null != mView){
-            return mView;
-        }
-        mView = inflater.inflate(R.layout.fragment_topic, container, false);
-        ButterKnife.bind(this, mView);
+        View rootView = inflater.inflate(R.layout.fragment_topic, container, false);
+        ButterKnife.bind(this, rootView);
 
         ZoomMediaLoader.getInstance().init(new TopicImageLoader());
 
@@ -81,7 +77,7 @@ public class TopicFragment extends BaseFragment implements SwipeRecyclerView.OnL
 
         getTopicItemInfo(true, true);
 
-        return mView;
+        return rootView;
     }
 
     @Override
@@ -193,7 +189,7 @@ public class TopicFragment extends BaseFragment implements SwipeRecyclerView.OnL
 
             case R.id.home_item_layout:
                 if(!isLogin()){
-                    Toast.makeText(mFragmentContext, R.string.topic_add_send_top, Toast.LENGTH_SHORT).show();
+                    ToastUtil.toastShow(R.string.topic_add_send_top);
                     startActivity(new Intent(mFragmentContext, LoginV2Activity.class));
                     return;
                 }

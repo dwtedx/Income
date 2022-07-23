@@ -1,25 +1,12 @@
 package com.dwtedx.income.topic;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +14,14 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
@@ -58,7 +53,6 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.style.PictureCropParameterStyle;
 import com.luck.picture.lib.style.PictureParameterStyle;
 import com.luck.picture.lib.style.PictureWindowAnimationStyle;
-import com.luck.picture.lib.tools.PictureFileUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -68,8 +62,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitleClickListener, AddTopicImgRecyclerAdapter.onAddPicClickListener, AddTopicImgRecyclerAdapter.OnItemClickListener, AddTopicImgRecyclerAdapter.OnItemLongClickListener, View.OnClickListener
-{
+public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitleClickListener, AddTopicImgRecyclerAdapter.onAddPicClickListener, AddTopicImgRecyclerAdapter.OnItemClickListener, AddTopicImgRecyclerAdapter.OnItemLongClickListener, View.OnClickListener {
     private static final int REQUEST_CODE_CHOOSE_LOCAL = 71;
     private static final int ACCESS_COARSE_LOCALHOST_REQUEST_CODE = 72;
 
@@ -148,9 +141,9 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
         mVoteSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     mVoteRecyclerView.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     mVoteRecyclerView.setVisibility(View.GONE);
                 }
             }
@@ -159,7 +152,7 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
         mDiTopicvoteList.add(new DiTopicvote());
         mDiTopicvoteList.add(new DiTopicvote(CommonConstants.INCOME_SCAN_ADDBUTTON));
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this){
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this) {
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -175,7 +168,7 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
 
     @Override
     public void onTitleClick(int type) {
-        switch (type){
+        switch (type) {
             case AppTitleBar.OnTitleClickListener.TITLE_CLICK_LEFT:
                 finish();
                 break;
@@ -208,9 +201,9 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
      */
     @Override
     protected void onDestroy() {
-        try{
+        try {
             mProgressDialog.dismiss();
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("myDialog取消，失败！");
         }
         super.onDestroy();
@@ -302,7 +295,7 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
         }
     }
 
-    private void initTouchHelper(){
+    private void initTouchHelper() {
         mItemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
             @Override
             public boolean isLongPressDragEnabled() {
@@ -400,6 +393,7 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
         // 绑定拖拽事件
         mItemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
+
     @Override
     public void onAddPicClick() {
         //PictureFileUtils.deleteAllCacheDirFile(this);
@@ -543,10 +537,10 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
 
     ///////////////图片选择器相关//////////////////////////////图片选择器相关//////////////////////////////图片选择器相关//////////////////////////////图片选择器相关//////////////////////////////图片选择器相关///////////////
 
-    private void saveTopic(){
+    private void saveTopic() {
         mTopicContent.requestFocus();//获取焦点 光标出现
         String desc = mTopicContent.getText().toString();
-        if(CommonUtility.isEmpty(desc)){
+        if (CommonUtility.isEmpty(desc)) {
             Toast.makeText(this, R.string.topic_add_tip_text_tip, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -557,10 +551,10 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
         mDiTopic.setName(ApplicationData.mDiUserInfo.getName());
         mDiTopic.setDescription(desc);
         //上传图片
-        if(null != mLocalMediaList && mLocalMediaList.size() > 0){
+        if (null != mLocalMediaList && mLocalMediaList.size() > 0) {
             mDiTopic.setTopicimg(new ArrayList<DiTopicimg>());
             LocalMedia localMedia = null;
-            for(int i = 0; i < mLocalMediaList.size(); i++) {
+            for (int i = 0; i < mLocalMediaList.size(); i++) {
                 final int counti = i;
                 localMedia = mLocalMediaList.get(i);
                 // 例如 LocalMedia 里面返回五种path
@@ -571,12 +565,12 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
                 // 5.media.getAndroidQToPath();Android Q版本特有返回的字段，但如果开启了压缩或裁剪还是取裁剪或压缩路径；注意：.isAndroidQTransform 为false 此字段将返回空
                 // 如果同时开启裁剪和压缩，则取压缩路径为准因为是先裁剪后压缩
                 Uri uri = null;
-                if(localMedia.isCompressed()){
+                if (localMedia.isCompressed()) {
                     uri = Uri.fromFile(new File(localMedia.getCompressPath()));
-                }else{
+                } else {
                     if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                         uri = Uri.fromFile(new File(localMedia.getAndroidQToPath()));
-                    }else {
+                    } else {
                         uri = Uri.fromFile(new File(localMedia.getPath()));
                     }
                 }
@@ -590,13 +584,14 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
                         topicimg.setWidth(bitmap.getWidth());
                         topicimg.setHeight(bitmap.getHeight());
                         mDiTopic.getTopicimg().add(topicimg);
-                        if(counti == (mLocalMediaList.size() - 1)){
+                        if (counti == (mLocalMediaList.size() - 1)) {
                             postTopic();
                         }
                     }
 
                     @Override
-                    public void onPreExecute() { }
+                    public void onPreExecute() {
+                    }
 
                     @Override
                     public void handlerError(SaException e) {
@@ -606,12 +601,12 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
                 };
                 TopicService.getInstance().uploadImg(imgData, dataVerHandler);
             }
-        }else{
+        } else {
             postTopic();
         }
     }
 
-    private void postTopic(){
+    private void postTopic() {
         //投票
         mDiTopic.setTopicvote(mAdapterVote.getTotalVotes());
         //保存
@@ -625,7 +620,8 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
             }
 
             @Override
-            public void onPreExecute() { }
+            public void onPreExecute() {
+            }
 
             @Override
             public void handlerError(SaException e) {
@@ -638,34 +634,27 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
 
     ///////////////定位相关//////////////////////////////定位相关//////////////////////////////定位相关//////////////////////////////定位相关//////////////////////////////定位相关///////////////
     private void initLocation() {
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            //申请WRITE_EXTERNAL_STORAGE权限
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION}, ACCESS_COARSE_LOCALHOST_REQUEST_CODE);
-        } else {
-            initLocationCode();
+        try {
+            LocationClient.setAgreePrivacy(true);
+            mLocationClient = new LocationClient(getApplicationContext());
+            //声明LocationClient类
+            myListener = new MyLocationListener();
+            mLocationClient.registerLocationListener(myListener);
+            //注册监听函数
+            //第三步，配置定位SDK参数
+            LocationClientOption option = new LocationClientOption();
+            option.setIsNeedAddress(true);
+            option.setIsNeedLocationPoiList(true);
+            //可选，是否需要周边POI信息，默认为不需要，即参数为false
+            //如果开发者需要获得周边POI信息，此处必须为true
+            mLocationClient.setLocOption(option);
+            //mLocationClient为第二步初始化过的LocationClient对象
+            //需将配置好的LocationClientOption对象，通过setLocOption方法传递给LocationClient对象使用
+            //更多LocationClientOption的配置，请参照类参考中LocationClientOption类的详细说明
+            mLocationClient.start();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    }
-
-    private void initLocationCode() {
-        mLocationClient = new LocationClient(getApplicationContext());
-        //声明LocationClient类
-        myListener = new MyLocationListener();
-        mLocationClient.registerLocationListener(myListener);
-        //注册监听函数
-        //第三步，配置定位SDK参数
-        LocationClientOption option = new LocationClientOption();
-        option.setIsNeedAddress(true);
-        option.setIsNeedLocationPoiList(true);
-        //可选，是否需要周边POI信息，默认为不需要，即参数为false
-        //如果开发者需要获得周边POI信息，此处必须为true
-        mLocationClient.setLocOption(option);
-        //mLocationClient为第二步初始化过的LocationClient对象
-        //需将配置好的LocationClientOption对象，通过setLocOption方法传递给LocationClient对象使用
-        //更多LocationClientOption的配置，请参照类参考中LocationClientOption类的详细说明
-        mLocationClient.start();
     }
 
     public class MyLocationListener extends BDAbstractLocationListener {
@@ -678,7 +667,7 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
             //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
             //以下只列举部分获取周边POI信息相关的结果
             //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
-            if(null == location){
+            if (null == location) {
                 Toast.makeText(AddTopicActivity.this, R.string.scan_location_tip, Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -699,25 +688,6 @@ public class AddTopicActivity extends BaseActivity implements AppTitleBar.OnTitl
             mLocationButton.setText(cityStr);
             //获取周边POI信息
             //POI信息包括POI ID、名称等，具体信息请参照类参考中POI类的相关说明
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == ACCESS_COARSE_LOCALHOST_REQUEST_CODE) {
-            try {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                    // Permission Granted
-                    initLocationCode();
-                } else {
-                    // Permission Denied
-                    Toast.makeText(this, "访问被拒绝！会导致很多功能异常！请到设置里面开启", Toast.LENGTH_SHORT).show();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                Toast.makeText(this, "访问被拒绝！会导致很多功能异常！请到设置里面开启", Toast.LENGTH_SHORT).show();
-            }
         }
     }
 

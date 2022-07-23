@@ -38,7 +38,6 @@ import com.dwtedx.income.widget.theme.ColorChooserDialog;
 
 public class ProfileFragment extends BaseFragment implements View.OnClickListener, ColorChooserDialog.ColorCallback {
 
-    private View mView;
     private CircleImageView mHeadImageView;
     private TextView mHeadName;
     private TextView mUserLaveTextView;
@@ -58,8 +57,8 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_profile, container, false);
-        return mView;
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        return view;
     }
 
     @Override
@@ -77,14 +76,14 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         //    mProfileSellLayoutLine.setVisibility(View.VISIBLE);
         //}
 
-        mHeadImageView = (CircleImageView) mView.findViewById(R.id.imageView);
-        mHeadName = (TextView) mView.findViewById(R.id.usernameView);
-        mUserLaveTextView = (TextView) mView.findViewById(R.id.user_lave_text_view);
-        mUserLaveImageView = (ImageView) mView.findViewById(R.id.user_lave_image_view);
-        mUserLaveLayoutView = (LinearLayout) mView.findViewById(R.id.user_lave_layout_view);
+        mHeadImageView = (CircleImageView) view.findViewById(R.id.imageView);
+        mHeadName = (TextView) view.findViewById(R.id.usernameView);
+        mUserLaveTextView = (TextView) view.findViewById(R.id.user_lave_text_view);
+        mUserLaveImageView = (ImageView) view.findViewById(R.id.user_lave_image_view);
+        mUserLaveLayoutView = (LinearLayout) view.findViewById(R.id.user_lave_layout_view);
 
         for (int id : mClickView) {
-            mView.findViewById(id).setOnClickListener(this);
+            view.findViewById(id).setOnClickListener(this);
         }
 
         primaryPreselect = DialogUtils.resolveColor(mFragmentContext, R.attr.colorPrimary);

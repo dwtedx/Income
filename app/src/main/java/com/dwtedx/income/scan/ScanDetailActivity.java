@@ -1,14 +1,8 @@
 package com.dwtedx.income.scan;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
@@ -16,6 +10,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.simplelist.MaterialSimpleListAdapter;
@@ -438,35 +436,29 @@ public class ScanDetailActivity extends BaseActivity implements AppTitleBar.OnTi
 
 
     ///////////////定位相关//////////////////////////////定位相关//////////////////////////////定位相关//////////////////////////////定位相关//////////////////////////////定位相关///////////////
+
     private void initLocation() {
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            //申请WRITE_EXTERNAL_STORAGE权限
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION}, ACCESS_COARSE_LOCALHOST_REQUEST_CODE);
-        } else {
-            initLocationCode();
+        try {
+            LocationClient.setAgreePrivacy(true);
+            mLocationClient = new LocationClient(getApplicationContext());
+            //声明LocationClient类
+            myListener = new MyLocationListener();
+            mLocationClient.registerLocationListener(myListener);
+            //注册监听函数
+            //第三步，配置定位SDK参数
+            LocationClientOption option = new LocationClientOption();
+            option.setIsNeedAddress(true);
+            option.setIsNeedLocationPoiList(true);
+            //可选，是否需要周边POI信息，默认为不需要，即参数为false
+            //如果开发者需要获得周边POI信息，此处必须为true
+            mLocationClient.setLocOption(option);
+            //mLocationClient为第二步初始化过的LocationClient对象
+            //需将配置好的LocationClientOption对象，通过setLocOption方法传递给LocationClient对象使用
+            //更多LocationClientOption的配置，请参照类参考中LocationClientOption类的详细说明
+            mLocationClient.start();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    }
-
-    private void initLocationCode() {
-        mLocationClient = new LocationClient(getApplicationContext());
-        //声明LocationClient类
-        myListener = new MyLocationListener();
-        mLocationClient.registerLocationListener(myListener);
-        //注册监听函数
-        //第三步，配置定位SDK参数
-        LocationClientOption option = new LocationClientOption();
-        option.setIsNeedAddress(true);
-        option.setIsNeedLocationPoiList(true);
-        //可选，是否需要周边POI信息，默认为不需要，即参数为false
-        //如果开发者需要获得周边POI信息，此处必须为true
-        mLocationClient.setLocOption(option);
-        //mLocationClient为第二步初始化过的LocationClient对象
-        //需将配置好的LocationClientOption对象，通过setLocOption方法传递给LocationClient对象使用
-        //更多LocationClientOption的配置，请参照类参考中LocationClientOption类的详细说明
-        mLocationClient.start();
     }
 
     public class MyLocationListener extends BDAbstractLocationListener {
@@ -496,25 +488,6 @@ public class ScanDetailActivity extends BaseActivity implements AppTitleBar.OnTi
             mRecordIconLocation.setText(cityStr);
             //获取周边POI信息
             //POI信息包括POI ID、名称等，具体信息请参照类参考中POI类的相关说明
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == ACCESS_COARSE_LOCALHOST_REQUEST_CODE) {
-            try {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                    // Permission Granted
-                    initLocationCode();
-                } else {
-                    // Permission Denied
-                    Toast.makeText(this, "访问被拒绝！会导致很多功能异常！请到设置里面开启", Toast.LENGTH_SHORT).show();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                Toast.makeText(this, "访问被拒绝！会导致很多功能异常！请到设置里面开启", Toast.LENGTH_SHORT).show();
-            }
         }
     }
 

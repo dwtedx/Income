@@ -24,7 +24,7 @@ public class DIScanService {
 
 	public static DIScanService getInstance(Context context) {
 		if (mService == null)
-			mService = new DIScanService(context);
+			mService = new DIScanService(context.getApplicationContext());
 		return mService;
 	}
 	

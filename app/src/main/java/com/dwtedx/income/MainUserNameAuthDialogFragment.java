@@ -24,15 +24,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.dwtedx.income.connect.SaDataProccessHandler;
 import com.dwtedx.income.entity.ApplicationData;
 import com.dwtedx.income.entity.DiUserInfo;
-import com.dwtedx.income.profile.LoginV2Activity;
 import com.dwtedx.income.provider.CustomerIDSharedPreferences;
 import com.dwtedx.income.service.UserService;
 import com.dwtedx.income.utility.CommonUtility;
+import com.dwtedx.income.utility.ToastUtil;
 
 /**
  * A dialog which uses fingerprint APIs to authenticate the user, and falls back to password
@@ -91,11 +90,11 @@ public class MainUserNameAuthDialogFragment extends DialogFragment {
         final String passWord = mPasswordEditText.getText().toString().trim();
 
         if (CommonUtility.isEmpty(name)) {
-            Toast.makeText(mActivity, "亲，请输入用户名！", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("亲，请输入用户名！", ToastUtil.ICON.WARNING);
             return;
         }
         if (CommonUtility.isEmpty(passWord)) {
-            Toast.makeText(mActivity, "亲，请输入密码！", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("亲，请输入密码！", ToastUtil.ICON.WARNING);
             return;
         }
         SaDataProccessHandler<Void, Void, DiUserInfo> dataVerHandler = new SaDataProccessHandler<Void, Void, DiUserInfo>(mActivity) {
@@ -105,7 +104,7 @@ public class MainUserNameAuthDialogFragment extends DialogFragment {
                 CustomerIDSharedPreferences.init(mActivity);
                 CustomerIDSharedPreferences.setCustomerId(data.getId());
 
-                Toast.makeText(mActivity, getString(R.string.fingerprint_description_userpass_sess), Toast.LENGTH_SHORT).show();
+                ToastUtil.toastShow(R.string.fingerprint_description_userpass_sess, ToastUtil.ICON.SUCCESS);
                 mActivity.onPurchased(true,null);
             }
         };

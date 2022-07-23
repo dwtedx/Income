@@ -15,7 +15,7 @@ public class ScanSetupSharedPreferences {
 	private static boolean strValString;
 
 	public static void init(Context context) {
-		mSettingPreferences = context.getSharedPreferences(SCAN_SETUP_PREFERENCES, Activity.MODE_PRIVATE);
+		mSettingPreferences = context.getApplicationContext().getSharedPreferences(SCAN_SETUP_PREFERENCES, Activity.MODE_PRIVATE);
 	}
 
 	public static void relese() {

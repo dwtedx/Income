@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dwtedx.income.R;
 import com.dwtedx.income.base.BaseActivity;
@@ -19,6 +18,7 @@ import com.dwtedx.income.entity.DiTopicvote;
 import com.dwtedx.income.profile.LoginV2Activity;
 import com.dwtedx.income.service.TopicService;
 import com.dwtedx.income.utility.CommonUtility;
+import com.dwtedx.income.utility.ToastUtil;
 import com.dwtedx.income.widget.ProgressView;
 
 import java.util.List;
@@ -63,13 +63,13 @@ public class TopicVoteRecyclerAdapter extends RecyclerView.Adapter<TopicVoteRecy
             @Override
             public void onClick(View v) {
                 if(null == ApplicationData.mDiUserInfo || ApplicationData.mDiUserInfo.getId() == 0){
-                    Toast.makeText(mContext, "投票需要先登录哦", Toast.LENGTH_SHORT).show();
+                    ToastUtil.toastShow("投票需要先登录哦", ToastUtil.ICON.WARNING);
                     mContext.startActivity(new Intent(mContext, LoginV2Activity.class));
                     return;
                 }
                 //暂时不支持取消投票功能
                 if(mDiTopic.isVoted()){
-                    Toast.makeText(mContext, "每人只有一票哦", Toast.LENGTH_SHORT).show();
+                    ToastUtil.toastShow("每人只有一票哦", ToastUtil.ICON.WARNING);
                     return;
                 }
                 SaDataProccessHandler<Void, Void, List<DiTopicvote>> dataVerHandler = new SaDataProccessHandler<Void, Void, List<DiTopicvote>>((BaseActivity) mContext) {

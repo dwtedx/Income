@@ -5,7 +5,6 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -16,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Handler;
 import android.util.Base64;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -28,6 +26,7 @@ import com.dwtedx.income.entity.ApplicationData;
 import com.dwtedx.income.topic.TopicDetailActivity;
 import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.utility.CommonUtility;
+import com.dwtedx.income.utility.ToastUtil;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.PushAgent;
 
@@ -129,7 +128,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             }, 500);
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, R.string.topic_errot_tip, Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow(R.string.topic_errot_tip, ToastUtil.ICON.WARNING);
         }
     }
 

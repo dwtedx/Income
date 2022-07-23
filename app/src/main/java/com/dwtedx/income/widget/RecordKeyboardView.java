@@ -8,11 +8,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dwtedx.income.R;
 import com.dwtedx.income.utility.CommonUtility;
 import com.dwtedx.income.utility.ReportUtil;
+import com.dwtedx.income.utility.ToastUtil;
 
 public class RecordKeyboardView extends RelativeLayout implements OnClickListener {
 
@@ -271,7 +271,7 @@ public class RecordKeyboardView extends RelativeLayout implements OnClickListene
             mRecordAccountEditText.setText(CommonUtility.twoPlaces(dVal));
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(getContext(), getContext().getString(R.string.add_account_count_tip), Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow(R.string.add_account_count_tip, ToastUtil.ICON.WARNING);
             setC();
         }
 

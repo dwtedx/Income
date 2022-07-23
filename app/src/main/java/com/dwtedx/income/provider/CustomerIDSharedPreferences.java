@@ -15,7 +15,7 @@ public class CustomerIDSharedPreferences {
 	private static int strValString;
 
 	public static void init(Context context) {
-		mSettingPreferences = context.getSharedPreferences(CUSTOMER_ID_PREFERENCES, Activity.MODE_PRIVATE);
+		mSettingPreferences = context.getApplicationContext().getSharedPreferences(CUSTOMER_ID_PREFERENCES, Activity.MODE_PRIVATE);
 	}
 
 	public static void relese() {

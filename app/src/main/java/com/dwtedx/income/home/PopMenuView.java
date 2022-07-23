@@ -24,16 +24,6 @@ import com.dwtedx.income.addrecord.AddRecordActivity;
  */
 public class PopMenuView {
 
-    private static final String TAG = "PopMenuView";
-
-    public static PopMenuView getInstance() {
-        return PopupMenuViewHolder.INSTANCE;
-    }
-
-    private static class PopupMenuViewHolder {
-        public static PopMenuView INSTANCE = new PopMenuView();
-    }
-
     private View mRootVew;
     private PopupWindow mPopupWindow;
 
@@ -43,21 +33,23 @@ public class PopMenuView {
 
     private Context mContext;
 
+    public PopMenuView(Context context){
+        mContext = context;
+    }
+
     /**
      * 创建PopupWindow
      *
-     * @param context
      */
-    private void createView(final Context context) {
-        this.mContext = context;
-        this.mRootVew = LayoutInflater.from(context).inflate(R.layout.view_pop_menu, null);
+    private void createView() {
+        this.mRootVew = LayoutInflater.from(mContext).inflate(R.layout.view_pop_menu, null);
         this.mPopupWindow = new PopupWindow(this.mRootVew, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         this.mPopupWindow.setFocusable(false); // 设置为失去焦点 方便监听返回键的监听
         //mPopupWindow.setClippingEnabled(false); // 如果想要popupWindow 遮挡住状态栏可以加上这句代码
         this.mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
         this.mPopupWindow.setOutsideTouchable(false);
 
-        this.initLayout(context);
+        this.initLayout(mContext);
     }
 
     /**
@@ -152,7 +144,8 @@ public class PopMenuView {
      * @param parent  parent
      */
     public void show(Context context, View parent) {
-        createView(context);
+        this.mContext = context;
+        createView();
         if (this.mPopupWindow != null && !this.mPopupWindow.isShowing()) {
             this.mPopupWindow.showAtLocation(parent, Gravity.NO_GRAVITY, 0, 0);
             openPopupWindowAction();

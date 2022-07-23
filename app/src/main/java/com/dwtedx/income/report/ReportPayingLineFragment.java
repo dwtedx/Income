@@ -4,6 +4,8 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
+
+import com.dwtedx.income.utility.ToastUtil;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.core.widget.NestedScrollView;
 import android.view.LayoutInflater;
@@ -159,8 +161,7 @@ public class ReportPayingLineFragment extends BaseFragment implements View.OnCli
      */
     private void generateDataLine() {
         if (-1 != CommonUtility.compareDate(mLineStartTimeLine, mLineEndTimeLine)) {
-            //Toast.makeText(getContext(), getString(R.string.report_date_error_ago), Toast.LENGTH_SHORT).show();
-            Snackbar.make(mReportScrollview, R.string.report_date_error_ago, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            ToastUtil.toastShow(R.string.report_date_error_ago, ToastUtil.ICON.WARNING);
             return;
         }
 

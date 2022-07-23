@@ -27,7 +27,7 @@ public class DlIncomeService {
 
 	public static DlIncomeService getInstance(Context context) {
 		if (mService == null)
-			mService = new DlIncomeService(context);
+			mService = new DlIncomeService(context.getApplicationContext());
 		return mService;
 	}
 	

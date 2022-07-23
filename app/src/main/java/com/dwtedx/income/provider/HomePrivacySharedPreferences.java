@@ -12,11 +12,9 @@ public class HomePrivacySharedPreferences {
 	private static final String HOME_PRIVACY_PREFERENCES = "home_privacy_bool_preferences";
 
 	private static SharedPreferences mSettingPreferences;
-	private static Context mContext;
 
 	public static void init(Context context) {
-		mContext = context;
-		mSettingPreferences = context.getSharedPreferences(HOME_PRIVACY_PREFERENCES, Activity.MODE_PRIVATE);
+		mSettingPreferences = context.getApplicationContext().getSharedPreferences(HOME_PRIVACY_PREFERENCES, Activity.MODE_PRIVATE);
 	}
 
 	public static void relese() {

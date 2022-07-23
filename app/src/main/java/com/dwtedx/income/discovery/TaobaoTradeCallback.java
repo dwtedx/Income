@@ -1,11 +1,9 @@
 package com.dwtedx.income.discovery;
 
-import android.widget.Toast;
-
 import com.alibaba.baichuan.android.trade.callback.AlibcTradeCallback;
 import com.alibaba.baichuan.trade.biz.context.AlibcResultType;
 import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult;
-import com.dwtedx.income.entity.ApplicationData;
+import com.dwtedx.income.utility.ToastUtil;
 
 /**
  * Created by fenghaoxiu on 16/8/23.
@@ -18,15 +16,15 @@ public class TaobaoTradeCallback implements AlibcTradeCallback {
 
         if(tradeResult.resultType.equals(AlibcResultType.TYPECART)){
             //加购成功
-            Toast.makeText(ApplicationData.mIncomeApplication, "加购成功", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("加购成功", ToastUtil.ICON.SUCCESS);
         }else if (tradeResult.resultType.equals(AlibcResultType.TYPEPAY)){
             //支付成功
-            Toast.makeText(ApplicationData.mIncomeApplication, "支付成功,成功订单号为"+tradeResult.payResult.paySuccessOrders, Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("支付成功,成功订单号为"+tradeResult.payResult.paySuccessOrders, ToastUtil.ICON.SUCCESS);
         }
     }
 
     @Override
     public void onFailure(int errCode, String errMsg) {
-        Toast.makeText(ApplicationData.mIncomeApplication, "电商SDK出错,错误码="+errCode+" / 错误消息="+errMsg, Toast.LENGTH_SHORT).show();
+        ToastUtil.toastShow("电商SDK出错,错误码="+errCode+" / 错误消息="+errMsg, ToastUtil.ICON.WARNING);
     }
 }

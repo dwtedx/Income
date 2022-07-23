@@ -24,7 +24,7 @@
     <string name="err_msg_client_protocl">交给服务器的请求不符合HTTP协议</string>
     <string name="err_msg_io">服务器开小差了、请稍后重试</string>
     <string name="err_msg_socket">服务器离家出走了、请稍后重试</string>
-
+    <string name="permissions_set_hint">当前操作需要申请权限【%1$s】,请在设置中授予权限</string>
     <string name="no_more">-- 别扯了、到底了 --</string>
     <string name="no_data">这里空空如也</string>
 
@@ -68,7 +68,7 @@
     <string name="rmb">￥</string>
     <string name="home_network_tip">当前设备网络异常，是否前往设置？</string>
     <string name="home_scan_error_tip">扫单初始化失败，请检查网络环境后再重试</string>
-    <string name="copyright">&#169; COPYRIGHT 2015&#8211;2020.SHINYUU ALL RIGHTS RESERVED.</string>
+    <string name="copyright">&#169; COPYRIGHT 2015&#8211;2022.SHINYUU ALL RIGHTS RESERVED.</string>
     <string name="home_record_quick">快速记账</string>
     <string name="home_record_scan">扫描小票</string>
     <string name="home_record_scan_beta">Beta</string>
@@ -172,7 +172,7 @@
     <string name="share_text">分享</string>
     <string name="about_me">关于我们</string>
     <string name="contact_me">联系我们</string>
-    <string name="contact_me_weixin">微信号:dwtedx</string>
+    <string name="contact_me_weixin">微信号:shinyuuHub</string>
     <string name="profile_login">请登录</string>
     <string name="profile_login_sess">登录成功</string>
     <string name="profile_login_out">退出当前帐号</string>

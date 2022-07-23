@@ -15,8 +15,8 @@ public class IncomeTypeTipSharedPreferences {
 	private static Context mContext;
 
 	public static void init(Context context) {
-		mContext = context;
-		mSettingPreferences = context.getSharedPreferences(INCOME_TYPE_TIP_PREFERENCES, Activity.MODE_PRIVATE);
+		mContext = context.getApplicationContext();
+		mSettingPreferences = mContext.getSharedPreferences(INCOME_TYPE_TIP_PREFERENCES, Activity.MODE_PRIVATE);
 	}
 
 	public static void relese() {

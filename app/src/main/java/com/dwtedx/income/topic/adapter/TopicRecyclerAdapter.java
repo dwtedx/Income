@@ -30,6 +30,7 @@ import com.dwtedx.income.topic.TopicImageLoader;
 import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.utility.CommonUtility;
 import com.dwtedx.income.utility.RelativeDateFormat;
+import com.dwtedx.income.utility.ToastUtil;
 import com.dwtedx.income.widget.CircleImageView;
 import com.previewlibrary.GPreviewBuilder;
 import com.umeng.socialize.ShareAction;
@@ -292,7 +293,7 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
 
     private void topicLiked(View v, DiTopic topic) {
         if(null == ApplicationData.mDiUserInfo || ApplicationData.mDiUserInfo.getId() == 0){
-            Toast.makeText(mContext, "点赞需要先登录哦", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("点赞需要先登录哦");
             mContext.startActivity(new Intent(mContext, LoginV2Activity.class));
             return;
         }
@@ -301,14 +302,14 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
             public void onSuccess(Void dataVode) {
                 topic.setLiked(topic.getLiked() + 1);
                 ((TextView)v.findViewById(R.id.m_item_liked_view)).setText(topic.getLiked() + mContext.getString(R.string.topic_liked_text));
-                Toast.makeText(mContext, "点赞成功", Toast.LENGTH_SHORT).show();
+                ToastUtil.toastShow("点赞成功");
             }
 
             @Override
             public void handlerError(SaException e) {
                 //super.handlerError(e);
                 release();
-                Toast.makeText(mContext, e.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                ToastUtil.toastShow(e.getErrorMessage());
             }
         };
         TopicService.getInstance().topicLicked(topic.getId(), dataVerHandler);
@@ -363,23 +364,23 @@ public class TopicRecyclerAdapter extends RecyclerView.Adapter<TopicRecyclerAdap
     private UMShareListener umShareListener = new UMShareListener() {
         @Override
         public void onStart(SHARE_MEDIA share_media) {
-            Toast.makeText(mContext, share_media.toString() + "正在分享...", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("正在分享...");
             saveShare(share_media);
         }
 
         @Override
         public void onResult(SHARE_MEDIA share_media) {
-            Toast.makeText(mContext, share_media.toString() + "分享成功啦", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("分享成功啦");
         }
 
         @Override
         public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-            Toast.makeText(mContext, share_media.toString() + "分享失败啦", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("分享失败啦");
         }
 
         @Override
         public void onCancel(SHARE_MEDIA share_media) {
-            Toast.makeText(mContext, share_media.toString() + "分享取消了", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("分享取消了");
         }
     };
 

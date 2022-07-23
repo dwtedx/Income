@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+
+import com.dwtedx.income.utility.ToastUtil;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
@@ -612,22 +614,22 @@ public class ShareActivity extends BaseActivity implements View.OnClickListener 
     private UMShareListener umShareListener = new UMShareListener() {
         @Override
         public void onStart(SHARE_MEDIA share_media) {
-            Toast.makeText(ShareActivity.this, share_media.toString() + "正在分享...", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("正在分享...");
         }
 
         @Override
         public void onResult(SHARE_MEDIA share_media) {
-            Toast.makeText(ShareActivity.this, share_media.toString() + "分享成功啦", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("分享成功啦");
         }
 
         @Override
         public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-            Toast.makeText(ShareActivity.this, share_media.toString() + "分享失败啦", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("分享失败啦");
         }
 
         @Override
         public void onCancel(SHARE_MEDIA share_media) {
-            Toast.makeText(ShareActivity.this, share_media.toString() + "分享取消了", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("分享取消了");
         }
     };
 

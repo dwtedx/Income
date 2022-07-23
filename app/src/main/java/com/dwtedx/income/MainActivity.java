@@ -252,6 +252,7 @@ public class MainActivity extends BaseActivity {
                     .customView(view, false)
                     .positiveText(R.string.home_privacy_ok)
                     .negativeText(R.string.home_privacy_cancel)
+                    .cancelable(false)
                     .onPositive(new MaterialDialog.SingleButtonCallback() {
                         @Override
                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {

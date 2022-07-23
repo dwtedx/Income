@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+
+import com.dwtedx.income.utility.ToastUtil;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -131,7 +133,7 @@ public class PayingFragment extends BaseFragment implements RecordKeyboardView.O
 
             @Override
             public void onItemLongClick(View view, int postion) {
-                //Toast.makeText(getContext(), "长按的是：" + postion, Toast.LENGTH_SHORT).show();
+                //ToastUtil.toastShow("长按的是：" + postion);
             }
         });
     }
@@ -167,8 +169,7 @@ public class PayingFragment extends BaseFragment implements RecordKeyboardView.O
 
     private void save() {
         if(CommonUtility.isEmpty(mRecordAccountEditText.getText().toString())){
-            //Toast.makeText(getContext(), getContext().getString(R.string.record_money_error) , Toast.LENGTH_SHORT).show();
-            Snackbar.make(mRecyclerView, R.string.record_money_error, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            ToastUtil.toastShow(R.string.record_money_error, ToastUtil.ICON.WARNING);
             return;
         }
         //开始节点第一条记录处理 by sinyuu 20190920

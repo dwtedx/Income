@@ -24,7 +24,7 @@ public class DIAccountService {
 
 	public static DIAccountService getInstance(Context context) {
 		if (mService == null)
-			mService = new DIAccountService(context);
+			mService = new DIAccountService(context.getApplicationContext());
 		return mService;
 	}
 	

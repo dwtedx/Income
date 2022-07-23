@@ -37,6 +37,7 @@ import com.dwtedx.income.sqliteservice.DIScanService;
 import com.dwtedx.income.sqliteservice.DlIncomeService;
 import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.utility.CommonUtility;
+import com.dwtedx.income.utility.ToastUtil;
 import com.dwtedx.income.widget.RecycleViewDivider;
 import com.dwtedx.income.widget.springheader.RotationFooter;
 import com.dwtedx.income.widget.springheader.RotationHeader;
@@ -56,7 +57,6 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
     public static boolean mLoadIncome;
     private DlIncomeService mDlIncomeService;
 
-    private View mView;
     private SpringView mSpringView;
     private RecyclerView mRecyclerView;
     //private View headerView;
@@ -75,26 +75,24 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if(null != mView){
-            return mView;
-        }
+        View rootView = inflater.inflate(R.layout.fragment_money_line, container, false);
+
         mLoadIncome = true;
-        mView = inflater.inflate(R.layout.fragment_money_line, container, false);
 
         mDlIncomeService = DlIncomeService.getInstance(mFragmentContext);
 
-        mLeftLayout = (LinearLayout) mView.findViewById(R.id.home_list_layout);
+        mLeftLayout = (LinearLayout) rootView.findViewById(R.id.home_list_layout);
         mLeftLayout.setOnClickListener(this);
-        mRightLayout = (LinearLayout) mView.findViewById(R.id.home_item_layout);
+        mRightLayout = (LinearLayout) rootView.findViewById(R.id.home_item_layout);
         mRightLayout.setOnClickListener(this);
 
-        mSpringView = (SpringView) mView.findViewById(R.id.springview);
+        mSpringView = (SpringView) rootView.findViewById(R.id.springview);
         mSpringView.setListener(this);
         mSpringView.setHeader(new RotationHeader());
         mSpringView.setFooter(new RotationFooter());
 
-        mRecyclerView = (RecyclerView) mView.findViewById(R.id.listView);
-        mTextViewTip = (TextView) mView.findViewById(R.id.listView_tip);
+        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.listView);
+        mTextViewTip = (TextView) rootView.findViewById(R.id.listView_tip);
         mTextViewTip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,7 +132,7 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
         //开启云服务器数据同步确保数据安全
         showTip();
 
-        return mView;
+        return rootView;
     }
 
     @Override
@@ -288,9 +286,9 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
                 @Override
                 public void run() {
                     if (mSynchronizeCount > 0) {
-                        Toast.makeText(mFragmentContext, mSynchronizeCount + mFragmentContext.getString(R.string.synchronize_done), Toast.LENGTH_SHORT).show();
+                        ToastUtil.toastShow(mSynchronizeCount + getString(R.string.synchronize_done), ToastUtil.ICON.SUCCESS);
                     } else {
-                        Toast.makeText(mFragmentContext, R.string.synchronize_done_tip, Toast.LENGTH_SHORT).show();
+                        ToastUtil.toastShow(R.string.synchronize_done_tip, ToastUtil.ICON.SUCCESS);
                     }
                     mSpringView.onFinishFreshAndLoad();
                 }}, 1000);
@@ -309,10 +307,10 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
                     DIBudgetService.getInstance(mFragmentContext).update(mDiBudget);
                 }
                 if (mSynchronizeCount > 0) {
-                    Toast.makeText(mFragmentContext, mSynchronizeCount + mFragmentContext.getString(R.string.synchronize_done), Toast.LENGTH_SHORT).show();
+                    ToastUtil.toastShow(mSynchronizeCount + getString(R.string.synchronize_done), ToastUtil.ICON.SUCCESS);
                     mSynchronizeCount = 0;
                 } else {
-                    Toast.makeText(mFragmentContext, R.string.synchronize_done_tip, Toast.LENGTH_SHORT).show();
+                    ToastUtil.toastShow(R.string.synchronize_done_tip, ToastUtil.ICON.SUCCESS);
                 }
                 mSpringView.onFinishFreshAndLoad();
             }
@@ -332,6 +330,9 @@ public class IncomeLineFragment extends BaseFragment implements SpringView.OnFre
     }
 
     private void showTip() {
+        if(null == mFragmentContext) {
+            return;
+        }
         int x = (int) (Math.random() * 100);
         if (x > 97) {
             if (isLogin()) {

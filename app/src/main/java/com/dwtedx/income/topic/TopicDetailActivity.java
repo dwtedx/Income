@@ -38,6 +38,7 @@ import com.dwtedx.income.topic.adapter.TopicVoteRecyclerAdapter;
 import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.utility.CommonUtility;
 import com.dwtedx.income.utility.RelativeDateFormat;
+import com.dwtedx.income.utility.ToastUtil;
 import com.dwtedx.income.widget.AppTitleBar;
 import com.dwtedx.income.widget.CircleImageView;
 import com.dwtedx.income.widget.RecycleViewDivider;
@@ -167,7 +168,7 @@ public class TopicDetailActivity extends BaseActivity implements AppTitleBar.OnT
             public void onSuccess(Void data) {
                 MyTopicActivity.isRefresh = true;
                 TopicFragment.isRefresh = true;
-                Toast.makeText(TopicDetailActivity.this, R.string.topic_detail_delete_tip, Toast.LENGTH_SHORT).show();
+                ToastUtil.toastShow(R.string.topic_detail_delete_tip);
                 TopicDetailActivity.this.finish();
             }
 
@@ -177,13 +178,13 @@ public class TopicDetailActivity extends BaseActivity implements AppTitleBar.OnT
 
     private void saveTalk() {
         if (null == ApplicationData.mDiUserInfo || ApplicationData.mDiUserInfo.getId() == 0) {
-            Toast.makeText(TopicDetailActivity.this, "回复需要先登录哦", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("回复需要先登录哦");
             startActivity(new Intent(TopicDetailActivity.this, LoginV2Activity.class));
             return;
         }
         String context = mTalkEditView.getText().toString();
         if (CommonUtility.isEmpty(context)) {
-            Toast.makeText(TopicDetailActivity.this, R.string.topic_add_send_tip, Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow(R.string.topic_add_send_tip);
             return;
         }
         //保存
@@ -200,7 +201,7 @@ public class TopicDetailActivity extends BaseActivity implements AppTitleBar.OnT
                 mDiTopic.getTopictalk().add(0, topictalk);
                 mTopicTalkRecyclerAdapter.notifyDataSetChanged();
                 mTalkEditView.setText("");
-                Toast.makeText(TopicDetailActivity.this, R.string.topic_detail_talk_tip, Toast.LENGTH_SHORT).show();
+                ToastUtil.toastShow(R.string.topic_detail_talk_tip);
             }
 
         };
@@ -443,14 +444,14 @@ public class TopicDetailActivity extends BaseActivity implements AppTitleBar.OnT
 
     private void report() {
         if (null == ApplicationData.mDiUserInfo || ApplicationData.mDiUserInfo.getId() == 0) {
-            Toast.makeText(TopicDetailActivity.this, "举报需要先登录哦", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("举报需要先登录哦");
             startActivity(new Intent(TopicDetailActivity.this, LoginV2Activity.class));
             return;
         }
         SaDataProccessHandler<Void, Void, Void> dataVerHandler = new SaDataProccessHandler<Void, Void, Void>(TopicDetailActivity.this) {
             @Override
             public void onSuccess(Void dataVode) {
-                Toast.makeText(TopicDetailActivity.this, "举报成功，请等待管理员复查", Toast.LENGTH_SHORT).show();
+                ToastUtil.toastShow("举报成功，请等待管理员复查");
             }
         };
         ReportService.getInstance().saveReport(mDiTopic.getId(), dataVerHandler);
@@ -458,7 +459,7 @@ public class TopicDetailActivity extends BaseActivity implements AppTitleBar.OnT
 
     private void topicLiked(View v) {
         if (null == ApplicationData.mDiUserInfo || ApplicationData.mDiUserInfo.getId() == 0) {
-            Toast.makeText(TopicDetailActivity.this, "点赞需要先登录哦", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("点赞需要先登录哦");
             startActivity(new Intent(TopicDetailActivity.this, LoginV2Activity.class));
             return;
         }
@@ -467,14 +468,14 @@ public class TopicDetailActivity extends BaseActivity implements AppTitleBar.OnT
             public void onSuccess(Void dataVode) {
                 mDiTopic.setLiked(mDiTopic.getLiked() + 1);
                 ((TextView) v.findViewById(R.id.m_item_liked_view)).setText(mDiTopic.getLiked() + TopicDetailActivity.this.getString(R.string.topic_liked_text));
-                Toast.makeText(TopicDetailActivity.this, "点赞成功", Toast.LENGTH_SHORT).show();
+                ToastUtil.toastShow("点赞成功");
             }
 
             @Override
             public void handlerError(SaException e) {
                 //super.handlerError(e);
                 release();
-                Toast.makeText(TopicDetailActivity.this, e.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                ToastUtil.toastShow(e.getErrorMessage());
             }
         };
         TopicService.getInstance().topicLicked(mDiTopic.getId(), dataVerHandler);
@@ -529,23 +530,23 @@ public class TopicDetailActivity extends BaseActivity implements AppTitleBar.OnT
     private UMShareListener umShareListener = new UMShareListener() {
         @Override
         public void onStart(SHARE_MEDIA share_media) {
-            Toast.makeText(TopicDetailActivity.this, share_media.toString() + "正在分享...", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("正在分享...");
             saveShare(share_media);
         }
 
         @Override
         public void onResult(SHARE_MEDIA share_media) {
-            Toast.makeText(TopicDetailActivity.this, share_media.toString() + "分享成功啦", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("分享成功啦");
         }
 
         @Override
         public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-            Toast.makeText(TopicDetailActivity.this, share_media.toString() + "分享失败啦", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("分享失败啦");
         }
 
         @Override
         public void onCancel(SHARE_MEDIA share_media) {
-            Toast.makeText(TopicDetailActivity.this, share_media.toString() + "分享取消了", Toast.LENGTH_SHORT).show();
+            ToastUtil.toastShow("分享取消了");
         }
     };
 
