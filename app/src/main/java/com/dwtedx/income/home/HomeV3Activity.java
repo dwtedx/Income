@@ -184,7 +184,7 @@ public class HomeV3Activity extends BaseActivity implements ViewPager.OnPageChan
     @Override
     public void onBackPressed() {
         // 当popupWindow 正在展示的时候 按下返回键 关闭popupWindow 否则关闭activity
-        if (mPopMenuView.isShowing()) {
+        if (null != mPopMenuView && mPopMenuView.isShowing()) {
             mPopMenuView.closePopupWindowAction();
         }
         else {
