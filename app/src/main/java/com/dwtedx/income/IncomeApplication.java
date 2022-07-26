@@ -29,6 +29,7 @@ import com.dwtedx.income.provider.HomePrivacySharedPreferences;
 import com.dwtedx.income.updateapp.UpdateService;
 import com.dwtedx.income.utility.CommonConstants;
 import com.dwtedx.income.utility.ToastUtil;
+import com.tencent.smtt.export.external.TbsCoreSettings;
 import com.tencent.smtt.sdk.QbSdk;
 import com.tencent.tauth.Tencent;
 import com.umeng.commonsdk.UMConfigure;
@@ -41,6 +42,8 @@ import com.umeng.socialize.PlatformConfig;
 import org.android.agoo.huawei.HuaWeiRegister;
 import org.android.agoo.oppo.OppoRegister;
 import org.android.agoo.xiaomi.MiPushRegistar;
+
+import java.util.HashMap;
 
 /**
  * @ClassName: DispatchApplication
@@ -92,14 +95,16 @@ public class IncomeApplication extends Application {
 
     private void initAppInfo() {
         try {
-            ApplicationData.mClientSID = Secure.getString(getContentResolver(), Secure.ANDROID_ID);
+            HomePrivacySharedPreferences.init(this);
+            if(!HomePrivacySharedPreferences.getIsTip()){
+                ApplicationData.mClientSID = Secure.getString(getContentResolver(), Secure.ANDROID_ID);
+            }
             ApplicationData.mAppVersion = UpdateService.getAPKVersion(getApplicationContext());
             ApplicationData.mAppVersionCode = UpdateService.getAPKVersionCode(getApplicationContext());
             ApplicationData.mIncomeApplication = this;
             //渠道
             ApplicationInfo info = this.getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
             ApplicationData.mChannel = info.metaData.getString("UMENG_CHANNEL");
-            HomePrivacySharedPreferences.init(this);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -235,16 +240,27 @@ public class IncomeApplication extends Application {
 
             @Override
             public void onViewInitFinished(boolean arg0) {
+                // Auto-generated method stub
                 //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
-                Log.d(TAG, " onViewInitFinished is " + arg0);
+                Log.i(TAG, "shinyuu x5webview onViewInitFinished is " + arg0);
             }
 
             @Override
             public void onCoreInitFinished() {
+                // Auto-generated method stub
+                Log.i(TAG, "shinyuu x5webview onCoreInitFinished");
             }
         };
+        /* 设置允许移动网络下进行内核下载。默认不下载，会导致部分一直用移动网络的用户无法使用x5内核 */
+        QbSdk.setDownloadWithoutWifi(true);
         //x5内核初始化接口
         QbSdk.initX5Environment(getApplicationContext(), cb);
+
+        // 1.10 TBS内核首次使用时加载卡顿ANR如何解决 在调用TBS初始化、创建WebView之前进行如下配置
+        HashMap map = new HashMap();
+        map.put(TbsCoreSettings.TBS_SETTINGS_USE_SPEEDY_CLASSLOADER, true);
+        map.put(TbsCoreSettings.TBS_SETTINGS_USE_DEXLOADER_SERVICE, true);
+        QbSdk.initTbsSettings(map);
     }
 
 }

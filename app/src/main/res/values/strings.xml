@@ -73,12 +73,12 @@
     <string name="home_record_scan">扫描小票</string>
     <string name="home_record_scan_beta">Beta</string>
     <string name="home_record_detail">精准查账</string>
-    <string name="home_privacy_useragreement">用户协议和隐私政策</string>
+    <string name="home_privacy_useragreement">DD记账服务协议与隐私政策</string>
     <string name="home_privacy">隐私政策</string>
-    <string name="home_useragreement">用户协议</string>
+    <string name="home_useragreement">服务协议</string>
     <string name="home_privacy_ok">同意</string>
-    <string name="home_privacy_cancel">暂不使用</string>
-    <string name="home_privacy_content">请你务必谨慎阅读，充分理解“隐私政策”和“用户协议”各条款，包括但不限于：为了向你提供记账服务以及内容分享等服务，我们需要收集你的设备信息，操作日志等个人信息。你可以阅读《隐私政策》和《用户协议》了解信息信息。如你同意，请点击“同意开始接受我买的服务。”</string>
+    <string name="home_privacy_cancel">不同意</string>
+    <string name="home_privacy_content">感谢您使用DD记账APP，在您使用本软件的过程中，我们可能会对您的部分个人信息进行收集、使用和共享。请您仔细阅读《服务协议》和《隐私政策》，并确定完全了解我们对您个人信息的处理规则。如您同意《服务协议》和《隐私政策》，请点击“同意“开始使用DD记账，我们会尽全力保护您的个人信息安全。</string>
 
 
     <!-- 添加收支记录 -->

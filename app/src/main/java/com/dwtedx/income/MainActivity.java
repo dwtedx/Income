@@ -223,26 +223,26 @@ public class MainActivity extends BaseActivity {
                 @Override
                 public void onClick(View widget) {
                     Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
-                    intent.putExtra("url", "http://income.dwtedx.com/privacy.html");
-                    intent.putExtra("title", getString(R.string.home_privacy));
-                    startActivity(intent);
-                }
-            };
-            style.setSpan(clickableSpan, 86, 90, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            ClickableSpan clickableSpan1 = new ClickableSpan() {
-                @Override
-                public void onClick(View widget) {
-                    Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
                     intent.putExtra("url", "http://income.dwtedx.com/useragreement.html");
                     intent.putExtra("title", getString(R.string.home_useragreement));
                     startActivity(intent);
                 }
             };
-            style.setSpan(clickableSpan1, 93, 97, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            style.setSpan(clickableSpan, 56, 62, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ClickableSpan clickableSpan1 = new ClickableSpan() {
+                @Override
+                public void onClick(View widget) {
+                    Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
+                    intent.putExtra("url", "http://income.dwtedx.com/privacy.html");
+                    intent.putExtra("title", getString(R.string.home_privacy));
+                    startActivity(intent);
+                }
+            };
+            style.setSpan(clickableSpan1, 63, 69, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             //设置部分文字颜色
             ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(Color.parseColor("#FF4081"));
-            style.setSpan(foregroundColorSpan, 86, 90, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            style.setSpan(foregroundColorSpan, 93, 97, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            style.setSpan(foregroundColorSpan, 56, 62, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            style.setSpan(foregroundColorSpan, 63, 69, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             //配置给TextView
             textView.setMovementMethod(LinkMovementMethod.getInstance());
             textView.setText(style);

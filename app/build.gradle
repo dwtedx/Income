@@ -125,7 +125,7 @@ dependencies {
     //SpringView核心库 (只包含DefaultHeader/Footer)
     implementation 'com.liaoinstan.springview:library:1.7.0'
     //QQ浏览器X5 内核
-    implementation 'com.tencent.tbs.tbssdk:sdk:43697'
+    implementation 'com.tencent.tbs:tbssdk:44213'
 
     //友盟推送 umeng PushSDK PushSDK必须依赖基础组件库，所以需要加入对应依赖
     implementation 'com.umeng.umsdk:common:9.5.0'
