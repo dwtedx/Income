@@ -94,7 +94,7 @@ public class DiIncomeLineAdapter extends RecyclerView.Adapter<DiIncomeLineAdapte
             DiIncome lastDiIncome;
             try {
                 lastDiIncome = mDiIncomeItems.get(position - 1);
-            }catch (ArrayIndexOutOfBoundsException e){
+            }catch (Exception e){
                 lastDiIncome = null;
             }
             if (null == lastDiIncome || !mDiIncome.getRecordtimeformat().equals(lastDiIncome.getRecordtimeformat())) {
